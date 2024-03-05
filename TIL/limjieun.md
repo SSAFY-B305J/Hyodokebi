@@ -151,4 +151,7 @@ for (const [key, value] of arr.entries()) {
 
 `for-of`로 다른 순회문에서 할 수 있는 모든 것을 할 수 있어서 가장 좋다.
 
+### 참고 자료
+[for vs for-in vs forEach vs for-of 무엇으로 자바스크립트 리스트를 돌아야 하나](https://yceffort.kr/2021/06/best-solution-for-looping-over-array)
+
   </details>
