@@ -123,6 +123,61 @@ API 명세서 작성<br>
 
 
 
+<details>
+<summary> 2024.03.07 </summary>
+
+## 오늘 한 것
+
+기획 회의<br>
+
+
+## 오늘 공부한 것
+## Indexing
+> DataBase 분야에서 Table에 대한 동작 속도를 높여주는 자료구조
+
+### Index의 종류
+
++ Clusterd Index
+  + 자체적으로 물리적인 정렬이 일어남
+  + PK를 만들기만해도 정렬이 되어서 검색 성능 향상
+  + 중간에 데이터가 들어오면 계속적으로 정렬이 일어남(오버헤드 발생)
++ NonClustered Index
+  + 만들어도 정렬이 일어나지 않음
+  + 별도의 공간에 인덱스가 저장이 되기 때문에 재정렬이 일어나지 않음
+  + 별도에 공간에 있어서 CRUD에는 유리하지만 쓸데없이 full scan을 통해서 봐도 되는  데이터를 index 테이블을 참조하면서 보는 형태로 데이터 조회시에 딜레이가 있을 수 있음
+  
+### Index의 사용 이유
+
+> 인덱스를 무조건 사용할 필요는 없지만 거의 필수적으로 사용.
+
++ B-Tree 
+  + Root
+  + branch
+  + leaf
+  
++ B+Tree 
+  + Root
+  + branch
+  + leaf
+    + leaf 만이 Value를 가지고 있음.
+    + 범위 검색에 유리.
+    (범위 검색이 불확실하면 db 내부적으로 b-tree로 변환됨)
+    
+ ## Query Plan
+ ### Optimizer
+ > 쿼리를 처리할 최적의 경로를 설정해주는 엔진
+ 
+ + 데이터가 많아질수록 튜닝이 중요해짐
+ + Plan이라는 이름으로 튜닝을 테스트
+ 
+ + Mysql,MariaDB의 EXPLAIN 키워드
+ 실제 데이터가 나오는 것이 아닌 이 데이터를 뽑기까지 위한 Optimizer의 플랜에 대한 내용만 반환
+ 
+ >서브쿼리는 데이터의 셀렉트 절(로우 단위) 계속 적으로 로직이 도는데 where절에서 index를 걸어주면 처음 데이터를 뽑기전 한번 계산.
+ 그래서 서브쿼리가 느림.
+ 
+
+</details> 
 
 <details>
 <summary> 틀 </summary>
