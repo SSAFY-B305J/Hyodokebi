@@ -152,6 +152,29 @@ for (const [key, value] of arr.entries()) {
 `for-of`로 다른 순회문에서 할 수 있는 모든 것을 할 수 있어서 가장 좋다.
 
 ### 참고 자료
+
 [for vs for-in vs forEach vs for-of 무엇으로 자바스크립트 리스트를 돌아야 하나](https://yceffort.kr/2021/06/best-solution-for-looping-over-array)
 
-  </details>
+</details>
+
+<details>
+<summary> 2024.03.07 </summary>
+
+## 오늘 한 일
+
+- 기획서 기반으로 프로젝트 소개 PPT 작성 후 제출
+- 기술 명세 회의 후 기술 명세서 작성
+- 기획서 기반 프로젝트 소개 PPT 작성
+
+## 오늘 배운 것
+
+### Figma - Auto layout
+
+자동으로 그래픽, 텍스트, 도형 등 포함하고 있는 에셋의 레이아읏을 일정하게 제어할 수 있는 기능을 제공한다. 성격에 따라 여러 에섯을 조합하여 규칙적인 레이아웃을 설정할 수도 있다.
+
+Auto layout을 이용해서 버튼을 생성해보고, [Figma Project](https://www.figma.com/file/40CjlcvANsgg99zWV9Wup6/Figma-Study?type=design&node-id=1%3A2&mode=design&t=Fb1tFLDvtiewYJQy-1)를 생성하여 그 과정을 작성해보며 학습했다.
+
+- Auto layout을 이용하면 버튼을 만들 때도 Rectangle 에셋 없이 만들 수 있다는 것을 알게 되었다.
+- CSS의 `Flex`와 비슷하여 개발에서 더 편하게 작업할 수 있을 것 같다.
+
+</details>
