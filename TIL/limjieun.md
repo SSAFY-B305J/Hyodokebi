@@ -180,7 +180,90 @@ Auto layout을 이용해서 버튼을 생성해보고, [Figma Project](https://w
 
 - CSS의 기본 폰트 사이즈는 16px이라는 것을 알게 되었다.
 - 지금까지 진행한 피그마 목업 과정에서는 그런 것들을 고려하지 않고 페이지를 제작하여 기본적으로 텍스트 크기가 32px을 넘어갔다.
-- Figma의 Prototype을 이용해서 화면을 확인했을 때도 실제 서비스되고 있는 웹 페이지 디자인과 달리 텍스트들이 여백 없이 화면에 꽉 찬 것을 볼 수 있었다. 
+- Figma의 Prototype을 이용해서 화면을 확인했을 때도 실제 서비스되고 있는 웹 페이지 디자인과 달리 텍스트들이 여백 없이 화면에 꽉 찬 것을 볼 수 있었다.
 - 이런 부분을 팀원들과 공유하고 앞으로의 작업에서는 폰트 값을 16px로 생각하고 제작해달라고 전달했다.
+
+</details>
+
+<details>
+<summary>2024.03.11</summary>
+
+## 오늘 한 것
+
+- 개발 브랜치 생성
+- 리액트 프로젝트 생성
+- 깃랩과 지라를 연동하고 과정 문서화 진행
+
+## 오늘 공부한 것
+
+### 깃랩-지라 연동
+
+깃랩과 지라를 연동하는 방법에 대해 배우고 노션에 정리했습니다.
+
+- [GitLab & Jira 연동 팀원 공유용](https://www.notion.so/GitLab-Jira-1bfd29a8d31c4be1863f26491f47380d)
+- [GitLab & Jira 연동 과정](https://www.notion.so/FE-a2440877fefe4147b52a9891ec96eb49?p=c9485bc375a2454dae90a6ad621773d3)
+
+### 타입스크립트
+
+타입스크립트의 기본 타입에 대해 공부했습니다.
+
+#### Boolean
+
+#### Number
+
+#### String
+
+#### Object
+
+#### Array
+
+```
+  let arr: number[] = [1, 2, 3];
+```
+
+제네릭도 사용할 수 있다.
+
+```
+  let arr: Array<number> = [1,2,3];
+```
+
+#### Tuple
+
+튜플은 배열의 길이가 고정되고 각 요소의 타입이 지정되어 있는 배열 형식
+
+```
+let arr: [string, number] = ['hi', 10];
+```
+
+#### Enum
+
+특정 값(상수)들의 집합
+
+````
+enum Avengers { Capt, IronMan, Thor }
+let hero: Avengers = Avengers.Capt;```
+````
+
+#### any
+
+모든 타입에 대해서 허용
+
+#### void
+
+#### null
+
+#### undefined
+
+#### never
+
+함수이 끝에 절대 도달하지 않는다는 의미를 지닌 타입
+
+```
+function neverEnd(): never {
+  while (true) {
+
+  }
+}
+```
 
 </details>
