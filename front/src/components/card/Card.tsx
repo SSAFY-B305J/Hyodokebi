@@ -6,8 +6,8 @@ export default function Card() {
         <img src="#" alt="empty" />
       </div>
       <div className="flex flex-col justify-center">
-        <div className="flex justify-center text-2xl m-3 font-semibold">제목</div>
-        <div className="flex justify-center text-gray-500 m-3 font-medium">부제목</div>
+        <div className="flex justify-center m-3 text-2xl font-semibold">제목</div>
+        <div className="flex justify-center m-3 font-medium text-gray-500">부제목</div>
       </div>
     </div>
   );

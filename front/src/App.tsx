@@ -1,15 +1,11 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import Card from "./components/card/Card";
-import TopicBox from "./components/topic/TopicBox";
+
+import MainPage from "./pages/MainPage";
 
 function App() {
   return (
-    <>
-      <div>Hello HyoDokebi</div>
-      <Card />
-      <TopicBox />
-    </>
+    <MainPage />
   );
 }
 
