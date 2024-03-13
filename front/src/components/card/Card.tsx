@@ -1,5 +1,5 @@
 import CloseIcon from "@mui/icons-material/Close";
-import test from "../../assets/testt.jpg"
+import test from "../../assets/test.jpg"
 
 export default function Card() {
   return (

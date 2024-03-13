@@ -1,19 +1,16 @@
-import CloseIcon from "@mui/icons-material/Close";
-import test from "../../assets/testt.jpg"
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
 export default function AddCard() {
   return (
-    <div className="w-[20vw] h-[50vh] border-2 border-gray-300 rounded-xl flex justify-between p-3 shadow-md flex-col ">
+    <div className="w-[20vw] h-[50vh] border-2 border-gray-300 rounded-xl flex p-3 shadow-md flex-col">
       {/* ALERT width와 height는 확인용으로 넣은 것으로 추후 수정. */}
-      <div className="flex justify-end">
-        <CloseIcon onClick={()=> console.log("닫기")} />
+      <div className="flex items-center justify-center w-full h-2/3">
+        <div className="flex items-center justify-center w-2/3 rounded-xl h-4/5 bg-silver">
+          <AddCircleOutlineIcon />
+        </div>
       </div>
-      <div className="flex justify-center w-full">
-        <img src={test} alt="empty" className="w-3/4" />
-      </div>
-      <div className="flex flex-col justify-center">
-        <div className="flex justify-center m-3 text-2xl font-semibold">제목</div>
-        <div className="flex justify-center m-3 font-medium text-gray-500">부제목</div>
+      <div className="flex flex-col items-center justify-end w-full h-1/3">
+        <button className="flex justify-center w-2/3 mb-3 border-2">버튼</button>
       </div>
     </div>
   );

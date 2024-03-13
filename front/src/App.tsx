@@ -1,8 +1,8 @@
-import MainPage from "./pages/MainPage";
+import AddCard from "./components/card/AddCard";
 
 function App() {
   return (
-    <MainPage />
+    <AddCard />
     );
 }
 

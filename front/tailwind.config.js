@@ -9,6 +9,10 @@ module.exports = {
         silver: "#C0C0C0",
         lightsilver: "#D9D9D9"
       },
+      height: {
+        "1/10": "10%"
+
+      }
     },
   },
   plugins: [],
