@@ -1,6 +1,9 @@
+import { MouseEvent } from "react";
+
 interface ButtonProps {
   text: string;
-  varient?: string;
+  variant?: string;
+  clickHandler?: (event: MouseEvent) => void;
 }
 
 interface ButtonColorType {
@@ -9,8 +12,10 @@ interface ButtonColorType {
 
 export default function CommonButton({
   text,
-  varient = "filled",
+  variant = "filled",
+  clickHandler,
 }: ButtonProps) {
+  // 형태에 따른 버튼 css 설정 객체
   const buttonColors: ButtonColorType = {
     filled: "bg-primary hover:bg-primary-hover text-white",
     outlined:
@@ -19,7 +24,10 @@ export default function CommonButton({
   };
 
   return (
-    <button className={`px-5 py-2 rounded-md ${buttonColors[varient]}`}>
+    <button
+      className={`px-5 py-2 rounded-md ${buttonColors[variant]}`}
+      onClick={clickHandler}
+    >
       {text}
     </button>
   );
