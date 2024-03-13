@@ -2,7 +2,7 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
 export default function AddCard() {
   return (
-    <div className="w-[20vw] h-[50vh] border-2 border-gray-300 rounded-xl flex p-3 shadow-md flex-col">
+    <div className="flex flex-col w-1/4 p-3 m-3 border-2 border-gray-300 shadow-md h-5/6 rounded-xl">
       {/* ALERT width와 height는 확인용으로 넣은 것으로 추후 수정. */}
       <div className="flex items-center justify-center w-full h-2/3">
         <div className="flex items-center justify-center w-2/3 rounded-xl h-4/5 bg-silver">
