@@ -1,7 +1,7 @@
 import CloseIcon from "@mui/icons-material/Close";
 import test from "../../assets/testt.jpg"
 
-export default function Card() {
+export default function AddCard() {
   return (
     <div className="w-[20vw] h-[50vh] border-2 border-gray-300 rounded-xl flex justify-between p-3 shadow-md flex-col ">
       {/* ALERT width와 height는 확인용으로 넣은 것으로 추후 수정. */}
