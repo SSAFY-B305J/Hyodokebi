@@ -1,7 +1,7 @@
 interface InputProps {
   id: string;
   label: string;
-  labelVisisble?: boolean;
+  labelVisible?: boolean;
   placeholder?: string;
   message?: string;
 }
@@ -9,13 +9,13 @@ interface InputProps {
 export default function Input({
   id,
   label,
-  labelVisisble = true,
-  placeholder,
-  message,
+  labelVisible = true,
+  placeholder = "",
+  message = "",
 }: InputProps) {
   return (
     <div className="flex flex-col">
-      {labelVisisble ? (
+      {labelVisible ? (
         <label htmlFor={id} className="font-bold">
           {label}
         </label>
