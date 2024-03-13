@@ -3,6 +3,7 @@ interface InputProps {
   label: string;
   labelVisisble?: boolean;
   placeholder?: string;
+  message?: string;
 }
 
 export default function Input({
@@ -10,6 +11,7 @@ export default function Input({
   label,
   labelVisisble = true,
   placeholder,
+  message,
 }: InputProps) {
   return (
     <div className="flex flex-col">
@@ -24,6 +26,7 @@ export default function Input({
         className="w-full px-3 py-2 text-sm border rounded-md border-primary focus:outline-none"
         placeholder={placeholder}
       />
+      <span className="text-xs font-bold text-primary">{message}</span>
     </div>
   );
 }
