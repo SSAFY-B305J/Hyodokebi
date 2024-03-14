@@ -7,10 +7,12 @@ import lombok.Data;
 @Builder
 public class MusicDto {
     private int musicId;
-    private int musicName;
+    private String musicName;
     private String musicSinger;
-    private int musicYear;
+//    private int musicYear;
     private String musicImg;
     private String musicLyrics;
+//    private String musicGenre;
+//    private String musicComposer;
 
 }

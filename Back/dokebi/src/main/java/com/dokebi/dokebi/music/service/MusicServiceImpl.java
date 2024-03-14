@@ -14,20 +14,23 @@ public class MusicServiceImpl implements MusicService {
     private final MusicRepository musicRepository;
 
     @Override
-    public MusicDto findByMusicId(int mid) throws EntityNotFoundException {
+    public MusicDto findMusic(int mid) {
         Music music = musicRepository.findById(mid).orElseThrow(() -> new EntityNotFoundException());
 
         MusicDto musicDto = MusicDto.builder()
                 .musicId(music.getMusicId())
                 .musicName(music.getMusicName())
                 .musicSinger(music.getMusicSinger())
-                .musicYear(music.getMusicYear())
+//                .musicYear(music.getMusicYear())
                 .musicImg(music.getMusicImg())
                 .musicLyrics(music.getMusicLyrics())
+//                .musicComposer(music.getMusicComposer())
+//                .musicGenre(music.getMusicGenre())
                 .build();
 
         return musicDto;
     }
+    
 
 
 }

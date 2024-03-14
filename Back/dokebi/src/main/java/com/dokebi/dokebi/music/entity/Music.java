@@ -19,7 +19,7 @@ public class Music {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int musicId;
     @Column(nullable = false)
-    private int musicName;
+    private String musicName;
     @Column(nullable = false)
     private String musicSinger;
     @Column(nullable = false)
@@ -27,6 +27,8 @@ public class Music {
     @Column(nullable = false)
     private String musicImg;
     private String musicLyrics;
+    private String musicGenre;
+    private String musicComposer;
 
 }
 
