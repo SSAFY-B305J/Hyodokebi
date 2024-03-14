@@ -2,6 +2,7 @@ package com.dokebi.dokebi.vip.entity;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -18,5 +19,10 @@ public class Vip {
     private int vipBirth;
     private String vipProfile;
 
-
+    @Builder
+    public Vip(int vipId, String vipNickName, int vipBirth, String vipProfile) {
+        this.vipNickName = vipNickName;
+        this.vipBirth = vipBirth;
+        this.vipProfile = vipProfile;
+    }
 }
