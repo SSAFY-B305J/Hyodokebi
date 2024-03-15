@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useState } from "react"
 
-import MainHeader from "../components/header/MainHeader";
-import TopicBox from "../components/topic/TopicBox";
+import MainHeader from "../components/header/MainHeader"
+import DoubleTab from "../components/tab/DoubleTab"
 
-export default function MainPage() {
+export default function Mypage () {
 
   const [isLogin, setIsLogin] = useState(false)
   
@@ -11,7 +11,7 @@ export default function MainPage() {
     <div className="flex flex-col w-screen h-screen">
       <MainHeader isLogin={isLogin} />
       <div className="flex items-center justify-center flex-1">
-        <TopicBox isLogin={isLogin} />
+        <DoubleTab />
       </div>
     </div> 
   )

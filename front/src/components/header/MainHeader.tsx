@@ -2,28 +2,28 @@ import hyoblin from "../../assets/hyoblin.png";
 import club from "../../assets/club.png";
 
 interface MainHeaderProps {
-  props: boolean;
+  isLogin: boolean;
 }
 
-export default function MainHeader({ props }: MainHeaderProps) {
+export default function MainHeader({ isLogin }: MainHeaderProps) {
   return (
     <div>
-      {props === false ? (
-        <div className="w-full h-[10vh] flex flex-row justify-between items-center p-4 border-b-2 bg-white box-border">
+      {isLogin === false ? (
+        <div className="w-full h-[80px] flex flex-row justify-between items-center p-4 border-b-2 bg-white box-border">
           <div className="m-4">
             <img src={hyoblin} alt="" />
           </div>
-          <div className="flex gap-5   m-4">
+          <div className="flex gap-5 m-4">
             <div className="text-2xl font-semibold">회원가입</div>
             <div className="text-2xl font-semibold">로그인</div>
           </div>
         </div>
       ) : (
-        <div className="w-full h-[10vh] flex flex-row justify-between items-center p-4 border-b-2 bg-white">
+        <div className="w-full h-[80px] flex flex-row justify-between items-center p-4 border-b-2 bg-white">
           <div className="m-4">
             <img src={hyoblin} alt="" />
           </div>
-          <div className="flex gap-5   m-4">
+          <div className="flex gap-5 m-4">
             <div>
               <img src={club} alt="" />
             </div>

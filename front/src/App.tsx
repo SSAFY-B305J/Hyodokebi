@@ -1,8 +1,10 @@
-import React from "react";
-import { Routes, Route } from "react-router-dom";
+import DoubleTab from "./components/tab/DoubleTab";
+import Mypage from "./pages/Mypage";
 
 function App() {
-  return <div></div>;
+  return (
+    <Mypage />
+    );
 }
 
 export default App;
