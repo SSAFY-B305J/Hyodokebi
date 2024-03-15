@@ -4,7 +4,13 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: "#FF7B52",
+        primary: {
+          DEFAULT: "#FF7B52",
+          hover: "#FF541F",
+        },
+        secondary: "#FFAB87",
+        silver: "#C0C0C0",
+        lightsilver: "#D9D9D9",
       },
     },
   },
