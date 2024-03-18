@@ -4,10 +4,14 @@ import com.dokebi.dokebi.music.dto.MusicDto;
 import com.dokebi.dokebi.music.entity.Music;
 import com.dokebi.dokebi.music.repository.MusicRepository;
 import com.dokebi.dokebi.vip.dto.VipDto;
+import com.dokebi.dokebi.vip.entity.Vip;
+import com.dokebi.dokebi.vip.repository.VipRepository;
 import com.dokebi.dokebi.vip.service.VipService;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.persistence.Table;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -20,6 +24,7 @@ public class MusicServiceImpl implements MusicService {
 
     private final MusicRepository musicRepository;
     private final VipService vipService;
+    private final VipRepository vipRepository;
 
     @Override
     public MusicDto findMusic(int mid) {
@@ -60,6 +65,16 @@ public class MusicServiceImpl implements MusicService {
         }
 
         return selectedMusicDtos;
+    }
+
+    @Transactional
+    @Override
+    public int addMusic(int mid, int vid) {
+        Music music = musicRepository.findById(mid).orElseThrow(() -> new EntityNotFoundException("Entity Not Found"));
+        Vip vip = vipRepository.findById(vid).orElseThrow(() -> new EntityNotFoundException("Entity Not Found"));
+        vip.getVipSavedMusics().add(music);
+
+        return vip.getVipSavedMusics().size();
     }
 
 

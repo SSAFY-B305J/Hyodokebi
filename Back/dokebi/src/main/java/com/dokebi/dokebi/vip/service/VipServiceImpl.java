@@ -6,6 +6,7 @@ import com.dokebi.dokebi.vip.repository.VipRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -69,6 +70,7 @@ public class VipServiceImpl implements VipService {
         return vipDto;
     }
 
+    @Transactional
     @Override
     public int addVip(VipDto vipDto) {
         Optional<Vip> optVip = vipRepository.findByNickName(vipDto.getVipNickName());
