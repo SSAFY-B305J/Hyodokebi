@@ -9,13 +9,13 @@ export default function LoginForm() {
   return (
     <FormContainer>
       <>
-        <div className="mx-auto my-0 mb-8 w-fit">
+        <div className="mx-auto mb-10 w-fit">
           {/* TODO: 메인페이지로 Link 연결 */}
           <a href="!#">
             <img src={hyoblin} alt="효도깨비" />
           </a>
         </div>
-        <div className="mt-8 *:mb-3">
+        <div className="mb-6 *:mb-3">
           <Input
             id="loginId"
             label="아이디"
@@ -29,7 +29,7 @@ export default function LoginForm() {
             placeholder="비밀번호"
           />
         </div>
-        <div className="flex flex-col [&>*]:mb-3">
+        <div className="flex flex-col mb-6 [&>*]:mb-3">
           <Button text="로그인" size="lg" />
           <KakaoButton text="카카오 로그인하기" size="lg" />
         </div>
