@@ -8,7 +8,10 @@ export default function LoginForm() {
   return (
     <div className="box-border relative flex flex-col align-middle w-[500px] px-[80px] py-[42px] rounded-2xl shadow-lg *:mb-5">
       <div className="mx-auto my-0 mb-8 w-fit">
-        <img src={hyoblin} alt="효도깨비" />
+        {/* TODO: 메인페이지로 Link 연결 */}
+        <a href="!#">
+          <img src={hyoblin} alt="효도깨비" />
+        </a>
       </div>
       <div className="mt-8 *:mb-3">
         <Input
