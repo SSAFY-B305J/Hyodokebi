@@ -10,7 +10,7 @@ export default function MainLayout ({children} : MainLayoutProps) {
 
   const [isLogin, setIsLogin] = useState(false)
   
-  // 로그인 판명 로직 : cookie를 사용하거나.
+  // TODO 로그인 판명 로직 : cookie를 사용하거나.
 
   return (
     <div className="flex flex-col w-screen h-screen">
