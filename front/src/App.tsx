@@ -1,9 +1,8 @@
-import DoubleTab from "./components/tab/DoubleTab";
-import Mypage from "./pages/Mypage";
+import MainPage from "./pages/MainPage";
 
 function App() {
   return (
-    <Mypage />
+    <MainPage />
     );
 }
 

@@ -4,7 +4,7 @@ import FoodLine from "../components/vip/FoodLine";
 export default function VipPage() {
   return (
     <div className="flex flex-col w-screen h-screen">
-      <MainHeader props={true} />
+      <MainHeader isLogin={true} />
       <div className="flex items-center justify-center flex-1">
         <FoodLine />
       </div>
