@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface VipRepository extends JpaRepository<Vip, Integer> {
+public interface VipRepository extends JpaRepository<Vip, Integer>, VipRepositoryCustom {
     @Query("Select v From Vip v Where v.vipNickName = :vnick")
     Optional<Vip> findByNickName(String vnick);
 

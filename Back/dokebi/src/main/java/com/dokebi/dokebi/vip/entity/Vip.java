@@ -1,10 +1,8 @@
 package com.dokebi.dokebi.vip.entity;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.springframework.util.Assert;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -15,14 +13,18 @@ public class Vip {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int vipId;
+    @Column(nullable = false)
     private String vipNickName;
+    @Column(nullable = false)
     private int vipBirth;
+    @Column(nullable = false)
     private String vipProfile;
 
     @Builder
-    public Vip(int vipId, String vipNickName, int vipBirth, String vipProfile) {
+    public Vip(String vipNickName, int vipBirth, String vipProfile) {
         this.vipNickName = vipNickName;
         this.vipBirth = vipBirth;
         this.vipProfile = vipProfile;
     }
+
 }

@@ -10,11 +10,14 @@ public class VipDto {
     private String vipNickName;
     private int vipBirth;
     private String vipProfile;
+    private int[][] vipAgeGroups;
+
     @Builder
-    public VipDto(int vipId, String vipNickName, int vipBirth, String vipProfile) {
+    public VipDto(int vipId, String vipNickName, int vipBirth, String vipProfile, int[][] vipAgeGroups) {
         this.vipId = vipId;
         this.vipNickName = vipNickName;
         this.vipBirth = vipBirth;
         this.vipProfile = vipProfile;
+        this.vipAgeGroups = vipAgeGroups;
     }
 }
