@@ -13,8 +13,8 @@ export default function DoubleTab() {
     "flex items-center justify-center w-1/2 shadow-md h-full bg-secondary duration-300 text-xl font-semibold";
 
   return (
-    <div className="flex flex-col w-2/3 m-3 h-3/4">
-      <div className="flex flex-row w-full h-1/10">
+    <div className="flex flex-col w-[66vw] m-3 h-[75vh] box-border">
+      <div className="flex flex-row w-full h-[8vh] box-border">
         <div
           className={index === 0 ? activated : disabled}
           onClick={() => setIndex(0)}
@@ -29,11 +29,11 @@ export default function DoubleTab() {
         </div>
       </div>
       {index === 0 ? (
-        <div className="box-border flex flex-1 w-full p-2">프로필</div>
+        <div className="box-border flex w-[66vw] h-[67vh] p-2">프로필</div>
       ) : (
-        <div className="box-border flex w-full p-2 overflow-y-auto">
+        <div className="box-border flex w-[66vw] h-[67vh] p-2 overflow-y-auto">
           {/* TODO VIP map돌려서 넣고 그 다음에 Addcard 위치시키기, 아래는 예시 */}
-          <div className="flex flex-wrap justify-start w-full h-full">
+          <div className="box-border flex flex-wrap justify-start w-full h-full">
             <Card />
             <Card />
             <Card />
