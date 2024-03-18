@@ -2,9 +2,12 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
+import "./index.css";
+
 import App from "./App";
 import ErrorPage from "./pages/ErrorPage";
-import "./index.css";
+import MainPage from "./pages/MainPage";
+import Mypage from "./pages/Mypage";
 
 
 const root = ReactDOM.createRoot(
@@ -15,8 +18,29 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
-    errorElement : <ErrorPage />
+    errorElement : <ErrorPage />,
+    children: [
+      {
+        path : "",
+        element: <MainPage />
+      },
+      {
+        path : "login",
+        // element :
+      },
+      {
+        path : "mypage/:id",
+        element : <Mypage />,
+        children: [
+          {
+            path : "vip/:vipId"
+
+          }
+        ]
+      }
+    ]
   }
+
 ])
 
 root.render(
