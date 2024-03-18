@@ -29,6 +29,7 @@ public class Music {
     private String musicLyrics;
     private String musicGenre;
     private String musicComposer;
+    private int musicLike;
 
 }
 
