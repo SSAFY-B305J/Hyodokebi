@@ -1,10 +1,26 @@
 import kakao from "../../assets/kakao.png";
 
-export default function KakaoButton(props: { text: string }) {
+interface ButtonProps {
+  text: string;
+  size?: string;
+}
+
+interface ButtonStyleType {
+  [key: string]: string;
+}
+
+export default function KakaoButton({ text, size = "md" }: ButtonProps) {
+  const buttonSizes: ButtonStyleType = {
+    md: "px-5 py-2",
+    lg: "px-8 py-3",
+  };
+
   return (
-    <button className="flex justify-center items-center bg-[#FEE500] hover:bg-[#E4D01C] px-7 py-2 font-bold rounded-md">
+    <button
+      className={`flex justify-center items-center ${buttonSizes[size]} bg-[#FEE500] hover:bg-[#E4D01C] font-bold rounded-md`}
+    >
       <img src={kakao} alt="" className="pr-2.5" />
-      <span>{props.text}</span>
+      <span>{text}</span>
     </button>
   );
 }

@@ -25,8 +25,8 @@ export default function LoginForm() {
         />
       </div>
       <div className="flex flex-col [&>*]:mb-3">
-        <Button text="로그인" />
-        <KakaoButton text="카카오 로그인하기" />
+        <Button text="로그인" size="lg" />
+        <KakaoButton text="카카오 로그인하기" size="lg" />
       </div>
       <div className="flex justify-center *:text-sm *:text-gray-700 [&>*:hover]:underline last:pr-0">
         {/* TODO: Link로 수정하기 */}
