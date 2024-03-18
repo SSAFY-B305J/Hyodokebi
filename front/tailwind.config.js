@@ -12,7 +12,7 @@ module.exports = {
         silver: "#C0C0C0",
         lightsilver: "#D9D9D9"
       },
-      weight: {
+      width: {
         "1/10": "10%",
         "1/20": "5%",
         "1/15": "6.6%",

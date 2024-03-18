@@ -3,7 +3,7 @@ import test from "../../assets/test.jpg"
 
 export default function Card() {
   return (
-    <div className="box-border flex flex-col justify-between w-[20vw] p-3 m-2 border-2 border-gray-300 shadow-md h-[54vh] rounded-xl ">
+    <div className= "flex flex-col justify-between w-full p-2 m-2 border-2 border-gray-300 shadow-md h-[54vh] rounded-xl ">
       {/* ALERT width와 height는 확인용으로 넣은 것으로 추후 수정. */}
       <div className="flex justify-end">
         <CloseIcon onClick={()=> console.log("닫기")} />
