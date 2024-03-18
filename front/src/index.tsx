@@ -8,45 +8,58 @@ import App from "./App";
 import ErrorPage from "./pages/ErrorPage";
 import MainPage from "./pages/MainPage";
 import Mypage from "./pages/Mypage";
-import VipPage from "./pages/VipPage";
-
+import VipCreatePage from "./pages/VipCreatePage";
+import DoubleTab from "./components/tab/DoubleTab";
+import VipCreate from "./components/vip/VipCreate";
+import path from "path";
+import VipList from "./components/vip/VipList";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
-  );
-  
+);
+
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
-    errorElement : <ErrorPage />,
+    errorElement: <ErrorPage />,
     children: [
       {
-        path : "",
-        element: <MainPage />
+        path: "",
+        element: <MainPage />,
       },
       {
-        path : "login",
+        path: "login",
         // element :
       },
       {
-        path : "mypage/:id",
-        element : <Mypage />,
+        path: "mypage/:id",
+        element: <Mypage />,
         children: [
           {
-            path : "vip/:vipId",
-          }
-        ]
+            path: "",
+            element: <DoubleTab />,
+            // 여기도 outlet을 걸어서 또 내부 값을 바꿔야 하나?
+            children: [
+              {
+                path: "",
+                element: <VipList />,
+              },
+            ],
+          },
+          {
+            path: "vip/create",
+            element: <VipCreate />,
+          },
+        ],
       },
       {
-        path : "food/choice/:id",
+        path: "food/choice/:id",
         // TODO children을 통해 food 이하 라우터 배분할 것.
-
-      }
-    ]
-  }
-
-])
+      },
+    ],
+  },
+]);
 
 root.render(
   // <React.StrictMode>

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import AddCard from "../card/AddCard";
 import Card from "../card/Card";
+import { Outlet } from "react-router-dom";
 
 export default function DoubleTab() {
   const [index, setIndex] = useState(0);
@@ -31,24 +32,7 @@ export default function DoubleTab() {
       {index === 0 ? (
         <div className="box-border flex w-[66vw] h-[67vh] p-3">프로필</div>
       ) : (
-        <div className="box-border flex w-[66vw] h-[67vh] p-3 overflow-auto">
-          {/* TODO VIP map돌려서 넣고 그 다음에 Addcard 위치시키기, 아래는 예시 */}
-          {/* <div className="box-border flex flex-wrap justify-start w-[65vw] h-full">
-            <Card />
-            <Card />
-            <Card />
-            <Card />
-            <AddCard />
-          </div> */}
-           <div className="w-[65vw] h-full grid grid-cols-3 gap-3">
-            <Card />
-            <Card />
-            <Card />
-            <Card />
-            <AddCard />
-          </div>
-
-        </div>
+        <Outlet />
       )}
     </div>
   );
