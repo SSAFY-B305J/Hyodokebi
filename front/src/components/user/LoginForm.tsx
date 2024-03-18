@@ -1,5 +1,8 @@
 import Input from "../common/Input";
 import hyoblin from "../../assets/hyoblin.png";
+import Button from "../Button/Button";
+import KakaoButton from "../Button/KakaoButton";
+import VerticalDivider from "./VerticalDivider";
 
 export default function LoginForm() {
   return (
@@ -7,7 +10,7 @@ export default function LoginForm() {
       <div className="mx-auto my-0 mb-8 w-fit">
         <img src={hyoblin} alt="효도깨비" />
       </div>
-      <div className="w-[300px] *:mb-3">
+      <div className="mt-8 *:mb-3">
         <Input
           id="loginId"
           label="아이디"
@@ -22,14 +25,15 @@ export default function LoginForm() {
         />
       </div>
       <div className="flex flex-col [&>*]:mb-3">
-        {/* TODO: 버튼 컴포넌트 만들면 수정하기 */}
-        <button>로그인</button>
-        <button>카카오 로그인하기</button>
+        <Button text="로그인" />
+        <KakaoButton text="카카오 로그인하기" />
       </div>
-      <div className="flex justify-center *:pr-4 last: pr-0">
+      <div className="flex justify-center *:text-sm *:text-gray-700 [&>*:hover]:underline last:pr-0">
         {/* TODO: Link로 수정하기 */}
         <a href="!#">아이디 찾기</a>
+        <VerticalDivider />
         <a href="!#">비밀번호 찾기</a>
+        <VerticalDivider />
         <a href="!#">회원가입</a>
       </div>
     </div>
