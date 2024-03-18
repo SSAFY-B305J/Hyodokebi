@@ -40,9 +40,7 @@ const router = createBrowserRouter([
       },
       {
         path : "food/choice/:id",
-        element : <VipPage />
-        //TODO children을 통해 food 이하 라우터 배분할것, 현재 element는 테스트용
-        // TODO 이곳이 맞는지? 지민이한테 확인하기
+        // TODO children을 통해 food 이하 라우터 배분할 것.
 
       }
     ]
