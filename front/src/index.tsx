@@ -50,7 +50,6 @@ const router = createBrowserRouter([
           {
             path: "",
             element: <DoubleTab />,
-            // 여기도 outlet을 걸어서 또 내부 값을 바꿔야 하나?
             children: [
               {
                 path: "",

@@ -1,6 +1,4 @@
 import Input from "../common/Input";
-import Card from "../card/Card";
-import AddCard from "../card/AddCard";
 import MenuCard from "../card/MenuCard";
 import { useEffect, useState } from "react";
 import CommonButton from "../button/CommonButton";
