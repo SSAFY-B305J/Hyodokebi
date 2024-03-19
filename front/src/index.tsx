@@ -55,6 +55,9 @@ const router = createBrowserRouter([
                 path: "",
                 element: <VipList />,
               },
+              {
+                path: "vip/:vipId",
+              }
             ],
           },
           {
