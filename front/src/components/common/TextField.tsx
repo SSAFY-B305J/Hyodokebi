@@ -3,7 +3,7 @@ import { InputAsset } from "./InputAsset";
 
 export default function TextField() {
   return (
-    <div className="relative w-[500px]">
+    <div className="relative">
       <label className="inline-block pb-1 font-bold">아이디</label>
       <div className="flex w-full">
         <InputAsset placeholder="아이디" />
