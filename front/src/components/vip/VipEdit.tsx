@@ -5,7 +5,7 @@ import MenuCard from "../card/MenuCard";
 import { useEffect, useState } from "react";
 import CommonButton from "../button/CommonButton";
 
-export default function VipCreate() {
+export default function VipEdit() {
 
 
   const [vipData, setVipdata] = useState({
