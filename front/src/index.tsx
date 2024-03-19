@@ -13,10 +13,15 @@ import DoubleTab from "./components/tab/DoubleTab";
 import VipCreate from "./components/vip/VipCreate";
 import path from "path";
 import VipList from "./components/vip/VipList";
+import TopicBox from "./components/topic/TopicBox";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
+
+const isLogin = true
+// TODO isLogin 임시. 
+// ALERT usestate는 최상단 경로에서는 사용불가
 
 const router = createBrowserRouter([
   {
@@ -27,6 +32,12 @@ const router = createBrowserRouter([
       {
         path: "",
         element: <MainPage />,
+        children: [
+          {
+            path : "",
+            element: <TopicBox isLogin={isLogin} />
+          }
+        ]
       },
       {
         path: "login",
