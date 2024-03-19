@@ -1,5 +1,6 @@
 package com.dokebi.dokebi.vip.controller;
 
+import com.dokebi.dokebi.music.dto.MusicDto;
 import com.dokebi.dokebi.vip.dto.VipDto;
 import com.dokebi.dokebi.vip.entity.Vip;
 import com.dokebi.dokebi.vip.service.VipService;
@@ -75,6 +76,19 @@ public class VipController {
             System.out.println(vipDto);
             Long res = vipService.modifyVip(vipDto, vid);
             return new ResponseEntity<Long>(res, HttpStatus.OK);
+        } catch (EntityNotFoundException e) {
+            return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<String>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
+
+    @GetMapping("/api/vip/music/{vid}")
+    public ResponseEntity<?> vipDetailMusics(@PathVariable int vid){
+        try {
+            List<MusicDto> musicDtos = vipService.findVipMusics(vid);
+            return new ResponseEntity<List<MusicDto>>(musicDtos, HttpStatus.OK);
         } catch (EntityNotFoundException e) {
             return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
         } catch (Exception e) {

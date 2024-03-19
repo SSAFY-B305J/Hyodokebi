@@ -19,7 +19,7 @@ public class MusicController {
     private final MusicService musicService;
 
     @GetMapping("/api/music/{mid}")
-    public ResponseEntity<?> MusicDetails(@PathVariable int mid) {
+    public ResponseEntity<?> musicDetails(@PathVariable int mid) {
         try {
             MusicDto musicDto = musicService.findMusic(mid);
             return new ResponseEntity<MusicDto>(musicDto, HttpStatus.OK);
@@ -33,7 +33,7 @@ public class MusicController {
     }
 
     @GetMapping("/api/music/res/{vid}")
-    public ResponseEntity<?> MusicList(@PathVariable int vid) {
+    public ResponseEntity<?> musicList(@PathVariable int vid) {
         try {
             List<MusicDto>[] musicDtos = musicService.findMusics(vid);
             return new ResponseEntity<List<MusicDto>[]>(musicDtos, HttpStatus.OK);
@@ -47,16 +47,18 @@ public class MusicController {
     }
 
     @PostMapping("/api/music/like/{mid}/{vid}")
-    public ResponseEntity<?> musicAdd(@PathVariable int mid, @PathVariable int vid){
+    public ResponseEntity<?> musicAddLike(@PathVariable int mid, @PathVariable int vid){
         try {
-            int res = musicService.addMusic(mid, vid);
+            int res = musicService.addLikeMusic(mid, vid);
             return new ResponseEntity<Integer>(res, HttpStatus.OK);
-        } catch (IllegalArgumentException e) {
+        } catch (EntityNotFoundException e) {
             return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
             return new ResponseEntity<String>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
     }
+
+    
 
 }

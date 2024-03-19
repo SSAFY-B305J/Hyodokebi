@@ -50,7 +50,7 @@ public class MusicServiceImpl implements MusicService {
         for(int i = 0; i < 3; i++){
             List<Music> musics = musicRepository.findMusics(vipDto.getVipAgeGroups()[i]);
             Collections.shuffle(musics);
-            List<Music> selectedMusics = new ArrayList<>(musics.subList(0, 3));
+            List<Music> selectedMusics = new ArrayList<>(musics.subList(0, 9));
 
             selectedMusicDtos[i] = selectedMusics.stream()
                     .map(m -> MusicDto.builder()
@@ -69,13 +69,15 @@ public class MusicServiceImpl implements MusicService {
 
     @Transactional
     @Override
-    public int addMusic(int mid, int vid) {
+    public int addLikeMusic(int mid, int vid) {
         Music music = musicRepository.findById(mid).orElseThrow(() -> new EntityNotFoundException("Entity Not Found"));
         Vip vip = vipRepository.findById(vid).orElseThrow(() -> new EntityNotFoundException("Entity Not Found"));
+
         vip.getVipSavedMusics().add(music);
 
         return vip.getVipSavedMusics().size();
     }
+
 
 
 }

@@ -2,6 +2,7 @@ package com.dokebi.dokebi.music.entity;
 
 import com.dokebi.dokebi.vip.dto.VipDto;
 import com.dokebi.dokebi.vip.entity.Vip;
+import com.querydsl.core.group.GroupBy;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -35,7 +36,6 @@ public class Music {
 
     @ManyToMany(mappedBy = "vipSavedMusics")
     private List<Vip> savedVips = new ArrayList<>();
-
 }
 
 

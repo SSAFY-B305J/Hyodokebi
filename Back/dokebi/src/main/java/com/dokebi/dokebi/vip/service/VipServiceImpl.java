@@ -1,5 +1,7 @@
 package com.dokebi.dokebi.vip.service;
 
+import com.dokebi.dokebi.music.dto.MusicDto;
+import com.dokebi.dokebi.music.entity.Music;
 import com.dokebi.dokebi.vip.dto.VipDto;
 import com.dokebi.dokebi.vip.entity.Vip;
 import com.dokebi.dokebi.vip.repository.VipRepository;
@@ -21,11 +23,6 @@ public class VipServiceImpl implements VipService {
     @Override
     public List<VipDto> findVips() {
         List<Vip> vips = vipRepository.findAll();
-
-//        이렇게 하면 각 VIP마다 DB를 조회함
-//        List<VipDto> vipDtos = vips.stream()
-//                .map(v -> findVip(v.getVipId()))
-//                .collect(Collectors.toList());
 
         List<VipDto> vipDtos = vips.stream()
                 .map(v -> VipDto.builder()
@@ -104,6 +101,25 @@ public class VipServiceImpl implements VipService {
                 .build();
 
         return vipRepository.modifyVip(vip, vid);
+    }
+
+    @Override
+    public List<MusicDto> findVipMusics(int vid) {
+        vipRepository.findById(vid).orElseThrow(() -> new EntityNotFoundException("Entity Not Found"));
+
+        List<Music> musics = vipRepository.findSavedMusics(vid);
+
+        List<MusicDto> musicDtos = musics.stream()
+                .map(m -> MusicDto.builder()
+                        .musicId(m.getMusicId())
+                        .musicName(m.getMusicName())
+                        .musicSinger(m.getMusicSinger())
+                        .musicImg(m.getMusicImg())
+                        .musicLyrics(m.getMusicLyrics())
+                        .build())
+                .collect(Collectors.toList());
+
+        return musicDtos;
     }
 
 
