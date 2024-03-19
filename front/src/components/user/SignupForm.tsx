@@ -3,16 +3,16 @@ import hyoblin from "../../assets/hyoblin.png";
 import Button from "../Button/Button";
 import KakaoButton from "../Button/KakaoButton";
 import HorizontalDivider from "./HorizontalDivider";
+import { Link } from "react-router-dom";
 
 export default function SignupForm() {
   return (
     <FormContainer>
       <>
         <div className="mx-auto w-fit">
-          {/* TODO: 메인페이지로 Link 연결 */}
-          <a href="!#">
+          <Link to="/">
             <img src={hyoblin} alt="효도깨비" />
-          </a>
+          </Link>
         </div>
         <div className="flex flex-col my-24 [&>*]:mb-3">
           <div className="flex flex-col">

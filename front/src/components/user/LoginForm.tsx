@@ -4,16 +4,16 @@ import Button from "../Button/Button";
 import KakaoButton from "../Button/KakaoButton";
 import VerticalDivider from "./VerticalDivider";
 import FormContainer from "./FormContainer";
+import { Link } from "react-router-dom";
 
 export default function LoginForm() {
   return (
     <FormContainer>
       <>
         <div className="mx-auto mb-10 w-fit">
-          {/* TODO: 메인페이지로 Link 연결 */}
-          <a href="!#">
+          <Link to="/">
             <img src={hyoblin} alt="효도깨비" />
-          </a>
+          </Link>
         </div>
         <div className="mb-6 *:mb-3">
           <Input
