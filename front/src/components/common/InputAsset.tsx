@@ -20,7 +20,7 @@ export function InputAsset({
   ...InputAttribute
 }: InputAssetProps & InputAttribute) {
   const inputCSS =
-    "w-full px-3 py-3 text-sm border rounded box-border focus:outline-none focus:border-secondary";
+    "w-full px-3 py-3 text-sm border border-silver rounded box-border focus:outline-none focus:border-secondary";
 
   const [isVisible, setIsVisible] = useState<boolean>(false); // value 표시/감춤 여부
   const [inputType, setInputType] = useState<string>(type); // 상태 관리되는 type
@@ -33,7 +33,7 @@ export function InputAsset({
   }
 
   return (
-    <div className="relative">
+    <div className="relative w-full">
       <input
         type={inputType}
         {...InputAttribute}
