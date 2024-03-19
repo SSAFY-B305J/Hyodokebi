@@ -7,16 +7,11 @@ import CommonButton from "../button/CommonButton";
 
 export default function VipCreate() {
 
-  interface vipDataParams {
-    nickname : string;
-    vipData : object
-  }
-
   const [vipData, setVipdata] = useState({
     nickname: "",
   })
-
   const [text, setText] = useState("")
+
   
   useEffect(() => {
     console.log(vipData);
