@@ -62,7 +62,7 @@ export default function Input({
       <input
         type="text"
         id={id}
-        className={`w-full px-3 py-2 text-sm border ${borderColors[status].border} focus:outline-none rounded-md`}
+        className={`w-full px-3 py-3 text-sm border ${borderColors[status].border} focus:outline-none rounded-md`}
         placeholder={placeholder}
       />
       {status > 0 && message.length > 0 ? (

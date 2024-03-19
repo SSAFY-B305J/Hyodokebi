@@ -1,18 +1,17 @@
 import { useState } from "react";
 
-import MainHeader from "../components/header/MainHeader";
 import TopicBox from "../components/topic/TopicBox";
+import MainLayout from "../layouts/Mainlayout";
+
 
 export default function MainPage() {
 
   const [isLogin, setIsLogin] = useState(false)
+  // ALERT MainLayout에서 전역적으로 isLogin을 관리하도록 해야할지?
   
   return (
-    <div className="flex flex-col w-screen h-screen">
-      <MainHeader isLogin={isLogin} />
-      <div className="flex items-center justify-center flex-1">
-        <TopicBox isLogin={isLogin} />
-      </div>
-    </div> 
+    <MainLayout>
+      <TopicBox isLogin={isLogin} />
+    </MainLayout>
   )
 }

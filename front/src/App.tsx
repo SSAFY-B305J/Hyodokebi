@@ -1,8 +1,7 @@
-import DoubleTab from "./components/tab/DoubleTab";
-import Mypage from "./pages/Mypage";
+import { Outlet } from "react-router-dom";
 
 function App() {
-  return <Mypage />;
+  return <Outlet />;
 }
 
 export default App;
