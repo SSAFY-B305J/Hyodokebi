@@ -1,6 +1,7 @@
 import Input from "../common/Input";
 import MenuCard from "../card/MenuCard";
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import CommonButton from "../button/CommonButton";
 
 export default function VipEdit() {
@@ -10,11 +11,12 @@ export default function VipEdit() {
     nickname: "",
   })
   const [text, setText] = useState("")
-
+  const {id, vipId} = useParams()
   
   useEffect(() => {
+    console.log(id, vipId)
     console.log(vipData);
-  }, [vipData]);
+  }, [vipData, id, vipId]);
   // PUT 확인
   return (
     <div className="box-border flex flex-col justify-between w-3/5 h-[85vh]">
