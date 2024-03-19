@@ -1,5 +1,6 @@
 package com.dokebi.dokebi.music.controller;
 
+import com.dokebi.dokebi.music.dto.AgeGroup;
 import com.dokebi.dokebi.music.dto.MusicDto;
 import com.dokebi.dokebi.music.service.MusicService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -10,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RequiredArgsConstructor
 @RestController
@@ -36,11 +38,9 @@ public class MusicController {
     @GetMapping("/api/music/res/{vid}")
     public ResponseEntity<?> musicList(@PathVariable int vid) {
         try {
-            List<MusicDto>[] musicDtos = musicService.findMusics(vid);
-            return new ResponseEntity<List<MusicDto>[]>(musicDtos, HttpStatus.OK);
+            Map<AgeGroup, List<MusicDto>> musicDtos = musicService.findMusics(vid);
+            return new ResponseEntity<Map<AgeGroup, List<MusicDto>>>(musicDtos, HttpStatus.OK);
         } catch (EntityNotFoundException e) {
-            return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
-        } catch (IllegalArgumentException e) {
             return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
             return new ResponseEntity<String>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);

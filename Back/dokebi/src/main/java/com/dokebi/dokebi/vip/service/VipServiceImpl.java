@@ -72,9 +72,7 @@ public class VipServiceImpl implements VipService {
     @Transactional
     @Override
     public int addVip(VipDto vipDto) {
-        Optional<Vip> optVip = vipRepository.findByNickName(vipDto.getVipNickName());
-        if (!optVip.isEmpty())
-            throw new IllegalArgumentException("Already Existed NickName");
+        Vip optVip = vipRepository.findByNickName(vipDto.getVipNickName()).orElseThrow(()-> new IllegalArgumentException("Already Existed NickName"));
 
         Vip vip = Vip.builder()
                 .vipNickName(vipDto.getVipNickName())
