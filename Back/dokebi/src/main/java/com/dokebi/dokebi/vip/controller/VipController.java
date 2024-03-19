@@ -3,6 +3,7 @@ package com.dokebi.dokebi.vip.controller;
 import com.dokebi.dokebi.music.dto.MusicDto;
 import com.dokebi.dokebi.vip.dto.VipDto;
 import com.dokebi.dokebi.vip.service.VipService;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,6 +18,7 @@ public class VipController {
 
     private final VipService vipService;
 
+    @Operation(summary = "VIP 목록")
     @GetMapping("/api/vip")
     public ResponseEntity<?> vipList() {
         try {
@@ -30,6 +32,7 @@ public class VipController {
 
     }
 
+    @Operation(summary = "VIP 상세")
     @GetMapping("/api/vip/{vid}")
     public ResponseEntity<?> vipDetails(@PathVariable int vid) {
         try {
@@ -43,6 +46,7 @@ public class VipController {
 
     }
 
+    @Operation(summary = "VIP 추가")
     @PostMapping("/api/vip")
     public ResponseEntity<?> vipAdd(@RequestBody VipDto vipDto) {
         try {
@@ -56,6 +60,7 @@ public class VipController {
 
     }
 
+    @Operation(summary = "VIP 삭제")
     @DeleteMapping("/api/vip/{vid}")
     public ResponseEntity<?> vipRemove(@PathVariable int vid) {
         try {
@@ -69,10 +74,10 @@ public class VipController {
 
     }
 
+    @Operation(summary = "VIP 수정")
     @PutMapping("/api/vip/{vid}")
     public ResponseEntity<?> vipModify(@RequestBody VipDto vipDto, @PathVariable int vid) {
         try {
-            System.out.println(vipDto);
             Long res = vipService.modifyVip(vipDto, vid);
             return new ResponseEntity<Long>(res, HttpStatus.OK);
         } catch (EntityNotFoundException e) {
@@ -83,6 +88,7 @@ public class VipController {
 
     }
 
+    @Operation(summary = "VIP가 저장한 음악")
     @GetMapping("/api/vip/music/{vid}")
     public ResponseEntity<?> vipDetailMusics(@PathVariable int vid) {
         try {
@@ -96,6 +102,7 @@ public class VipController {
 
     }
 
+    @Operation(summary = "음악 저장 취소")
     @DeleteMapping("/api/vip/music/{mid}/{vid}")
     public ResponseEntity<?> vipRemoveMusic(@PathVariable int mid, @PathVariable int vid) {
         try {

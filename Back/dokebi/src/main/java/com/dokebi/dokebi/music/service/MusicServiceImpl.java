@@ -55,7 +55,7 @@ public class MusicServiceImpl implements MusicService {
             Collections.shuffle(musics);
             List<Music> selectedMusics = new ArrayList<>(musics.subList(0, 9));
 
-            selectedMusicDtos[i] = musics.stream()
+            selectedMusicDtos[i] = selectedMusics.stream()
                     .map(m -> MusicDto.builder()
                             .musicId(m.getMusicId())
                             .musicName(m.getMusicName())
