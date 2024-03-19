@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface MusicRepositoryCustom {
 
-    List<Music> findMusics(int[] group);
+    List<Music> findMusics(int[] group, List<Music> savedMusics, List<Music> disLikedMusics);
 }

@@ -8,7 +8,6 @@ import com.dokebi.dokebi.vip.entity.Vip;
 import com.dokebi.dokebi.vip.repository.VipRepository;
 import com.dokebi.dokebi.vip.service.VipService;
 import jakarta.persistence.EntityNotFoundException;
-import jakarta.persistence.Table;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,15 +43,19 @@ public class MusicServiceImpl implements MusicService {
     @Override
     public List<MusicDto>[] findMusics(int vid) {
         VipDto vipDto = vipService.findVipAge(vid);
+        List<Music> savedMusics = vipRepository.findVipMusics(vid);
+        List<Music> disLikedMusics = vipRepository.findVipDisLikedMusics(vid);
 
         List<MusicDto>[] selectedMusicDtos = new ArrayList[3];
 
-        for(int i = 0; i < 3; i++){
-            List<Music> musics = musicRepository.findMusics(vipDto.getVipAgeGroups()[i]);
+        for (int i = 0; i < 3; i++) {
+            List<Music> musics = musicRepository.findMusics(vipDto.getVipAgeGroups()[i], savedMusics, disLikedMusics);
+            if (musics == null) throw new IllegalArgumentException("Recommendation Fail");
+
             Collections.shuffle(musics);
             List<Music> selectedMusics = new ArrayList<>(musics.subList(0, 9));
 
-            selectedMusicDtos[i] = selectedMusics.stream()
+            selectedMusicDtos[i] = musics.stream()
                     .map(m -> MusicDto.builder()
                             .musicId(m.getMusicId())
                             .musicName(m.getMusicName())
@@ -69,7 +72,7 @@ public class MusicServiceImpl implements MusicService {
 
     @Transactional
     @Override
-    public int addLikeMusic(int mid, int vid) {
+    public int addMusic(int mid, int vid) {
         Music music = musicRepository.findById(mid).orElseThrow(() -> new EntityNotFoundException("Entity Not Found"));
         Vip vip = vipRepository.findById(vid).orElseThrow(() -> new EntityNotFoundException("Entity Not Found"));
 
@@ -78,6 +81,16 @@ public class MusicServiceImpl implements MusicService {
         return vip.getVipSavedMusics().size();
     }
 
+    @Transactional
+    @Override
+    public int addDislikeMusic(int mid, int vid) {
+        Music music = musicRepository.findById(mid).orElseThrow(() -> new EntityNotFoundException("Entity Not Found"));
+        Vip vip = vipRepository.findById(vid).orElseThrow(() -> new EntityNotFoundException("Entity Not Found"));
+
+        vip.getVipDisLikedMusics().add(music);
+
+        return vip.getVipDisLikedMusics().size();
+    }
 
 
 }

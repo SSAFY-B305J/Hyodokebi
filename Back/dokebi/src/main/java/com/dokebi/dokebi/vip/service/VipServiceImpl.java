@@ -107,7 +107,7 @@ public class VipServiceImpl implements VipService {
     public List<MusicDto> findVipMusics(int vid) {
         vipRepository.findById(vid).orElseThrow(() -> new EntityNotFoundException("Entity Not Found"));
 
-        List<Music> musics = vipRepository.findSavedMusics(vid);
+        List<Music> musics = vipRepository.findVipMusics(vid);
 
         List<MusicDto> musicDtos = musics.stream()
                 .map(m -> MusicDto.builder()

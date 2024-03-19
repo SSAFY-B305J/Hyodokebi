@@ -15,6 +15,9 @@ public interface VipRepository extends JpaRepository<Vip, Integer>, VipRepositor
     Optional<Vip> findByNickName(String vnick);
 
     @Query("Select v.vipSavedMusics From Vip v Where v.vipId = :vid")
-    List<Music> findSavedMusics(int vid);
+    List<Music> findVipMusics(int vid);
+
+    @Query("Select v.vipDisLikedMusics From Vip v Where v.vipId = :vid")
+    List<Music> findVipDisLikedMusics(int vid);
 
 }

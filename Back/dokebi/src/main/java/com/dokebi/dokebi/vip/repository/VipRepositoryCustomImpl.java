@@ -1,6 +1,5 @@
 package com.dokebi.dokebi.vip.repository;
 
-import com.dokebi.dokebi.vip.dto.VipDto;
 import com.dokebi.dokebi.vip.entity.QVip;
 import com.dokebi.dokebi.vip.entity.Vip;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -10,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class VipRepositoryCustomImpl implements VipRepositoryCustom {
     private final JPAQueryFactory queryFactory;
+
     @Override
     @Transactional
     public Long modifyVip(Vip vip, int vid) {
