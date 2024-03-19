@@ -5,10 +5,15 @@ import lombok.*;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class MusicDto {
+
     private int musicId;
+
     private String musicName;
+
     private String musicSinger;
+
     private String musicImg;
+
     private String musicLyrics;
 
     @Builder

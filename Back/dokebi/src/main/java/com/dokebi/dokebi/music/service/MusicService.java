@@ -10,7 +10,12 @@ import java.util.List;
 
 public interface MusicService {
     MusicDto findMusic(int mid);
+
     List<MusicDto>[] findMusics(int vid);
+
     int addMusic(int mid, int vid);
+
     int addDislikeMusic(int mid, int vid);
+
+    void removeDislikeMusic(int mid, int vid);
 }

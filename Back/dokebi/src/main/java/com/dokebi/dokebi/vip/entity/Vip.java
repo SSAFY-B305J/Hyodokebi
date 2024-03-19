@@ -2,10 +2,7 @@ package com.dokebi.dokebi.vip.entity;
 
 import com.dokebi.dokebi.music.entity.Music;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,10 +16,13 @@ public class Vip {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int vipId;
+
     @Column(nullable = false)
     private String vipNickName;
+
     @Column(nullable = false)
     private int vipBirth;
+
     @Column(nullable = false)
     private String vipProfile;
 

@@ -96,5 +96,18 @@ public class VipController {
 
     }
 
+    @DeleteMapping("/api/vip/music/{mid}/{vid}")
+    public ResponseEntity<?> vipRemoveMusic(@PathVariable int mid, @PathVariable int vid) {
+        try {
+            vipService.removeVipMusic(mid, vid);
+            return new ResponseEntity<Void>(HttpStatus.OK);
+        } catch (EntityNotFoundException e) {
+            return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<String>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
+
 
 }

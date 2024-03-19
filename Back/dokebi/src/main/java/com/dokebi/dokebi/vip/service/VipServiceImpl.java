@@ -2,6 +2,7 @@ package com.dokebi.dokebi.vip.service;
 
 import com.dokebi.dokebi.music.dto.MusicDto;
 import com.dokebi.dokebi.music.entity.Music;
+import com.dokebi.dokebi.music.repository.MusicRepository;
 import com.dokebi.dokebi.vip.dto.VipDto;
 import com.dokebi.dokebi.vip.entity.Vip;
 import com.dokebi.dokebi.vip.repository.VipRepository;
@@ -19,6 +20,7 @@ import java.util.stream.Collectors;
 public class VipServiceImpl implements VipService {
 
     private final VipRepository vipRepository;
+    private final MusicRepository musicRepository;
 
     @Override
     public List<VipDto> findVips() {
@@ -38,7 +40,7 @@ public class VipServiceImpl implements VipService {
 
     @Override
     public VipDto findVip(int vid) {
-        Vip vip = vipRepository.findById(vid).orElseThrow(() -> new EntityNotFoundException("Entity Not Found"));
+        Vip vip = vipRepository.findById(vid).orElseThrow(() -> new EntityNotFoundException("Vip Entity Not Found"));
 
         VipDto vipDto = VipDto.builder()
                 .vipId(vip.getVipId())
@@ -52,7 +54,7 @@ public class VipServiceImpl implements VipService {
 
     @Override
     public VipDto findVipAge(int vid) {
-        Vip vip = vipRepository.findById(vid).orElseThrow(() -> new EntityNotFoundException("Entity Not Found"));
+        Vip vip = vipRepository.findById(vid).orElseThrow(() -> new EntityNotFoundException("Vip Entity Not Found"));
 
         VipDto vipDto = VipDto.builder()
                 .vipId(vip.getVipId())
@@ -86,13 +88,14 @@ public class VipServiceImpl implements VipService {
 
     @Override
     public void removeVip(int vid) {
-        Vip vip = vipRepository.findById(vid).orElseThrow(() -> new EntityNotFoundException("Entity Not Found"));
+        Vip vip = vipRepository.findById(vid).orElseThrow(() -> new EntityNotFoundException("Vip Entity Not Found"));
         vipRepository.deleteById(vid);
     }
 
+    @Transactional
     @Override
     public Long modifyVip(VipDto vipDto, int vid) {
-        vipRepository.findById(vid).orElseThrow(() -> new EntityNotFoundException("Entity Not Found"));
+        vipRepository.findById(vid).orElseThrow(() -> new EntityNotFoundException("Vip Entity Not Found"));
 
         Vip vip = Vip.builder()
                 .vipNickName(vipDto.getVipNickName())
@@ -105,7 +108,7 @@ public class VipServiceImpl implements VipService {
 
     @Override
     public List<MusicDto> findVipMusics(int vid) {
-        vipRepository.findById(vid).orElseThrow(() -> new EntityNotFoundException("Entity Not Found"));
+        vipRepository.findById(vid).orElseThrow(() -> new EntityNotFoundException("Vip Entity Not Found"));
 
         List<Music> musics = vipRepository.findVipMusics(vid);
 
@@ -120,6 +123,16 @@ public class VipServiceImpl implements VipService {
                 .collect(Collectors.toList());
 
         return musicDtos;
+    }
+
+    @Transactional
+    @Override
+    public void removeVipMusic(int mid, int vid) {
+        Vip vip = vipRepository.findById(vid).orElseThrow(() -> new EntityNotFoundException("Vip Entity Not Found"));
+        Music music = musicRepository.findById(mid).orElseThrow(() -> new EntityNotFoundException("Music Entity Not Found"));
+
+        vip.getVipSavedMusics().remove(music);
+
     }
 
 

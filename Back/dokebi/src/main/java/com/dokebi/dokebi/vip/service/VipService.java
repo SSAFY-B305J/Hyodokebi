@@ -19,4 +19,6 @@ public interface VipService {
     Long modifyVip(VipDto vipDto, int vid);
 
     List<MusicDto> findVipMusics(int vid);
+
+    void removeVipMusic(int mid, int vid);
 }

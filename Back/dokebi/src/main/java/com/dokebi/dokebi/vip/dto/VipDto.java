@@ -10,9 +10,13 @@ import lombok.NoArgsConstructor;
 public class VipDto {
 
     private int vipId;
+
     private String vipNickName;
+
     private int vipBirth;
+
     private String vipProfile;
+
     private int[][] vipAgeGroups;
 
     @Builder

@@ -6,10 +6,7 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -67,6 +64,19 @@ public class MusicController {
         try {
             int res = musicService.addDislikeMusic(mid, vid);
             return new ResponseEntity<Integer>(res, HttpStatus.OK);
+        } catch (EntityNotFoundException e) {
+            return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<String>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
+
+    @DeleteMapping("/api/music/dislike/{mid}/{vid}")
+    public ResponseEntity<?> musicRemoveDislike(@PathVariable int mid, @PathVariable int vid) {
+        try {
+            musicService.removeDislikeMusic(mid, vid);
+            return new ResponseEntity<Void>(HttpStatus.OK);
         } catch (EntityNotFoundException e) {
             return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
         } catch (Exception e) {

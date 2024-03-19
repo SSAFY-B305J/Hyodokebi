@@ -27,7 +27,7 @@ public class MusicServiceImpl implements MusicService {
 
     @Override
     public MusicDto findMusic(int mid) {
-        Music music = musicRepository.findById(mid).orElseThrow(() -> new EntityNotFoundException("Entity Not Found"));
+        Music music = musicRepository.findById(mid).orElseThrow(() -> new EntityNotFoundException("Music Entity Not Found"));
 
         MusicDto musicDto = MusicDto.builder()
                 .musicId(music.getMusicId())
@@ -73,8 +73,8 @@ public class MusicServiceImpl implements MusicService {
     @Transactional
     @Override
     public int addMusic(int mid, int vid) {
-        Music music = musicRepository.findById(mid).orElseThrow(() -> new EntityNotFoundException("Entity Not Found"));
-        Vip vip = vipRepository.findById(vid).orElseThrow(() -> new EntityNotFoundException("Entity Not Found"));
+        Music music = musicRepository.findById(mid).orElseThrow(() -> new EntityNotFoundException("Music Entity Not Found"));
+        Vip vip = vipRepository.findById(vid).orElseThrow(() -> new EntityNotFoundException("Vip Entity Not Found"));
 
         vip.getVipSavedMusics().add(music);
 
@@ -84,12 +84,20 @@ public class MusicServiceImpl implements MusicService {
     @Transactional
     @Override
     public int addDislikeMusic(int mid, int vid) {
-        Music music = musicRepository.findById(mid).orElseThrow(() -> new EntityNotFoundException("Entity Not Found"));
-        Vip vip = vipRepository.findById(vid).orElseThrow(() -> new EntityNotFoundException("Entity Not Found"));
+        Music music = musicRepository.findById(mid).orElseThrow(() -> new EntityNotFoundException("Music Entity Not Found"));
+        Vip vip = vipRepository.findById(vid).orElseThrow(() -> new EntityNotFoundException("Vip Entity Not Found"));
 
         vip.getVipDisLikedMusics().add(music);
 
         return vip.getVipDisLikedMusics().size();
+    }
+
+    @Override
+    public void removeDislikeMusic(int mid, int vid) {
+        Vip vip = vipRepository.findById(vid).orElseThrow(() -> new EntityNotFoundException("Vip Entity Not Found"));
+        Music music = musicRepository.findById(mid).orElseThrow(() -> new EntityNotFoundException("Music Entity Not Found"));
+
+        vip.getVipDisLikedMusics().remove(music);
     }
 
 
