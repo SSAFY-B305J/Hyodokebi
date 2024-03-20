@@ -14,6 +14,7 @@ import VipCreate from "./components/vip/VipCreate";
 import path from "path";
 import VipList from "./components/vip/VipList";
 import LoginPage from "./pages/user/LoginPage";
+import SignupPage from "./pages/user/SignupPage";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
       {
         path: "login",
         element: <LoginPage />,
+      },
+      {
+        path: "signup",
+        element: <SignupPage />,
       },
       {
         path: "mypage/:id",

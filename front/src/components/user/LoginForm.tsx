@@ -28,7 +28,7 @@ export default function LoginForm() {
           <VerticalDivider />
           <Link to="/">비밀번호 찾기</Link>
           <VerticalDivider />
-          <Link to="/">회원가입</Link>
+          <Link to="/signup">회원가입</Link>
         </div>
       </>
     </FormContainer>
