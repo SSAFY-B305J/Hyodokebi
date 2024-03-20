@@ -13,7 +13,7 @@ import DoubleTab from "./components/tab/DoubleTab";
 import VipCreate from "./components/vip/VipCreate";
 import path from "path";
 import VipList from "./components/vip/VipList";
-import LoginPage from "./pages/LoginPage";
+import LoginPage from "./pages/user/LoginPage";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
