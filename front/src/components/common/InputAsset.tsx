@@ -13,7 +13,7 @@ interface InputAssetProps {
   iconVisible?: boolean;
 }
 
-export function InputAsset({
+export default function InputAsset({
   className,
   type = "text",
   iconVisible = false, // 좌측 아이콘 표시 여부
