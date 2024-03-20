@@ -1,6 +1,5 @@
 import FoodList from "../components/food/FoodList";
 import MainLayout from "../layouts/Mainlayout";
-// import MapList from "../components/food/map/MapList";
 import Mapmap from "../components/food/map/Mapmap";
 import Button from "../components/Button/Button";
 
@@ -8,7 +7,7 @@ export default function FoodListPage() {
   return (
     <MainLayout>
       <div className="flex flex-col ">
-        <div className="flex p-3 pb-1 ml-2 text-3xl font-semibold ">
+        <div className="flex p-3 pt-0 pb-1 ml-2 text-3xl font-semibold">
           메뉴 프록스 자리
         </div>
         <div className="flex h-20 p-1 mb-1 ">
