@@ -1,16 +1,21 @@
-import { useNavigate } from "react-router";
+import { useParams } from "react-router";
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import CommonButton from "../button/CommonButton";
+import { Link } from "react-router-dom";
+
 
 export default function VipDetail() {
-  const navigate = useNavigate();
+
+  const {id, vipId} = useParams() 
 
   return (
     <div className="box-border flex flex-col flex-1 w-full p-3">
       <div className="flex flex-row justify-between my-3">
         <div className="flex text-2xl font-semibold">VIP 님의 정보</div>
-        <ArrowBackIcon fontSize="large" onClick={() => navigate(-1)} />
+        <Link to={`/mypage/${id}`}>
+          <ArrowBackIcon fontSize="large" />
+        </Link>
       </div>
       <div className="flex flex-col justify-center w-full h-full m-2">
         <div className="flex flex-row justify-around w-2/3 h-1/2 ">
