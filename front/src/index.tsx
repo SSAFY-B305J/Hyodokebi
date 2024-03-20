@@ -8,7 +8,6 @@ import App from "./App";
 import ErrorPage from "./pages/ErrorPage";
 import MainPage from "./pages/MainPage";
 import Mypage from "./pages/Mypage";
-import VipCreatePage from "./pages/VipCreatePage";
 import DoubleTab from "./components/tab/DoubleTab";
 import VipCreate from "./components/vip/VipCreate";
 import VipList from "./components/vip/VipList";

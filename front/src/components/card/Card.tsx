@@ -8,7 +8,7 @@ export default function Card() {
         <CloseIcon onClick={()=> console.log("닫기")} />
       </div>
       <div className="flex justify-center w-full">
-        <img src="https://picsum.photos/48/48" alt="empty" className="w-3/4" />
+        <img src="" alt="empty" className="w-3/4" />
       </div>
       <div className="flex flex-col justify-center">
         <div className="flex justify-center m-3 text-2xl font-semibold">제목</div>

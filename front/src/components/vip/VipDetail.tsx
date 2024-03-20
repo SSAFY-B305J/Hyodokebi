@@ -8,7 +8,7 @@ export default function VipDetail() {
   const { id, vipId } = useParams();
 
   return (
-    <div className="box-border flex flex-col flex-1 w-full p-3">
+    <div className="box-border flex flex-col flex-1 p-3">
       <div className="flex flex-row justify-between my-3">
         <div className="flex text-2xl font-semibold">VIP 님의 정보</div>
         <Link to={`/mypage/${id}`}>
