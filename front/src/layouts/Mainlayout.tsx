@@ -15,7 +15,7 @@ export default function MainLayout ({children} : MainLayoutProps) {
   return (
     <div className="flex flex-col w-screen h-screen">
       <MainHeader isLogin={isLogin} />
-      <div className="flex items-center justify-center flex-1">
+      <div className="flex justify-center flex-1">
         {children}
       </div>
     </div>

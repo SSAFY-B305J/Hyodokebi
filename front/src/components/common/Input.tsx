@@ -1,3 +1,5 @@
+import React from "react";
+
 interface InputProps {
   id: string;
   label: string;
@@ -5,6 +7,7 @@ interface InputProps {
   placeholder?: string;
   message?: string;
   status?: number;
+  inputHandler?: ((e : React.ChangeEvent<HTMLInputElement>) => void);
 }
 
 interface borderColorsType {
@@ -25,6 +28,7 @@ export default function Input({
   placeholder = "",
   message = "",
   status = 0,
+  inputHandler,
 }: InputProps) {
   // 상태에 따른 테두리 색 설정 객체
   const borderColors: borderColorsType = {
@@ -64,6 +68,7 @@ export default function Input({
         id={id}
         className={`w-full px-3 py-3 text-sm border ${borderColors[status].border} focus:outline-none rounded-md`}
         placeholder={placeholder}
+        onChange={inputHandler}
       />
       {status > 0 && message.length > 0 ? (
         <span

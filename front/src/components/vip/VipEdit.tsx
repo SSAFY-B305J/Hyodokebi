@@ -1,24 +1,27 @@
 import Input from "../common/Input";
 import MenuCard from "../card/MenuCard";
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import CommonButton from "../button/CommonButton";
 
-export default function VipCreate() {
+export default function VipEdit() {
+
 
   const [vipData, setVipdata] = useState({
     nickname: "",
   })
   const [text, setText] = useState("")
-
+  const {id, vipId} = useParams()
   
   useEffect(() => {
+    console.log(id, vipId)
     console.log(vipData);
-  }, [vipData]);
-  // POST 확인
+  }, [vipData, id, vipId]);
+  // PUT 확인
   return (
     <div className="box-border flex flex-col justify-between w-3/5 h-[85vh]">
       <div className="flex justify-center my-2 text-3xl font-semibold">
-        VIP 추가
+        VIP 수정
       </div>
       <div className="flex w-3/4 m-2">
         <Input id="nickname" label="닉네임" inputHandler={(event)=>setText(event.target.value)} />
@@ -54,7 +57,7 @@ export default function VipCreate() {
         {/* 무한스크롤 고려? */}
       </div>
       <div className="flex justify-center mt-3">
-        <CommonButton text="저장" clickHandler={()=>setVipdata({ nickname: text })} />
+        <CommonButton text="수정" clickHandler={()=>setVipdata({ nickname: text })} />
       </div>
     </div>
   );

@@ -1,7 +1,5 @@
-import FoodList from "../components/food/FoodList";
 import MainLayout from "../layouts/Mainlayout";
 import Mapmap from "../components/food/map/Mapmap";
-import Button from "../components/Button/Button";
 
 export default function FoodListPage() {
   return (
