@@ -1,3 +1,4 @@
+import { MouseEvent } from "react";
 import ButtonAsset from "../Button/ButtonAsset";
 import InputAsset from "./InputAsset";
 
@@ -8,6 +9,7 @@ interface TextFieldProps {
   buttonText?: string;
   buttonVisible?: boolean;
   error?: Error;
+  buttonClickHandler?: (event: MouseEvent) => void;
 }
 
 export default function TextField({
@@ -17,6 +19,7 @@ export default function TextField({
   buttonText = "",
   buttonVisible = false,
   error,
+  buttonClickHandler,
 }: TextFieldProps) {
   return (
     <div className="relative">
@@ -27,7 +30,15 @@ export default function TextField({
       {/* Input & Button */}
       <div className="flex w-full">
         <InputAsset placeholder={placeholder} />
-        {buttonVisible && <ButtonAsset text={buttonText} className="ml-2" />}
+        {/* TODO: 버튼을 없앨지 고민 중입니다. */}
+        {buttonVisible && (
+          <ButtonAsset
+            text={buttonText}
+            size="sm"
+            className="ml-2"
+            onClick={buttonClickHandler}
+          />
+        )}
       </div>
       {/* Error Message */}
       {error && <p className="inline-block text-xs">{error.message}</p>}

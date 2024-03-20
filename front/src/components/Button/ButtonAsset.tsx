@@ -25,7 +25,7 @@ export default function ButtonAsset({
   const buttonColors: ButtonStyleType = {
     filled: "bg-primary hover:bg-primary-hover disabled:bg-disabled text-white",
     outlined:
-      "text-primary bg-white border border-primary hover:bg-primary hover:text-white disabled:border-disabled disabled:text-disabled",
+      "text-primary bg-white border border-primary hover:bg-secondary hover:text-white disabled:border-disabled disabled:text-disabled",
     text: "text-black bg-white hover:bg-[#ededed] disabled:text-disabled",
   };
 
@@ -39,7 +39,7 @@ export default function ButtonAsset({
   return (
     <button
       {...buttonAttribute}
-      className={`min-w-fit px-5 py-2 rounded-md ${buttonColors[variant]} ${buttonSizes[size]} ${className}`}
+      className={`min-w-fit rounded-md ${buttonColors[variant]} ${buttonSizes[size]} ${className}`}
     >
       <span className="flex items-center justify-center">{text}</span>
     </button>
