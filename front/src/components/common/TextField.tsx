@@ -1,4 +1,4 @@
-import Button from "../Button/Button";
+import ButtonAsset from "../Button/ButtonAsset";
 import InputAsset from "./InputAsset";
 
 interface TextFieldProps {
@@ -27,7 +27,7 @@ export default function TextField({
       {/* Input & Button */}
       <div className="flex w-full">
         <InputAsset placeholder={placeholder} />
-        {buttonVisible && <Button text={buttonText} className="ml-2" />}
+        {buttonVisible && <ButtonAsset text={buttonText} className="ml-2" />}
       </div>
       {/* Error Message */}
       {error && <p className="inline-block text-xs">{error.message}</p>}
