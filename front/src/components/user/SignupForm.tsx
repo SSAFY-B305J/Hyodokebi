@@ -16,9 +16,9 @@ export default function SignupForm() {
         </div>
         <div className="flex flex-col my-20 [&>*]:mb-3">
           <div className="flex flex-col">
-            <ButtonAsset text="로그인" size="lg" />
+            <ButtonAsset text="회원가입하기" size="lg" />
             <HorizontalDivider text="또는" />
-            <KakaoButton text="카카오 로그인하기" size="lg" />
+            <KakaoButton text="카카오로 시작하기" size="lg" />
           </div>
         </div>
       </>
