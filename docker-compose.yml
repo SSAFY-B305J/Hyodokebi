@@ -1,0 +1,49 @@
+version: "3"
+services: 
+  frontend-nginx:
+    build:
+      dockerfile: Dockerfile_front
+      context: ./front
+    container_name: front-container
+    #코드 수정후 다시이미지 build없이 코드가 반영 될 수 있게 volume을 사용한다.
+    volumes:
+      - /app/node_modules
+      - ./front:/app
+    stdin_open: true
+    ports:
+      - "3000:3000"
+
+  database:
+    image: mysql:latest
+    restart: unless-stopped
+    container_name: sql-container
+    ports:
+      - "13306:13306"
+    # container가 제거될 때 db도 사라지는 것 방지
+    volumes:
+      - ./mysql/mysql_data:/var/lib/mysql
+      - ./mysql/sqls/:/docker-entrypoint-initdb.d/
+    environment:
+      MYSQL_USER: dokebi
+      MYSQL_ROOT_PASSWORD: dokebi@@1234
+      MYSQL_DATABASE: dokebi
+      MYSQL_TCP_PORT: 13306
+    #mysql의 root 비밀번호와 db를 설정해준다.
+  
+  backend:
+    build: 
+      dockerfile: Dockerfile_back
+      context: ./Back/dokebi
+    container_name: back-container
+    volumes:
+      - /app/node_modules
+      - ./backend:/app
+    ports:
+      - "8080:8080"
+    restart: on-failure:10
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://localhost:13306/dokebi?useSSL=false&serverTimezone=Asia/Seoul&cacheDefaultTimezone=false
+      SPRING_DATASOURCE_USERNAME: "dokebi"
+      SPRING_DATASOURCE_PASSWORD: "dokebi@@1234"
+    depends_on:
+    - database
