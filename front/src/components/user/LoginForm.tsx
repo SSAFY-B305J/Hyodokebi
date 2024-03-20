@@ -1,5 +1,4 @@
 import hyoblin from "../../assets/hyoblin.png";
-import Button from "../Button/Button";
 import KakaoButton from "../Button/KakaoButton";
 import VerticalDivider from "./VerticalDivider";
 import FormContainer from "./FormContainer";
