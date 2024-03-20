@@ -14,6 +14,7 @@ import VipCreate from "./components/vip/VipCreate";
 import VipList from "./components/vip/VipList";
 import TopicBox from "./components/topic/TopicBox";
 import VipEdit from "./components/vip/VipEdit";
+import VipDetail from "./components/vip/VipDetail";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -57,6 +58,7 @@ const router = createBrowserRouter([
               },
               {
                 path: "vip/:vipId",
+                element: <VipDetail />,
               }
             ],
           },
