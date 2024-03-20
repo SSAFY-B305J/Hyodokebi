@@ -2,10 +2,12 @@ import FormContainer from "./FormContainer";
 import hyoblin from "../../assets/hyoblin.png";
 import KakaoButton from "../Button/KakaoButton";
 import HorizontalDivider from "./HorizontalDivider";
-import { Link } from "react-router-dom";
 import ButtonAsset from "../Button/ButtonAsset";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function SignupForm() {
+  const navigate = useNavigate();
+
   return (
     <FormContainer>
       <>
@@ -16,7 +18,11 @@ export default function SignupForm() {
         </div>
         <div className="flex flex-col my-20 [&>*]:mb-3">
           <div className="flex flex-col">
-            <ButtonAsset text="회원가입하기" size="lg" />
+            <ButtonAsset
+              text="회원가입하기"
+              size="lg"
+              onClick={() => navigate("regform")}
+            />
             <HorizontalDivider text="또는" />
             <KakaoButton text="카카오로 시작하기" size="lg" />
           </div>

@@ -15,6 +15,7 @@ import path from "path";
 import VipList from "./components/vip/VipList";
 import LoginPage from "./pages/user/LoginPage";
 import SignupPage from "./pages/user/SignupPage";
+import RegFormPage from "./pages/user/RegFormPage";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -36,7 +37,16 @@ const router = createBrowserRouter([
       },
       {
         path: "signup",
-        element: <SignupPage />,
+        children: [
+          {
+            path: "",
+            element: <SignupPage />,
+          },
+          {
+            path: "regform",
+            element: <RegFormPage />,
+          },
+        ],
       },
       {
         path: "mypage/:id",
