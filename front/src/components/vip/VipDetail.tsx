@@ -4,10 +4,8 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import CommonButton from "../button/CommonButton";
 import { Link } from "react-router-dom";
 
-
 export default function VipDetail() {
-
-  const {id, vipId} = useParams() 
+  const { id, vipId } = useParams();
 
   return (
     <div className="box-border flex flex-col flex-1 w-full p-3">
@@ -27,11 +25,14 @@ export default function VipDetail() {
             {/* TODO DB에서 얻은 정보 입력 */}
           </div>
         </div>
-        <div className="flex justify-end mt-3">
-          <CommonButton text="수정하기" />
+        <div className="flex justify-end my-3">
+          <Link to={`/mypage/${id}/vip/${vipId}/edit`}>
+            <CommonButton text="수정하기" />
+          </Link>
           {/* TODO 수정 페이지로 */}
         </div>
-        <div>
+        <div className="flex w-2/3">
+          <div className="flex text-xl font-semibold">보관함</div>
           {/* VIP 정보 */}
         </div>
       </div>
