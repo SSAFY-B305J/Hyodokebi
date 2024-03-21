@@ -6,7 +6,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 import Input from "../common/Input";
 import MenuCard from "../card/MenuCard";
-import CommonButton from "../button/CommonButton";
+import ButtonAsset from "../Button/ButtonAsset";
 
 export default function VipCreate() {
   const [vipData, setVipdata] = useState({
@@ -65,9 +65,9 @@ export default function VipCreate() {
         {/* 무한스크롤 고려? */}
       </div>
       <div className="flex justify-center mt-3">
-        <CommonButton
+        <ButtonAsset
           text="저장"
-          clickHandler={() => setVipdata({ nickname: text })}
+          onClick={() => setVipdata({ nickname: text })}
         />
       </div>
     </div>

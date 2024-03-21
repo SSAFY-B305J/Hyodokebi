@@ -1,4 +1,4 @@
-import CommonButton from "../button/CommonButton";
+import ButtonAsset from "../Button/ButtonAsset";
 
 import { Link, NavLink, useNavigate, useParams } from "react-router-dom";
 
@@ -20,7 +20,7 @@ export default function AddCard() {
       </div>
       <div className="flex flex-col items-center justify-end w-full pb-3 h-1/3">
         <Link to={`/mypage/${id}/vip/create`}>
-          <CommonButton text="VIP 추가하기" variant="outlined" />
+          <ButtonAsset text="VIP 추가하기" variant="outlined" />
         </Link>
       </div>
     </div>

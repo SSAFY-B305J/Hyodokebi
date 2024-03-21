@@ -1,7 +1,7 @@
 import { useParams } from "react-router";
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import CommonButton from "../button/CommonButton";
+import ButtonAsset from "../Button/ButtonAsset";
 import { Link } from "react-router-dom";
 
 export default function VipDetail() {
@@ -27,7 +27,7 @@ export default function VipDetail() {
         </div>
         <div className="flex justify-end my-3">
           <Link to={`/mypage/${id}/vip/${vipId}/edit`}>
-            <CommonButton text="수정하기" />
+            <ButtonAsset text="수정하기" />
           </Link>
           {/* TODO 수정 페이지로 */}
         </div>

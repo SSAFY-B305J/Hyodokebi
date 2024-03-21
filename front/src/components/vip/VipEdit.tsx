@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 
 import Input from "../common/Input";
 import MenuCard from "../card/MenuCard";
-import CommonButton from "../button/CommonButton";
+import ButtonAsset from "../Button/ButtonAsset";
 
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 // TODO 뒤로가기 기능
@@ -62,7 +62,7 @@ export default function VipEdit() {
         {/* 무한스크롤 고려? */}
       </div>
       <div className="flex justify-center mt-3">
-        <CommonButton text="수정" clickHandler={()=>setVipdata({ nickname: text })} />
+        <ButtonAsset text="수정" onClick={()=>setVipdata({ nickname: text })} />
       </div>
     </div>
   );
