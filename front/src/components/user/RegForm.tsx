@@ -18,6 +18,9 @@ export default function RegForm() {
     undefined
   );
   const [emailError, setEmailError] = useState<Error | undefined>(undefined);
+  const [nicknameError, setNicknameError] = useState<Error | undefined>(
+    undefined
+  );
 
   const [AuthButtonState, setAuthButtonState] = useState<boolean>(false);
   const [isEmailAuthStep, setIsEmailAuthVisible] = useState<boolean>(false);
@@ -197,6 +200,23 @@ export default function RegForm() {
   function onChangeNicknameHandler(e: ChangeEvent<HTMLInputElement>): void {
     const value = e.target.value;
     setNickname(value);
+    nicknameCheckHandler(value);
+  }
+
+  function nicknameCheckHandler(nickname: string): void {
+    const error = new Error();
+
+    // 빈칸인 경우
+    if (nickname === "") {
+      error.name = "error";
+      error.message = "닉네임을 입력해주세요.";
+      setNicknameError(error);
+      return;
+    }
+
+    error.name = "valid";
+    error.message = "";
+    setNicknameError(error);
   }
 
   return (
@@ -279,6 +299,7 @@ export default function RegForm() {
           label="닉네임"
           placeholder="닉네임"
           value={nickname}
+          error={nicknameError}
           onChange={onChangeNicknameHandler}
         />
       </div>
