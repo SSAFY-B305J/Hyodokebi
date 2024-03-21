@@ -25,7 +25,15 @@ export default function VipDetail() {
             {/* TODO DB에서 얻은 정보 입력 */}
           </div>
         </div>
-        <div className="flex justify-end my-3">
+        <div className="flex justify-end gap-3 my-3">
+          <ButtonAsset
+            text="삭제"
+            className="font-semibold text-white bg-red-600"
+            onClick={() =>
+              alert("정말 삭제 하시겠습니까?")
+              // Test
+            }
+          />
           <Link to={`/mypage/${id}/vip/${vipId}/edit`}>
             <ButtonAsset text="수정하기" />
           </Link>

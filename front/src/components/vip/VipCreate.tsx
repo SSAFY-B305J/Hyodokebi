@@ -11,14 +11,21 @@ import ButtonAsset from "../Button/ButtonAsset";
 export default function VipCreate() {
   const [vipData, setVipdata] = useState({
     nickname: "",
+    image: 0
   });
+  // TODO 초기값을 차후 DB에서 받을 것
   const [text, setText] = useState("");
   const navigate = useNavigate();
   const { id } = useParams();
   const handleClick = () => {
-    setVipdata({ nickname: text });
+    console.log(vipData)
     navigate(`/mypage/${id}`);
+    setVipdata({ nickname: text,
+    image: index });
   };
+  const [index, setIndex] = useState(0);
+  
+  // TODO 초기 인덱스 상태 관리 방안 고려, 회원 데이터에 넣을 수도?
 
   useEffect(() => {
     console.log(vipData);
@@ -42,16 +49,52 @@ export default function VipCreate() {
       </div>
       <div className="m-2 font-semibold">프로필 사진</div>
       <div className="flex w-full">
-        <img src="" alt="empty" className="mx-3" />
+        <img
+          src={`/test/picture${index}.jpg`}
+          alt="empty"
+          className="mx-3 w-[108px] h-[108px]"
+        />
         <div className="grid grid-cols-4 gap-3">
-          <img src="https://picsum.photos/48/48" alt="empty" />
-          <img src="https://picsum.photos/48/48" alt="empty" />
-          <img src="https://picsum.photos/48/48" alt="empty" />
-          <img src="https://picsum.photos/48/48" alt="empty" />
-          <img src="https://picsum.photos/48/48" alt="empty" />
-          <img src="https://picsum.photos/48/48" alt="empty" />
-          <img src="https://picsum.photos/48/48" alt="empty" />
-          <img src="https://picsum.photos/48/48" alt="empty" />
+          <img
+            src={`/test/picture0.jpg`}
+            alt="empty"
+            onClick={() => setIndex(0)}
+          />
+          <img
+            src={`/test/picture1.jpg`}
+            alt="empty"
+            onClick={() => setIndex(1)}
+          />
+          <img
+            src={`/test/picture2.jpg`}
+            alt="empty"
+            onClick={() => setIndex(2)}
+          />
+          <img
+            src={`/test/picture3.jpg`}
+            alt="empty"
+            onClick={() => setIndex(3)}
+          />
+          <img
+            src={`/test/picture4.jpg`}
+            alt="empty"
+            onClick={() => setIndex(4)}
+          />
+          <img
+            src={`/test/picture5.jpg`}
+            alt="empty"
+            onClick={() => setIndex(5)}
+          />
+          <img
+            src={`/test/picture6.jpg`}
+            alt="empty"
+            onClick={() => setIndex(6)}
+          />
+          <img
+            src={`/test/picture7.jpg`}
+            alt="empty"
+            onClick={() => setIndex(7)}
+          />
         </div>
       </div>
       <div className="box-border flex m-2 font-semibold">선호 음식</div>

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
 import Input from "../common/Input";
@@ -19,13 +19,10 @@ export default function VipEdit() {
     setVipdata({ nickname: text });
     // 구조 변경 필요성
     navigate(`/mypage/${id}`);
+    // vipData가 바뀌지 않는것 조치.
   };
+  const [index, setIndex] = useState(0);
 
-  useEffect(() => {
-    console.log(id, vipId);
-    console.log(vipData);
-  }, [vipData, id, vipId]);
-  // PUT 확인
   return (
     <div className="box-border flex flex-col justify-between w-3/5 h-[85vh]">
       <div className="flex justify-center my-2 text-3xl font-semibold">
@@ -40,16 +37,52 @@ export default function VipEdit() {
       </div>
       <div className="m-2 font-semibold">프로필 사진</div>
       <div className="flex w-full">
-        <img src="https://picsum.photos/96/96" alt="empty" className="mx-3" />
+        <img
+          src={`/test/picture${index}.jpg`}
+          alt="empty"
+          className="mx-3 w-[108px] h-[108px]"
+        />
         <div className="grid grid-cols-4 gap-3">
-          <img src="https://picsum.photos/48/48" alt="empty" />
-          <img src="https://picsum.photos/48/48" alt="empty" />
-          <img src="https://picsum.photos/48/48" alt="empty" />
-          <img src="https://picsum.photos/48/48" alt="empty" />
-          <img src="https://picsum.photos/48/48" alt="empty" />
-          <img src="https://picsum.photos/48/48" alt="empty" />
-          <img src="https://picsum.photos/48/48" alt="empty" />
-          <img src="https://picsum.photos/48/48" alt="empty" />
+          <img
+            src={`/test/picture0.jpg`}
+            alt="empty"
+            onClick={() => setIndex(0)}
+          />
+          <img
+            src={`/test/picture1.jpg`}
+            alt="empty"
+            onClick={() => setIndex(1)}
+          />
+          <img
+            src={`/test/picture2.jpg`}
+            alt="empty"
+            onClick={() => setIndex(2)}
+          />
+          <img
+            src={`/test/picture3.jpg`}
+            alt="empty"
+            onClick={() => setIndex(3)}
+          />
+          <img
+            src={`/test/picture4.jpg`}
+            alt="empty"
+            onClick={() => setIndex(4)}
+          />
+          <img
+            src={`/test/picture5.jpg`}
+            alt="empty"
+            onClick={() => setIndex(5)}
+          />
+          <img
+            src={`/test/picture6.jpg`}
+            alt="empty"
+            onClick={() => setIndex(6)}
+          />
+          <img
+            src={`/test/picture7.jpg`}
+            alt="empty"
+            onClick={() => setIndex(7)}
+          />
         </div>
       </div>
       <div className="box-border flex m-2 font-semibold">선호 음식</div>
@@ -66,14 +99,17 @@ export default function VipEdit() {
           <MenuCard />
           <MenuCard />
         </div>
-        {/* 무한스크롤 고려? */}
       </div>
       <div className="flex flex-row justify-center gap-2 mt-3">
-        <ButtonAsset text="삭제" className="font-semibold text-white bg-red-600" />
         <ButtonAsset
-          text="수정"
-          onClick={handleClick}
+          text="삭제"
+          className="font-semibold text-white bg-red-600"
+          onClick={
+            () => alert("정말 삭제 하시겠습니까?")
+            // Test
+          }
         />
+        <ButtonAsset text="수정" onClick={handleClick} />
       </div>
     </div>
   );
