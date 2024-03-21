@@ -9,7 +9,7 @@ export default function FoodListPage() {
           메뉴 프록스 자리
         </div>
         <div className="flex h-20 p-1 mb-1 ">
-          <div className="flex items-center justify-center w-1/4 m-2 mr-3 text-xl font-bold border border-2 text-primary border-primary">
+          <div className="flex items-center justify-center w-1/4 m-2 mr-3 text-xl font-bold border-2 text-primary border-primary">
             지역
           </div>
           <div className="flex flex-row p-3 grow">

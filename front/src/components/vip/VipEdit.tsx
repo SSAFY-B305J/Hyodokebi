@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 
 import Input from "../common/Input";
 import MenuCard from "../card/MenuCard";
@@ -18,15 +18,20 @@ export default function VipEdit() {
   const handleClick = () => {
     setVipdata({ nickname: text });
     // 구조 변경 필요성
-    navigate(`/mypage/${id}`);
+    navigate(`/mypage/${id}/vip/${vipId}`);
     // vipData가 바뀌지 않는것 조치.
   };
   const [index, setIndex] = useState(0);
-
+  const arr = Array.from({length:8}, (v,i)=>i)
+  console.log(arr); 
+  
   return (
     <div className="box-border flex flex-col justify-between w-3/5 h-[85vh]">
-      <div className="flex justify-center my-2 text-3xl font-semibold">
+      <div className="flex justify-between w-full my-2 text-3xl font-semibold">
         VIP 수정
+        <Link to={`/mypage/${id}/vip/${vipId}`}>
+          <ArrowBackIcon fontSize="large" />
+        </Link>
       </div>
       <div className="flex w-3/4 m-2">
         <Input
@@ -43,46 +48,15 @@ export default function VipEdit() {
           className="mx-3 w-[108px] h-[108px]"
         />
         <div className="grid grid-cols-4 gap-3">
+        {arr.map((x)=>(
           <img
-            src={`/test/picture0.jpg`}
+            key={x}
+            src={`/test/picture${x}.jpg`}
             alt="empty"
-            onClick={() => setIndex(0)}
+            onClick={() => setIndex(x)}
           />
-          <img
-            src={`/test/picture1.jpg`}
-            alt="empty"
-            onClick={() => setIndex(1)}
-          />
-          <img
-            src={`/test/picture2.jpg`}
-            alt="empty"
-            onClick={() => setIndex(2)}
-          />
-          <img
-            src={`/test/picture3.jpg`}
-            alt="empty"
-            onClick={() => setIndex(3)}
-          />
-          <img
-            src={`/test/picture4.jpg`}
-            alt="empty"
-            onClick={() => setIndex(4)}
-          />
-          <img
-            src={`/test/picture5.jpg`}
-            alt="empty"
-            onClick={() => setIndex(5)}
-          />
-          <img
-            src={`/test/picture6.jpg`}
-            alt="empty"
-            onClick={() => setIndex(6)}
-          />
-          <img
-            src={`/test/picture7.jpg`}
-            alt="empty"
-            onClick={() => setIndex(7)}
-          />
+          
+        ))}
         </div>
       </div>
       <div className="box-border flex m-2 font-semibold">선호 음식</div>
@@ -101,14 +75,7 @@ export default function VipEdit() {
         </div>
       </div>
       <div className="flex flex-row justify-center gap-2 mt-3">
-        <ButtonAsset
-          text="삭제"
-          className="font-semibold text-white bg-red-600"
-          onClick={
-            () => alert("정말 삭제 하시겠습니까?")
-            // Test
-          }
-        />
+        <ButtonAsset text="취소" variant="outlined" onClick={()=>(navigate(`/mypage/${id}/vip/${vipId}`))} />
         <ButtonAsset text="수정" onClick={handleClick} />
       </div>
     </div>
