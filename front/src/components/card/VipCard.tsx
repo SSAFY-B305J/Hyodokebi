@@ -14,7 +14,7 @@ export default function VipCard({VipProps} : {VipProps: VipProps}) {
     <NavLink className="flex flex-col justify-around w-full p-2 m-2 border-2 border-gray-300 shadow-md h-[60vh] rounded-xl" to={`vip/${VipProps.id+1}`}>
       {/* ALERT width와 height는 확인용으로 넣은 것으로 추후 수정. */}
       <div className="flex justify-end">
-        <CloseIcon onClick={() => console.log("닫기")} />
+        {/* <CloseIcon onClick={() => console.log("닫기")} /> */}
       </div>
       <div className="flex justify-center w-full">
         <img src={VipProps.imagePath} alt="empty" className="w-[208px] h-[208px]" />

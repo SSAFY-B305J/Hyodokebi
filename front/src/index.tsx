@@ -73,11 +73,12 @@ const router = createBrowserRouter([
                 path: "",
                 element: <VipList />,
               },
-              {
-                path: "vip/:vipId",
-                element: <VipDetail />,
-              },
+              
             ],
+          },
+          {
+            path: "vip/:vipId",
+            element: <VipDetail />,
           },
           {
             path: "vip/create",
