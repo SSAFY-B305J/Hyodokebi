@@ -16,7 +16,7 @@ interface InputAssetProps {
 export default function InputAsset({
   className,
   type = "text",
-  iconVisible = false, // 좌측 아이콘 표시 여부
+  iconVisible = type === "password", // 좌측 아이콘 표시 여부
   ...InputAttribute
 }: InputAssetProps & InputAttribute) {
   const inputCSS =

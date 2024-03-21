@@ -8,13 +8,17 @@ export default function RegForm() {
   const [isEmailAuthStep, setIsEmailAuthStep] = useState<boolean>(false);
 
   const [id, setId] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [passwordCheck, setPasswordCheck] = useState<string>("");
+  const [pw, setPw] = useState<string>("");
+  const [pwCheck, setPwCheck] = useState<string>("");
   const [authCode, setAuthCode] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [nickname, setNickname] = useState<string>("");
 
   const [idError, setIdError] = useState<Error | undefined>(undefined);
+  const [pwError, setPwError] = useState<Error | undefined>(undefined);
+  const [pwCheckError, setPwCheckError] = useState<Error | undefined>(
+    undefined
+  );
 
   function SubmitHandler(e: FormEvent<HTMLFormElement>): void {
     e.preventDefault();
@@ -22,12 +26,12 @@ export default function RegForm() {
 
   // 아이디 input change 핸들러
   function onChangeIdHandler(e: ChangeEvent<HTMLInputElement>): void {
-    const idValue = e.target.value;
-    setId(idValue);
-    idCheckHandler(idValue);
+    const value = e.target.value;
+    setId(value);
+    idCheckHandler(value);
   }
 
-  // 아이디 유효성 체크
+  // 아이디 유효성 검사
   function idCheckHandler(id: string): void {
     const error = new Error();
 
@@ -41,7 +45,6 @@ export default function RegForm() {
 
     // 영어, 숫자 4글자 이상, 13글자 이하 조건에 맞지 않는 경우
     const idRegex = /^[a-z\d]{4,13}$/;
-    console.log(idRegex.test(id));
 
     if (!idRegex.test(id)) {
       error.name = "error";
@@ -64,6 +67,91 @@ export default function RegForm() {
     setIdError(error);
   }
 
+  // 비밀번호 input change 핸들러
+  function onChangePwHandler(e: ChangeEvent<HTMLInputElement>): void {
+    const value = e.target.value;
+    setPw(value);
+    pwCheckHandler(value);
+  }
+
+  // 비밀번호 유효성 검사
+  function pwCheckHandler(pw: string): void {
+    const error = new Error();
+
+    // 빈칸인 경우
+    if (pw === "") {
+      error.name = "error";
+      error.message = "비밀번호를 입력해주세요.";
+      setPwError(error);
+      return;
+    }
+
+    // 영어, 숫자, 특수문자 6글자 이상, 16글자 이하 조건에 맞지 않는 경우
+    const pwRegex = /^[a-zA-Z0-9!@*&-_*]{6,16}$/;
+
+    if (!pwRegex.test(pw)) {
+      error.name = "error";
+      error.message =
+        "비밀번호는 6 ~ 16자의 영문, 숫자, 특수문자(!@*&-_)만 입력 가능합니다.";
+      setPwError(error);
+      return;
+    }
+
+    error.name = "valid";
+    error.message = "";
+    setPwError(error);
+  }
+
+  // 비밀번호 확인 input change 핸들러
+  function onChangePwCheckHandler(e: ChangeEvent<HTMLInputElement>): void {
+    const value = e.target.value;
+    setPwCheck(value);
+    pwCheckCheckHandler(value);
+  }
+
+  // 비밀번호 확인 유효성 검사
+  function pwCheckCheckHandler(pwCheck: string): void {
+    const error = new Error();
+
+    // 빈칸인 경우
+    if (pwCheck === "") {
+      error.name = "error";
+      error.message = "비밀번호를 다시 한 번 입력해주세요.";
+      setPwCheckError(error);
+      return;
+    }
+
+    // 비밀번호가 다른 경우
+    if (pw !== pwCheck) {
+      error.name = "error";
+      error.message = "비밀번호가 일치하지 않습니다.";
+      setPwCheckError(error);
+      return;
+    }
+
+    error.name = "valid";
+    error.message = "";
+    setPwError(error);
+  }
+
+  // 이메일 input change 핸들러
+  function onChangeEmailHandler(e: ChangeEvent<HTMLInputElement>): void {
+    const value = e.target.value;
+    setEmail(value);
+  }
+
+  // 이메일 확인 input change 핸들러
+  function onChangeAuthCodeHandler(e: ChangeEvent<HTMLInputElement>): void {
+    const value = e.target.value;
+    setAuthCode(value);
+  }
+
+  // 닉네임 input change 핸들러
+  function onChangeNicknameHandler(e: ChangeEvent<HTMLInputElement>): void {
+    const value = e.target.value;
+    setNickname(value);
+  }
+
   return (
     <form
       className="flex flex-col items-center w-[500px]"
@@ -80,18 +168,33 @@ export default function RegForm() {
           error={idError}
         />
         {/* 비밀번호 */}
-        <TextField label="비밀번호" placeholder="비밀번호" value={password} />
+        <TextField
+          type="password"
+          label="비밀번호"
+          placeholder="비밀번호"
+          value={pw}
+          onChange={onChangePwHandler}
+          error={pwError}
+        />
         {/* 비밀번호 확인 */}
         <TextField
+          type="password"
           label="비밀번호 확인"
           placeholder="비밀번호 확인"
-          value={passwordCheck}
+          value={pwCheck}
+          onChange={onChangePwCheckHandler}
+          error={pwCheckError}
         />
         {/* 이메일 */}
         <div className="relative w-full">
           <label className="inline-block pb-1 font-bold">이메일</label>
           <div className="flex">
-            <InputAsset placeholder="이메일" value={email} />
+            <InputAsset
+              type="email"
+              placeholder="이메일"
+              value={email}
+              onChange={onChangeEmailHandler}
+            />
             <ButtonAsset
               text="인증하기"
               size="sm"
@@ -106,7 +209,11 @@ export default function RegForm() {
           <div className="relative w-full">
             <label className="inline-block pb-1 font-bold">인증번호 입력</label>
             <div className="flex">
-              <InputAsset placeholder="인증번호 입력" value={authCode} />
+              <InputAsset
+                placeholder="인증번호 입력"
+                value={authCode}
+                onChange={onChangeAuthCodeHandler}
+              />
               <ButtonAsset
                 text="확인하기"
                 size="sm"
@@ -118,7 +225,12 @@ export default function RegForm() {
           </div>
         )}
         {/* 닉네임 */}
-        <TextField label="닉네임" placeholder="닉네임" value={nickname} />
+        <TextField
+          label="닉네임"
+          placeholder="닉네임"
+          value={nickname}
+          onChange={onChangeNicknameHandler}
+        />
       </div>
       {/* Buttons */}
       <div className="flex items-center justify-center my-6">
