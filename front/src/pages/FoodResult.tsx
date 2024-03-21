@@ -1,7 +1,6 @@
 import MainLayout from "../layouts/Mainlayout";
 import FoodTap from "../components/food/FoodTap";
 import MenuCard from "../components/card/MenuCard";
-import Card from "../components/card/VipCard";
 
 export default function FoodResult() {
   return (
@@ -17,9 +16,6 @@ export default function FoodResult() {
           메뉴를 누르시면 주변의 음식점의 위치를 알려드립니다
         </div>
         <div className="flex ">
-          <Card />
-          <Card />
-          <Card />
         </div>
         <div className="flex mt-3 justify-evenly h-14 ">
           <div className="flex w-1/4">
