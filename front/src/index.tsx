@@ -17,6 +17,7 @@ import VipDetail from "./components/vip/VipDetail";
 import LoginPage from "./pages/user/LoginPage";
 import SignupPage from "./pages/user/SignupPage";
 import RegFormPage from "./pages/user/RegFormPage";
+import KakaoLogin from "./components/user/KakaoLogin";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -58,6 +59,10 @@ const router = createBrowserRouter([
             element: <RegFormPage />,
           },
         ],
+      },
+      {
+        path: "oauth",
+        element: <KakaoLogin />,
       },
       {
         path: "mypage/:id",
