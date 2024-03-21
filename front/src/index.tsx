@@ -14,13 +14,16 @@ import VipList from "./components/vip/VipList";
 import TopicBox from "./components/topic/TopicBox";
 import VipEdit from "./components/vip/VipEdit";
 import VipDetail from "./components/vip/VipDetail";
+import LoginPage from "./pages/user/LoginPage";
+import SignupPage from "./pages/user/SignupPage";
+import RegFormPage from "./pages/user/RegFormPage";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 
-const isLogin = true
-// TODO isLogin 임시. 
+const isLogin = true;
+// TODO isLogin 임시.
 // ALERT usestate는 최상단 경로에서는 사용불가
 
 const router = createBrowserRouter([
@@ -34,14 +37,27 @@ const router = createBrowserRouter([
         element: <MainPage />,
         children: [
           {
-            path : "",
-            element: <TopicBox isLogin={isLogin} />
-          }
-        ]
+            path: "",
+            element: <TopicBox isLogin={isLogin} />,
+          },
+        ],
       },
       {
         path: "login",
-        // element :
+        element: <LoginPage />,
+      },
+      {
+        path: "signup",
+        children: [
+          {
+            path: "",
+            element: <SignupPage />,
+          },
+          {
+            path: "regform",
+            element: <RegFormPage />,
+          },
+        ],
       },
       {
         path: "mypage/:id",
@@ -58,7 +74,7 @@ const router = createBrowserRouter([
               {
                 path: "vip/:vipId",
                 element: <VipDetail />,
-              }
+              },
             ],
           },
           {
