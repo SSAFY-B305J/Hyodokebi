@@ -23,7 +23,6 @@ export default function VipEdit() {
   };
   const [index, setIndex] = useState(0);
   const arr = Array.from({length:8}, (v,i)=>i)
-  console.log(arr); 
   
   return (
     <div className="box-border flex flex-col justify-between w-3/5 h-[85vh]">
@@ -62,15 +61,6 @@ export default function VipEdit() {
       <div className="box-border flex m-2 font-semibold">선호 음식</div>
       <div className="flex w-full h-[64vh] p-2 overflow-auto">
         <div className="grid w-full h-full grid-cols-5 gap-3">
-          <MenuCard />
-          <MenuCard />
-          <MenuCard />
-          <MenuCard />
-          <MenuCard />
-          <MenuCard />
-          <MenuCard />
-          <MenuCard />
-          <MenuCard />
           <MenuCard />
         </div>
       </div>
