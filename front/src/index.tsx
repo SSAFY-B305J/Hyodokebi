@@ -17,6 +17,9 @@ import VipDetail from "./components/vip/VipDetail";
 import LoginPage from "./pages/user/LoginPage";
 import SignupPage from "./pages/user/SignupPage";
 import RegFormPage from "./pages/user/RegFormPage";
+import FoodListPage from "./pages/FoodListPage";
+import FoodVipPage from "./pages/FoodVipPage";
+import FoodResult from "./pages/FoodResult";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -90,7 +93,16 @@ const router = createBrowserRouter([
       {
         path: "food/choice/:id",
         // TODO children을 통해 food 이하 라우터 배분할 것.
+        // TODO 음식 추천 기능 중첩 라우터 적용 예정
       },
+      {
+        path: "food/list",
+        element: <FoodListPage />
+      },
+      {
+        path: "food/result",
+        element: <FoodResult />
+      }
     ],
   },
 ]);
