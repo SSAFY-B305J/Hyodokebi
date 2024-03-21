@@ -5,8 +5,6 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import { Link } from "react-router-dom";
 
 export default function RegForm() {
-  const [isEmailAuthStep, setIsEmailAuthStep] = useState<boolean>(false);
-
   const [id, setId] = useState<string>("");
   const [pw, setPw] = useState<string>("");
   const [pwCheck, setPwCheck] = useState<string>("");
@@ -19,9 +17,21 @@ export default function RegForm() {
   const [pwCheckError, setPwCheckError] = useState<Error | undefined>(
     undefined
   );
+  const [emailError, setEmailError] = useState<Error | undefined>(undefined);
+
+  const [AuthButtonState, setAuthButtonState] = useState<boolean>(false);
+  const [isEmailAuthStep, setIsEmailAuthVisible] = useState<boolean>(false);
 
   function SubmitHandler(e: FormEvent<HTMLFormElement>): void {
     e.preventDefault();
+
+    // 이메일 인증하지 않은 않은 경우
+    if (!isEmailAuthStep) {
+      const error = new Error();
+      error.name = "error";
+      error.message = "이메일 인증을 진행해주세요.";
+      setEmailError(error);
+    }
   }
 
   // 아이디 input change 핸들러
@@ -45,7 +55,6 @@ export default function RegForm() {
 
     // 영어, 숫자 4글자 이상, 13글자 이하 조건에 맞지 않는 경우
     const idRegex = /^[a-z\d]{4,13}$/;
-
     if (!idRegex.test(id)) {
       error.name = "error";
       error.message = "아이디는 4 ~ 13자의 영소문자, 숫자만 입력 가능합니다.";
@@ -88,7 +97,6 @@ export default function RegForm() {
 
     // 영어, 숫자, 특수문자 6글자 이상, 16글자 이하 조건에 맞지 않는 경우
     const pwRegex = /^[a-zA-Z0-9!@*&-_*]{6,16}$/;
-
     if (!pwRegex.test(pw)) {
       error.name = "error";
       error.message =
@@ -138,6 +146,45 @@ export default function RegForm() {
   function onChangeEmailHandler(e: ChangeEvent<HTMLInputElement>): void {
     const value = e.target.value;
     setEmail(value);
+    emailCheckHandler(value);
+  }
+
+  // 이메일 유효성 검사
+  function emailCheckHandler(email: string): void {
+    const error = new Error();
+
+    // 빈칸인 경우
+    if (email === "") {
+      error.name = "error";
+      error.message = "이메일을 입력해주세요.";
+      setEmailError(error);
+      setAuthButtonState(false);
+      return;
+    }
+
+    // 이메일 형식이 아닌 경우
+    const emailRegex = /^[a-zA-Z0-9]+@[a-zA-Z]+\.[a-z]+$/;
+    if (!emailRegex.test(email)) {
+      error.name = "error";
+      error.message = "이메일 형식이 옳바르지 않습니다.";
+      setEmailError(error);
+      setAuthButtonState(false);
+      return;
+    }
+
+    // 이메일 형식이 맞으면 인증 버튼 활성화
+    setAuthButtonState(true);
+
+    error.name = "valid";
+    error.message = "";
+    setEmailError(error);
+  }
+
+  // 이메일 인증의 '인증하기' 버튼 click 핸들러
+  // 이메일 확인 TextField를 보여줌
+  function onClickEmailAuthButton() {
+    setIsEmailAuthVisible(true);
+    setAuthButtonState(false);
   }
 
   // 이메일 확인 input change 핸들러
@@ -199,10 +246,13 @@ export default function RegForm() {
               text="인증하기"
               size="sm"
               className="ml-2"
-              onClick={() => setIsEmailAuthStep(true)}
+              disabled={!AuthButtonState}
+              onClick={onClickEmailAuthButton}
             />
           </div>
-          <p className="w-full pt-1 text-xs"></p>
+          <p className="w-full pt-1 text-xs">
+            {emailError && emailError.message}
+          </p>
         </div>
         {/* 인증번호 입력 - 위의 '인증하기' 버튼을 클릭하면 출력됨 */}
         {isEmailAuthStep && (
@@ -218,7 +268,7 @@ export default function RegForm() {
                 text="확인하기"
                 size="sm"
                 className="ml-2"
-                onClick={() => setIsEmailAuthStep(true)}
+                onClick={() => setIsEmailAuthVisible(true)}
               />
             </div>
             <p className="w-full pt-1 text-xs"></p>
