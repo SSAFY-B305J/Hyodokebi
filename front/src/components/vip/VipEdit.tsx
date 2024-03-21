@@ -1,25 +1,28 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 import Input from "../common/Input";
 import MenuCard from "../card/MenuCard";
 import ButtonAsset from "../Button/ButtonAsset";
 
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 // TODO 뒤로가기 기능
 
-
 export default function VipEdit() {
-
-
   const [vipData, setVipdata] = useState({
     nickname: "",
-  })
-  const [text, setText] = useState("")
-  const {id, vipId} = useParams()
-  
+  });
+  const navigate = useNavigate();
+  const [text, setText] = useState("");
+  const { id, vipId } = useParams();
+  const handleClick = () => {
+    setVipdata({ nickname: text });
+    // 구조 변경 필요성
+    navigate(`/mypage/${id}`);
+  };
+
   useEffect(() => {
-    console.log(id, vipId)
+    console.log(id, vipId);
     console.log(vipData);
   }, [vipData, id, vipId]);
   // PUT 확인
@@ -29,7 +32,11 @@ export default function VipEdit() {
         VIP 수정
       </div>
       <div className="flex w-3/4 m-2">
-        <Input id="nickname" label="닉네임" inputHandler={(event)=>setText(event.target.value)} />
+        <Input
+          id="nickname"
+          label="닉네임"
+          inputHandler={(event) => setText(event.target.value)}
+        />
       </div>
       <div className="m-2 font-semibold">프로필 사진</div>
       <div className="flex w-full">
@@ -61,8 +68,12 @@ export default function VipEdit() {
         </div>
         {/* 무한스크롤 고려? */}
       </div>
-      <div className="flex justify-center mt-3">
-        <ButtonAsset text="수정" onClick={()=>setVipdata({ nickname: text })} />
+      <div className="flex flex-row justify-center gap-2 mt-3">
+        <ButtonAsset text="삭제" className="font-semibold text-white bg-red-600" />
+        <ButtonAsset
+          text="수정"
+          onClick={handleClick}
+        />
       </div>
     </div>
   );

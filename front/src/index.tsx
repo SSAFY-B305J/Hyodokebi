@@ -18,7 +18,6 @@ import LoginPage from "./pages/user/LoginPage";
 import SignupPage from "./pages/user/SignupPage";
 import RegFormPage from "./pages/user/RegFormPage";
 import FoodListPage from "./pages/FoodListPage";
-import FoodVipPage from "./pages/FoodVipPage";
 import FoodResult from "./pages/FoodResult";
 
 const root = ReactDOM.createRoot(

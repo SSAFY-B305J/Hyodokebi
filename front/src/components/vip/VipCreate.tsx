@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 // TODO 뒤로가기 기능
@@ -13,7 +13,12 @@ export default function VipCreate() {
     nickname: "",
   });
   const [text, setText] = useState("");
-  const {id} = useParams()
+  const navigate = useNavigate();
+  const { id } = useParams();
+  const handleClick = () => {
+    setVipdata({ nickname: text });
+    navigate(`/mypage/${id}`);
+  };
 
   useEffect(() => {
     console.log(vipData);
@@ -23,9 +28,10 @@ export default function VipCreate() {
     <div className="box-border flex flex-col justify-between w-3/5 h-[85vh]">
       <div className="flex flex-row justify-between w-full my-2">
         <div className="flex text-2xl font-semibold">VIP 추가</div>
-        <Link to={`/mypage/${id}`}>
-          <ArrowBackIcon fontSize="large" />
-        </Link>
+        <ArrowBackIcon
+          fontSize="large"
+          onClick={() => navigate(`/mypage/${id}`)}
+        />
       </div>
       <div className="flex w-3/4 m-2">
         <Input
@@ -65,10 +71,7 @@ export default function VipCreate() {
         {/* 무한스크롤 고려? */}
       </div>
       <div className="flex justify-center mt-3">
-        <ButtonAsset
-          text="저장"
-          onClick={() => setVipdata({ nickname: text })}
-        />
+        <ButtonAsset text="저장" onClick={handleClick} />
       </div>
     </div>
   );
