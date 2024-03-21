@@ -1,5 +1,5 @@
 import InputAsset from "./InputAsset";
-import { InputAttribute } from "../../modules/attributeType";
+import { InputAttribute } from "../../modules/types/HTMLAttributeTypes";
 
 interface TextFieldProps {
   label?: string;

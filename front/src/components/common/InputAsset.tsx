@@ -1,11 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-
-type InputAttribute = React.DetailedHTMLProps<
-  React.InputHTMLAttributes<HTMLInputElement>,
-  HTMLInputElement
->;
+import { InputAttribute } from "../../modules/types/HTMLAttributeTypes";
 
 interface InputAssetProps {
   className?: string;
@@ -17,7 +13,7 @@ export default function InputAsset({
   className,
   type = "text",
   iconVisible = type === "password", // 좌측 아이콘 표시 여부
-  ...InputAttribute
+  ...inputAttribute
 }: InputAssetProps & InputAttribute) {
   const inputCSS =
     "w-full px-3 py-3 text-sm border border-silver rounded box-border focus:outline-none focus:border-secondary";
@@ -36,7 +32,7 @@ export default function InputAsset({
     <div className="relative w-full">
       <input
         type={inputType}
-        {...InputAttribute}
+        {...inputAttribute}
         className={`${inputCSS} ${className} ${iconVisible && "pr-14"}`}
       />
       {/* type이 password일 때만 생성되는 비밀번호 표시/감춤 버튼 */}
