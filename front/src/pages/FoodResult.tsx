@@ -1,7 +1,7 @@
 import MainLayout from "../layouts/Mainlayout";
 import FoodTap from "../components/food/FoodTap";
 import MenuCard from "../components/card/MenuCard";
-import Card from "../components/card/Card";
+import Card from "../components/card/VipCard";
 
 export default function FoodResult() {
   return (
