@@ -1,5 +1,6 @@
 import hyoblin from "../../assets/hyoblin.png";
 import club from "../../assets/club.png";
+import { Link } from "react-router-dom";
 
 interface MainHeaderProps {
   isLogin: boolean;
@@ -11,7 +12,9 @@ export default function MainHeader({ isLogin }: MainHeaderProps) {
       {isLogin === false ? (
         <div className="w-full h-[80px] flex flex-row justify-between items-center p-2 border-b-2 bg-white box-border">
           <div className="m-3">
-            <img src={hyoblin} alt="" />
+            <Link to="/">
+              <img src={hyoblin} alt="" />
+            </Link>
           </div>
           <div className="flex gap-5 m-3">
             <div className="text-2xl font-semibold">회원가입</div>
@@ -21,7 +24,9 @@ export default function MainHeader({ isLogin }: MainHeaderProps) {
       ) : (
         <div className="w-full h-[80px] flex flex-row justify-between items-center p-2 border-b-2 bg-white">
           <div className="m-3">
-            <img src={hyoblin} alt="" />
+            <Link to="/">
+              <img src={hyoblin} alt="" />
+            </Link>
           </div>
           <div className="flex gap-5 m-3">
             <div>

@@ -1,31 +1,42 @@
+import { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
+
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+// TODO 뒤로가기 기능
+
 import Input from "../common/Input";
 import MenuCard from "../card/MenuCard";
-import { useEffect, useState } from "react";
 import CommonButton from "../button/CommonButton";
 
 export default function VipCreate() {
-
   const [vipData, setVipdata] = useState({
     nickname: "",
-  })
-  const [text, setText] = useState("")
+  });
+  const [text, setText] = useState("");
+  const {id} = useParams()
 
-  
   useEffect(() => {
     console.log(vipData);
   }, [vipData]);
   // POST 확인
   return (
     <div className="box-border flex flex-col justify-between w-3/5 h-[85vh]">
-      <div className="flex justify-center my-2 text-3xl font-semibold">
-        VIP 추가
+      <div className="flex flex-row justify-between w-full my-2">
+        <div className="flex text-2xl font-semibold">VIP 추가</div>
+        <Link to={`/mypage/${id}`}>
+          <ArrowBackIcon fontSize="large" />
+        </Link>
       </div>
       <div className="flex w-3/4 m-2">
-        <Input id="nickname" label="닉네임" inputHandler={(event)=>setText(event.target.value)} />
+        <Input
+          id="nickname"
+          label="닉네임"
+          inputHandler={(event) => setText(event.target.value)}
+        />
       </div>
       <div className="m-2 font-semibold">프로필 사진</div>
       <div className="flex w-full">
-        <img src="https://picsum.photos/96/96" alt="empty" className="mx-3" />
+        <img src="" alt="empty" className="mx-3" />
         <div className="grid grid-cols-4 gap-3">
           <img src="https://picsum.photos/48/48" alt="empty" />
           <img src="https://picsum.photos/48/48" alt="empty" />
@@ -54,7 +65,10 @@ export default function VipCreate() {
         {/* 무한스크롤 고려? */}
       </div>
       <div className="flex justify-center mt-3">
-        <CommonButton text="저장" clickHandler={()=>setVipdata({ nickname: text })} />
+        <CommonButton
+          text="저장"
+          clickHandler={() => setVipdata({ nickname: text })}
+        />
       </div>
     </div>
   );
