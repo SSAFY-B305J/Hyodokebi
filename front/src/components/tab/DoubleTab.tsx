@@ -1,6 +1,4 @@
 import { useState } from "react";
-import AddCard from "../card/AddCard";
-import Card from "../card/Card";
 import { Outlet } from "react-router-dom";
 
 export default function DoubleTab() {

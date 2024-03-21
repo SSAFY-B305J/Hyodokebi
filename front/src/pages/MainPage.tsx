@@ -1,7 +1,5 @@
-import { useState } from "react";
 import { Outlet } from "react-router-dom";
 
-import TopicBox from "../components/topic/TopicBox";
 import MainLayout from "../layouts/Mainlayout";
 
 

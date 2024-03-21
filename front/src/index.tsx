@@ -8,12 +8,12 @@ import App from "./App";
 import ErrorPage from "./pages/ErrorPage";
 import MainPage from "./pages/MainPage";
 import Mypage from "./pages/Mypage";
-import VipCreatePage from "./pages/VipCreatePage";
 import DoubleTab from "./components/tab/DoubleTab";
 import VipCreate from "./components/vip/VipCreate";
 import VipList from "./components/vip/VipList";
 import TopicBox from "./components/topic/TopicBox";
 import VipEdit from "./components/vip/VipEdit";
+import VipDetail from "./components/vip/VipDetail";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -57,6 +57,7 @@ const router = createBrowserRouter([
               },
               {
                 path: "vip/:vipId",
+                element: <VipDetail />,
               }
             ],
           },
