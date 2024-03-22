@@ -17,7 +17,7 @@ export default function VipDetail() {
   }
   console.log(VipTestData);
   const vipIndex = parseInt(vipId) - 1;
-
+  
   return (
     <div className="box-border flex flex-col w-2/3 h-full p-3">
       <div className="flex flex-row justify-between my-3 w-full h-[10%] ">
@@ -31,7 +31,7 @@ export default function VipDetail() {
       <div className="flex flex-col justify-center w-full m-2 h-1/2">
         <div className="flex flex-row justify-center w-2/3 gap-32 h-2/3 ">
           <img
-            src={VipTestData[vipIndex].imagePath}
+            src={`/test/picture${VipTestData[vipIndex].imageIndex}.jpg`}
             alt=""
             className="w-1/4 h-full"
           />
