@@ -28,6 +28,12 @@ export default function RegForm() {
   function SubmitHandler(e: FormEvent<HTMLFormElement>): void {
     e.preventDefault();
 
+    idCheckHandler(id);
+    pwCheckHandler(pw);
+    pwCheckCheckHandler(pwCheck);
+    emailCheckHandler(email);
+    nicknameCheckHandler(nickname);
+
     // 이메일 인증하지 않은 않은 경우
     if (!isEmailAuthStep) {
       const error = new Error();
@@ -303,6 +309,7 @@ export default function RegForm() {
           value={nickname}
           error={nicknameError}
           onChange={onChangeNicknameHandler}
+          onBlur={() => nicknameCheckHandler(nickname)}
         />
       </div>
       {/* Buttons */}
