@@ -25,8 +25,8 @@ export default function MainHeader({ isLogin }: MainHeaderProps) {
             />
           </div>
           <div className="flex gap-5 m-3">
-            <div className="text-2xl font-semibold">회원가입</div>
-            <div className="text-2xl font-semibold">로그인</div>
+            <NavLink to='/signup' className="text-2xl font-semibold">회원가입</NavLink>
+            <NavLink to='/login' className="text-2xl font-semibold">로그인</NavLink>
           </div>
         </div>
       ) : (
