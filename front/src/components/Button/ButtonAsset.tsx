@@ -1,7 +1,4 @@
-type ButtonAttribute = React.DetailedHTMLProps<
-  React.ButtonHTMLAttributes<HTMLButtonElement>,
-  HTMLButtonElement
->;
+import { ButtonAttribute } from "../../modules/types/HTMLAttributeTypes";
 
 interface ButtonProps {
   text: string;

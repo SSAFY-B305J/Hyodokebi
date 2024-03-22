@@ -5,6 +5,7 @@ import FormContainer from "./FormContainer";
 import { Link } from "react-router-dom";
 import TextField from "../common/TextField";
 import ButtonAsset from "../Button/ButtonAsset";
+import { KAKAO_AUTH_URL } from "../../modules/auth/kakaoAuth";
 
 export default function LoginForm() {
   return (
@@ -21,7 +22,9 @@ export default function LoginForm() {
         </div>
         <div className="flex flex-col my-8 [&>*]:mb-3">
           <ButtonAsset text="로그인" size="lg" />
-          <KakaoButton text="카카오 로그인하기" size="lg" />
+          <Link to={KAKAO_AUTH_URL}>
+            <KakaoButton text="카카오 로그인하기" size="lg" />
+          </Link>
         </div>
         <div className="flex justify-center *:text-sm *:text-gray-700 [&>*:hover]:underline last:pr-0">
           <Link to="/">아이디 찾기</Link>

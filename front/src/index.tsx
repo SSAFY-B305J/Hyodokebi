@@ -19,6 +19,7 @@ import SignupPage from "./pages/user/SignupPage";
 import RegFormPage from "./pages/user/RegFormPage";
 import FoodListPage from "./pages/FoodListPage";
 import FoodResult from "./pages/FoodResult";
+import KakaoLogin from "./components/user/KakaoLogin";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -62,6 +63,10 @@ const router = createBrowserRouter([
         ],
       },
       {
+        path: "oauth",
+        element: <KakaoLogin />,
+      },
+      {
         path: "mypage/:id",
         element: <Mypage />,
         children: [
@@ -73,7 +78,6 @@ const router = createBrowserRouter([
                 path: "",
                 element: <VipList />,
               },
-              
             ],
           },
           {
@@ -97,12 +101,12 @@ const router = createBrowserRouter([
       },
       {
         path: "food/list",
-        element: <FoodListPage />
+        element: <FoodListPage />,
       },
       {
         path: "food/result",
-        element: <FoodResult />
-      }
+        element: <FoodResult />,
+      },
     ],
   },
 ]);
