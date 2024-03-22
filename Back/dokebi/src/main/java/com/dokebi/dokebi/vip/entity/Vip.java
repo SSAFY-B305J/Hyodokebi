@@ -1,12 +1,17 @@
 package com.dokebi.dokebi.vip.entity;
 
-import com.dokebi.dokebi.music.entity.Music;
+import com.dokebi.dokebi.music.entity.DisLikedMusic;
+import com.dokebi.dokebi.music.entity.SavedMusic;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.SQLRestriction;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@SQLRestriction("is_deleted = false")
+@SQLDelete(sql = "UPDATE VIP SET is_deleted = true WHERE vip_id = ?")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "Vip")
@@ -18,7 +23,7 @@ public class Vip {
     private int vipId;
 
     @Column(nullable = false)
-    private String vipNickName;
+    private String vipNickname;
 
     @Column(nullable = false)
     private int vipBirth;
@@ -26,21 +31,19 @@ public class Vip {
     @Column(nullable = false)
     private String vipProfile;
 
-    @ManyToMany
-    @JoinTable(name = "saved_music",
-            joinColumns = @JoinColumn(name = "vip_id"),
-            inverseJoinColumns = @JoinColumn(name = "music_id"))
-    List<Music> vipSavedMusics = new ArrayList<>();
+    // 한 vip가 여러 개의 savedMusic을 생성할 수 있음
+    // 해당 savedMusic은 한 vip에 귀속됨 여러 Music에 남길 수 없음
+    @OneToMany(mappedBy = "vip")
+    List<SavedMusic> vipSavedMusics = new ArrayList<>();
 
-    @ManyToMany
-    @JoinTable(name = "disliked_music",
-            joinColumns = @JoinColumn(name = "vip_id"),
-            inverseJoinColumns = @JoinColumn(name = "music_id"))
-    List<Music> vipDisLikedMusics = new ArrayList<>();
+    @OneToMany(mappedBy = "vip")
+    List<DisLikedMusic> vipDisLikedMusics = new ArrayList<>();
+
+    private boolean isDeleted;
 
     @Builder
-    public Vip(String vipNickName, int vipBirth, String vipProfile, List<Music> vipSavedMusics, List<Music> vipDisLikedMusics) {
-        this.vipNickName = vipNickName;
+    public Vip(String vipNickname, int vipBirth, String vipProfile, List<SavedMusic> vipSavedMusics, List<DisLikedMusic> vipDisLikedMusics) {
+        this.vipNickname = vipNickname;
         this.vipBirth = vipBirth;
         this.vipProfile = vipProfile;
         this.vipSavedMusics = vipSavedMusics;
