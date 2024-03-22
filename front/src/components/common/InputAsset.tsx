@@ -38,6 +38,7 @@ export default function InputAsset({
       {/* type이 password일 때만 생성되는 비밀번호 표시/감춤 버튼 */}
       {type === "password" && iconVisible && (
         <button
+          type="button"
           className="absolute top-1/2 translate-y-[-50%] right-4"
           onClick={togglePasswordVisibility}
         >
