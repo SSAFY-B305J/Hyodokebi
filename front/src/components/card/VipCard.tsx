@@ -4,6 +4,7 @@ interface VipProps {
   id: number;
   name: string;
   imagePath: string;
+  imageIndex: string;
 }
 
 export default function VipCard({ VipProps }: { VipProps: VipProps }) {
@@ -18,7 +19,7 @@ export default function VipCard({ VipProps }: { VipProps: VipProps }) {
       </div>
       <div className="flex justify-center w-full">
         <img
-          src={VipProps.imagePath}
+          src={`/test/picture${[VipProps.imageIndex]}.jpg`}
           alt="empty"
           className="w-[208px] h-[208px]"
         />

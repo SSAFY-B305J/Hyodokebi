@@ -14,6 +14,7 @@ export default function VipCreate() {
     image: 0
   });
   // TODO 초기값을 차후 DB에서 받을 것
+
   const [text, setText] = useState("");
   const navigate = useNavigate();
   const { id } = useParams();

@@ -1,23 +1,34 @@
 [
   {
     "id": 0,
-    "name": "1연복",
+    "name": "壹",
     "imagePath": "/test/yb.jpg",
+    "imageIndex": "0",
     "ageRange": "50대",
     "city" : "우루무치"
   },
   {
     "id": 1,
-    "name": "2연복",
+    "name": "貳",
     "imagePath": "/test/yb_1.jpg",
+    "imageIndex": "1",
     "ageRange": "60대",
     "city" : "장쑤"
   },
   {
     "id": 2,
-    "name": "3연복",
+    "name": "參",
     "imagePath": "/test/yb.jpg",
+    "imageIndex": "2",
     "ageRange": "80대",
     "city" : "헤이룽장"
+  },
+  {
+    "id": 3,
+    "name": "肆",
+    "imagePath": "/test/yb.jpg",
+    "imageIndex": "3",
+    "ageRange": "40대",
+    "city" : "베이징"
   }
 ]

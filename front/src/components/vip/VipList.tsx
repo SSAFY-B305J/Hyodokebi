@@ -6,6 +6,7 @@ interface VipTest {
   id: number;
   name: string;
   imagePath: string;
+  imageIndex: string;
 }
 
 export default function VipList() {
