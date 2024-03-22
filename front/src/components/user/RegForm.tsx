@@ -115,7 +115,6 @@ export default function RegForm() {
   function onChangePwCheckHandler(e: ChangeEvent<HTMLInputElement>): void {
     const value = e.target.value;
     setPwCheck(value);
-    pwCheckCheckHandler(value);
   }
 
   // 비밀번호 확인 유효성 검사
@@ -124,6 +123,8 @@ export default function RegForm() {
 
     // 빈칸인 경우
     if (pwCheck === "") {
+      console.log(pwCheck);
+
       error.name = "error";
       error.message = "비밀번호를 다시 한 번 입력해주세요.";
       setPwCheckError(error);
@@ -147,7 +148,6 @@ export default function RegForm() {
   function onChangeEmailHandler(e: ChangeEvent<HTMLInputElement>): void {
     const value = e.target.value;
     setEmail(value);
-    emailCheckHandler(value);
   }
 
   // 이메일 유효성 검사
@@ -250,6 +250,7 @@ export default function RegForm() {
           placeholder="비밀번호 확인"
           value={pwCheck}
           onChange={onChangePwCheckHandler}
+          onBlur={() => pwCheckCheckHandler(pwCheck)}
           error={pwCheckError}
         />
         {/* 이메일 */}
@@ -261,6 +262,7 @@ export default function RegForm() {
               placeholder="이메일"
               value={email}
               onChange={onChangeEmailHandler}
+              onBlur={() => emailCheckHandler(email)}
             />
             <ButtonAsset
               text="인증하기"
