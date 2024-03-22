@@ -25,7 +25,6 @@ export default function InputAsset({
   function togglePasswordVisibility(): void {
     setIsVisible(!isVisible);
     setInputType(inputType === "password" ? "text" : "password");
-    console.log(isVisible);
   }
 
   return (
