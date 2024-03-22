@@ -41,7 +41,6 @@ export default function RegForm() {
   function onChangeIdHandler(e: ChangeEvent<HTMLInputElement>): void {
     const value = e.target.value;
     setId(value);
-    idCheckHandler(value);
   }
 
   // 아이디 유효성 검사
@@ -83,7 +82,6 @@ export default function RegForm() {
   function onChangePwHandler(e: ChangeEvent<HTMLInputElement>): void {
     const value = e.target.value;
     setPw(value);
-    pwCheckHandler(value);
   }
 
   // 비밀번호 유효성 검사
@@ -232,6 +230,7 @@ export default function RegForm() {
           placeholder="아이디"
           value={id}
           onChange={onChangeIdHandler}
+          onBlur={() => idCheckHandler(id)}
           error={idError}
         />
         {/* 비밀번호 */}
@@ -241,6 +240,7 @@ export default function RegForm() {
           placeholder="비밀번호"
           value={pw}
           onChange={onChangePwHandler}
+          onBlur={() => pwCheckHandler(pw)}
           error={pwError}
         />
         {/* 비밀번호 확인 */}
