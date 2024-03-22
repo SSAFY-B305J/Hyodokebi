@@ -1,5 +1,3 @@
-import CloseIcon from "@mui/icons-material/Close";
-
 export default function MenuCard() {
   return (
     <div className= "flex flex-col justify-between w-full h-full p-3 border-2 border-gray-300 shadow-md rounded-xl ">
