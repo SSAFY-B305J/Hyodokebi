@@ -1,6 +1,6 @@
-import TextField from "../common/TextField";
-import ButtonAsset from "../Button/ButtonAsset";
-import InputAsset from "../common/InputAsset";
+import TextField from "../../../components/common/TextField";
+import ButtonAsset from "../../../components/Button/ButtonAsset";
+import InputAsset from "../../../components/common/InputAsset";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -267,115 +267,119 @@ export default function RegForm() {
   }
 
   return (
-    <form
-      className="flex flex-col items-center w-[500px]"
-      onSubmit={SubmitHandler}
-    >
-      <h1 className="my-6 text-3xl font-bold">회원가입</h1>
-      <div className="w-full *:mb-8">
-        {/* 아이디 */}
-        <TextField
-          label="아이디"
-          placeholder="아이디"
-          value={id}
-          onChange={onChangeIdHandler}
-          onBlur={() => idCheckHandler(id)}
-          error={idError}
-        />
-        {/* 비밀번호 */}
-        <TextField
-          type="password"
-          label="비밀번호"
-          placeholder="비밀번호"
-          value={pw}
-          onChange={onChangePwHandler}
-          onBlur={() => pwCheckHandler(pw)}
-          error={pwError}
-          autoComplete="off"
-        />
-        {/* 비밀번호 확인 */}
-        <TextField
-          type="password"
-          label="비밀번호 확인"
-          placeholder="비밀번호 확인"
-          value={pwConfirm}
-          onChange={onChangePwConfirmHandler}
-          // onBlur={(e) => pwCheckCheckHandler(e)}
-          error={pwCheckError}
-          autoComplete="off"
-        />
-        {/* 이메일 */}
-        <div className="relative w-full">
-          <label className="inline-block pb-1 font-bold">이메일</label>
-          <div className="flex">
-            <InputAsset
-              type="email"
-              placeholder="이메일"
-              value={email}
-              onChange={onChangeEmailHandler}
-              onBlur={() => emailCheckHandler(email)}
-            />
-            <ButtonAsset
-              type="button"
-              text="인증하기"
-              size="sm"
-              className="ml-2"
-              disabled={!AuthButtonState}
-              onClick={onClickEmailAuthButton}
-            />
-          </div>
-          <p className="w-full pt-1 text-xs">
-            {emailError && emailError.message}
-          </p>
-        </div>
-        {/* 인증번호 입력 - 위의 '인증하기' 버튼을 클릭하면 출력됨 */}
-        {isEmailAuthStep && (
+    <div className="m-14">
+      <form
+        className="flex flex-col items-center w-[500px]"
+        onSubmit={SubmitHandler}
+      >
+        <h1 className="my-6 text-3xl font-bold">회원가입</h1>
+        <div className="w-full *:mb-8">
+          {/* 아이디 */}
+          <TextField
+            label="아이디"
+            placeholder="아이디"
+            value={id}
+            onChange={onChangeIdHandler}
+            onBlur={() => idCheckHandler(id)}
+            error={idError}
+          />
+          {/* 비밀번호 */}
+          <TextField
+            type="password"
+            label="비밀번호"
+            placeholder="비밀번호"
+            value={pw}
+            onChange={onChangePwHandler}
+            onBlur={() => pwCheckHandler(pw)}
+            error={pwError}
+            autoComplete="off"
+          />
+          {/* 비밀번호 확인 */}
+          <TextField
+            type="password"
+            label="비밀번호 확인"
+            placeholder="비밀번호 확인"
+            value={pwConfirm}
+            onChange={onChangePwConfirmHandler}
+            // onBlur={(e) => pwCheckCheckHandler(e)}
+            error={pwCheckError}
+            autoComplete="off"
+          />
+          {/* 이메일 */}
           <div className="relative w-full">
-            <label className="inline-block pb-1 font-bold">인증번호 입력</label>
+            <label className="inline-block pb-1 font-bold">이메일</label>
             <div className="flex">
               <InputAsset
-                placeholder="인증번호 입력"
-                value={authCode}
-                onChange={onChangeAuthCodeHandler}
+                type="email"
+                placeholder="이메일"
+                value={email}
+                onChange={onChangeEmailHandler}
+                onBlur={() => emailCheckHandler(email)}
               />
               <ButtonAsset
                 type="button"
-                text="확인하기"
+                text="인증하기"
                 size="sm"
                 className="ml-2"
-                onClick={() => setIsEmailAuthVisible(true)}
+                disabled={!AuthButtonState}
+                onClick={onClickEmailAuthButton}
               />
             </div>
-            <p className="w-full pt-1 text-xs"></p>
+            <p className="w-full pt-1 text-xs">
+              {emailError && emailError.message}
+            </p>
           </div>
-        )}
-        {/* 닉네임 */}
-        <TextField
-          label="닉네임"
-          placeholder="닉네임"
-          value={nickname}
-          error={nicknameError}
-          onChange={onChangeNicknameHandler}
-          onBlur={() => nicknameCheckHandler(nickname)}
-        />
-      </div>
-      {/* Buttons */}
-      <div className="flex items-center justify-center my-6">
-        <Link to="/signup">
-          <ButtonAsset
-            text="취소"
-            variant="outlined"
-            size="lg"
-            className="mr-9"
+          {/* 인증번호 입력 - 위의 '인증하기' 버튼을 클릭하면 출력됨 */}
+          {isEmailAuthStep && (
+            <div className="relative w-full">
+              <label className="inline-block pb-1 font-bold">
+                인증번호 입력
+              </label>
+              <div className="flex">
+                <InputAsset
+                  placeholder="인증번호 입력"
+                  value={authCode}
+                  onChange={onChangeAuthCodeHandler}
+                />
+                <ButtonAsset
+                  type="button"
+                  text="확인하기"
+                  size="sm"
+                  className="ml-2"
+                  onClick={() => setIsEmailAuthVisible(true)}
+                />
+              </div>
+              <p className="w-full pt-1 text-xs"></p>
+            </div>
+          )}
+          {/* 닉네임 */}
+          <TextField
+            label="닉네임"
+            placeholder="닉네임"
+            value={nickname}
+            error={nicknameError}
+            onChange={onChangeNicknameHandler}
+            onBlur={() => nicknameCheckHandler(nickname)}
           />
-        </Link>
-        <ButtonAsset
-          type="submit"
-          text="회원 가입"
-          variant="filled"
-          size="lg"
-        />
-      </div>
-    </form>
+        </div>
+        {/* Buttons */}
+        <div className="flex items-center justify-center my-6">
+          <Link to="/signup">
+            <ButtonAsset
+              text="취소"
+              variant="outlined"
+              size="lg"
+              className="mr-9"
+            />
+          </Link>
+          <ButtonAsset
+            type="submit"
+            text="회원 가입"
+            variant="filled"
+            size="lg"
+          />
+        </div>
+      </form>
+    </div>
   );
 }

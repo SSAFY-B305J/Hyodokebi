@@ -1,11 +1,11 @@
 import hyoblin from "../../assets/hyoblin.png";
-import KakaoButton from "../Button/KakaoButton";
-import VerticalDivider from "./VerticalDivider";
-import FormContainer from "./FormContainer";
+import KakaoButton from "../../../components/Button/KakaoButton";
+import VerticalDivider from "../../../components/user/VerticalDivider";
+import FormContainer from "../../../components/user/FormContainer";
 import { Link, useNavigate } from "react-router-dom";
-import TextField from "../common/TextField";
-import ButtonAsset from "../Button/ButtonAsset";
-import { KAKAO_AUTH_URL } from "../../modules/auth/kakaoAuth";
+import TextField from "../../../components/common/TextField";
+import ButtonAsset from "../../../components/Button/ButtonAsset";
+import { KAKAO_AUTH_URL } from "../../../modules/auth/kakaoAuth";
 import { useState } from "react";
 import WarningIcon from "@mui/icons-material/Warning";
 
