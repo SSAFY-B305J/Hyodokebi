@@ -19,7 +19,8 @@ export default function MainHeader({ isLogin }: MainHeaderProps) {
               alt="logo"
               onClick={() => {
                 navigate("/");
-                sessionStorage.removeItem("recommend-state");
+                // sessionStorage.removeItem("recommend-state");
+                sessionStorage.clear()
                 window.location.reload()
             }}
             />
