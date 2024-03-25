@@ -43,22 +43,22 @@ const router = createBrowserRouter([
             path: "",
             element: <TopicBox isLogin={isLogin} />,
           },
-        ],
-      },
-      {
-        path: "login",
-        element: <LoginPage />,
-      },
-      {
-        path: "signup",
-        children: [
           {
-            path: "",
-            element: <SignupPage />,
+            path: "login",
+            element: <LoginPage />,
           },
           {
-            path: "regform",
-            element: <RegFormPage />,
+            path: "signup",
+            children: [
+              {
+                path: "",
+                element: <SignupPage />,
+              },
+              {
+                path: "regform",
+                element: <RegFormPage />,
+              },
+            ],
           },
         ],
       },
