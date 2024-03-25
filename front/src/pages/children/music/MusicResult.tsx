@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import ButtonAsset from "../../components/Button/ButtonAsset";
-import MusicCard from "../../components/card/MusicCard";
+import ButtonAsset from "../../../components/Button/ButtonAsset";
+import MusicCard from "../../../components/card/MusicCard";
 
 type Music = {
   musicId: number;

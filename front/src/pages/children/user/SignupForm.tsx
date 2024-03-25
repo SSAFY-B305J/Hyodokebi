@@ -1,8 +1,8 @@
-import FormContainer from "./FormContainer";
+import FormContainer from "../../../components/user/FormContainer";
 import hyoblin from "../../assets/hyoblin.png";
-import KakaoButton from "../Button/KakaoButton";
-import HorizontalDivider from "./HorizontalDivider";
-import ButtonAsset from "../Button/ButtonAsset";
+import KakaoButton from "../../../components/Button/KakaoButton";
+import HorizontalDivider from "../../../components/user/HorizontalDivider";
+import ButtonAsset from "../../../components/Button/ButtonAsset";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function SignupForm() {
