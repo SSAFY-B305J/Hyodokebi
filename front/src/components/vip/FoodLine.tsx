@@ -3,7 +3,6 @@ import kakaomapImage from "../../assets/kakaomap.png";
 export default function FoodLine() {
   return (
     <div className="w-[50vw] h-[20vh] border-2 border-gray-300 rounded-xl flex p-3 shadow-md ">
-      {/* ALERT width와 height는 확인용으로 넣은 것으로 추후 수정. */}
       <div className="flex place-items-center">
         <div className="w-[15vh] h-[15vh] ms-6 mr-3 ">
           <img

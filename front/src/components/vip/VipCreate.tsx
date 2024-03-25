@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-// TODO 뒤로가기 기능
 
 import Input from "../common/Input";
 import MenuCard from "../card/MenuCard";
@@ -24,10 +23,8 @@ export default function VipCreate() {
     setVipdata({ nickname: text,
     image: index });
   };
-  const [index, setIndex] = useState(0);
+  const [index, setIndex] = useState(vipData.image);
   
-  // TODO 초기 인덱스 상태 관리 방안 고려, 회원 데이터에 넣을 수도?
-
   useEffect(() => {
     console.log(vipData);
   }, [vipData]);

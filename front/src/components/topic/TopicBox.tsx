@@ -6,7 +6,6 @@ interface TopicBoxProps {
 }
 
 export default function TopicBox({ isLogin }: TopicBoxProps) {
-  // TODO 처음 페이지에 접근 할 때는 recom 값을 false로 가져가야 하지만, 새로고침은
   const { recom, setRecom } = useRecommendStore();
   const topicshow = Math.floor(Math.random() * 10);
   const show = Math.floor(Math.random() * 10);

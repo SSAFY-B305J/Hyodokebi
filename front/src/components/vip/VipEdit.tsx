@@ -6,7 +6,6 @@ import MenuCard from "../card/MenuCard";
 import ButtonAsset from "../Button/ButtonAsset";
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-// TODO 뒤로가기 기능
 
 export default function VipEdit() {
   const [vipData, setVipdata] = useState({
@@ -17,9 +16,9 @@ export default function VipEdit() {
   const { id, vipId } = useParams();
   const handleClick = () => {
     setVipdata({ nickname: text });
-    // 구조 변경 필요성
+    // TODO 구조 변경 필요성
     navigate(`/mypage/${id}/vip/${vipId}`);
-    // vipData가 바뀌지 않는것 조치.
+    // TODO vipData가 바뀌지 않는것 조치.
   };
   const [index, setIndex] = useState(0);
   const arr = Array.from({length:8}, (v,i)=>i)
