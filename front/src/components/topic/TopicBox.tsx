@@ -48,7 +48,7 @@ export default function TopicBox({ isLogin }: TopicBoxProps) {
   
 
   return (
-    <div className="w-[75vw] h-[66vh] bg-secondary rounded-3xl p-3 flex">
+    <div className="w-[75vw] h-[66vh] bg-secondary border-secondary border-2 rounded-3xl p-3 flex">
       {isLoading ? (
         <div className="flex flex-col items-center justify-center w-full h-full">
           <img src={`/loading_illust/loading_${radnum}.png`} className="w-[256px] h-[256px]"  alt="empty" />

@@ -7,7 +7,7 @@ type MainLayoutProps = {
 export default function MainLayout ({children} : MainLayoutProps) {
 
   // const [isLogin, setIsLogin] = useState(false)
-  const isLogin = false
+  const isLogin = true
   // TODO 로그인 판명 로직 : cookie를 사용하거나.
 
   return (
