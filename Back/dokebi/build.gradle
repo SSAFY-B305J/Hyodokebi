@@ -38,7 +38,11 @@ dependencies {
 	//test
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
+
+	//json
+	implementation 'org.json:json:20190722'
 }
+
 
 tasks.named('test') {
 	useJUnitPlatform()

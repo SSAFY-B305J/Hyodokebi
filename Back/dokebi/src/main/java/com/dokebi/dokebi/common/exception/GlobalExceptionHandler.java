@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(CustomException.class)
-    public ResponseEntity<StatusResponseDto> handleUserNameNotFoundException(CustomException exception) {
+    public ResponseEntity<StatusResponseDto> handleDokebiException(CustomException exception) {
         StatusResponseDto commonResponse = StatusResponseDto.builder()
                 .code(exception.getStatus().getCode())
                 .message(exception.getStatus().getMessage())
