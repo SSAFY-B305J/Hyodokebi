@@ -23,6 +23,7 @@ export default function MainHeader({ isLogin }: MainHeaderProps) {
                 window.location.reload()
                 sessionStorage.clear()
             }}
+            className="cursor-pointer"
             />
           </div>
           <div className="flex gap-5 m-3">
@@ -41,6 +42,7 @@ export default function MainHeader({ isLogin }: MainHeaderProps) {
                 window.location.reload()
                 sessionStorage.clear()
             }}
+            className="cursor-pointer "
             />
           </div>
           <div className="flex h-full gap-10 mr-5">

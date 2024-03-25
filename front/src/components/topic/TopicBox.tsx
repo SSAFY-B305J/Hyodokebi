@@ -52,12 +52,12 @@ export default function TopicBox({ isLogin }: TopicBoxProps) {
       {isLoading ? (
         <div className="flex flex-col items-center justify-center w-full h-full">
           <img src={`/loading_illust/loading_${radnum}.png`} className="w-[256px] h-[256px]"  alt="empty" />
-          <div className="text-xl">질문 생성 중...</div>
+          <div className="text-xl">로딩중...</div>
         </div>
       ) : recom ? (
         <div className="flex flex-col items-center justify-around w-full h-full">
           <div className="text-3xl font-semibold">
-            오늘은 이 주제로 대화 해보세요.
+            오늘은 이 주제로 대화해보세요.
           </div>
           <div className="text-2xl">{randomtopictest}</div>
           <div className="flex flex-col items-center justify-center w-3/4 gap-3 bg-white h-1/6 rounded-3xl">
