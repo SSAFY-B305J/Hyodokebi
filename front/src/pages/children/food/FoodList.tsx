@@ -1,5 +1,5 @@
-import Mapmap from "../../components/food/map/Mapmap";
-import ButtonAsset from "../Button/ButtonAsset";
+import Mapmap from "../../../components/food/map/Mapmap";
+import ButtonAsset from "../../../components/Button/ButtonAsset";
 interface CardProps {
   food1: string;
   food2: string;
