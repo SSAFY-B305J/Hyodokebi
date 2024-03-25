@@ -3,6 +3,7 @@ import ButtonAsset from "../Button/ButtonAsset";
 import FoodResultCard from "../card/FoodResultCard";
 import FoodTap from "./FoodTap";
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 export default function FoodResult() {
   const [data, setData] = useState([]);
