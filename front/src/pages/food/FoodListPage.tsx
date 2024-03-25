@@ -1,4 +1,3 @@
-import MainLayout from "../../layouts/Mainlayout";
 import Mapmap from "../../components/food/map/Mapmap";
 
 export default function FoodListPage() {
