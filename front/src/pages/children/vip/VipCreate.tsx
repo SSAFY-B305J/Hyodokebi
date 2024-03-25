@@ -3,9 +3,9 @@ import { useParams, useNavigate } from "react-router-dom";
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
-import Input from "../common/Input";
-import MenuCard from "../card/MenuCard";
-import ButtonAsset from "../Button/ButtonAsset";
+import Input from "../../../components/common/Input";
+import MenuCard from "../../../components/card/MenuCard";
+import ButtonAsset from "../../../components/Button/ButtonAsset";
 
 export default function VipCreate() {
   const [vipData, setVipdata] = useState({

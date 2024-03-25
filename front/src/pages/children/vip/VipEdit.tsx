@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 
-import Input from "../common/Input";
-import MenuCard from "../card/MenuCard";
-import ButtonAsset from "../Button/ButtonAsset";
+import Input from "../../../components/common/Input";
+import MenuCard from "../../../components/card/MenuCard";
+import ButtonAsset from "../../../components/Button/ButtonAsset";
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 

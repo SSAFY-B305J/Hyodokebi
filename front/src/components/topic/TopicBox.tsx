@@ -2,7 +2,6 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import useRecommendStore from "../../store/useRecommendStore";
 import ButtonAsset from "../Button/ButtonAsset";
-import { time } from "console";
 
 interface TopicBoxProps {
   isLogin: boolean;

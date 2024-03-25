@@ -1,6 +1,6 @@
-import VipCard from "../card/VipCard";
-import VipAddCard from "../card/VipAddCard";
-import VipTestData from "../../json/VipTestData.json"
+import VipCard from "../../../components/card/VipCard";
+import VipAddCard from "../../../components/card/VipAddCard";
+import VipTestData from "../../../json/VipTestData.json"
 
 interface VipTest {
   id: number;

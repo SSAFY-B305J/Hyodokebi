@@ -2,8 +2,8 @@ import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import ButtonAsset from "../Button/ButtonAsset";
-import VipTestData from "../../json/VipTestData.json";
+import ButtonAsset from "../../../components/Button/ButtonAsset";
+import VipTestData from "../../../json/VipTestData.json";
 
 interface Params {
   [key: string]: string;

@@ -1,8 +1,8 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import { Vip } from "../../modules/types/vip";
-import ButtonAsset from "../../components/Button/ButtonAsset";
-import { selectVipList } from "../../apis/api/music";
+import { Vip } from "../../../modules/types/vip";
+import ButtonAsset from "../../../components/Button/ButtonAsset";
+import { selectVipList } from "../../../apis/api/music";
 
 export default function MusicVipPage() {
   const [vipList, setVipList] = useState<Vip[]>([]);

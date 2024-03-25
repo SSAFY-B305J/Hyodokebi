@@ -6,20 +6,20 @@ import "./index.css";
 
 import App from "./App";
 import DoubleTab from "./components/tab/DoubleTab";
-import VipCreate from "./components/vip/VipCreate";
-import VipList from "./components/vip/VipList";
+import VipCreate from "./pages/children/vip/VipCreate";
+import VipList from "./pages/children/vip/VipList";
 import TopicBox from "./components/topic/TopicBox";
-import VipEdit from "./components/vip/VipEdit";
-import VipDetail from "./components/vip/VipDetail";
-import LoginPage from "./pages/user/LoginPage";
-import SignupPage from "./pages/user/SignupPage";
-import RegFormPage from "./pages/user/RegFormPage";
-import FoodResult from "./pages/food/FoodResultPage";
+import VipEdit from "./pages/children/vip/VipEdit";
+import VipDetail from "./pages/children/vip/VipDetail";
+import LoginPage from "./pages/children/user/LoginPage";
+import SignupPage from "./pages/children/user/SignupPage";
+import RegFormPage from "./pages/children/user/RegFormPage";
+import FoodResult from "./pages/children/food/FoodResultPage";
 import KakaoLogin from "./components/user/KakaoLogin";
-import FoodListPage from "./pages/FoodListPage";
+import FoodListPage from "./pages/children/food/FoodListPage";
 import ErrorPage from "./pages/ErrorPage";
 import MainPage from "./pages/MainPage";
-import Mypage from "./pages/Mypage";
+import Mypage from "./pages/children/Mypage";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
