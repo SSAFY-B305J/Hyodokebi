@@ -1,5 +1,6 @@
 import hyoblin from "../../assets/hyoblin.png";
 import club from "../../assets/club.png";
+import VipTestData from "../../json/VipTestData.json";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 
 interface MainHeaderProps {
@@ -19,9 +20,10 @@ export default function MainHeader({ isLogin }: MainHeaderProps) {
               alt="logo"
               onClick={() => {
                 navigate("/");
-                sessionStorage.removeItem("recommend-state");
                 window.location.reload()
+                sessionStorage.clear()
             }}
+            className="cursor-pointer"
             />
           </div>
           <div className="flex gap-5 m-3">
@@ -32,18 +34,26 @@ export default function MainHeader({ isLogin }: MainHeaderProps) {
       ) : (
         <div className="w-full h-[80px] flex flex-row justify-between items-center p-2 border-b-2 bg-white">
           <div className="m-3">
-            <Link to="/">
-              <img src={hyoblin} alt="" />
-            </Link>
+          <img
+              src={hyoblin}
+              alt="logo"
+              onClick={() => {
+                navigate("/");
+                window.location.reload()
+                sessionStorage.clear()
+            }}
+            className="cursor-pointer "
+            />
           </div>
-          <div className="flex gap-5 m-3">
-            <div>
+          <div className="flex h-full gap-10 mr-5">
+            <div className="flex h-full">
               <img src={club} alt="" />
             </div>
-            <div>
-              <img src="" alt="" />
+            <NavLink to={`/mypage/1`} className="flex h-full">
+              {/* TODO 해당 링크는 임시 */}
+              <img src={VipTestData[0].imagePath} alt="profile" className="h-full rounded-full" />
               {/* 프로필 아이콘 */}
-            </div>
+            </NavLink>
           </div>
         </div>
       )}

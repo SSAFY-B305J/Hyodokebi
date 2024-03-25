@@ -58,7 +58,6 @@ export default function VipDetail() {
           <Link to={`/mypage/${id}/vip/${vipId}/edit`}>
             <ButtonAsset text="수정하기" />
           </Link>
-          {/* TODO 수정 페이지로 */}
         </div>
       </div>
       <div className="flex w-full h-[30%]">
