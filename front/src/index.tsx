@@ -11,15 +11,17 @@ import VipList from "./pages/children/vip/VipList";
 import TopicBox from "./components/topic/TopicBox";
 import VipEdit from "./pages/children/vip/VipEdit";
 import VipDetail from "./pages/children/vip/VipDetail";
-import LoginPage from "./pages/children/user/LoginPage";
-import SignupPage from "./pages/children/user/SignupPage";
-import RegFormPage from "./pages/children/user/RegFormPage";
-import FoodResult from "./pages/children/food/FoodResultPage";
 import KakaoLogin from "./components/user/KakaoLogin";
-import FoodListPage from "./pages/children/food/FoodListPage";
 import ErrorPage from "./pages/ErrorPage";
 import MainPage from "./pages/MainPage";
 import Mypage from "./pages/children/Mypage";
+import LoginForm from "./pages/children/user/LoginForm";
+import SignupForm from "./pages/children/user/SignupForm";
+import RegForm from "./pages/children/user/RegForm";
+import FoodList from "./pages/children/food/FoodList";
+import FoodResult from "./pages/children/food/FoodResult";
+import MusicVipSelect from "./pages/children/music/MusicVipSelect";
+import MusicResult from "./pages/children/music/MusicResult";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -43,7 +45,7 @@ const router = createBrowserRouter([
           },
           {
             path: "login",
-            element: <LoginPage />,
+            element: <LoginForm />,
           },
           {
             path: "mypage/:id",
@@ -78,21 +80,29 @@ const router = createBrowserRouter([
             children: [
               {
                 path: "",
-                element: <SignupPage />,
+                element: <SignupForm />,
               },
               {
                 path: "regform",
-                element: <RegFormPage />,
+                element: <RegForm />,
               },
             ],
           },
           {
             path: "food/list",
-            element: <FoodListPage />,
+            element: <FoodList />,
           },
           {
             path: "food/result",
             element: <FoodResult />,
+          },
+          {
+            path: "music",
+            element: <MusicVipSelect />,
+          },
+          {
+            path: "music/:vipId",
+            element: <MusicResult />,
           },
         ],
       },

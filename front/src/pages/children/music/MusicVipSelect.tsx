@@ -4,7 +4,7 @@ import { Vip } from "../../../modules/types/vip";
 import ButtonAsset from "../../../components/Button/ButtonAsset";
 import { selectVipList } from "../../../apis/api/music";
 
-export default function MusicVipPage() {
+export default function MusicVipSelect() {
   const [vipList, setVipList] = useState<Vip[]>([]);
   const [selectedVip, setSelectedVip] = useState<number>(0);
 
