@@ -69,6 +69,7 @@ export default function LoginForm() {
             onInput={onInputIdHandler}
           />
           <TextField
+            type="password"
             labelVisible={false}
             placeholder="비밀번호"
             value={password}
