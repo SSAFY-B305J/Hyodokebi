@@ -13,7 +13,7 @@ export default function SignupForm() {
         <div className="mx-auto w-fit">
           <Link to="/">
             <img
-              src={hyoblin}
+              src="/hyoblin.png"
               alt="효도깨비"
             />
           </Link>
