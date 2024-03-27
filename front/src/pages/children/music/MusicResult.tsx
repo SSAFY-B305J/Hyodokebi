@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { selectRecommendedMusicList } from "../../../apis/api/music";
 import ButtonAsset from "../../../components/Button/ButtonAsset";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import MusicCard from "../../../components/card/MusicCard";
 
 type Music = {
@@ -57,10 +57,10 @@ export default function MusicResult() {
   const displayIdx = currIdx[`${activeAge}`];
 
   // 모든 음악 추천 결과 리스트를 가져오기
-  async function getMusicList() {
+  const getMusicList = useCallback(async () => {
     const data = await selectRecommendedMusicList(vipId);
     setMusicList(data);
-  }
+  }, [vipId]);
 
   // 다시 추천하기 버튼 클릭 핸들러
   // 현재 활성화된 탭의 음악 시작 인덱스를 3 더한다.
@@ -74,7 +74,7 @@ export default function MusicResult() {
 
   useEffect(() => {
     getMusicList();
-  }, []);
+  }, [getMusicList]);
 
   return (
     <div className="flex flex-col items-center p-5 bg-gray-100">
