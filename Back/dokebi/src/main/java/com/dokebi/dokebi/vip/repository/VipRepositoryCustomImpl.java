@@ -16,7 +16,7 @@ public class VipRepositoryCustomImpl implements VipRepositoryCustom {
         QVip qvip = QVip.vip;
         return queryFactory.update(qvip)
                 .where(qvip.vipId.eq(vid))
-                .set(qvip.vipNickName, vip.getVipNickName())
+                .set(qvip.vipNickname, vip.getVipNickname())
                 .set(qvip.vipBirth, vip.getVipBirth())
                 .set(qvip.vipProfile, vip.getVipProfile())
                 .execute();

@@ -1,17 +1,15 @@
 package com.dokebi.dokebi.vip.dto;
 
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
+@ToString
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class VipDto {
 
     private int vipId;
 
-    private String vipNickName;
+    private String vipNickname;
 
     private int vipBirth;
 
@@ -20,9 +18,9 @@ public class VipDto {
     private int[][] vipAgeGroups;
 
     @Builder
-    public VipDto(int vipId, String vipNickName, int vipBirth, String vipProfile, int[][] vipAgeGroups) {
+    public VipDto(int vipId, String vipNickname, int vipBirth, String vipProfile, int[][] vipAgeGroups) {
         this.vipId = vipId;
-        this.vipNickName = vipNickName;
+        this.vipNickname = vipNickname;
         this.vipBirth = vipBirth;
         this.vipProfile = vipProfile;
         this.vipAgeGroups = vipAgeGroups;

@@ -1,19 +1,33 @@
 package com.dokebi.dokebi.music.service;
 
-import com.dokebi.dokebi.music.dto.MusicDto;
 import com.dokebi.dokebi.music.dto.AgeGroup;
+import com.dokebi.dokebi.music.dto.MusicDto;
+import com.dokebi.dokebi.music.dto.MusicTemplateDto;
+import com.dokebi.dokebi.music.entity.DisLikedMusic;
 import com.dokebi.dokebi.music.entity.Music;
+import com.dokebi.dokebi.music.entity.SavedMusic;
+import com.dokebi.dokebi.music.repository.DisLikedMusicRespository;
 import com.dokebi.dokebi.music.repository.MusicRepository;
+import com.dokebi.dokebi.music.repository.SavedMusicRepository;
 import com.dokebi.dokebi.vip.dto.VipDto;
 import com.dokebi.dokebi.vip.entity.Vip;
 import com.dokebi.dokebi.vip.repository.VipRepository;
 import com.dokebi.dokebi.vip.service.VipService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
 
-import java.util.*;
+import java.util.EnumMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -23,6 +37,8 @@ public class MusicServiceImpl implements MusicService {
     private final MusicRepository musicRepository;
     private final VipService vipService;
     private final VipRepository vipRepository;
+    private final SavedMusicRepository savedMusicRepository;
+    private final DisLikedMusicRespository disLikedMusicRespository;
 
     @Override
     public MusicDto findMusic(int mid) {
@@ -31,6 +47,7 @@ public class MusicServiceImpl implements MusicService {
         MusicDto musicDto = MusicDto.builder()
                 .musicId(music.getMusicId())
                 .musicName(music.getMusicName())
+                .musicYear(music.getMusicYear())
                 .musicSinger(music.getMusicSinger())
                 .musicImg(music.getMusicImg())
                 .musicLyrics(music.getMusicLyrics())
@@ -40,34 +57,60 @@ public class MusicServiceImpl implements MusicService {
     }
 
     @Override
-    public Map<AgeGroup, List<MusicDto>> findMusics(int vid) {
-        VipDto vipDto = vipService.findVipAge(vid);
-        List<Music> savedMusics = vipRepository.findVipMusics(vid);
-        List<Music> disLikedMusics = vipRepository.findVipDisLikedMusics(vid);
+    public Map<AgeGroup, List<MusicDto>> findMusics(int vid) throws JsonProcessingException {
+        // RestAPI의 요청과 응답을 받을 수 있는 템플릿
+        RestTemplate restTemplate = new RestTemplate();
+        ObjectMapper objectMapper = new ObjectMapper();
 
-        Map<AgeGroup, List<MusicDto>> selectedMusicDtos = new EnumMap<>(AgeGroup.class);
+        // 플라스크 엔드포인트
+        String flaskEndpoint = "http://127.0.0.1:5000/pyapi/music/res";
 
-        for (AgeGroup ageGroup : AgeGroup.values()) { // enum 돌면서
-            int ageGroupInx = ageGroup.ordinal(); // enum 인덱스 반환
-            List<Music> musics = musicRepository.findMusics(vipDto.getVipAgeGroups()[ageGroupInx], savedMusics, disLikedMusics);
+        // header를 json으로 받음
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
 
-            Collections.shuffle(musics);
-            List<Music> selectedMusics = new ArrayList<>(musics.subList(0, Math.min(musics.size(), 9)));
+        List<Integer> vipSavedMusic = vipService.findVipMusicIds(vid);
+        List<Integer> vipDisLikedMusics = vipService.findVipDisLikedMusicIds(vid);
 
-            selectedMusicDtos.put(ageGroup, selectedMusics.stream()
-                    .map(m -> MusicDto.builder()
+        VipDto vipDto = vipService.findVipAge(vid); // vip 10대, 20대, 30대를 연도를 2차원 배열에 저장
+        Map<AgeGroup, List<MusicDto>> recommendedMusicDtos = new EnumMap<>(AgeGroup.class); // EnumMap을 형성
+
+        for (AgeGroup ageGroup : AgeGroup.values()) { // enum value 돌기
+
+            // flask로 request 보낼 template
+            MusicTemplateDto musicTemplateDto = MusicTemplateDto.builder()
+                    .vipSavedMusics(vipSavedMusic) // 이미 저장한 노래
+                    .vipDisLikedMusics(vipDisLikedMusics) // 싫다고 한 노래
+                    .ageGroup(vipDto.getVipAgeGroups()[ageGroup.ordinal()]) // enum index의 ageGroup
+                    .build();
+
+            // 요청을 보낼 httpEntity를 musicTemplateDto로 설정
+            HttpEntity<MusicTemplateDto> httpEntity = new HttpEntity<>(musicTemplateDto, headers);
+
+            // flask api로 post하고 응답을 받음
+            String response = restTemplate.postForObject(flaskEndpoint, httpEntity, String.class);
+
+            // 플라스크 api에서 객체로 보낸 응답을 jackson library의 objectMapper로 읽어옴
+            // 단일 객체면 객체.class, 복수 객체면 typeReference로 지정해야 함
+            // jsonprocessingexception 오류가 날 수 있음
+            List<Music> recommendedMusics = objectMapper.readValue(response, new TypeReference<List<Music>>() {
+            });
+
+            // 응답을 musicDto로 변환해서 EnumMap에 삽입
+            recommendedMusicDtos.put(ageGroup, recommendedMusics.stream().map(m -> MusicDto.builder()
                             .musicId(m.getMusicId())
                             .musicName(m.getMusicName())
+                            .musicYear(m.getMusicYear())
                             .musicSinger(m.getMusicSinger())
                             .musicImg(m.getMusicImg())
                             .musicLyrics(m.getMusicLyrics())
                             .build())
                     .collect(Collectors.toList()));
+
         }
 
-        return selectedMusicDtos;
+        return recommendedMusicDtos;
     }
-
 
     @Transactional
     @Override
@@ -75,9 +118,13 @@ public class MusicServiceImpl implements MusicService {
         Music music = musicRepository.findById(mid).orElseThrow(() -> new EntityNotFoundException("Music Entity Not Found"));
         Vip vip = vipRepository.findById(vid).orElseThrow(() -> new EntityNotFoundException("Vip Entity Not Found"));
 
-        vip.getVipSavedMusics().add(music);
+        SavedMusic savedMusic = SavedMusic.builder()
+                .music(music)
+                .vip(vip)
+                .build();
 
-        return vip.getVipSavedMusics().size();
+        savedMusicRepository.save(savedMusic);
+        return savedMusic.getSmId();
     }
 
     @Transactional
@@ -86,18 +133,32 @@ public class MusicServiceImpl implements MusicService {
         Music music = musicRepository.findById(mid).orElseThrow(() -> new EntityNotFoundException("Music Entity Not Found"));
         Vip vip = vipRepository.findById(vid).orElseThrow(() -> new EntityNotFoundException("Vip Entity Not Found"));
 
-        vip.getVipDisLikedMusics().add(music);
+        DisLikedMusic disLikedMusic = DisLikedMusic.builder()
+                .music(music)
+                .vip(vip)
+                .build();
 
-        return vip.getVipDisLikedMusics().size();
+        disLikedMusicRespository.save(disLikedMusic);
+        return disLikedMusic.getDmId();
     }
 
     @Transactional
     @Override
-    public void removeDislikeMusic(int mid, int vid) {
+    public long removeSavedMusic(int mid, int vid) {
         Vip vip = vipRepository.findById(vid).orElseThrow(() -> new EntityNotFoundException("Vip Entity Not Found"));
         Music music = musicRepository.findById(mid).orElseThrow(() -> new EntityNotFoundException("Music Entity Not Found"));
 
-        vip.getVipDisLikedMusics().remove(music);
+        return musicRepository.removeSaveMusic(mid, vid);
+
+    }
+
+    @Transactional
+    @Override
+    public long removeDislikeMusic(int mid, int vid) {
+        Vip vip = vipRepository.findById(vid).orElseThrow(() -> new EntityNotFoundException("Vip Entity Not Found"));
+        Music music = musicRepository.findById(mid).orElseThrow(() -> new EntityNotFoundException("Music Entity Not Found"));
+
+        return musicRepository.removeDisLikeMusic(mid, vid);
     }
 
 
