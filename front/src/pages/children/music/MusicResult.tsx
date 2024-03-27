@@ -77,11 +77,14 @@ export default function MusicResult() {
   }, [getMusicList]);
 
   return (
-    <div className="flex flex-col items-center p-5 bg-gray-100">
-      <h1>음악 추천 결과</h1>
-      <div className="w-[768px] p-5 box-content rounded-lg">
+    <div className="flex flex-col items-center p-5 my-5 bg-gray-100">
+      <h1 className="my-3 text-3xl font-bold">음악 추천 결과</h1>
+      <h2 className="text-lg">
+        VIP의 청춘과 함께 했던 음악을 추천해드렸습니다.
+      </h2>
+      <div className="w-[768px] m-4 box-content rounded-lg">
         <button
-          className={`w-64 border border-silver h-14 ${
+          className={`w-64 border border-silver h-14 text-lg ${
             activeAge === MusicAge.Teenage ? "bg-silver" : "bg-lightsilver"
           }`}
           value={MusicAge.Teenage}
@@ -90,7 +93,7 @@ export default function MusicResult() {
           10대
         </button>
         <button
-          className={`w-64 border border-silver h-14 ${
+          className={`w-64 border border-silver h-14 text-lg ${
             activeAge === MusicAge.Twenties ? "bg-silver" : "bg-lightsilver"
           }`}
           value={MusicAge.Twenties}
@@ -99,7 +102,7 @@ export default function MusicResult() {
           20대
         </button>
         <button
-          className={`w-64 border border-silver h-14 ${
+          className={`w-64 border border-silver h-14 text-lg ${
             activeAge === MusicAge.Thirties ? "bg-silver" : "bg-lightsilver"
           }`}
           value={MusicAge.Thirties}
@@ -108,7 +111,7 @@ export default function MusicResult() {
           30대
         </button>
       </div>
-      <div className="w-[800px] flex flex-wrap justify-center items-center my-4">
+      <div className="w-[800px] flex flex-wrap justify-center items-center">
         {musicList[`${activeAge}`] &&
         displayIdx < musicList[`${activeAge}`].length ? (
           musicList[`${activeAge}`]
@@ -127,8 +130,10 @@ export default function MusicResult() {
       </div>
       <ButtonAsset
         text="다시 추천받기"
+        size="lg"
         onClick={handleClickMore}
         disabled={displayIdx + 3 >= musicList[`${activeAge}`].length}
+        className="mt-3 w-72"
       />
     </div>
   );
