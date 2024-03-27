@@ -1,8 +1,7 @@
-import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 
 function App() {
-  return <div>Hello HyoDokebi</div>;
+  return <Outlet />;
 }
 
 export default App;
