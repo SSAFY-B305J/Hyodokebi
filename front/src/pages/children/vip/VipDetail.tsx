@@ -15,7 +15,6 @@ export default function VipDetail() {
   if (vipId === undefined) {
     return <div>VIP ID가 없습니다.</div>; // vipId가 없는 경우 처리할 수 있는 로직을 추가합니다.
   }
-  console.log(VipTestData);
   const vipIndex = parseInt(vipId) - 1;
   
   return (
@@ -24,7 +23,7 @@ export default function VipDetail() {
         <div className="flex text-2xl font-semibold">
           {VipTestData[vipIndex].name} 님의 정보
         </div>
-        <Link to={`/mypage/${id}`}>
+        <Link to={`/mypage/${id}/vip`}>
           <ArrowBackIcon fontSize="large" />
         </Link>
       </div>
