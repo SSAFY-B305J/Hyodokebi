@@ -65,7 +65,7 @@ export default function VipEdit() {
       </div>
       <div className="flex flex-row justify-center gap-2 mt-3">
         <ButtonAsset text="취소" variant="outlined" onClick={()=>(navigate(`/mypage/${id}/vip/${vipId}`))} />
-        <ButtonAsset text="수정" onClick={handleClick} />
+        <ButtonAsset text="저장" onClick={handleClick} />
       </div>
     </div>
   );
