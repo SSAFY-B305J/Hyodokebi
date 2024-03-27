@@ -81,21 +81,27 @@ export default function MusicResult() {
       <h1>음악 추천 결과</h1>
       <div className="w-[768px] p-5 box-content rounded-lg">
         <button
-          className="w-64 border border-silver h-14 bg-lightsilver"
+          className={`w-64 border border-silver h-14 ${
+            activeAge === MusicAge.Teenage ? "bg-silver" : "bg-lightsilver"
+          }`}
           value={MusicAge.Teenage}
           onClick={(e) => setActiveAge(e.currentTarget.value)}
         >
           10대
         </button>
         <button
-          className="w-64 border h-14 border-silver bg-lightsilver"
+          className={`w-64 border border-silver h-14 ${
+            activeAge === MusicAge.Twenties ? "bg-silver" : "bg-lightsilver"
+          }`}
           value={MusicAge.Twenties}
           onClick={(e) => setActiveAge(e.currentTarget.value)}
         >
           20대
         </button>
         <button
-          className="w-64 border h-14 border-silver bg-lightsilver"
+          className={`w-64 border border-silver h-14 ${
+            activeAge === MusicAge.Thirties ? "bg-silver" : "bg-lightsilver"
+          }`}
           value={MusicAge.Thirties}
           onClick={(e) => setActiveAge(e.currentTarget.value)}
         >
@@ -103,18 +109,27 @@ export default function MusicResult() {
         </button>
       </div>
       <div className="w-[800px] flex flex-wrap justify-center items-center my-4">
-        {musicList[`${activeAge}`]
-          .slice(displayIdx, displayIdx + 3)
-          .map((music) => (
-            <MusicCard
-              key={music.musicId}
-              title={music.musicName}
-              subTitle={music.musicSinger}
-              image={music.musicImg}
-            ></MusicCard>
-          ))}
+        {musicList[`${activeAge}`] &&
+        displayIdx < musicList[`${activeAge}`].length ? (
+          musicList[`${activeAge}`]
+            .slice(displayIdx, displayIdx + 3)
+            .map((music) => (
+              <MusicCard
+                key={music.musicId}
+                title={music.musicName}
+                subTitle={music.musicSinger}
+                image={music.musicImg}
+              ></MusicCard>
+            ))
+        ) : (
+          <div>추천 보따리가 텅 비었어요...</div>
+        )}
       </div>
-      <ButtonAsset text="다시 추천하기" onClick={handleClickMore} />
+      <ButtonAsset
+        text="다시 추천받기"
+        onClick={handleClickMore}
+        disabled={displayIdx + 3 >= musicList[`${activeAge}`].length}
+      />
     </div>
   );
 }
