@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { selectRecommendedMusicList } from "../../../apis/api/music";
 import ButtonAsset from "../../../components/Button/ButtonAsset";
 import { useCallback, useEffect, useState } from "react";
@@ -77,8 +77,8 @@ export default function MusicResult() {
   }, [getMusicList]);
 
   return (
-    <div className="flex flex-col items-center p-5 my-5 bg-gray-100">
-      <h1 className="my-3 text-3xl font-bold">음악 추천 결과</h1>
+    <div className="flex flex-col items-center px-5 py-6 my-5 bg-gray-100">
+      <h1 className="mb-3 text-3xl font-bold">음악 추천 결과</h1>
       <h2 className="text-lg">
         VIP의 청춘과 함께 했던 음악을 추천해드렸습니다.
       </h2>
@@ -128,13 +128,25 @@ export default function MusicResult() {
           <div>추천 보따리가 텅 비었어요...</div>
         )}
       </div>
-      <ButtonAsset
-        text="다시 추천받기"
-        size="lg"
-        onClick={handleClickMore}
-        disabled={displayIdx + 3 >= musicList[`${activeAge}`].length}
-        className="mt-3 w-72"
-      />
+      <div className="flex flex-col">
+        <ButtonAsset
+          text="다시 추천받기"
+          size="lg"
+          onClick={handleClickMore}
+          disabled={displayIdx + 3 >= musicList[`${activeAge}`].length}
+          className="mt-3 w-72"
+        />
+        {displayIdx + 3 >= musicList[`${activeAge}`].length && (
+          <Link to={"/music"}>
+            <ButtonAsset
+              text="처음으로"
+              variant="outlined"
+              size="lg"
+              className="mt-3 mr-5 w-72"
+            />
+          </Link>
+        )}
+      </div>
     </div>
   );
 }
