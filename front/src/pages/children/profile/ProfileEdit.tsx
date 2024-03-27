@@ -24,13 +24,14 @@ export default function ProfileEdit() {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate(`/mypage/${Id}/profile/`);
     setProfileData((ProfileData) => ({
       ...ProfileData,
       nickname: nickname,
       profileImageIndex: index,
       email: email
     }));
+    navigate(`/mypage/${Id}/profile/`);
+    console.log(ProfileData)
   };
   useEffect(() => {
     setProfileData((ProfileData) => ({
@@ -39,9 +40,7 @@ export default function ProfileEdit() {
       profileImageIndex: index,
       email: email
     }));
-    console.log(ProfileData)
-  }, []);
-  
+  }, [nickname, index, email]);
 
 
   return (
