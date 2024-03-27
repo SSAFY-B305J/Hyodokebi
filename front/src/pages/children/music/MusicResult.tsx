@@ -1,7 +1,8 @@
-import { MouseEvent, useCallback, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { selectRecommendedMusicList } from "../../../apis/api/music";
 import ButtonAsset from "../../../components/Button/ButtonAsset";
+import { useEffect, useState } from "react";
 import MusicCard from "../../../components/card/MusicCard";
-import { axios } from "../../../apis/utils/axios";
 
 type Music = {
   musicId: number;
@@ -12,14 +13,14 @@ type Music = {
   musicLyrics: string;
 };
 
-type RecommendedMusicList = {
+type MusicList = {
   [key: string]: Music[];
   Teenage: Music[];
   Twenties: Music[];
   Thirties: Music[];
 };
 
-type RecommendedMusicListIndex = {
+type MusicIdx = {
   [key: string]: number;
   Teenage: number;
   Twenties: number;
@@ -33,83 +34,87 @@ const MusicAge = {
 };
 
 export default function MusicResult() {
-  const [musicList, setMusicList] = useState<RecommendedMusicList>({
+  const vipId = useParams().vipId + "";
+
+  // 전체 음악 리스트
+  const [musicList, setMusicList] = useState<MusicList>({
     Teenage: [],
     Twenties: [],
     Thirties: [],
   });
 
-  const [activeAge, setActiveAge] = useState(MusicAge.Teenage);
-  const [musicIndex, setMusicIndex] = useState<RecommendedMusicListIndex>({
+  // 모든 출력할 음악 시작 인덱스
+  const [currIdx, setCurrIdx] = useState<MusicIdx>({
     Teenage: 0,
     Twenties: 0,
     Thirties: 0,
   });
 
-  const [currMusicList, setCurrMusicList] = useState<Music[]>();
+  // 활성화된 탭의 연령대
+  const [activeAge, setActiveAge] = useState(MusicAge.Teenage);
 
-  async function selectRecommendedMusicList(vipId: number) {
-    const data = await axios.get(`/api/music/res/${vipId}`);
-    return data.data;
-  }
+  // 현재 활성화된 탭에서 출력할 음악의 시작 인덱스
+  const displayIdx = currIdx[`${activeAge}`];
 
-  const getAllMusicList = useCallback(async (vipId: number) => {
+  // 모든 음악 추천 결과 리스트를 가져오기
+  async function getMusicList() {
     const data = await selectRecommendedMusicList(vipId);
     setMusicList(data);
-  }, []);
+  }
+
+  // 다시 추천하기 버튼 클릭 핸들러
+  // 현재 활성화된 탭의 음악 시작 인덱스를 3 더한다.
+  function handleClickMore() {
+    setCurrIdx((prev) => {
+      const temp = { ...prev };
+      temp[`${activeAge}`] += 3;
+      return temp;
+    });
+  }
 
   useEffect(() => {
-    getAllMusicList(5);
-  }, [getAllMusicList]);
-
-  function handleClick(e: MouseEvent<HTMLButtonElement>) {
-    setActiveAge(e.currentTarget.value);
-  }
-
-  function getActiveMusicList() {
-    const list = musicList[activeAge];
-    const index = musicIndex[activeAge];
-
-    const result = [];
-
-    for (let i = 0; i < 3; i++) {
-      result.push(list[index + i]);
-    }
-
-    setCurrMusicList(result);
-  }
-
-  getActiveMusicList();
+    getMusicList();
+  }, []);
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center p-5 bg-gray-100">
       <h1>음악 추천 결과</h1>
-      <div>
-        <ButtonAsset
-          text="10대"
+      <div className="w-[768px] p-5 box-content rounded-lg">
+        <button
+          className="w-64 border border-silver h-14 bg-lightsilver"
           value={MusicAge.Teenage}
-          onClick={handleClick}
-        />
-        <ButtonAsset
-          text="20대"
+          onClick={(e) => setActiveAge(e.currentTarget.value)}
+        >
+          10대
+        </button>
+        <button
+          className="w-64 border h-14 border-silver bg-lightsilver"
           value={MusicAge.Twenties}
-          onClick={handleClick}
-        />
-        <ButtonAsset
-          text="30대"
+          onClick={(e) => setActiveAge(e.currentTarget.value)}
+        >
+          20대
+        </button>
+        <button
+          className="w-64 border h-14 border-silver bg-lightsilver"
           value={MusicAge.Thirties}
-          onClick={handleClick}
-        />
+          onClick={(e) => setActiveAge(e.currentTarget.value)}
+        >
+          30대
+        </button>
       </div>
       <div className="w-[800px] flex flex-wrap justify-center items-center my-4">
-        {/* {getActiveMusicList().map((music) => (
-          <MusicCard
-            image={music.musicImg}
-            title={music.musicName}
-            subTitle={music.musicSinger}
-          />
-        ))} */}
+        {musicList[`${activeAge}`]
+          .slice(displayIdx, displayIdx + 3)
+          .map((music) => (
+            <MusicCard
+              key={music.musicId}
+              title={music.musicName}
+              subTitle={music.musicSinger}
+              image={music.musicImg}
+            ></MusicCard>
+          ))}
       </div>
+      <ButtonAsset text="다시 추천하기" onClick={handleClickMore} />
     </div>
   );
 }
