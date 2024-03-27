@@ -2,6 +2,7 @@ package com.dokebi.dokebi.vip.controller;
 
 import com.dokebi.dokebi.music.dto.MusicDto;
 import com.dokebi.dokebi.vip.dto.VipDto;
+import com.dokebi.dokebi.vip.entity.Vip;
 import com.dokebi.dokebi.vip.service.VipService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.persistence.EntityNotFoundException;
@@ -11,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @RestController
@@ -102,12 +104,12 @@ public class VipController {
 
     }
 
-    @Operation(summary = "음악 저장 취소")
-    @DeleteMapping("/api/vip/music/{mid}/{vid}")
-    public ResponseEntity<?> vipRemoveMusic(@PathVariable int mid, @PathVariable int vid) {
+    @Operation(summary = "VIP가 싫어요한 음악")
+    @GetMapping("/api/vip/music/dislike/{vid}")
+    public ResponseEntity<?> vipDetailDisLikedMusics(@PathVariable int vid) {
         try {
-            vipService.removeVipMusic(mid, vid);
-            return new ResponseEntity<Void>(HttpStatus.OK);
+            List<MusicDto> musicDtos = vipService.findVipDisLikedMusics(vid);
+            return new ResponseEntity<List<MusicDto>>(musicDtos, HttpStatus.OK);
         } catch (EntityNotFoundException e) {
             return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
         } catch (Exception e) {

@@ -1,7 +1,8 @@
 package com.dokebi.dokebi.vip.service;
 
 import com.dokebi.dokebi.music.dto.MusicDto;
-import com.dokebi.dokebi.music.entity.Music;
+import com.dokebi.dokebi.music.entity.DisLikedMusic;
+import com.dokebi.dokebi.music.entity.SavedMusic;
 import com.dokebi.dokebi.music.repository.MusicRepository;
 import com.dokebi.dokebi.vip.dto.VipDto;
 import com.dokebi.dokebi.vip.entity.Vip;
@@ -29,7 +30,7 @@ public class VipServiceImpl implements VipService {
         List<VipDto> vipDtos = vips.stream()
                 .map(v -> VipDto.builder()
                         .vipId(v.getVipId())
-                        .vipNickName(v.getVipNickName())
+                        .vipNickname(v.getVipNickname())
                         .vipBirth(v.getVipBirth())
                         .vipProfile(v.getVipProfile())
                         .build())
@@ -44,7 +45,7 @@ public class VipServiceImpl implements VipService {
 
         VipDto vipDto = VipDto.builder()
                 .vipId(vip.getVipId())
-                .vipNickName(vip.getVipNickName())
+                .vipNickname(vip.getVipNickname())
                 .vipBirth(vip.getVipBirth())
                 .vipProfile(vip.getVipProfile())
                 .build();
@@ -58,7 +59,7 @@ public class VipServiceImpl implements VipService {
 
         VipDto vipDto = VipDto.builder()
                 .vipId(vip.getVipId())
-                .vipNickName(vip.getVipNickName())
+                .vipNickname(vip.getVipNickname())
                 .vipBirth(vip.getVipBirth())
                 .vipProfile(vip.getVipProfile())
                 .vipAgeGroups(new int[][]{{vip.getVipBirth() + 9, vip.getVipBirth() + 18},
@@ -72,10 +73,8 @@ public class VipServiceImpl implements VipService {
     @Transactional
     @Override
     public int addVip(VipDto vipDto) {
-        Vip optVip = vipRepository.findByNickName(vipDto.getVipNickName()).orElseThrow(()-> new IllegalArgumentException("Already Existed NickName"));
-
         Vip vip = Vip.builder()
-                .vipNickName(vipDto.getVipNickName())
+                .vipNickname(vipDto.getVipNickname())
                 .vipBirth(vipDto.getVipBirth())
                 .vipProfile(vipDto.getVipProfile())
                 .build();
@@ -96,7 +95,7 @@ public class VipServiceImpl implements VipService {
         vipRepository.findById(vid).orElseThrow(() -> new EntityNotFoundException("Vip Entity Not Found"));
 
         Vip vip = Vip.builder()
-                .vipNickName(vipDto.getVipNickName())
+                .vipNickname(vipDto.getVipNickname())
                 .vipBirth(vipDto.getVipBirth())
                 .vipProfile(vipDto.getVipProfile())
                 .build();
@@ -108,29 +107,66 @@ public class VipServiceImpl implements VipService {
     public List<MusicDto> findVipMusics(int vid) {
         vipRepository.findById(vid).orElseThrow(() -> new EntityNotFoundException("Vip Entity Not Found"));
 
-        List<Music> musics = vipRepository.findVipMusics(vid);
+        List<SavedMusic> musics = vipRepository.findVipMusics(vid);
 
         List<MusicDto> musicDtos = musics.stream()
                 .map(m -> MusicDto.builder()
-                        .musicId(m.getMusicId())
-                        .musicName(m.getMusicName())
-                        .musicSinger(m.getMusicSinger())
-                        .musicImg(m.getMusicImg())
-                        .musicLyrics(m.getMusicLyrics())
+                        .musicId(m.getMusic().getMusicId())
+                        .musicYear(m.getMusic().getMusicYear())
+                        .musicName(m.getMusic().getMusicName())
+                        .musicSinger(m.getMusic().getMusicSinger())
+                        .musicImg(m.getMusic().getMusicImg())
+                        .musicLyrics(m.getMusic().getMusicLyrics())
                         .build())
                 .collect(Collectors.toList());
 
         return musicDtos;
     }
 
-    @Transactional
     @Override
-    public void removeVipMusic(int mid, int vid) {
-        Vip vip = vipRepository.findById(vid).orElseThrow(() -> new EntityNotFoundException("Vip Entity Not Found"));
-        Music music = musicRepository.findById(mid).orElseThrow(() -> new EntityNotFoundException("Music Entity Not Found"));
+    public List<MusicDto> findVipDisLikedMusics(int vid) {
+        vipRepository.findById(vid).orElseThrow(() -> new EntityNotFoundException("Vip Entity Not Found"));
 
-        vip.getVipSavedMusics().remove(music);
+        List<DisLikedMusic> musics = vipRepository.findVipDisLikedMusics(vid);
 
+        List<MusicDto> musicDtos = musics.stream()
+                .map(m -> MusicDto.builder()
+                        .musicId(m.getMusic().getMusicId())
+                        .musicYear(m.getMusic().getMusicYear())
+                        .musicName(m.getMusic().getMusicName())
+                        .musicSinger(m.getMusic().getMusicSinger())
+                        .musicImg(m.getMusic().getMusicImg())
+                        .musicLyrics(m.getMusic().getMusicLyrics())
+                        .build())
+                .collect(Collectors.toList());
+
+        return musicDtos;
+    }
+
+    @Override
+    public List<Integer> findVipMusicIds(int vid) {
+        vipRepository.findById(vid).orElseThrow(() -> new EntityNotFoundException("Vip Entity Not Found"));
+
+        List<SavedMusic> musics = vipRepository.findVipMusics(vid);
+
+        List<Integer> musicIds = musics.stream()
+                .map(m -> m.getMusic().getMusicId())
+                .collect(Collectors.toList());
+
+        return musicIds;
+    }
+
+    @Override
+    public List<Integer> findVipDisLikedMusicIds(int vid) {
+        vipRepository.findById(vid).orElseThrow(() -> new EntityNotFoundException("Vip Entity Not Found"));
+
+        List<DisLikedMusic> musics = vipRepository.findVipDisLikedMusics(vid);
+
+        List<Integer> musicIds = musics.stream()
+                .map(m -> m.getMusic().getMusicId())
+                .collect(Collectors.toList());
+
+        return musicIds;
     }
 
 

@@ -1,14 +1,9 @@
 package com.dokebi.dokebi.music.entity;
 
-import com.dokebi.dokebi.vip.entity.Vip;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -39,12 +34,6 @@ public class Music {
     private String musicComposer;
 
     private int musicLike;
-
-    @ManyToMany(mappedBy = "vipSavedMusics")
-    private List<Vip> savedVips = new ArrayList<>();
-
-    @ManyToMany(mappedBy = "vipDisLikedMusics")
-    private List<Vip> disLikedVips = new ArrayList<>();
 
 }
 

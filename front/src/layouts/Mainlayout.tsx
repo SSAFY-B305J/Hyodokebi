@@ -1,5 +1,3 @@
-import { Children, useState } from "react"
-
 import MainHeader from "../components/header/MainHeader"
 
 type MainLayoutProps = {
@@ -8,14 +6,14 @@ type MainLayoutProps = {
 
 export default function MainLayout ({children} : MainLayoutProps) {
 
-  const [isLogin, setIsLogin] = useState(false)
-  
+  // const [isLogin, setIsLogin] = useState(false)
+  const isLogin = true
   // TODO 로그인 판명 로직 : cookie를 사용하거나.
 
   return (
-    <div className="flex flex-col w-screen h-screen">
+    <div className="flex flex-col h-screen">
       <MainHeader isLogin={isLogin} />
-      <div className="flex justify-center flex-1">
+      <div className="flex items-center justify-center flex-1 w-full">
         {children}
       </div>
     </div>
