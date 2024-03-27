@@ -1,3 +1,5 @@
+import sys
+from unittest import result
 from flask import Flask, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import *
@@ -56,3 +58,31 @@ class Music(db.Model):
             'musicComposer': self.music_composer,
             'musicLike': self.music_like
         }
+
+
+class Vip(db.Model):
+        __tablename__ = 'vip'  
+        vip_id = db.Column(db.Integer, primary_key=True)
+        # is_deleted = db.Column(db.boolean)
+        vip_birth = db.Column(db.Integer)
+        vip_nickname = db.Column(db.String)
+        vip_profile = db.Column(db.String)
+        
+        def to_dict(self):
+            return {
+                'vipId': self.vip_id,
+                'vipBirth': self.vip_birth,
+                'vipNickName': self.vip_nickname,
+                'vipProfile': self.vip_profile
+                # 'memberIndex': self.member_index
+            }
+    
+@app.route("/pyapi/menu", methods=['GET'])
+def recommend_menu():
+
+    # 결과 가져오기
+    results = Vip.query.all()
+
+    dict_vips = [Vip.to_dict(vip) for vip in results]
+    
+    return jsonify(dict_vips)
