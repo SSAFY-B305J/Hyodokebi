@@ -1,18 +1,24 @@
-import { ChangeEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { Vip } from "../../../modules/types/vip";
 import ButtonAsset from "../../../components/Button/ButtonAsset";
 import { selectVipList } from "../../../apis/api/music";
+import {
+  FormControl,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+} from "@mui/material";
 
 export default function MusicVipSelect() {
   const [vipList, setVipList] = useState<Vip[]>([]);
-  const [selectedVip, setSelectedVip] = useState<number>(0);
+  const [selectedVip, setSelectedVip] = useState<string>("");
 
   const navigate = useNavigate();
 
   // select change 이벤트 핸들러
-  function handleChange(e: ChangeEvent<HTMLSelectElement>): void {
-    setSelectedVip(Number(e.target.value));
+  function handleChange(e: SelectChangeEvent<string>): void {
+    setSelectedVip(e.target.value);
   }
 
   // TODO: 유저의 Vip 리스트가 출력되도록 수정 필요 (API 수정 시)
@@ -36,18 +42,31 @@ export default function MusicVipSelect() {
   }, []);
 
   return (
-    <div>
-      <div>VIP 선택하기</div>
-      <select value={selectedVip} onChange={handleChange}>
-        {vipList.map((vip) => {
-          return (
-            <option key={vip.vipId} value={vip.vipId}>
-              {vip.vipNickname}
-            </option>
-          );
-        })}
-      </select>
-      <ButtonAsset text="추천받기" onClick={handleClick} />
+    <div className="flex flex-col items-center">
+      <h2 className="text-3xl font-bold">
+        효도깨비가 VIP께 노래를 추천해드립니다.
+      </h2>
+      <div className="my-16 w-80">
+        <FormControl fullWidth sx={{ m: 1, minWidth: 120 }}>
+          <Select
+            value={selectedVip}
+            onChange={handleChange}
+            displayEmpty
+            inputProps={{ "aria-label": "Without label" }}
+          >
+            {vipList.map((vip) => {
+              return (
+                <MenuItem key={vip.vipId} value={vip.vipId}>
+                  {vip.vipNickname}
+                </MenuItem>
+              );
+            })}
+          </Select>
+        </FormControl>
+      </div>
+      <div>
+        <ButtonAsset text="추천받기" size="lg" onClick={handleClick} />
+      </div>
     </div>
   );
 }
