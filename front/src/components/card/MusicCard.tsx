@@ -10,6 +10,7 @@ import {
   postDislikeMusic,
   postSaveMusic,
 } from "../../apis/api/music";
+import { Tooltip } from "@mui/material";
 
 export default function MusicCard(props: {
   id: number;
@@ -50,20 +51,24 @@ export default function MusicCard(props: {
         <div>{props.subTitle}</div>
       </div>
       <div className="flex justify-center">
-        <button className="mr-8">
-          {isSaved ? (
-            <BookmarkIcon onClick={handleClickSaveButton} />
-          ) : (
-            <BookmarkBorderIcon onClick={handleClickSaveButton} />
-          )}
-        </button>
-        <button>
-          {isDislike ? (
-            <ThumbDownIcon onClick={handleClickDislikeButton} />
-          ) : (
-            <ThumbDownOutlinedIcon onClick={handleClickDislikeButton} />
-          )}
-        </button>
+        <Tooltip title="음악을 저장합니다.">
+          <button className="mr-8">
+            {isSaved ? (
+              <BookmarkIcon onClick={handleClickSaveButton} />
+            ) : (
+              <BookmarkBorderIcon onClick={handleClickSaveButton} />
+            )}
+          </button>
+        </Tooltip>
+        <Tooltip title="이 음악은 앞으로 추천받고 싶지 않습니다.">
+          <button>
+            {isDislike ? (
+              <ThumbDownIcon onClick={handleClickDislikeButton} />
+            ) : (
+              <ThumbDownOutlinedIcon onClick={handleClickDislikeButton} />
+            )}
+          </button>
+        </Tooltip>
       </div>
     </div>
   );
