@@ -40,7 +40,7 @@ export default function ProfileEdit() {
       email: email
     }));
     console.log(ProfileData)
-  }, [ProfileData]);
+  }, []);
   
 
 
