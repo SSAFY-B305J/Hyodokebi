@@ -1,4 +1,3 @@
-import React from "react";
 import ReactDOM from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
@@ -6,12 +5,12 @@ import "./index.css";
 
 import App from "./App";
 import DoubleTab from "./components/tab/DoubleTab";
+import KakaoLogin from "./components/user/KakaoLogin";
+import TopicBox from "./components/topic/TopicBox";
 import VipCreate from "./pages/children/vip/VipCreate";
 import VipList from "./pages/children/vip/VipList";
-import TopicBox from "./components/topic/TopicBox";
 import VipEdit from "./pages/children/vip/VipEdit";
 import VipDetail from "./pages/children/vip/VipDetail";
-import KakaoLogin from "./components/user/KakaoLogin";
 import ErrorPage from "./pages/ErrorPage";
 import MainPage from "./pages/MainPage";
 import Mypage from "./pages/children/Mypage";

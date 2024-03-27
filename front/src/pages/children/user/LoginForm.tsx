@@ -1,4 +1,3 @@
-import hyoblin from "../../../assets/hyoblin.png";
 import KakaoButton from "../../../components/Button/KakaoButton";
 import VerticalDivider from "../../../components/user/VerticalDivider";
 import FormContainer from "../../../components/user/FormContainer";
@@ -51,7 +50,7 @@ export default function LoginForm() {
         <div className="mx-auto mb-10 w-fit">
           <Link to="/">
             <img
-              src={hyoblin}
+              src="/hyoblin.png"
               alt="효도깨비"
             />
           </Link>
