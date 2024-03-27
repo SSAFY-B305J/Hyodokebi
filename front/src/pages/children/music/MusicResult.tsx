@@ -119,6 +119,7 @@ export default function MusicResult() {
             .map((music) => (
               <MusicCard
                 key={music.musicId}
+                id={music.musicId}
                 title={music.musicName}
                 subTitle={music.musicSinger}
                 image={music.musicImg}
