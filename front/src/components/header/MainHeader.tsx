@@ -1,6 +1,7 @@
 import LogoutIcon from '@mui/icons-material/Logout';
 import VipTestData from "../../json/VipTestData.json";
 import { NavLink, useNavigate } from "react-router-dom";
+import useTabStore from '../../store/useTabStore';
 
 interface MainHeaderProps {
   isLogin: boolean;
@@ -8,7 +9,7 @@ interface MainHeaderProps {
 
 export default function MainHeader({ isLogin }: MainHeaderProps) {
   const navigate = useNavigate();
-
+  const {tabIndex, setTabIndex} = useTabStore()
   return (
     <div>
       {isLogin === false ? (
@@ -45,9 +46,13 @@ export default function MainHeader({ isLogin }: MainHeaderProps) {
             />
           </div>
           <div className="flex h-full gap-10 mr-5">
-            <NavLink to={`/mypage/1`} className="flex h-full">
+            <NavLink to={`/mypage/1/profile`} className="flex h-full">
               {/* TODO 해당 링크는 임시 */}
-              <img src={VipTestData[0].imagePath} alt="profile" className="h-full rounded-full" />
+              <img src={VipTestData[0].imagePath} alt="profile" className="h-full rounded-full" onClick={() => {
+                navigate('/mypage/1/profile')
+                setTabIndex(0)
+              }} />
+              {/* onclick + navigate, settabindex 사용을 통해 탭 인덱스 변경하기 */}
             </NavLink>
             <div className="flex items-center h-full">
               <LogoutIcon fontSize='large'/>

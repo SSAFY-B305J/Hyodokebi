@@ -19,12 +19,12 @@ import SignupForm from "./pages/children/user/SignupForm";
 import RegForm from "./pages/children/user/RegForm";
 import FoodList from "./pages/children/food/FoodList";
 import FoodResult from "./pages/children/food/FoodResult";
+import ProfileDetail from "./pages/children/profile/ProfileDetail";
+import ProfileEdit from "./pages/children/profile/ProfileEdit";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
-
-// ALERT usestate는 최상단 경로에서는 사용불가
 
 const router = createBrowserRouter([
   {
@@ -53,9 +53,17 @@ const router = createBrowserRouter([
                 element: <DoubleTab />,
                 children: [
                   {
-                    path: "",
+                    path: "profile",
+                    element: <ProfileDetail />
+                  },
+                  {
+                    path: "vip",
                     element: <VipList />,
                   },
+                  {
+                    path: "profile/edit",
+                    element: <ProfileEdit />
+                  }
                 ],
               },
               {
