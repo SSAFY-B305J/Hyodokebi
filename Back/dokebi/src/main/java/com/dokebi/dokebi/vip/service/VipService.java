@@ -28,5 +28,5 @@ public interface VipService {
 
     List<Integer> findVipDisLikedMusicIds(int vid);
 
-
+    Boolean findVipMusic(int vid, int mid);
 }

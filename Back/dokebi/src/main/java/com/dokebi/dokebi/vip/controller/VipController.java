@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
-
+@CrossOrigin
 @RequiredArgsConstructor
 @RestController
 public class VipController {
@@ -110,6 +110,20 @@ public class VipController {
         try {
             List<MusicDto> musicDtos = vipService.findVipDisLikedMusics(vid);
             return new ResponseEntity<List<MusicDto>>(musicDtos, HttpStatus.OK);
+        } catch (EntityNotFoundException e) {
+            return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<String>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
+
+    @Operation(summary = "VIP가 저장한 음악 여부")
+    @GetMapping("/api/vip/music/{vid}/{mid}")
+    public ResponseEntity<?> vipDetailMusics(@PathVariable int vid, @PathVariable int mid) {
+        try {
+            Boolean res = vipService.findVipMusic(vid, mid);
+            return new ResponseEntity<Boolean>(res, HttpStatus.OK);
         } catch (EntityNotFoundException e) {
             return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
         } catch (Exception e) {

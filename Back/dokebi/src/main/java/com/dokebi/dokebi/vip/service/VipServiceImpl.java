@@ -169,5 +169,13 @@ public class VipServiceImpl implements VipService {
         return musicIds;
     }
 
+    @Override
+    public Boolean findVipMusic(int vid, int mid) {
+        vipRepository.findById(vid).orElseThrow(() -> new EntityNotFoundException("Vip Entity Not Found"));
+        musicRepository.findById(vid).orElseThrow(() -> new EntityNotFoundException("Music Entity Not Found"));
+
+        return vipRepository.findVipMusic(vid, mid) != null;
+    }
+
 
 }
