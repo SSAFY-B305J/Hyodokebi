@@ -86,9 +86,9 @@ export default function LoginForm() {
           </Link>
         </div>
         <div className="flex justify-center *:text-sm *:text-gray-700 [&>*:hover]:underline last:pr-0">
-          <Link to="/">아이디 찾기</Link>
+          <Link to="/help/idInquiry">아이디 찾기</Link>
           <VerticalDivider />
-          <Link to="/">비밀번호 찾기</Link>
+          <Link to="/help/pwInquiry">비밀번호 찾기</Link>
           <VerticalDivider />
           <Link to="/signup">회원가입</Link>
         </div>
