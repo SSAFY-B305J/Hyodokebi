@@ -3,7 +3,6 @@ package com.dokebi.dokebi.music.controller;
 import com.dokebi.dokebi.music.dto.AgeGroup;
 import com.dokebi.dokebi.music.dto.MusicDto;
 import com.dokebi.dokebi.music.service.MusicService;
-import com.dokebi.dokebi.vip.service.VipService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.persistence.EntityNotFoundException;
@@ -97,7 +96,7 @@ public class MusicController {
 
     @Operation(summary = "추천된 음악 목록")
     @GetMapping("/api/music/res/{vid}")
-    public ResponseEntity<?> postMusic(@PathVariable int vid) {
+    public ResponseEntity<?> recommendedMusicDetails(@PathVariable int vid) {
         try {
             Map<AgeGroup, List<MusicDto>> recommendedMusicDtos = musicService.findMusics(vid);
             return new ResponseEntity<Map<AgeGroup, List<MusicDto>>>(recommendedMusicDtos, HttpStatus.OK);
@@ -105,21 +104,6 @@ public class MusicController {
             return new ResponseEntity<String>(e.getMessage(), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<String>(e.getMessage(), HttpStatus.OK);
-        }
-
-
-    }
-
-    @GetMapping("/api/music/test")
-    public ResponseEntity<?> musictest() {
-        try {
-            //MusicDto musicDto = musicService.findMusic(mid);
-            musicService.musictest();
-            return new ResponseEntity<Void>(HttpStatus.OK);
-        } catch (EntityNotFoundException e) {
-            return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
-        } catch (Exception e) {
-            return new ResponseEntity<String>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
 

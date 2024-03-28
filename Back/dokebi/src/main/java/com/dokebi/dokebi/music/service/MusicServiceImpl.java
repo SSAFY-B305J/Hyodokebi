@@ -79,6 +79,7 @@ public class MusicServiceImpl implements MusicService {
 
             // flask로 request 보낼 template
             MusicTemplateDto musicTemplateDto = MusicTemplateDto.builder()
+                    .vipId(vid)
                     .vipSavedMusics(vipSavedMusic) // 이미 저장한 노래
                     .vipDisLikedMusics(vipDisLikedMusics) // 싫다고 한 노래
                     .ageGroup(vipDto.getVipAgeGroups()[ageGroup.ordinal()]) // enum index의 ageGroup
@@ -110,12 +111,6 @@ public class MusicServiceImpl implements MusicService {
         }
 
         return recommendedMusicDtos;
-    }
-
-    @Override
-    public void musictest() {
-
-
     }
 
     @Transactional
