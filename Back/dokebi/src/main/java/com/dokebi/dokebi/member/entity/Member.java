@@ -31,7 +31,7 @@ public class Member implements UserDetails {
     @Column(name = "member_index", updatable = false)
     private int memberIndex;
 
-    @Column(nullable = false)
+    @Column(nullable = false,unique = true)
     private String memberId;
     @Column(nullable = false,unique = true)
     private String memberEmail;

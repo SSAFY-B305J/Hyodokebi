@@ -44,7 +44,7 @@ public class SocialMemberService {
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
     private final JwtTokenProvider jwtTokenProvider;
 
-    public String login(SocialLoginDto socialLoginDto) {
+    public TokenInfo login(SocialLoginDto socialLoginDto) {
         Member accessMember = null;
 
         try {
@@ -73,7 +73,7 @@ public class SocialMemberService {
 
         //4. DB에 refreshToken 저장
         accessMember.setMemberRefreshToken(tokenInfo.getRefreshToken());
-        return tokenInfo.getAccessToken();
+        return tokenInfo;
     }
 
     public String getKakaoAccessToken(String code) {

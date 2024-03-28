@@ -39,7 +39,7 @@ public class MemberService {
     private final JwtTokenProvider jwtTokenProvider;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public String login(OriginLoginRequestDto dto) {
+    public TokenInfo login(OriginLoginRequestDto dto) {
         Member loginUser = loginPassCheck(dto);
 
         if(loginUser!=null){
@@ -55,7 +55,7 @@ public class MemberService {
 
             //4. DB에 refreshToken 저장
             loginUser.setMemberRefreshToken(tokenInfo.getRefreshToken());
-            return tokenInfo.getAccessToken();
+            return tokenInfo;
         }else{
             throw new UsernameNotFoundException("아이디나 비밀번호가 일치하지 않습니다.");
         }
