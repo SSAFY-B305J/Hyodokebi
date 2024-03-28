@@ -10,7 +10,7 @@ interface VipList {
   vipBirth: number;
   vipId: number;
   vipNickname: string;
-  vipProfile : string;
+  vipProfile : number;
   
 }
 

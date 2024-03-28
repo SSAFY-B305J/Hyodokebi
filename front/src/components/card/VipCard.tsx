@@ -5,7 +5,7 @@ interface VipProps {
   vipBirth: number;
   vipId: number;
   vipNickname: string;
-  vipProfile : string;
+  vipProfile : number;
 }
 
 export default function VipCard({ VipProps }: { VipProps: VipProps }) {
