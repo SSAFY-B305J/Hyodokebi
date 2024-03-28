@@ -31,6 +31,8 @@ public class SecurityConfig {
                                 authorizeRequests
                                         .requestMatchers("/api/member/login/**").permitAll()
                                         .requestMatchers("/api/member/join/**").permitAll()
+                                        .requestMatchers("/swagger-resources/**",
+                                                "/v3/api-docs/**","/swagger-ui/**").permitAll()
                                         .anyRequest().authenticated())
                 .addFilterBefore(
                         new JwtAuthenticationFilter(jwtTokenProvider, memberRepository, authenticationManagerBuilder),

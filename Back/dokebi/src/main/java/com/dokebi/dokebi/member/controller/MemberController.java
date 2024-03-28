@@ -25,7 +25,7 @@ public class MemberController {
     private final SocialMemberService socialService;
 
 
-    @GetMapping("/login/origin")
+    @PostMapping("/login/origin")
     public ResponseEntity<Map<String, Object>> originLogin(@RequestBody OriginLoginRequestDto originLoginRequestDto) {
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status = HttpStatus.OK;
