@@ -1,14 +1,13 @@
-import MainHeader from "../components/header/MainHeader"
+import MainHeader from "../components/header/MainHeader";
+import useLoginStore from "../store/useLoginStore";
 
 type MainLayoutProps = {
-  children: JSX.Element
-}
+  children: JSX.Element;
+};
 
-export default function MainLayout ({children} : MainLayoutProps) {
-
-  // const [isLogin, setIsLogin] = useState(false)
-  const isLogin = true
-  // TODO 로그인 판명 로직 : cookie를 사용하거나.
+export default function MainLayout({ children }: MainLayoutProps) {
+  // 로그인 여부
+  const { isLogin } = useLoginStore();
 
   return (
     <div className="flex flex-col h-screen">
@@ -17,5 +16,5 @@ export default function MainLayout ({children} : MainLayoutProps) {
         {children}
       </div>
     </div>
-  )
+  );
 }

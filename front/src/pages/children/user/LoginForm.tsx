@@ -8,8 +8,11 @@ import { KAKAO_AUTH_URL } from "../../../modules/auth/kakaoAuth";
 import { useState } from "react";
 import WarningIcon from "@mui/icons-material/Warning";
 import { postLogin } from "../../../apis/api/member";
+import useLoginStore from "../../../store/useLoginStore";
 
 export default function LoginForm() {
+  const { updateIsLogin } = useLoginStore();
+
   // 아이디, 비밀번호
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
@@ -33,6 +36,7 @@ export default function LoginForm() {
   async function handleClickLoginButton() {
     try {
       await postLogin(id, password);
+      updateIsLogin();
       navigate("/");
     } catch (error) {
       if (error instanceof Error) {
