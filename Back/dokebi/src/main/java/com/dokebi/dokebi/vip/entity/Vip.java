@@ -29,7 +29,7 @@ public class Vip {
     private int vipBirth;
 
     @Column(nullable = false)
-    private String vipProfile;
+    private int vipProfile;
 
     // 한 vip가 여러 개의 savedMusic을 생성할 수 있음
     // 해당 savedMusic은 한 vip에 귀속됨 여러 Music에 남길 수 없음
@@ -42,7 +42,7 @@ public class Vip {
     private boolean isDeleted;
 
     @Builder
-    public Vip(String vipNickname, int vipBirth, String vipProfile, List<SavedMusic> vipSavedMusics, List<DisLikedMusic> vipDisLikedMusics) {
+    public Vip(String vipNickname, int vipBirth, int vipProfile, List<SavedMusic> vipSavedMusics, List<DisLikedMusic> vipDisLikedMusics) {
         this.vipNickname = vipNickname;
         this.vipBirth = vipBirth;
         this.vipProfile = vipProfile;

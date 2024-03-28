@@ -112,6 +112,12 @@ public class MusicServiceImpl implements MusicService {
         return recommendedMusicDtos;
     }
 
+    @Override
+    public void musictest() {
+
+
+    }
+
     @Transactional
     @Override
     public int addMusic(int mid, int vid) {
@@ -122,6 +128,9 @@ public class MusicServiceImpl implements MusicService {
                 .music(music)
                 .vip(vip)
                 .build();
+
+       SavedMusic existedMusic = vipRepository.findVipMusic(vid, mid);
+       if(existedMusic != null) return existedMusic.getSmId();
 
         savedMusicRepository.save(savedMusic);
         return savedMusic.getSmId();

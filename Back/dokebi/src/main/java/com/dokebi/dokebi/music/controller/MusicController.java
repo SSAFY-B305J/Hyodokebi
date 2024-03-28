@@ -45,6 +45,8 @@ public class MusicController {
             return new ResponseEntity<Integer>(res, HttpStatus.OK);
         } catch (EntityNotFoundException e) {
             return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
             return new ResponseEntity<String>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -103,6 +105,21 @@ public class MusicController {
             return new ResponseEntity<String>(e.getMessage(), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<String>(e.getMessage(), HttpStatus.OK);
+        }
+
+
+    }
+
+    @GetMapping("/api/music/test")
+    public ResponseEntity<?> musictest() {
+        try {
+            //MusicDto musicDto = musicService.findMusic(mid);
+            musicService.musictest();
+            return new ResponseEntity<Void>(HttpStatus.OK);
+        } catch (EntityNotFoundException e) {
+            return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<String>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
 
