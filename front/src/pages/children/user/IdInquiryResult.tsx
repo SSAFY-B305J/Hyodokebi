@@ -1,12 +1,9 @@
 import { Link } from "react-router-dom";
 import ButtonAsset from "../../../components/Button/ButtonAsset";
-import TextField from "../../../components/common/TextField";
 import FormContainer from "../../../components/user/FormContainer";
 
 export default function IdInquiryResult() {
-  function handleClick() {
-    // TODO: 아이디 찾기 로직 추가
-  }
+  // TODO: 아이디 찾기 결과 API 연동 후 출력
 
   return (
     <FormContainer>
@@ -26,12 +23,8 @@ export default function IdInquiryResult() {
               className="mx-3"
             />
           </Link>
-          <Link to="/help/idInquiry/result">
-            <ButtonAsset
-              text="비밀번호 찾기"
-              className="mx-3"
-              onClick={handleClick}
-            />
+          <Link to="/help/pwInquiry">
+            <ButtonAsset text="비밀번호 찾기" className="mx-3" />
           </Link>
         </div>
       </>
