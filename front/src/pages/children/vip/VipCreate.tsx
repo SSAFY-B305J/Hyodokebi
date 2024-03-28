@@ -35,20 +35,26 @@ export default function VipCreate() {
   const { id } = useParams();
 
   const handleClick = async () => {
+    if (birth !== 0 && nickname !== "")
+    // ALERT 빈 값으로 두면 안되는 조건 추가, 조건 추가시 확인.
+    {
     try {
-      // POST 요청을 보냅니다.
-      await postVip({
-        vipBirth: birth,
-        vipNickname: nickname,
-        vipProfile: profile
-      });
+      await postVip(vipData);
       console.log("VIP 정보가 성공적으로 생성되었습니다.");
       
       navigate(`/mypage/${id}/vip`);
     } catch (error) {
       console.error("Error creating VIP:", error);
+    }}
+    else {
+      if (birth === 0 ){
+        alert("태어나신 해를 입력해주세요.")
+      }
+      else {
+        alert("닉네임을 입력해주세요.")
+      }
     }
-  };
+    };
 
   useEffect(() => {
     setVipData((vipData) => ({
@@ -58,7 +64,8 @@ export default function VipCreate() {
       vipProfile: profile,
     }));
   }, [birth, nickname, profile]);
-  // POST 확인
+
+
   return (
     <div className="box-border flex flex-col justify-between w-3/5 h-[85vh]">
       <div className="flex flex-row justify-between w-full my-2">

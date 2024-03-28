@@ -5,21 +5,13 @@ import Input from "../../../components/common/Input";
 import MenuCard from "../../../components/card/MenuCard";
 import ButtonAsset from "../../../components/Button/ButtonAsset";
 
-import { getVip, putVip } from "../../../apis/api/vip";
+import { putVip } from "../../../apis/api/vip";
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import VipDetail from "./VipDetail";
+import { AltRoute } from "@mui/icons-material";
 
 interface PutVipData {
   vipAgeGroups: null;
-  vipBirth: number;
-  vipId: number;
-  vipNickname: string;
-  vipProfile: number;
-}
-
-interface VipDetailData {
-  vipAgeGroups: string;
   vipBirth: number;
   vipId: number;
   vipNickname: string;
@@ -34,7 +26,7 @@ export default function VipEdit() {
   // const [ageGroups, setAgegroups] = useState([]);
   const [birth, setBirth] = useState(0);
   const [nickname, setNickname] = useState("");
-  const [profile, setProfile] = useState(0);
+  const [profile, setProfile] = useState(9);
 
   const vipIndex = vipId ? parseInt(vipId) : NaN;
 
@@ -43,10 +35,13 @@ export default function VipEdit() {
     vipBirth: 0,
     vipId: 0,
     vipNickname: "",
-    vipProfile: 0,
+    vipProfile: 9,
   });
-
+  
   const handleClick = async () => {
+    if (birth !== 0 && nickname !== "" && profile !== 9)
+    // ALERT 빈 값으로 두면 안되는 조건 추가, 조건 추가시 확인.
+    {
     try {
       await putVip(vipIndex, {
         vipBirth: birth,
@@ -59,6 +54,18 @@ export default function VipEdit() {
     } catch (error) {
       console.error("Error updating VIP:", error);
     }
+  }
+  else {
+    if (birth === 0 ){
+      alert("태어나신 해를 입력해주세요.")
+    }
+    else if (nickname === "") {
+      alert("닉네임을 입력해주세요.")
+    }
+    else {
+      alert("프로필 사진을 선택하세요")
+    }
+  }
   };
 
   useEffect(() => {
@@ -98,8 +105,8 @@ export default function VipEdit() {
       <div className="flex w-full">
         <img
           src={`/test/picture${profile}.jpg`}
-          alt="empty"
-          className="mx-3 w-[108px] h-[108px]"
+          alt="사진을 선택하세요."
+          className="mx-3 w-[108px] h-[108px] border"
         />
         <div className="grid grid-cols-4 gap-3">
           {arr.map((x) => (

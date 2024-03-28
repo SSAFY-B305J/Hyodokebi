@@ -5,7 +5,7 @@ import VipAddCard from "../../../components/card/VipAddCard";
 
 import { selectVipList } from "../../../apis/api/vip";
 
-interface VipList {
+interface VipLists {
   vipAgeGroups: null;
   vipBirth: number;
   vipId: number;
@@ -17,7 +17,7 @@ interface VipList {
 
 
 export default function VipList() {
-  const [VipListData, setVipListData] = useState<VipList[]>([]);
+  const [VipListData, setVipListData] = useState<VipLists[]>([]);
 
   useEffect(() => {
     async function fetchVipList() {
@@ -32,12 +32,10 @@ export default function VipList() {
     fetchVipList();
   }, []);
 
-  console.log(VipListData);
-  
   return (
     <div className="box-border flex w-full h-[67vh] p-3 overflow-auto">
       <div className="grid w-full h-full grid-cols-3 gap-3">
-        {VipListData?.map((VipList : VipList) => <VipCard key={VipList.vipId} VipProps={VipList} />) }
+        {VipListData?.map((VipLists : VipLists) => <VipCard key={VipLists.vipId} VipProps={VipLists} />) }
         
         <VipAddCard />
       </div>
