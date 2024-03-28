@@ -3,7 +3,7 @@ import ButtonAsset from "../../../components/Button/ButtonAsset";
 import TextField from "../../../components/common/TextField";
 import FormContainer from "../../../components/user/FormContainer";
 
-export default function IdInquiryForm() {
+export default function IdInquiryResult() {
   function handleClick() {
     // TODO: 아이디 찾기 로직 추가
   }
@@ -12,23 +12,23 @@ export default function IdInquiryForm() {
     <FormContainer>
       <>
         <div className="text-center">
-          <h1 className="mb-6 text-3xl font-bold">아이디 찾기</h1>
-          <h2>가입했을 때 입력하신 이메일을 입력해주세요.</h2>
+          <h1 className="mb-6 text-3xl font-bold">아이디 찾기 결과</h1>
+          <h2>해당 이메일로 가입된 계정은 다음과 같습니다.</h2>
         </div>
-        <div className="mx-auto my-14 w-72">
-          <TextField
-            label="이메일"
-            labelVisible
-            placeholder="이메일을 입력해주세요."
-          />
+        <div className="mx-auto text-center my-14 w-72">
+          <p className="font-bold">결과 아이디 출력</p>
         </div>
         <div className="flex justify-center my-3">
           <Link to="/login">
-            <ButtonAsset text="뒤로가기" variant="outlined" className="mx-3" />
+            <ButtonAsset
+              text="로그인하기"
+              variant="outlined"
+              className="mx-3"
+            />
           </Link>
           <Link to="/help/idInquiry/result">
             <ButtonAsset
-              text="다음으로"
+              text="비밀번호 찾기"
               className="mx-3"
               onClick={handleClick}
             />
