@@ -4,12 +4,7 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ButtonAsset from "../../../components/Button/ButtonAsset";
 
-import { getVip, deleteVip, putVip } from "../../../apis/api/vip";
-
-// interface Params {
-//   id : string;
-//   vipId : string;
-// }
+import { getVip, deleteVip } from "../../../apis/api/vip";
 
 interface VipDetailData {
   vipAgeGroups: null;

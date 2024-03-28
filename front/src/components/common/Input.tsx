@@ -5,6 +5,7 @@ interface InputProps {
   label: string;
   labelVisible?: boolean;
   placeholder?: string;
+  value? : string;
   message?: string;
   status?: number;
   inputHandler?: ((e : React.ChangeEvent<HTMLInputElement>) => void);
@@ -26,6 +27,7 @@ export default function Input({
   label,
   labelVisible = true,
   placeholder = "",
+  value ="",
   message = "",
   status = 0,
   inputHandler,
@@ -69,6 +71,7 @@ export default function Input({
         className={`w-full px-3 py-3 text-sm border ${borderColors[status].border} focus:outline-none rounded-md`}
         placeholder={placeholder}
         onChange={inputHandler}
+        value={value}
       />
       {status > 0 && message.length > 0 ? (
         <span

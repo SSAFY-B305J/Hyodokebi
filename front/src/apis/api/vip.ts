@@ -34,9 +34,9 @@ export async function getVip(vipId: number) {
 }
 
 // 특정 VIP 수정
-export async function putVip(vipId: number) {
+export async function putVip(vipId: number, vipData : object) {
   try {
-    const data = await axios.put(REST_VIP_API+`/${vipId}`);
+    const data = await axios.put(REST_VIP_API+`/${vipId}`, vipData );
     return data.data;
   } catch (error) {
     console.error("Error fetching data:", error);
