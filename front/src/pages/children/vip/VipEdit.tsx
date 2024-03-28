@@ -30,13 +30,6 @@ export default function VipEdit() {
   const { id, vipId } = useParams();
   const navigate = useNavigate();
 
-  const [VipDetailData, setVipDetailData] = useState<VipDetailData>({
-    vipAgeGroups: "",
-    vipBirth: 0,
-    vipId: 0,
-    vipNickname: "",
-    vipProfile: 0,
-  });
 
   // const [ageGroups, setAgegroups] = useState([]);
   const [birth, setBirth] = useState(0);
@@ -44,18 +37,6 @@ export default function VipEdit() {
   const [profile, setProfile] = useState(0);
 
   const vipIndex = vipId ? parseInt(vipId) : NaN;
-
-  useEffect(() => {
-    async function fetchVipDetail() {
-      try {
-        const data = await getVip(vipIndex);
-        setVipDetailData(data);
-      } catch (error) {
-        console.error("Error fetching VIP Detail:", error);
-      }
-    }
-    fetchVipDetail();
-  }, [vipIndex]);
 
   const [vipData, setVipData] = useState({
     vipAgeGroups: "",
@@ -65,17 +46,14 @@ export default function VipEdit() {
     vipProfile: 0,
   });
 
-  console.log(VipDetailData);
-
   const handleClick = async () => {
     try {
-      // POST 요청을 보냅니다.
       await putVip(vipIndex, {
         vipBirth: birth,
         vipNickname: nickname,
         vipProfile: profile,
       });
-      console.log("VIP 정보가 성공적으로 수정되었습니다.");
+      console.log("VIP 수정");
 
       navigate(`/mypage/${id}/vip/${vipId}`);
     } catch (error) {
@@ -106,7 +84,6 @@ export default function VipEdit() {
         <Input
           id="nickname"
           label="닉네임"
-          value={VipDetailData.vipNickname || ""}
           inputHandler={(event) => setNickname(event.target.value)}
         />
       </div>
