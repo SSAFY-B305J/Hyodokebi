@@ -15,17 +15,14 @@ public class Sm {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int smId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "vip_id",referencedColumnName = "vip_id")
+    @ManyToOne()
     private Vip vip;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "menu_id", referencedColumnName = "menu_id")
+    @ManyToOne()
     private Menu menu;
 
     @Builder
-    public Sm(int smId, Vip vip, Menu menu) {
-        this.smId = smId;
+    public Sm(Vip vip, Menu menu) {
         this.vip = vip;
         this.menu = menu;
     }

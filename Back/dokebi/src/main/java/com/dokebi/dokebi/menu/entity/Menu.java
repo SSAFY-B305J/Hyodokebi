@@ -1,11 +1,12 @@
 package com.dokebi.dokebi.menu.entity;
 
 
+import com.dokebi.dokebi.restaurant.entity.Restaurant;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
 
 import java.util.List;
 
@@ -18,26 +19,28 @@ public class Menu {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="menu_id")
     private int menuId;
+
 
     @Column(nullable = false)
     private String menuName;
 
-    @Column(nullable = false)
-    private int cate_id;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cate_id", referencedColumnName = "cate_id")
+    @ManyToOne
     private Cate cate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "wtc_id", referencedColumnName = "wtc_id")
+    @OneToMany(mappedBy = "menu")
+    private List<Sm> sms;
+
+    @ManyToOne()
     private Wtc wtc;
 
+    @OneToMany(mappedBy = "menu")
+    private List<Restaurant> restaurants;
 
-    @Builder
-    public Menu(int menuId, String menuName) {
-        this.menuId = menuId;
-        this.menuName = menuName;
-    }
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "menu")
+    private WcMenu wcMenu;
+
+
+
 }

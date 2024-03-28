@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "Wtc")
@@ -19,11 +21,9 @@ public class Wtc {
     @Column(nullable = false)
     private String wtcName;
 
-    @Builder
+    @OneToMany(mappedBy = "wtc")
+    private List<Menu> menus;
 
-    public Wtc(int wtcId, String wtcName) {
-        this.wtcId = wtcId;
-        this.wtcName = wtcName;
-    }
+
 }
 

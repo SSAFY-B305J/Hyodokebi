@@ -19,20 +19,9 @@ public class WcMenu {
     @Column(nullable = false)
     private String menuImg;
 
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "wcMenu")
-    @JoinColumn(name = "menu_id", referencedColumnName = "menu_id")
+    @OneToOne(fetch = FetchType.LAZY)
     private Menu menu;
 
-    /*
-    @OneToMany(mappedBy = "vip")
-    List<DisLikedMusic> vipDisLikedMusics = new ArrayList<>();
 
-    private boolean isDeleted;
-    */
-    @Builder
-    public WcMenu(int menuId, String menuImg) {
-        this.menuId = menuId;
-        this.menuImg = menuImg;
-    }
 }
 

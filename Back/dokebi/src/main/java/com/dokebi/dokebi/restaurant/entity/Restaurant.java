@@ -1,9 +1,9 @@
-package com.dokebi.dokebi.menu.entity;
+package com.dokebi.dokebi.restaurant.entity;
 
 
+import com.dokebi.dokebi.menu.entity.Menu;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -38,19 +38,11 @@ public class Restaurant {
     @Column(nullable = false)
     private float restaurantLong;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "menu_id", referencedColumnName = "menu_id")
+    @ManyToOne()
     private Menu menu;
 
-    @Builder
-    public Restaurant(int restaurantId, String restaurantName, String restaurantAddress, String restaurantNumber, String restaurantUrl, float restaurantLat, float restaurantLong, Menu menu) {
-        this.restaurantId = restaurantId;
-        this.restaurantName = restaurantName;
-        this.restaurantAddress = restaurantAddress;
-        this.restaurantNumber = restaurantNumber;
-        this.restaurantUrl = restaurantUrl;
-        this.restaurantLat = restaurantLat;
-        this.restaurantLong = restaurantLong;
-        this.menu = menu;
-    }
+    @OneToMany(mappedBy = "restaurant")
+    private List<Sr> srs;
+
+
 }

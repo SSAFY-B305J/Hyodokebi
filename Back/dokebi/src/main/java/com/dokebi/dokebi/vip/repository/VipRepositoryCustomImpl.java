@@ -10,8 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class VipRepositoryCustomImpl implements VipRepositoryCustom {
     private final JPAQueryFactory queryFactory;
 
-    @Override
-    @Transactional
+    @Override    @Transactional
     public Long modifyVip(Vip vip, int vid) {
         QVip qvip = QVip.vip;
         return queryFactory.update(qvip)

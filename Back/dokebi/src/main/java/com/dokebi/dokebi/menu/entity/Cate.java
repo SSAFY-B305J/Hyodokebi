@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "Cate")
@@ -13,8 +15,9 @@ import lombok.NoArgsConstructor;
 public class Cate {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="cate_id")
-    private int wtcId;
+    private int cateId;
 
     @Column(nullable = false)
     private String cateImage;
@@ -22,11 +25,8 @@ public class Cate {
     @Column(nullable = false)
     private String cateName;
 
-    @Builder
-    public Cate(int wtcId, String cateImage, String cateName) {
-        this.wtcId = wtcId;
-        this.cateImage = cateImage;
-        this.cateName = cateName;
-    }
+    @OneToMany(mappedBy = "cate")
+    private List<Menu> menus;
+
 }
 

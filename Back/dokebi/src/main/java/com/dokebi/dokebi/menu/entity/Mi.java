@@ -19,10 +19,6 @@ public class Mi {
     @Column(nullable = false)
     private String miName;
 
-    @Builder
-    public Mi(int miId, String miName) {
-        this.miId = miId;
-        this.miName = miName;
-    }
+
 }
 
