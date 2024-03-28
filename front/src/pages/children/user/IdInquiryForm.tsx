@@ -15,12 +15,8 @@ export default function IdInquiryForm() {
           <h1 className="mb-6 text-3xl font-bold">아이디 찾기</h1>
           <h2>가입했을 때 입력하신 이메일을 입력해주세요.</h2>
         </div>
-        <div className="mx-auto my-14 w-72">
-          <TextField
-            label="이메일"
-            labelVisible
-            placeholder="이메일을 입력해주세요."
-          />
+        <div className="mx-auto my-12 w-72">
+          <TextField label="이메일" labelVisible placeholder="이메일" />
         </div>
         <div className="flex justify-center my-3">
           <Link to="/login">

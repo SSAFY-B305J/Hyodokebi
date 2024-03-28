@@ -12,7 +12,7 @@ export default function IdInquiryResult() {
           <h1 className="mb-6 text-3xl font-bold">아이디 찾기 결과</h1>
           <h2>해당 이메일로 가입된 계정은 다음과 같습니다.</h2>
         </div>
-        <div className="mx-auto text-center my-14 w-72">
+        <div className="mx-auto my-12 text-center w-72">
           <p className="font-bold">결과 아이디 출력</p>
         </div>
         <div className="flex justify-center my-3">
