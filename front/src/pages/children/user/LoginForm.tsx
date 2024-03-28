@@ -49,12 +49,18 @@ export default function LoginForm() {
       <>
         <div className="mx-auto mb-10 w-fit">
           <Link to="/">
-            <img src="/hyoblin.png" alt="효도깨비" />
+            <img
+              src="/hyoblin.png"
+              alt="효도깨비"
+            />
           </Link>
         </div>
         {hasError && (
           <div className="flex items-center justify-center px-6 py-5 mb-6 border rounded-md border-secondary bg-secondary/70">
-            <WarningIcon color="error" className="mr-4" />
+            <WarningIcon
+              color="error"
+              className="mr-4"
+            />
             <span className="text-sm break-keep">
               아이디 또는 비밀번호가 맞지 않습니다. 다시 확인해주세요.
             </span>
@@ -81,7 +87,10 @@ export default function LoginForm() {
             onClick={onClickLoginButtonHandler}
           />
           <Link to={KAKAO_AUTH_URL}>
-            <KakaoButton text="카카오 로그인하기" size="lg" />
+            <KakaoButton
+              text="카카오 로그인하기"
+              size="lg"
+            />
           </Link>
         </div>
         <div className="flex justify-center *:text-sm *:text-gray-700 [&>*:hover]:underline last:pr-0">
