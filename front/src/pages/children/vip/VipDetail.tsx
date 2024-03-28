@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ButtonAsset from "../../../components/Button/ButtonAsset";
 
-import { getVip } from "../../../apis/api/vip";
+import { getVip, deleteVip, putVip } from "../../../apis/api/vip";
 
 // interface Params {
 //   id : string;
@@ -16,17 +16,19 @@ interface VipDetailData {
   vipBirth: number;
   vipId: number;
   vipNickname: string;
-  vipProfile : number;
-  
+  vipProfile: number;
 }
 
 export default function VipDetail() {
   const { id, vipId } = useParams();
 
   const vipIndex = vipId ? parseInt(vipId) : NaN;
-  
 
-  const [VipDetailData, setVipDetailData] = useState<VipDetailData | null>(null);
+  const [VipDetailData, setVipDetailData] = useState<VipDetailData | null>(
+    null
+  );
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchVipDetail() {
@@ -34,14 +36,27 @@ export default function VipDetail() {
         const data = await getVip(vipIndex);
         setVipDetailData(data);
       } catch (error) {
-        console.error('Error fetching VIP Detail:', error);
+        console.error("Error fetching VIP Detail:", error);
       }
     }
 
     fetchVipDetail();
   }, []);
 
-
+  const handleDelete = async (vipId: any) => {
+    try {
+      const isConfirmed = window.confirm("정말 삭제 하시겠습니까?");
+      if (isConfirmed) {
+        const result = await deleteVip(vipId);
+        console.log("VIP가 성공적으로 삭제되었습니다.", result);
+        navigate(`/mypage/${id}/vip`);
+      } else {
+        console.log("사용자가 삭제를 취소했습니다.");
+      }
+    } catch (error) {
+      console.error("VIP 삭제 중 오류가 발생했습니다:", error);
+    }
+  };
 
   return (
     <div className="box-border flex flex-col w-2/3 h-full p-3">
@@ -64,7 +79,9 @@ export default function VipDetail() {
             <p className="font-semibold">
               닉네임 : {VipDetailData?.vipNickname}
             </p>
-            <p className="font-semibold">태어나신 해 : {VipDetailData?.vipBirth}</p>
+            <p className="font-semibold">
+              태어나신 해 : {VipDetailData?.vipBirth}
+            </p>
             <p className="font-semibold">
               나이대 : {VipDetailData?.vipAgeGroups}
             </p>
@@ -76,10 +93,7 @@ export default function VipDetail() {
           <ButtonAsset
             text="삭제"
             className="font-semibold text-white bg-red-600"
-            onClick={
-              () => alert("정말 삭제 하시겠습니까?")
-              // Test
-            }
+            onClick={() => handleDelete(vipId)}
           />
           <Link to={`/mypage/${id}/vip/${vipId}/edit`}>
             <ButtonAsset text="수정하기" />
