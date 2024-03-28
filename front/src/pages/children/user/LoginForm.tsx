@@ -7,11 +7,7 @@ import ButtonAsset from "../../../components/Button/ButtonAsset";
 import { KAKAO_AUTH_URL } from "../../../modules/auth/kakaoAuth";
 import { useState } from "react";
 import WarningIcon from "@mui/icons-material/Warning";
-
-const loginData = {
-  id: "ssafy1234",
-  password: "ssafy1234",
-};
+import { postLogin } from "../../../apis/api/member";
 
 export default function LoginForm() {
   // 아이디, 비밀번호
@@ -33,15 +29,18 @@ export default function LoginForm() {
     setPassword(value);
   }
 
-  function onClickLoginButtonHandler() {
-    if (id === loginData.id && password === loginData.password) {
-      alert("로그인 성공!");
-      setHasError(false);
+  // 로그인
+  async function handleClickLoginButton() {
+    try {
+      await postLogin(id, password);
       navigate("/");
-      return;
+    } catch (error) {
+      if (error instanceof Error) {
+        if (error.message === "400") {
+          setHasError(true);
+        }
+      }
     }
-
-    setHasError(true);
   }
 
   return (
@@ -79,7 +78,7 @@ export default function LoginForm() {
           <ButtonAsset
             text="로그인"
             size="lg"
-            onClick={onClickLoginButtonHandler}
+            onClick={handleClickLoginButton}
           />
           <Link to={KAKAO_AUTH_URL}>
             <KakaoButton text="카카오 로그인하기" size="lg" />

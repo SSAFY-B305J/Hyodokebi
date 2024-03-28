@@ -1,32 +1,35 @@
+import { isAxiosError } from "axios";
 import { axios } from "../utils/axios";
 
 const REST_MEMBER_API = "/api/member";
 
 // 일반 로그인
-// TODO: post 같은데...? 백엔드랑 얘기해보기
-export async function getLogin() {
+export async function postLogin(id: string, password: string) {
   try {
-    const data = await axios.get(REST_MEMBER_API + "/login/origin");
-    return data.data;
+    const data = await axios.post(REST_MEMBER_API + "/login/origin", {
+      memberId: id,
+      memberPass: password,
+    });
 
-    /**
-     * NOTE
-     * accessToken 받기 - localStorage에 저장 - 나중에 쿠키에 넣어보기
-     * refreshToken 받기 - localStorage에 저장 - 나중에 쿠키에 넣어보기
-     * expiredTime (만료기간) 받기 - localStorage에 저장 - 나중에 쿠키에 넣어보기
-     *
-     * axios 동작 시 헤더에 기본으로 붙도록 설정
-     * axios.defaults.headers.common['x-access-token'] = res.data.data.accessToken
-     */
+    // Access Token 저장
+    const accessToken = data.headers["accesstoken"] || "";
+    localStorage.setItem("accessToken", accessToken);
+
+    // TODO: Refresh Token 저장
   } catch (error) {
-    console.error("Error fetching data:", error);
+    if (isAxiosError(error) && error.response) {
+      throw new Error(error.response.status + "");
+    }
   }
 }
 
 // TODO: accessToken 재발급 함수 구현
+export async function setToken() {
+  // 만료 시간이 지났을 경우
+  // Refresh Token을 이용하여 Access Token 재발급
+}
 
 // TODO: 카카오 로그인 함수 구현
-// 여기도 accessToken 받아야겠지...?
 export async function getKakaoLogin(code: string) {
   try {
     const data = await axios.get(REST_MEMBER_API + `/login/${code}`);
