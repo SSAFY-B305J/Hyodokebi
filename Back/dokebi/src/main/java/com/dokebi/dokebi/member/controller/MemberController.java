@@ -1,6 +1,10 @@
 package com.dokebi.dokebi.member.controller;
 
+import com.dokebi.dokebi.member.dto.MemberJoinRequestDto;
+import com.dokebi.dokebi.member.dto.OriginLoginRequestDto;
+import com.dokebi.dokebi.member.dto.SocialLoginDto;
 import com.dokebi.dokebi.member.service.MemberService;
+import com.dokebi.dokebi.member.service.SocialMemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -17,7 +21,26 @@ import java.util.UUID;
 @RequestMapping("/api/member")
 public class MemberController {
 
-    private final  MemberService memberService;
+    private final MemberService memberService;
+    private final SocialMemberService socialService;
+
+
+    @GetMapping("/login/origin")
+    public ResponseEntity<Map<String, Object>> originLogin(@RequestBody OriginLoginRequestDto originLoginRequestDto) {
+        Map<String, Object> resultMap = new HashMap<>();
+        HttpStatus status = HttpStatus.OK;
+        String accessToken = "";
+        try {
+            accessToken = memberService.login(originLoginRequestDto);
+        } catch (Exception e) {
+            log.info(e.getMessage());
+            resultMap.put("message", e.getMessage());
+            status = HttpStatus.BAD_REQUEST;
+        }
+        return ResponseEntity.status(status)
+                .header("accessToken", accessToken)
+                .body(resultMap);
+    }
 
     @GetMapping("/login/kakao")
     public ResponseEntity<Map<String, Object>> kakaoLogin(@RequestParam("code") String code) {
@@ -25,11 +48,16 @@ public class MemberController {
         HttpStatus status = HttpStatus.OK;
         String accessToken = "";
         try {
-            String kakaoAccessToken = memberService.getKakaoAccessToken(code, "api/member/login/kakao");
-            Map<String, Object> kakaoMemberInfo = memberService.getkakaoMemberInfo(kakaoAccessToken);
-            System.out.println(kakaoMemberInfo.get("id").toString()+" : "+ UUID.nameUUIDFromBytes("kakao".getBytes()).toString());
-            accessToken = memberService.login(kakaoMemberInfo.get("id").toString()
-            , UUID.nameUUIDFromBytes("kakao".getBytes()).toString());
+            String kakaoAccessToken = socialService.getKakaoAccessToken(code);
+            Map<String, Object> kakaoMemberInfo = socialService.getkakaoMemberInfo(kakaoAccessToken);
+
+
+            accessToken = socialService.login(SocialLoginDto.builder()
+                    .memberId(kakaoMemberInfo.get("id").toString())
+                    .memberPass(UUID.nameUUIDFromBytes("kakao".getBytes()).toString())
+                    .memberNickname(kakaoMemberInfo.get("nickname").toString())
+                    .build()
+            );
 
             resultMap.put("message", "success");
         } catch (Exception e) {
@@ -43,6 +71,22 @@ public class MemberController {
                 .header("accessToken", accessToken)
                 .body(resultMap);
 
+    }
+
+    @PostMapping("/join")
+    public ResponseEntity<Map<String, Object>> originJoin(@RequestBody MemberJoinRequestDto memberJoinRequestDto) {
+        Map<String, Object> resultMap = new HashMap<>();
+        HttpStatus status = HttpStatus.OK;
+        try {
+            log.info("dto={}",memberJoinRequestDto);
+            memberService.join(memberJoinRequestDto);
+            resultMap.put("message", "success");
+        } catch (Exception e) {
+            log.info(e.getMessage());
+            resultMap.put("message", e.getMessage());
+            status = HttpStatus.BAD_REQUEST;
+        }
+        return ResponseEntity.status(status).body(resultMap);
     }
 
 

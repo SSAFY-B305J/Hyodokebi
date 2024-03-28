@@ -38,17 +38,6 @@ public class MemberServiceTest {
         assertThat(result.getMemberNickname()).isEqualTo("전싸피");
     }
 
-    @Test
-    public void 카카오로그인테스트(){
-        //given
-        String code = "";
-        String url = "api/member/login/kakao";
 
-        //when
-        String accessToken = memberService.getKakaoAccessToken(code,url);
-        //then
-        assertThat(accessToken).isNotNull();
-        System.out.println(accessToken);
-    }
 
 }

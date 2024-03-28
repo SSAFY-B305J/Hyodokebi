@@ -1,2 +1,5 @@
-package com.dokebi.dokebi.member.entity;public enum MemberRole {
+package com.dokebi.dokebi.member.entity;
+
+public enum MemberRole {
+ USER, ADMIN
 }
