@@ -1,24 +1,44 @@
+import { useState, useEffect } from "react";
+
 import VipCard from "../../../components/card/VipCard";
 import VipAddCard from "../../../components/card/VipAddCard";
-import VipTestData from "../../../json/VipTestData.json"
 
-interface VipTest {
-  id: number;
-  name: string;
-  imagePath: string;
-  imageIndex: string;
+import { selectVipList } from "../../../apis/api/vip";
+
+interface VipList {
+  vipAgeGroups: null;
+  vipBirth: number;
+  vipId: number;
+  vipNickname: string;
+  vipProfile : string;
+  
 }
 
+
+
 export default function VipList() {
+  const [VipListData, setVipListData] = useState<VipList[]>([]);
+
+  useEffect(() => {
+    async function fetchVipList() {
+      try {
+        const data = await selectVipList();
+        setVipListData(data);
+      } catch (error) {
+        console.error('Error fetching VIP list:', error);
+      }
+    }
+
+    fetchVipList();
+  }, []);
+
+  console.log(VipListData);
+  
   return (
     <div className="box-border flex w-full h-[67vh] p-3 overflow-auto">
       <div className="grid w-full h-full grid-cols-3 gap-3">
-        {VipTestData.map((VipTest : VipTest)=> (
-          <VipCard key={VipTest.id} VipProps={VipTest} />
-        )
-        )
-
-        }
+        {VipListData?.map((VipList : VipList) => <VipCard key={VipList.vipId} VipProps={VipList} />) }
+        
         <VipAddCard />
       </div>
     </div>
