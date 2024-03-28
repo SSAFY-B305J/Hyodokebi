@@ -46,7 +46,7 @@ export async function postRegist(
   profile: string
 ) {
   try {
-    const data = await axios.post(REST_MEMBER_API + "/regist", {
+    const data = await axios.post(REST_MEMBER_API + "/join", {
       memberId: id,
       memberPass: password,
       memberEmail: email,
