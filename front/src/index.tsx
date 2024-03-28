@@ -1,4 +1,3 @@
-import React from "react";
 import ReactDOM from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
@@ -6,12 +5,12 @@ import "./index.css";
 
 import App from "./App";
 import DoubleTab from "./components/tab/DoubleTab";
+import KakaoLogin from "./components/user/KakaoLogin";
+import TopicBox from "./components/topic/TopicBox";
 import VipCreate from "./pages/children/vip/VipCreate";
 import VipList from "./pages/children/vip/VipList";
-import TopicBox from "./components/topic/TopicBox";
 import VipEdit from "./pages/children/vip/VipEdit";
 import VipDetail from "./pages/children/vip/VipDetail";
-import KakaoLogin from "./components/user/KakaoLogin";
 import ErrorPage from "./pages/ErrorPage";
 import MainPage from "./pages/MainPage";
 import Mypage from "./pages/children/Mypage";
@@ -22,12 +21,12 @@ import FoodList from "./pages/children/food/FoodList";
 import FoodResult from "./pages/children/food/FoodResult";
 import MusicVipSelect from "./pages/children/music/MusicVipSelect";
 import MusicResult from "./pages/children/music/MusicResult";
+import ProfileDetail from "./pages/children/profile/ProfileDetail";
+import ProfileEdit from "./pages/children/profile/ProfileEdit";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
-
-// ALERT usestate는 최상단 경로에서는 사용불가
 
 const router = createBrowserRouter([
   {
@@ -56,8 +55,16 @@ const router = createBrowserRouter([
                 element: <DoubleTab />,
                 children: [
                   {
-                    path: "",
+                    path: "profile",
+                    element: <ProfileDetail />,
+                  },
+                  {
+                    path: "vip",
                     element: <VipList />,
+                  },
+                  {
+                    path: "profile/edit",
+                    element: <ProfileEdit />,
                   },
                 ],
               },

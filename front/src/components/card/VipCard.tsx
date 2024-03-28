@@ -11,7 +11,7 @@ export default function VipCard({ VipProps }: { VipProps: VipProps }) {
   return (
     <NavLink
       className="flex flex-col justify-around w-full p-2 m-2 border-2 border-gray-300 shadow-md h-[60vh] rounded-xl"
-      to={`vip/${VipProps.id + 1}`}
+      to={`${VipProps.id + 1}`}
     >
       {/* ALERT width와 height는 확인용으로 넣은 것으로 추후 수정. */}
       <div className="flex justify-end">
