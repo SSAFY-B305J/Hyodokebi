@@ -32,10 +32,10 @@ export default function FoodResult() {
       <div className="flex justify-center text-3xl font-bold mb-7">
         효도깨비가 추천하는 식사메뉴
       </div>
-      <div className="flex justify-center">
+      <div className="flex justify-center mb-5">
         <FoodTap index={3} />
       </div>
-      <div className="flex justify-center mt-5 mb-5 text-xl font-semibold ">
+      <div className="flex justify-center mb-5 text-xl font-semibold ">
         메뉴를 누르시면 주변의 음식점의 위치를 알려드립니다
       </div>
 
@@ -43,6 +43,7 @@ export default function FoodResult() {
         <FoodResultCard
           food="짜장면"
           category="중식"
+          src="https://placehold.co/400"
         />
         <FoodResultCard
           food="칼국수"

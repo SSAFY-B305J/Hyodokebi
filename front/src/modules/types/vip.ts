@@ -1,5 +1,5 @@
 export type Vip = {
-  vipId: number;
+  vipId: string;
   vipNickname: string;
   vipBirth: number;
   vipProfile: string;
