@@ -41,8 +41,8 @@ public class Restaurant {
     @ManyToOne()
     private Menu menu;
 
-    @OneToMany(mappedBy = "restaurant")
-    private List<Sr> srs;
+//    @OneToMany(mappedBy = "restaurant")
+//    private List<Sr> srs;
 
 
 }

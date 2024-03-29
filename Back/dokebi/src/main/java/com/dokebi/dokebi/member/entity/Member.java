@@ -1,6 +1,7 @@
 package com.dokebi.dokebi.member.entity;
 
 
+import com.dokebi.dokebi.vip.entity.Vip;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -46,6 +47,8 @@ public class Member implements UserDetails {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private MemberRole memberRole;
+    @OneToMany(mappedBy = "member")
+    private List<Vip> vips;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -7,7 +7,7 @@ import org.hibernate.sql.results.graph.Fetch;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "Sm")
+@Table(name = "saved_menu")
 @Entity
 public class Sm {
 

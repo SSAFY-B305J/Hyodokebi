@@ -24,8 +24,6 @@ public class SavedMusic {
     @ManyToOne
     private Music music;
 
-    private boolean isDeleted;
-
     @Builder
     public SavedMusic(Vip vip, Music music) {
         this.vip = vip;
