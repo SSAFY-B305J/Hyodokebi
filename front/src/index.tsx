@@ -23,6 +23,8 @@ import MusicVipSelect from "./pages/children/music/MusicVipSelect";
 import MusicResult from "./pages/children/music/MusicResult";
 import ProfileDetail from "./pages/children/profile/ProfileDetail";
 import ProfileEdit from "./pages/children/profile/ProfileEdit";
+import FoodChoice from "./pages/children/food/FoodChoice";
+import FoodAdd from "./pages/children/food/FoodAdd";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -96,6 +98,14 @@ const router = createBrowserRouter([
             ],
           },
           {
+            path: "food/choice/:id",
+            element: <FoodChoice />,
+          },
+          {
+            path: "food/add/:vipId",
+            element: <FoodAdd />,
+          },
+          {
             path: "food/list",
             element: <FoodList />,
           },
@@ -116,11 +126,6 @@ const router = createBrowserRouter([
       {
         path: "oauth",
         element: <KakaoLogin />,
-      },
-      {
-        path: "food/choice/:id",
-        // TODO children을 통해 food 이하 라우터 배분할 것.
-        // TODO 음식 추천 기능 중첩 라우터 적용 예정
       },
     ],
   },
