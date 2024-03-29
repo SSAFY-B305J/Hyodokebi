@@ -1,7 +1,10 @@
 package com.dokebi.dokebi.vip.entity;
 
+import com.dokebi.dokebi.menu.entity.Sm;
+import com.dokebi.dokebi.member.entity.Member;
 import com.dokebi.dokebi.music.entity.DisLikedMusic;
 import com.dokebi.dokebi.music.entity.SavedMusic;
+import com.dokebi.dokebi.restaurant.entity.Sr;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.SQLDelete;
@@ -39,15 +42,24 @@ public class Vip {
     @OneToMany(mappedBy = "vip")
     List<DisLikedMusic> vipDisLikedMusics = new ArrayList<>();
 
+    @OneToMany(mappedBy = "vip")
+    private List<Sm> sms = new ArrayList<>();
+
+//    @OneToMany(mappedBy = "vip")
+//    private List<Sr> srs;
+
+    @ManyToOne
+    private Member member;
+
     private boolean isDeleted;
 
     @Builder
-    public Vip(String vipNickname, int vipBirth, int vipProfile, List<SavedMusic> vipSavedMusics, List<DisLikedMusic> vipDisLikedMusics) {
+    public Vip(String vipNickname, int vipBirth, int vipProfile, List<SavedMusic> vipSavedMusics, List<DisLikedMusic> vipDisLikedMusics, Member member) {
         this.vipNickname = vipNickname;
         this.vipBirth = vipBirth;
         this.vipProfile = vipProfile;
         this.vipSavedMusics = vipSavedMusics;
         this.vipDisLikedMusics = vipDisLikedMusics;
+        this.member = member;
     }
-
 }

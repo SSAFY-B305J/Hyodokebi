@@ -21,5 +21,4 @@ public interface MusicService {
 
     Map<AgeGroup, List<MusicDto>> findMusics(int vid) throws JsonProcessingException;
 
-    void musictest();
 }
