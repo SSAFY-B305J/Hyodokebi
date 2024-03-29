@@ -11,11 +11,8 @@ export async function postLogin(id: string, password: string) {
       memberPass: password,
     });
 
-    console.log(data.data);
-
     // Access Token 저장
     const accessToken = data.headers["accesstoken"] || "";
-    console.log(accessToken);
     localStorage.setItem("accessToken", accessToken);
 
     // TODO: Refresh Token 저장
