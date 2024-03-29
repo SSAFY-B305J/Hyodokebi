@@ -1,6 +1,5 @@
 import UnderLine from "../../../components/common/UnderLine";
 import FoodTap from "../../../components/food/FoodTap";
-import MainLayout from "../../../layouts/Mainlayout";
 import ChoiceVip from "../../../components/card/ChoiceVip";
 import Dropdowns from "../../../components/common/Dropdowns";
 import { useEffect, useState } from "react";
@@ -92,86 +91,84 @@ export default function FoodChoice() {
   }, []);
 
   return (
-    <MainLayout>
-      <div>
-        <div className="flex justify-center text-3xl font-bold mb-7">
-          효도깨비의 VIP를 알려주세요
-        </div>
+    <div>
+      <div className="flex justify-center text-3xl font-bold mb-7">
+        효도깨비의 VIP를 알려주세요
+      </div>
 
-        <div className="flex justify-center mb-5">
-          <FoodTap index={1} />
-        </div>
+      <div className="flex justify-center mb-5">
+        <FoodTap index={1} />
+      </div>
 
-        <div className="ml-20 mr-20 border">
-          <div>
-            <UnderLine
-              text="지역을 골라주세요"
-              size="sm"
+      <div className="ml-20 mr-20 border">
+        <div>
+          <UnderLine
+            text="지역을 골라주세요"
+            size="sm"
+          />
+          <div className="flex flex-row m-5">
+            <Box sx={{ minWidth: 120 }}>
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-autowidth-label">
+                  시/도
+                </InputLabel>
+                <Select
+                  labelId="demo-simple-select-autowidth-label"
+                  id="demo-simple-select-autowidth"
+                  value={selectedSiDo}
+                  onChange={handleSiDoChange}
+                >
+                  {uniqueSiDoList.map((siDo, index) => (
+                    <MenuItem
+                      key={index}
+                      value={siDo}
+                    >
+                      {siDo}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Box>
+
+            <Dropdowns
+              category="시/군/구"
+              cities={siGunGuOptions}
             />
-            <div className="flex flex-row m-5">
-              <Box sx={{ minWidth: 120 }}>
-                <FormControl fullWidth>
-                  <InputLabel id="demo-simple-select-autowidth-label">
-                    시/도
-                  </InputLabel>
-                  <Select
-                    labelId="demo-simple-select-autowidth-label"
-                    id="demo-simple-select-autowidth"
-                    value={selectedSiDo}
-                    onChange={handleSiDoChange}
-                  >
-                    {uniqueSiDoList.map((siDo, index) => (
-                      <MenuItem
-                        key={index}
-                        value={siDo}
-                      >
-                        {siDo}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
-              </Box>
-
-              <Dropdowns
-                category="시/군/구"
-                cities={siGunGuOptions}
-              />
-            </div>
-          </div>
-          <div className="mt-5">
-            <UnderLine
-              text="VIP는 누구?"
-              size="sm"
-            />
-            <div className="flex flex-row justify-center">
-              {vipList.map((vip) => (
-                <div onClick={() => handleSelect(vip.vipId)}>
-                  <ChoiceVip
-                    key={vip.vipId}
-                    id={vip.vipId}
-                    name={vip.vipNickname}
-                    imagePath={vip.vipProfile}
-                    imageIndex={""}
-                    clicked={vip.vipId === sel}
-                  />
-                </div>
-              ))}
-            </div>
           </div>
         </div>
-        <div className="flex justify-center mt-3">
-          <Link
-            to={`food/choice/${SelectVipId}`}
-            className="w-1/4 "
-          >
-            <ButtonAsset
-              text="다음"
-              variant="outlined"
-              className="w-full font-semibold border-2 rounded-3xl hover:border-white "
-            />
-          </Link>
+        <div className="mt-5">
+          <UnderLine
+            text="VIP는 누구?"
+            size="sm"
+          />
+          <div className="flex flex-row justify-center">
+            {vipList.map((vip) => (
+              <div onClick={() => handleSelect(vip.vipId)}>
+                <ChoiceVip
+                  key={vip.vipId}
+                  id={vip.vipId}
+                  name={vip.vipNickname}
+                  imagePath={vip.vipProfile}
+                  imageIndex={""}
+                  clicked={vip.vipId === sel}
+                />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
-    </MainLayout>
+      <div className="flex justify-center mt-3">
+        <Link
+          to={`/food/add/${sel}`}
+          className="w-1/4 "
+        >
+          <ButtonAsset
+            text="다음"
+            variant="outlined"
+            className="w-full font-semibold border-2 rounded-3xl hover:border-white "
+          />
+        </Link>
+      </div>
+    </div>
   );
 }
