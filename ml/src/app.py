@@ -80,9 +80,4 @@ class Vip(db.Model):
 @app.route("/pyapi/menu", methods=['GET'])
 def recommend_menu():
 
-    # 결과 가져오기
-    results = Vip.query.all()
-
-    dict_vips = [Vip.to_dict(vip) for vip in results]
-    
-    return jsonify(dict_vips)
+    vip_id = request.args.get('vipId')   
