@@ -14,6 +14,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
@@ -41,19 +42,21 @@ public class JwtTokenProvider {
 
         long now = (new Date()).getTime();
         // Access Token 생성
-        Date accessTokenRefreshIn = new Date(now + 1000*60*60);
-        Date accessTokenExpiresIn = new Date(now + 1000*60*30);
+        Date accessTokenRefreshIn = new Date(now + 1000*60*30);
+        Date accessTokenExpiresIn = new Date(now + 1000*60*60);
         String accessToken = Jwts.builder().setSubject(authentication.getName()).claim("auth", authorities)
                 .claim("refresh", accessTokenRefreshIn).setExpiration(accessTokenExpiresIn)
                 .signWith(key, SignatureAlgorithm.HS256).compact();
 
-        Date refreshTokenExpiresIn = new Date(now + 1000*60*60*24*7);
         // Refresh Token 생성
-        String refreshToken = Jwts.builder().setExpiration(refreshTokenExpiresIn)
+        String refreshToken = Jwts.builder().setExpiration(accessTokenExpiresIn)
                 .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
 
-        return TokenInfo.builder().grantType("Bearer").accessToken(accessToken).refreshToken(refreshToken).build();
+        return TokenInfo.builder().grantType("Bearer")
+                .accessToken(accessToken)
+                .refreshToken(refreshToken)
+                .build();
     }
 
     // JWT 토큰을 복호화하여 토큰에 들어있는 정보를 꺼내는 메서드
