@@ -46,11 +46,13 @@ public class MusicServiceImpl implements MusicService {
 
         MusicDto musicDto = MusicDto.builder()
                 .musicId(music.getMusicId())
-                .musicName(music.getMusicName())
                 .musicYear(music.getMusicYear())
+                .musicName(music.getMusicName())
                 .musicSinger(music.getMusicSinger())
                 .musicImg(music.getMusicImg())
                 .musicLyrics(music.getMusicLyrics())
+                .musicGenre(music.getMusicGenre())
+                .musicComposer(music.getMusicComposer())
                 .build();
 
         return musicDto;
@@ -100,11 +102,13 @@ public class MusicServiceImpl implements MusicService {
             // 응답을 musicDto로 변환해서 EnumMap에 삽입
             recommendedMusicDtos.put(ageGroup, recommendedMusics.stream().map(m -> MusicDto.builder()
                             .musicId(m.getMusicId())
-                            .musicName(m.getMusicName())
                             .musicYear(m.getMusicYear())
+                            .musicName(m.getMusicName())
                             .musicSinger(m.getMusicSinger())
                             .musicImg(m.getMusicImg())
                             .musicLyrics(m.getMusicLyrics())
+                            .musicGenre(m.getMusicGenre())
+                            .musicComposer(m.getMusicComposer())
                             .build())
                     .collect(Collectors.toList()));
 
@@ -124,8 +128,8 @@ public class MusicServiceImpl implements MusicService {
                 .vip(vip)
                 .build();
 
-       SavedMusic existedMusic = vipRepository.findVipMusic(vid, mid);
-       if(existedMusic != null) return existedMusic.getSmId();
+        SavedMusic existedMusic = vipRepository.findVipMusic(vid, mid);
+        if (existedMusic != null) return existedMusic.getSmId();
 
         savedMusicRepository.save(savedMusic);
         return savedMusic.getSmId();

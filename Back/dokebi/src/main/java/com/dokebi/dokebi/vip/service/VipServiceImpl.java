@@ -127,6 +127,8 @@ public class VipServiceImpl implements VipService {
                         .musicSinger(m.getMusic().getMusicSinger())
                         .musicImg(m.getMusic().getMusicImg())
                         .musicLyrics(m.getMusic().getMusicLyrics())
+                        .musicGenre(m.getMusic().getMusicGenre())
+                        .musicComposer(m.getMusic().getMusicComposer())
                         .build())
                 .collect(Collectors.toList());
 
@@ -147,6 +149,8 @@ public class VipServiceImpl implements VipService {
                         .musicSinger(m.getMusic().getMusicSinger())
                         .musicImg(m.getMusic().getMusicImg())
                         .musicLyrics(m.getMusic().getMusicLyrics())
+                        .musicGenre(m.getMusic().getMusicGenre())
+                        .musicComposer(m.getMusic().getMusicComposer())
                         .build())
                 .collect(Collectors.toList());
 
