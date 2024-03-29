@@ -6,6 +6,7 @@ import com.dokebi.dokebi.member.dto.OriginLoginRequestDto;
 import com.dokebi.dokebi.member.dto.SocialLoginDto;
 import com.dokebi.dokebi.member.service.MemberService;
 import com.dokebi.dokebi.member.service.SocialMemberService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
@@ -92,11 +93,11 @@ public class MemberController {
     }
 
     @GetMapping("/check/{category}/{input}")
-    public ResponseEntity<Map<String, Object>> idCheck(@PathVariable String category,@PathVariable String input){
+    public ResponseEntity<Map<String, Object>> dupCheck(@PathVariable String category,@PathVariable String input){
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status = HttpStatus.OK;
         try{
-            boolean dupCheck = memberService.dupCheck(category,input);
+            boolean dupCheck = memberService.checkDup(category,input);
             resultMap.put("dupCheck", dupCheck);
         }catch(Exception e){
             log.info(e.getMessage());
@@ -105,6 +106,23 @@ public class MemberController {
         }
         return ResponseEntity.status(status).body(resultMap);
     }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<Map<String, Object>> memberDelete(HttpServletRequest request){
+        Map<String,Object> resultMap = new HashMap<>();
+        HttpStatus status = HttpStatus.OK;
+        try{
+            int accessMemberIndex = (int)request.getAttribute("accessMemberIndex");
+            memberService.deleteMember(accessMemberIndex);
+            resultMap.put("message","success");
+        }catch(Exception e){
+            log.info(e.getMessage());
+            resultMap.put("message", e.getMessage());
+            status = HttpStatus.BAD_REQUEST;
+        }
+        return ResponseEntity.status(status).body((resultMap));
+    }
+
 
 
 }

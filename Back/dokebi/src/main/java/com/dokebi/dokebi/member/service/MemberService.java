@@ -78,7 +78,7 @@ public class MemberService {
     }
 
 
-    public boolean dupCheck(String category, String input) {
+    public boolean checkDup(String category, String input) {
         //category로 id, email, nickname의 값이 넘어오면 해당하는 중복검사 실행
         //true = 해당하는 값이 이미 있음
         boolean check = switch (category){
@@ -92,4 +92,9 @@ public class MemberService {
         };
         return check;
     }
+
+//    public void deleteMember(int accessMemberIndex) {
+//
+//        memberRepository.deleteById(accessMemberIndex);
+//    }
 }
