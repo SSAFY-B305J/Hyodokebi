@@ -3,20 +3,25 @@ interface VipProps {
   name: string;
   imagePath: string;
   imageIndex: string;
+  clicked: boolean;
 }
 
-export default function ChoiceVip({ VipProps }: { VipProps: VipProps }) {
+export default function ChoiceVip(props: VipProps) {
+  const disabled =
+    "border-gray-300 flex flex-col justify-around w-[25vw]] p-2 m-2 border-2  shadow-md h-[30vh] rounded-xl overflow-hidden";
+  const activated =
+    "border-primary flex flex-col justify-around w-[25vw]] p-2 m-2 border-2  shadow-md h-[30vh] rounded-xl overflow-hidden";
   return (
-    <div className="flex flex-col justify-around w-[25vw]] p-2 m-2 border-2 border-gray-300 shadow-md h-[30vh] rounded-xl overflow-hidden">
+    <div className={props.clicked ? activated : disabled}>
       <div className="flex justify-center w-full ">
         <img
-          src={`/test/picture${[VipProps.imageIndex]}.jpg`}
+          src={`/test/picture${[props.imageIndex]}.jpg`}
           alt="empty"
           className="w-[156px] h-[156px] m-2"
         />
       </div>
       <div className="flex justify-center text-2xl font-semibold grow ">
-        {VipProps.name}
+        {props.name}
       </div>
     </div>
   );

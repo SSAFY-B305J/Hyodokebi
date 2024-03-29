@@ -20,12 +20,12 @@ export default function Dropdowns({ category, cities }: DropdownsProps) {
   return (
     <Box sx={{ minWidth: 120 }}>
       <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Select City</InputLabel>
+        <InputLabel id="demo-simple-select-label">{category}</InputLabel>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={category}
-          label="Select City"
+          value={selectedCity}
+          label={category}
           onChange={handleChange}
         >
           {cities.map((city, index) => (
