@@ -12,10 +12,7 @@ export default function SignupForm() {
       <>
         <div className="mx-auto w-fit">
           <Link to="/">
-            <img
-              src="/hyoblin.png"
-              alt="효도깨비"
-            />
+            <img src="/hyoblin.png" alt="효도깨비" />
           </Link>
         </div>
         <div className="flex flex-col my-20 [&>*]:mb-3">
@@ -26,10 +23,7 @@ export default function SignupForm() {
               onClick={() => navigate("regform")}
             />
             <HorizontalDivider text="또는" />
-            <KakaoButton
-              text="카카오로 시작하기"
-              size="lg"
-            />
+            <KakaoButton text="카카오로 시작하기" size="lg" />
           </div>
         </div>
       </>

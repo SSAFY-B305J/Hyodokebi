@@ -3,6 +3,7 @@ import ButtonAsset from "../../../components/Button/ButtonAsset";
 import InputAsset from "../../../components/common/InputAsset";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { postRegist } from "../../../apis/api/member";
 
 export default function RegForm() {
   // 아이디, 비밀번호, 비밀번호 확인, 이메일, 이메일 확인, 닉네임
@@ -10,7 +11,7 @@ export default function RegForm() {
   const [pw, setPw] = useState<string>("");
   const [pwConfirm, setPwConfirm] = useState<string>("");
   const [email, setEmail] = useState<string>("");
-  const [authCode, setAuthCode] = useState<string>("");
+  // const [authCode, setAuthCode] = useState<string>("");
   const [nickname, setNickname] = useState<string>("");
 
   // 아이디 에러, 비밀번호 에러, 비밀번호 확인 에러, 이메일 에러, 이메일 확인 에러, 닉네임 에러
@@ -24,14 +25,14 @@ export default function RegForm() {
     undefined
   );
 
-  const [AuthButtonState, setAuthButtonState] = useState<boolean>(false);
-  const [isEmailAuthStep, setIsEmailAuthVisible] = useState<boolean>(false);
+  // const [AuthButtonState, setAuthButtonState] = useState<boolean>(false);
+  // const [isEmailAuthStep, setIsEmailAuthVisible] = useState<boolean>(false);
 
   const navigate = useNavigate();
 
   // TODO: 비밀번호 확인을 쓴 후 비밀번호를 치면 비밀번호 확인이 유효한 오류 해결하기
 
-  function SubmitHandler(e: FormEvent<HTMLFormElement>): void {
+  async function SubmitHandler(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
     const idCheck = idCheckHandler(id);
@@ -42,8 +43,16 @@ export default function RegForm() {
 
     if (idCheck && pwCheck && pwConfirmCheck && emailCheck && nicknameCheck) {
       // 회원가입 성공
-      alert("회원가입 성공");
-      navigate("/");
+      try {
+        const data = await postRegist(id, pw, email, nickname, "");
+        console.log(data);
+
+        alert("회원가입 성공");
+        navigate("/login");
+      } catch (error) {
+        console.error("RegForm Error:", error);
+        alert("회원가입 실패");
+      }
     }
   }
 
@@ -174,7 +183,7 @@ export default function RegForm() {
       error.name = "error";
       error.message = "이메일을 입력해주세요.";
       setEmailError(error);
-      setAuthButtonState(false);
+      // setAuthButtonState(false);
       return false;
     }
 
@@ -184,7 +193,7 @@ export default function RegForm() {
       error.name = "error";
       error.message = "이메일 형식이 옳바르지 않습니다.";
       setEmailError(error);
-      setAuthButtonState(false);
+      // setAuthButtonState(false);
       return false;
     }
 
@@ -199,16 +208,16 @@ export default function RegForm() {
     }
 
     // 이메일 형식이 맞으면 인증 버튼 활성화
-    setAuthButtonState(true);
+    // setAuthButtonState(true);
 
     // 이메일 인증하지 않은 않은 경우
-    if (!isEmailAuthStep) {
-      const error = new Error();
-      error.name = "error";
-      error.message = "이메일을 인증해주세요.";
-      setEmailError(error);
-      return false;
-    }
+    // if (!isEmailAuthStep) {
+    //   const error = new Error();
+    //   error.name = "error";
+    //   error.message = "이메일을 인증해주세요.";
+    //   setEmailError(error);
+    //   return false;
+    // }
 
     error.name = "valid";
     error.message = "";
@@ -217,18 +226,18 @@ export default function RegForm() {
     return true;
   }
 
-  // 이메일 인증의 '인증하기' 버튼 click 핸들러
-  // 이메일 확인 TextField를 보여줌
-  function onClickEmailAuthButton(): void {
-    setIsEmailAuthVisible(true);
-    setAuthButtonState(false);
-  }
+  // // 이메일 인증의 '인증하기' 버튼 click 핸들러
+  // // 이메일 확인 TextField를 보여줌
+  // function onClickEmailAuthButton(): void {
+  //   setIsEmailAuthVisible(true);
+  //   setAuthButtonState(false);
+  // }
 
-  // 이메일 확인 input change 핸들러
-  function onChangeAuthCodeHandler(e: ChangeEvent<HTMLInputElement>): void {
-    const value = e.target.value;
-    setAuthCode(value);
-  }
+  // // 이메일 확인 input change 핸들러
+  // function onChangeAuthCodeHandler(e: ChangeEvent<HTMLInputElement>): void {
+  //   const value = e.target.value;
+  //   setAuthCode(value);
+  // }
 
   // 닉네임 input change 핸들러
   function onChangeNicknameHandler(e: ChangeEvent<HTMLInputElement>): void {
@@ -316,21 +325,21 @@ export default function RegForm() {
                 onChange={onChangeEmailHandler}
                 onBlur={() => emailCheckHandler(email)}
               />
-              <ButtonAsset
+              {/* <ButtonAsset
                 type="button"
                 text="인증하기"
                 size="sm"
                 className="ml-2"
                 disabled={!AuthButtonState}
                 onClick={onClickEmailAuthButton}
-              />
+              /> */}
             </div>
             <p className="w-full pt-1 text-xs">
               {emailError && emailError.message}
             </p>
           </div>
           {/* 인증번호 입력 - 위의 '인증하기' 버튼을 클릭하면 출력됨 */}
-          {isEmailAuthStep && (
+          {/* {isEmailAuthStep && (
             <div className="relative w-full">
               <label className="inline-block pb-1 font-bold">
                 인증번호 입력
@@ -351,7 +360,7 @@ export default function RegForm() {
               </div>
               <p className="w-full pt-1 text-xs"></p>
             </div>
-          )}
+          )} */}
           {/* 닉네임 */}
           <TextField
             label="닉네임"
