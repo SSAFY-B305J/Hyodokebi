@@ -37,6 +37,7 @@ interface RegistState {
   checkNickname: () => Promise<boolean>;
 
   getRegistValid: () => Promise<boolean>;
+  clear: () => void;
 }
 
 const useRegistStore = create<RegistState>((set, get) => ({
@@ -244,6 +245,17 @@ const useRegistStore = create<RegistState>((set, get) => ({
       emailCheck &&
       nicknameCheck
     );
+  },
+
+  // 모든 값 초기화
+  clear: () => {
+    set(() => ({
+      id: "",
+      password: "",
+      passwordConfirm: "",
+      email: "",
+      nickname: "",
+    }));
   },
 }));
 

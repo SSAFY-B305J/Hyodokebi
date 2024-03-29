@@ -3,7 +3,7 @@ import { postRegist } from "../../../apis/api/member";
 import TextField from "../../../components/common/TextField";
 import useRegistStore from "../../../store/useRegistStore";
 import ButtonAsset from "../../../components/Button/ButtonAsset";
-import { FormEvent } from "react";
+import { FormEvent, useEffect } from "react";
 
 export default function RegForm2() {
   const navigate = useNavigate();
@@ -46,6 +46,10 @@ export default function RegForm2() {
     );
     if (confirm) navigate("/signup");
   }
+
+  useEffect(() => {
+    return () => regStore.clear();
+  }, []);
 
   return (
     <div className="m-14">
