@@ -1,9 +1,5 @@
 import { create } from "zustand";
-import {
-  getDuplicateCheckEmail,
-  getDuplicateCheckId,
-  getDuplicateCheckNickname,
-} from "../apis/api/member";
+import { getDuplicateCheck } from "../apis/api/member";
 
 class TextFieldError extends Error {
   constructor(message: string, name: string = "error") {
@@ -86,7 +82,7 @@ const useRegistStore = create<RegistState>((set, get) => ({
     }
 
     // 중복된 아이디인 경우
-    // const isDuplicate = await getDuplicateCheckId(id);
+    // const isDuplicate = await getDuplicateCheck("id", id);
     const isDuplicate = false; // WARNING: API 완성되면 위의 코드로 교체해주세요.
     if (isDuplicate) {
       error.message = "이미 사용 중인 아이디입니다.";
@@ -181,7 +177,7 @@ const useRegistStore = create<RegistState>((set, get) => ({
     }
 
     // 중복된 이메일인 경우
-    // const isDuplicate = await getDuplicateCheckEmail(email);
+    // const isDuplicate = await getDuplicateCheck("email", email);
     const isDuplicate = false; // WARNING: API 완성되면 위의 코드로 교체해주세요.
     if (isDuplicate) {
       error.message = "이미 사용 중인 아이디입니다.";
@@ -218,7 +214,7 @@ const useRegistStore = create<RegistState>((set, get) => ({
     }
 
     // 중복된 닉네임인 경우
-    // const isDuplicate = await getDuplicateCheckNickname(nickname);
+    // const isDuplicate = await getDuplicateCheck("nickname", nickname);
     const isDuplicate = false; // WARNING: API 완성되면 위의 코드로 교체해주세요.
     if (isDuplicate) {
       error.message = "이미 사용 중인 닉네임입니다.";
