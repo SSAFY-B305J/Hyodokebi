@@ -91,7 +91,20 @@ public class MemberController {
         return ResponseEntity.status(status).body(resultMap);
     }
 
-
+    @GetMapping("/check/{category}/{input}")
+    public ResponseEntity<Map<String, Object>> idCheck(@PathVariable String category,@PathVariable String input){
+        Map<String, Object> resultMap = new HashMap<>();
+        HttpStatus status = HttpStatus.OK;
+        try{
+            boolean dupCheck = memberService.dupCheck(category,input);
+            resultMap.put("dupCheck", dupCheck);
+        }catch(Exception e){
+            log.info(e.getMessage());
+            resultMap.put("message", e.getMessage());
+            status = HttpStatus.BAD_REQUEST;
+        }
+        return ResponseEntity.status(status).body(resultMap);
+    }
 
 
 }

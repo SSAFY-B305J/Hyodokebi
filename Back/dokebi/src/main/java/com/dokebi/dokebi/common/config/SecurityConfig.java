@@ -29,11 +29,12 @@ public class SecurityConfig {
         http
                 .authorizeRequests(authorizeRequests ->
                                 authorizeRequests
-                                        .requestMatchers("/api/member/login/**").permitAll()
-                                        .requestMatchers("/api/member/join/**").permitAll()
-                                        .requestMatchers("/swagger-resources/**",
-                                                "/v3/api-docs/**","/swagger-ui/**").permitAll()
-                                        .anyRequest().authenticated())
+//                                        .requestMatchers("/api/member/login/**").permitAll()
+//                                        .requestMatchers("/api/member/join/**").permitAll()
+//                                        .requestMatchers("/swagger-resources/**",
+//                                                "/v3/api-docs/**","/swagger-ui/**").permitAll()
+//                                        .anyRequest().authenticated())
+                                        .anyRequest().permitAll())
                 .addFilterBefore(
                         new JwtAuthenticationFilter(jwtTokenProvider, memberRepository, authenticationManagerBuilder),
                         UsernamePasswordAuthenticationFilter.class)
