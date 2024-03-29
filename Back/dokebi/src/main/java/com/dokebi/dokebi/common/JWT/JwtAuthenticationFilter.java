@@ -32,10 +32,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     public void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
 
-        // 1. Request Header 에서 JWT 토큰 추출
+        // Request Header 에서 JWT 토큰 추출
         String token = resolveToken(request);
 
-        // 2. validateToken 으로 토큰 유효성 검사
+        // validateToken 으로 토큰 유효성 검사
         if (token != null && jwtTokenProvider.validateToken(token)) {
             Claims claims = jwtTokenProvider.parseClaims(token);
             // 토큰 유효기간은 남아있고 갱신 시점은 지난 상태

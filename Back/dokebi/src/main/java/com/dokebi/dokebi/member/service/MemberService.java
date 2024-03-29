@@ -39,7 +39,7 @@ public class MemberService {
     private final JwtTokenProvider jwtTokenProvider;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public TokenInfo login(OriginLoginRequestDto dto) {
+    public String login(OriginLoginRequestDto dto) {
         Member loginUser = loginPassCheck(dto);
 
         if(loginUser!=null){
@@ -55,7 +55,7 @@ public class MemberService {
 
             //4. DB에 refreshToken 저장
             loginUser.setMemberRefreshToken(tokenInfo.getRefreshToken());
-            return tokenInfo;
+            return tokenInfo.getAccessToken();
         }else{
             throw new UsernameNotFoundException("아이디나 비밀번호가 일치하지 않습니다.");
         }
@@ -78,6 +78,23 @@ public class MemberService {
     }
 
 
+    public boolean checkDup(String category, String input) {
+        //category로 id, email, nickname의 값이 넘어오면 해당하는 중복검사 실행
+        //true = 해당하는 값이 이미 있음
+        boolean check = switch (category){
+            case "id"->memberRepository.existsByMemberId(input);
 
+            case "email"-> memberRepository.existsByMemberEmail(input);
 
+            case "nickname" -> memberRepository.existsByMemberNickname(input);
+
+            default -> throw new IllegalStateException("올바른 category가 아닙니다. ");
+        };
+        return check;
+    }
+
+//    public void deleteMember(int accessMemberIndex) {
+//
+//        memberRepository.deleteById(accessMemberIndex);
+//    }
 }

@@ -6,6 +6,7 @@ import com.dokebi.dokebi.member.dto.OriginLoginRequestDto;
 import com.dokebi.dokebi.member.dto.SocialLoginDto;
 import com.dokebi.dokebi.member.service.MemberService;
 import com.dokebi.dokebi.member.service.SocialMemberService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
@@ -31,19 +32,17 @@ public class MemberController {
     public ResponseEntity<Map<String, Object>> originLogin(@RequestBody OriginLoginRequestDto originLoginRequestDto) {
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status = HttpStatus.OK;
-        TokenInfo Token = null;
-        HttpHeaders headers = new HttpHeaders();
+        String accessToken = "";
         try {
-            Token = memberService.login(originLoginRequestDto);
-            headers.add("accessToken", Token.getAccessToken());
-            headers.add("refreshToken", Token.getRefreshToken());
+            accessToken =  memberService.login(originLoginRequestDto);
+
         } catch (Exception e) {
             log.info(e.getMessage());
             resultMap.put("message", e.getMessage());
             status = HttpStatus.BAD_REQUEST;
         }
         return ResponseEntity.status(status)
-                .headers(headers)
+                .header("accessToken",accessToken)
                 .body(resultMap);
     }
 
@@ -51,21 +50,18 @@ public class MemberController {
     public ResponseEntity<Map<String, Object>> kakaoLogin(@RequestParam("code") String code) {
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status = HttpStatus.OK;
-        TokenInfo Token = null;
-        HttpHeaders headers = new HttpHeaders();
+        String accessToken = "";
         try {
             String kakaoAccessToken = socialService.getKakaoAccessToken(code);
             Map<String, Object> kakaoMemberInfo = socialService.getkakaoMemberInfo(kakaoAccessToken);
 
 
-            Token = socialService.login(SocialLoginDto.builder()
+            accessToken = socialService.login(SocialLoginDto.builder()
                     .memberId(kakaoMemberInfo.get("id").toString())
                     .memberPass(UUID.nameUUIDFromBytes("kakao".getBytes()).toString())
                     .memberNickname(kakaoMemberInfo.get("nickname").toString())
                     .build()
             );
-            headers.add("accessToken", Token.getAccessToken());
-            headers.add("refreshToken", Token.getRefreshToken());
             resultMap.put("message","success");
         } catch (Exception e) {
             log.info(e.getMessage());
@@ -75,7 +71,7 @@ public class MemberController {
 
 
         return ResponseEntity.status(status)
-                .headers(headers)
+                .header("accessToken",accessToken)
                 .body(resultMap);
 
     }
@@ -95,6 +91,38 @@ public class MemberController {
         }
         return ResponseEntity.status(status).body(resultMap);
     }
+
+    @GetMapping("/check/{category}/{input}")
+    public ResponseEntity<Map<String, Object>> dupCheck(@PathVariable String category,@PathVariable String input){
+        Map<String, Object> resultMap = new HashMap<>();
+        HttpStatus status = HttpStatus.OK;
+        try{
+            boolean dupCheck = memberService.checkDup(category,input);
+            resultMap.put("dupCheck", dupCheck);
+        }catch(Exception e){
+            log.info(e.getMessage());
+            resultMap.put("message", e.getMessage());
+            status = HttpStatus.BAD_REQUEST;
+        }
+        return ResponseEntity.status(status).body(resultMap);
+    }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<Map<String, Object>> memberDelete(HttpServletRequest request){
+        Map<String,Object> resultMap = new HashMap<>();
+        HttpStatus status = HttpStatus.OK;
+        try{
+            int accessMemberIndex = (int)request.getAttribute("accessMemberIndex");
+            memberService.deleteMember(accessMemberIndex);
+            resultMap.put("message","success");
+        }catch(Exception e){
+            log.info(e.getMessage());
+            resultMap.put("message", e.getMessage());
+            status = HttpStatus.BAD_REQUEST;
+        }
+        return ResponseEntity.status(status).body((resultMap));
+    }
+
 
 
 }
