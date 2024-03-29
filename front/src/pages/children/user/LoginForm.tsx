@@ -1,7 +1,7 @@
 import KakaoButton from "../../../components/Button/KakaoButton";
 import VerticalDivider from "../../../components/user/VerticalDivider";
 import FormContainer from "../../../components/user/FormContainer";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import TextField from "../../../components/common/TextField";
 import ButtonAsset from "../../../components/Button/ButtonAsset";
 import { KAKAO_AUTH_URL } from "../../../modules/auth/kakaoAuth";
@@ -21,6 +21,7 @@ export default function LoginForm() {
   const [hasError, setHasError] = useState(false);
 
   const navigate = useNavigate();
+  const { state } = useLocation();
 
   function onInputIdHandler(e: React.FormEvent<HTMLInputElement>) {
     const value = e.currentTarget.value;
@@ -37,7 +38,9 @@ export default function LoginForm() {
     try {
       await postLogin(id, password);
       updateIsLogin();
-      navigate("/");
+      // 로그인하기 이전 페이지로 이동
+      if (state) navigate(state);
+      else navigate("/");
     } catch (error) {
       if (error instanceof Error) {
         if (error.message === "400") {

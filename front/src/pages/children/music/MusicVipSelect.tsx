@@ -9,12 +9,16 @@ import {
   Select,
   SelectChangeEvent,
 } from "@mui/material";
+import { useLocation } from "react-router-dom";
+import useLoginStore from "../../../store/useLoginStore";
 
 export default function MusicVipSelect() {
   const [vipList, setVipList] = useState<Vip[]>([]);
   const [selectedVip, setSelectedVip] = useState<string>("");
 
   const navigate = useNavigate();
+  const { isLogin } = useLoginStore();
+  const { pathname } = useLocation();
 
   // select change 이벤트 핸들러
   function handleChange(e: SelectChangeEvent<string>): void {
@@ -38,6 +42,12 @@ export default function MusicVipSelect() {
   }
 
   useEffect(() => {
+    // 로그인하지 않았으면 로그인 화면으로 이동
+    if (!isLogin) {
+      navigate("/login", { state: pathname });
+    }
+
+    // VIP 목록 가져오기
     getVipList();
   }, []);
 
