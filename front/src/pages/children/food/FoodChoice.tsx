@@ -75,8 +75,6 @@ export default function FoodChoice() {
     setSiGunGuOptions(filteredSiGunGuOptions);
   };
 
-  ///
-
   const [vipList, setVipList] = useState<VipProps[]>(vipDataList);
 
   const [sel, setSel] = useState<number>(0);
@@ -133,61 +131,11 @@ export default function FoodChoice() {
                   </Select>
                 </FormControl>
               </Box>
-              <Box sx={{ minWidth: 120 }}>
-                <FormControl fullWidth>
-                  <InputLabel id="demo-simple-select-autowidth-label">
-                    시/군/구
-                  </InputLabel>
-                  <Select
-                    labelId="demo-simple-select-autowidth-label"
-                    id="demo-simple-select-autowidth"
-                    value={selectedSiDo}
-                  >
-                    {selectedSiDo &&
-                      siGunGuOptions.map((siGunGu, index) => (
-                        <MenuItem
-                          key={index}
-                          value={siGunGu}
-                        >
-                          {siGunGu}
-                        </MenuItem>
-                      ))}
-                  </Select>
-                </FormControl>
-              </Box>
-              <div>
-                <label htmlFor="si-do">시/도 선택:</label>
-                {/* <select
-                  id="si-do"
-                  value={selectedSiDo}
-                  onChange={handleSiDoChange}
-                >
-                  <option value="">시/도를 선택하세요</option>
-                  {uniqueSiDoList.map((siDo, index) => (
-                    <option
-                      key={index}
-                      value={siDo}
-                    >
-                      {siDo}
-                    </option>
-                  ))}
-                </select>
-                 */}
 
-                <label htmlFor="si-gun-gu">시/군/구 선택:</label>
-                <select id="si-gun-gu">
-                  {/* 시/도가 선택된 경우에만 시/군/구 옵션을 동적으로 생성 */}
-                  {selectedSiDo &&
-                    siGunGuOptions.map((siGunGu, index) => (
-                      <option
-                        key={index}
-                        value={siGunGu}
-                      >
-                        {siGunGu}
-                      </option>
-                    ))}
-                </select>
-              </div>
+              <Dropdowns
+                category="시/군/구"
+                cities={siGunGuOptions}
+              />
             </div>
           </div>
           <div className="mt-5">
