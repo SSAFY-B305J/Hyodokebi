@@ -25,6 +25,7 @@ import ProfileDetail from "./pages/children/profile/ProfileDetail";
 import ProfileEdit from "./pages/children/profile/ProfileEdit";
 import FoodChoice from "./pages/children/food/FoodChoice";
 import FoodAdd from "./pages/children/food/FoodAdd";
+import IdInquiryForm from "./pages/children/user/IdInquiryForm";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -120,6 +121,10 @@ const router = createBrowserRouter([
           {
             path: "music/:vipId",
             element: <MusicResult />,
+          },
+          {
+            path: "/help/idInquiry",
+            element: <IdInquiryForm />,
           },
         ],
       },
