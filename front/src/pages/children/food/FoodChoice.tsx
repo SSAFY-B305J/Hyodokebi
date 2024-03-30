@@ -14,45 +14,6 @@ import Box from "@mui/material/Box";
 import { getVipList } from "../../../apis/api/vip";
 import { Vip } from "../../../modules/types/vip";
 
-interface VipProps {
-  vipId: number;
-  vipNickname: string;
-  vipBirth: number;
-  vipProfile: string;
-  vipAgeGroups: string;
-}
-
-// const vipDataList: VipProps[] = [
-//   {
-//     vipId: 1,
-//     vipNickname: "미애",
-//     vipBirth: 1960,
-//     vipProfile: "/",
-//     vipAgeGroups: "/",
-//   },
-//   {
-//     vipId: 2,
-//     vipNickname: "미에",
-//     vipBirth: 1960,
-//     vipProfile: "/",
-//     vipAgeGroups: "/",
-//   },
-//   {
-//     vipId: 3,
-//     vipNickname: "미이에",
-//     vipBirth: 1960,
-//     vipProfile: "/",
-//     vipAgeGroups: "/",
-//   },
-//   {
-//     vipId: 4,
-//     vipNickname: "에이미",
-//     vipBirth: 1960,
-//     vipProfile: "/",
-//     vipAgeGroups: "/",
-//   },
-// ];
-
 export default function FoodChoice() {
   const { id } = useParams();
 
@@ -86,7 +47,6 @@ export default function FoodChoice() {
   };
 
   // vipList의 값을 저장한다.
-  // vip가 있으면 첫 번째 vip의 값을 selectedVip에 저장한다.
   async function initVipList() {
     // TODO: 현재 로그인한 id로 수정
     const memberId = parseInt(id ?? "0");
@@ -167,10 +127,6 @@ export default function FoodChoice() {
                 </Select>
               </FormControl>
             </Box>
-            {/* <Dropdowns
-              category="시/군/구"
-              cities={siGunGuOptions}
-            /> */}
           </div>
         </div>
         <div className="mt-5">
