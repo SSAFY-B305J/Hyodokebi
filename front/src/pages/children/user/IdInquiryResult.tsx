@@ -7,7 +7,7 @@ import useInquiryStore from "../../../store/useInquiryStore";
 import { CircularProgress } from "@mui/material";
 
 export default function IdInquiryResult() {
-  const { email } = useInquiryStore();
+  const { email, setEmail } = useInquiryStore();
 
   const [isLoading, setIsLoading] = useState(true);
   const [result, setResult] = useState("");
@@ -23,6 +23,7 @@ export default function IdInquiryResult() {
       setResult(result);
 
       setIsLoading(false);
+      setEmail(""); // 입력한 이메일 초기화
     } catch (error) {
       console.error(error);
     }
