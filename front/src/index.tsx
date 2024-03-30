@@ -26,6 +26,7 @@ import ProfileEdit from "./pages/children/profile/ProfileEdit";
 import FoodChoice from "./pages/children/food/FoodChoice";
 import FoodAdd from "./pages/children/food/FoodAdd";
 import IdInquiryForm from "./pages/children/user/IdInquiryForm";
+import IdInquiryResult from "./pages/children/user/IdInquiryResult";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -125,6 +126,10 @@ const router = createBrowserRouter([
           {
             path: "/help/idInquiry",
             element: <IdInquiryForm />,
+          },
+          {
+            path: "/help/idInquiry/result",
+            element: <IdInquiryResult />,
           },
         ],
       },

@@ -71,3 +71,13 @@ export async function getDuplicateCheck(category: string, input: string) {
     console.error("Error fetching data:", error);
   }
 }
+
+// 아이디 찾기
+export async function getSearchId(email: string) {
+  try {
+    const data = await axios.get(REST_MEMBER_API + `find/simple/${email}`);
+    return data.data;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+}
