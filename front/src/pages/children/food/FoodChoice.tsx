@@ -5,12 +5,14 @@ import Dropdowns from "../../../components/common/Dropdowns";
 import { useEffect, useState } from "react";
 import cityData from "../../../json/AadministrativeDistrict.json";
 import ButtonAsset from "../../../components/Button/ButtonAsset";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import Box from "@mui/material/Box";
+import { getVipList } from "../../../apis/api/vip";
+import { Vip } from "../../../modules/types/vip";
 
 interface VipProps {
   vipId: number;
@@ -20,42 +22,47 @@ interface VipProps {
   vipAgeGroups: string;
 }
 
-const vipDataList: VipProps[] = [
-  {
-    vipId: 1,
-    vipNickname: "미애",
-    vipBirth: 1960,
-    vipProfile: "/",
-    vipAgeGroups: "/",
-  },
-  {
-    vipId: 2,
-    vipNickname: "미에",
-    vipBirth: 1960,
-    vipProfile: "/",
-    vipAgeGroups: "/",
-  },
-  {
-    vipId: 3,
-    vipNickname: "미이에",
-    vipBirth: 1960,
-    vipProfile: "/",
-    vipAgeGroups: "/",
-  },
-  {
-    vipId: 4,
-    vipNickname: "에이미",
-    vipBirth: 1960,
-    vipProfile: "/",
-    vipAgeGroups: "/",
-  },
-];
+// const vipDataList: VipProps[] = [
+//   {
+//     vipId: 1,
+//     vipNickname: "미애",
+//     vipBirth: 1960,
+//     vipProfile: "/",
+//     vipAgeGroups: "/",
+//   },
+//   {
+//     vipId: 2,
+//     vipNickname: "미에",
+//     vipBirth: 1960,
+//     vipProfile: "/",
+//     vipAgeGroups: "/",
+//   },
+//   {
+//     vipId: 3,
+//     vipNickname: "미이에",
+//     vipBirth: 1960,
+//     vipProfile: "/",
+//     vipAgeGroups: "/",
+//   },
+//   {
+//     vipId: 4,
+//     vipNickname: "에이미",
+//     vipBirth: 1960,
+//     vipProfile: "/",
+//     vipAgeGroups: "/",
+//   },
+// ];
 
 export default function FoodChoice() {
-  const [SelectVipId, setSelectVipId] = useState<string>("");
-  ///
+  const { id } = useParams();
+
   const [selectedSiDo, setSelectedSiDo] = useState<string>("");
   const [siGunGuOptions, setSiGunGuOptions] = useState<string[]>([]);
+  const [sigungu, setSigungu] = useState<string>("");
+
+  // const [vipList, setVipList] = useState<VipProps[]>(vipDataList);
+  const [vipList, setVipList] = useState<Vip[]>([]);
+  const [selectedVip, setSelectedVip] = useState<string>("");
 
   // 중복을 제거한 고유한 시/도 목록을 추출
   const uniqueSiDoList = Array.from(
@@ -74,19 +81,28 @@ export default function FoodChoice() {
     setSiGunGuOptions(filteredSiGunGuOptions);
   };
 
-  const [vipList, setVipList] = useState<VipProps[]>(vipDataList);
+  const handleSigunguChange = (event: SelectChangeEvent) => {
+    setSigungu(event.target.value);
+  };
 
-  const [sel, setSel] = useState<number>(0);
+  // vipList의 값을 저장한다.
+  // vip가 있으면 첫 번째 vip의 값을 selectedVip에 저장한다.
+  async function initVipList() {
+    // TODO: 현재 로그인한 id로 수정
+    const memberId = parseInt(id ?? "0");
+    const data = await getVipList(memberId);
+    setVipList(data);
+    if (data.length > 0) setSelectedVip(data[0].vipId);
+  }
 
-  const handleSelect = (cardId: number) => {
-    setSel(cardId);
+  const handleSelect = (vipId: string) => {
+    setSelectedVip(vipId);
   };
 
   useEffect(() => {
-    // vip 리스트 가져오는 함수(api)
-    // const data = await ~~
-    // setSel(data[0].id);
-    //setSel 초기화
+    // VIP 목록 가져오기
+    initVipList();
+    //selectedVip 초기화
     //setVipList 초기화
   }, []);
 
@@ -100,7 +116,7 @@ export default function FoodChoice() {
         <FoodTap index={1} />
       </div>
 
-      <div className="ml-20 mr-20 border">
+      <div className="ml-20 mr-20">
         <div>
           <UnderLine
             text="지역을 골라주세요"
@@ -129,11 +145,32 @@ export default function FoodChoice() {
                 </Select>
               </FormControl>
             </Box>
-
-            <Dropdowns
+            <Box sx={{ minWidth: 120 }}>
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-autowidth-label">
+                  시/군/구
+                </InputLabel>
+                <Select
+                  labelId="demo-simple-select-autowidth-label"
+                  id="demo-simple-select-autowidth"
+                  value={siGunGuOptions[0]}
+                  onChange={handleSigunguChange}
+                >
+                  {siGunGuOptions.map((gungu, index) => (
+                    <MenuItem
+                      key={index}
+                      value={gungu}
+                    >
+                      {gungu}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Box>
+            {/* <Dropdowns
               category="시/군/구"
               cities={siGunGuOptions}
-            />
+            /> */}
           </div>
         </div>
         <div className="mt-5">
@@ -150,7 +187,7 @@ export default function FoodChoice() {
                   name={vip.vipNickname}
                   imagePath={vip.vipProfile}
                   imageIndex={""}
-                  clicked={vip.vipId === sel}
+                  clicked={vip.vipId === selectedVip}
                 />
               </div>
             ))}
@@ -158,8 +195,10 @@ export default function FoodChoice() {
         </div>
       </div>
       <div className="flex justify-center mt-3">
+        {/* 지역을 안 골랐을 때 버튼이 안 보이게 함. */}
+        {/* {selectedVip !== "" && sigungu !== "" && ( */}
         <Link
-          to={`/food/add/${sel}`}
+          to={`/food/add/${selectedVip}`}
           className="w-1/4 "
         >
           <ButtonAsset
@@ -168,6 +207,7 @@ export default function FoodChoice() {
             className="w-full font-semibold border-2 rounded-3xl hover:border-white "
           />
         </Link>
+        {/* )} */}
       </div>
     </div>
   );
