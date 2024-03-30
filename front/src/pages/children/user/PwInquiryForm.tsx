@@ -1,11 +1,40 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ButtonAsset from "../../../components/Button/ButtonAsset";
 import TextField from "../../../components/common/TextField";
 import FormContainer from "../../../components/user/FormContainer";
+import useInquiryStore from "../../../store/useInquiryStore";
+import { getDuplicateCheck } from "../../../apis/api/member";
 
 export default function PwInquiryForm() {
-  function handleClick() {
-    // TODO: 입력값 저장
+  const { id, email, setId, setEmail } = useInquiryStore();
+  const navigate = useNavigate();
+
+  async function handleClick() {
+    try {
+      // 빈칸인 경우
+      if (!id) {
+        alert("아이디를 입력해주세요.");
+        return;
+      }
+
+      if (!email) {
+        alert("이메일을 입력해주세요.");
+        return;
+      }
+
+      // 아이디, 이메일이 존재하는지 확인
+      // TODO: 아이디 또는 이메일로 회원정보를 알 수 있다면...
+      if (
+        (await getDuplicateCheck("id", id)) &&
+        (await getDuplicateCheck("email", email))
+      ) {
+        navigate("/help/pwInquiry/result");
+      } else {
+        alert("존재하지 않는 아이디 또는 이메일입니다.\n다시 입력해주세요.");
+      }
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   return (
@@ -23,20 +52,22 @@ export default function PwInquiryForm() {
             labelVisible
             placeholder="아이디"
             className="mb-5"
+            value={id}
+            onInput={(e) => setId(e.currentTarget.value)}
           />
-          <TextField label="이메일" labelVisible placeholder="이메일" />
+          <TextField
+            label="이메일"
+            labelVisible
+            placeholder="이메일"
+            value={email}
+            onInput={(e) => setEmail(e.currentTarget.value)}
+          />
         </div>
         <div className="flex justify-center my-3">
           <Link to="/login">
             <ButtonAsset text="뒤로가기" variant="outlined" className="mx-3" />
           </Link>
-          <Link to="/help/pwInquiry/result">
-            <ButtonAsset
-              text="다음으로"
-              className="mx-3"
-              onClick={handleClick}
-            />
-          </Link>
+          <ButtonAsset text="다음으로" className="mx-3" onClick={handleClick} />
         </div>
       </>
     </FormContainer>

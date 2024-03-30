@@ -27,6 +27,8 @@ import FoodChoice from "./pages/children/food/FoodChoice";
 import FoodAdd from "./pages/children/food/FoodAdd";
 import IdInquiryForm from "./pages/children/user/IdInquiryForm";
 import IdInquiryResult from "./pages/children/user/IdInquiryResult";
+import PwInquiryForm from "./pages/children/user/PwInquiryForm";
+import PwInquiryResetResult from "./pages/children/user/PwInquiryResetForm";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -130,6 +132,10 @@ const router = createBrowserRouter([
           {
             path: "/help/idInquiry/result",
             element: <IdInquiryResult />,
+          },
+          {
+            path: "/help/pwInquiry",
+            element: <PwInquiryForm />,
           },
         ],
       },
