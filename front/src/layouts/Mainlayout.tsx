@@ -6,12 +6,11 @@ type MainLayoutProps = {
 };
 
 export default function MainLayout({ children }: MainLayoutProps) {
-  // 로그인 여부
-  const { isLogin } = useLoginStore();
+  const { getIsLogin } = useLoginStore();
 
   return (
     <div className="flex flex-col h-screen">
-      <MainHeader isLogin={isLogin} />
+      <MainHeader isLogin={getIsLogin()} />
       <div className="flex items-center justify-center flex-1 w-full">
         {children}
       </div>

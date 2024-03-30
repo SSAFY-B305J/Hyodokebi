@@ -3,7 +3,7 @@ import { postRegist } from "../../../apis/api/member";
 import TextField from "../../../components/common/TextField";
 import useRegistStore from "../../../store/useRegistStore";
 import ButtonAsset from "../../../components/Button/ButtonAsset";
-import { FormEvent, useEffect } from "react";
+import { FormEvent, KeyboardEvent, useEffect } from "react";
 
 export default function RegForm2() {
   const navigate = useNavigate();
@@ -47,6 +47,14 @@ export default function RegForm2() {
     if (confirm) navigate("/signup");
   }
 
+  // Form key down 이벤트 핸들러
+  // Form에서 Enter 키 누를 때 Submit 방지
+  function handleKeyDownEnter(e: KeyboardEvent) {
+    if (e.key === "Enter") {
+      e.preventDefault();
+    }
+  }
+
   useEffect(() => {
     return () => regStore.clear();
   }, []);
@@ -56,6 +64,7 @@ export default function RegForm2() {
       <form
         className="flex flex-col items-center w-[500px]"
         onSubmit={handleSubmit}
+        onKeyDown={handleKeyDownEnter}
       >
         <h1 className="my-6 text-3xl font-bold">회원가입</h1>
         <div className="w-full *:mb-8">

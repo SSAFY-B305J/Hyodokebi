@@ -83,8 +83,7 @@ const useRegistStore = create<RegistState>((set, get) => ({
     }
 
     // 중복된 아이디인 경우
-    // const isDuplicate = await getDuplicateCheck("id", id);
-    const isDuplicate = false; // WARNING: API 완성되면 위의 코드로 교체해주세요.
+    const isDuplicate = await getDuplicateCheck("id", id);
     if (isDuplicate) {
       error.message = "이미 사용 중인 아이디입니다.";
       set(() => ({ idError: error }));
@@ -125,7 +124,7 @@ const useRegistStore = create<RegistState>((set, get) => ({
 
     // 모든 검사 통과!
     error.name = "valid";
-    error.message = "사용 가능한 비밀번호입니다.";
+    error.message = "";
     set(() => ({ passwordError: error }));
     return true;
   },
@@ -178,17 +177,16 @@ const useRegistStore = create<RegistState>((set, get) => ({
     }
 
     // 중복된 이메일인 경우
-    // const isDuplicate = await getDuplicateCheck("email", email);
-    const isDuplicate = false; // WARNING: API 완성되면 위의 코드로 교체해주세요.
+    const isDuplicate = await getDuplicateCheck("email", email);
     if (isDuplicate) {
       error.message = "이미 사용 중인 아이디입니다.";
-      set(() => ({ idError: error }));
+      set(() => ({ emailError: error }));
       return false;
     }
 
     // 모든 검사 통과!
     error.name = "valid";
-    error.message = "";
+    error.message = "사용 가능한 이메일입니다.";
     set(() => ({ emailError: error }));
     return true;
   },
@@ -215,8 +213,7 @@ const useRegistStore = create<RegistState>((set, get) => ({
     }
 
     // 중복된 닉네임인 경우
-    // const isDuplicate = await getDuplicateCheck("nickname", nickname);
-    const isDuplicate = false; // WARNING: API 완성되면 위의 코드로 교체해주세요.
+    const isDuplicate = await getDuplicateCheck("nickname", nickname);
     if (isDuplicate) {
       error.message = "이미 사용 중인 닉네임입니다.";
       set(() => ({ nicknameError: error }));
@@ -225,7 +222,7 @@ const useRegistStore = create<RegistState>((set, get) => ({
 
     // 모든 검사 통과!
     error.name = "valid";
-    error.message = "";
+    error.message = "사용 가능한 닉네임입니다.";
     set(() => ({ nicknameError: error }));
     return true;
   },
