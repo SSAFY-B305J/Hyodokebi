@@ -1,9 +1,11 @@
 import { isAxiosError } from "axios";
 import { axios } from "../utils/axios";
+import parseJwt from "../../modules/auth/parseJwt";
 
 const REST_MEMBER_API = "/api/member";
 
 // 일반 로그인
+// 로그인에 성공하면 로그인한 회원의 id를 반환한다.
 export async function postLogin(id: string, password: string) {
   try {
     const data = await axios.post(REST_MEMBER_API + "/login/origin", {
@@ -15,18 +17,13 @@ export async function postLogin(id: string, password: string) {
     const accessToken = data.headers["accesstoken"] || "";
     localStorage.setItem("accessToken", accessToken);
 
-    // TODO: Refresh Token 저장
+    // 로그인한 회원의 id 반환
+    return parseJwt(accessToken).sub;
   } catch (error) {
     if (isAxiosError(error) && error.response) {
       throw new Error(error.response.status + "");
     }
   }
-}
-
-// TODO: accessToken 재발급 함수 구현
-export async function setToken() {
-  // 만료 시간이 지났을 경우
-  // Refresh Token을 이용하여 Access Token 재발급
 }
 
 // TODO: 카카오 로그인 함수 구현

@@ -11,7 +11,7 @@ interface MainHeaderProps {
 export default function MainHeader({ isLogin }: MainHeaderProps) {
   const navigate = useNavigate();
   const { tabIndex, setTabIndex } = useTabStore();
-  const { updateIsLogin } = useLoginStore();
+  const { setLoginUserId } = useLoginStore();
 
   return (
     <div>
@@ -70,7 +70,8 @@ export default function MainHeader({ isLogin }: MainHeaderProps) {
               <button
                 onClick={() => {
                   localStorage.removeItem("accessToken");
-                  updateIsLogin();
+                  setLoginUserId(0);
+                  navigate("/");
                 }}
               >
                 <LogoutIcon fontSize="large" />
