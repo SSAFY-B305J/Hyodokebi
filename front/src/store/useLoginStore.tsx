@@ -1,6 +1,8 @@
 import { create } from "zustand";
 import { devtools } from "zustand/middleware";
 
+// TODO: 현재 로그인한 유저의 id 저장
+
 interface LoginState {
   isLogin: boolean;
   updateIsLogin: () => void;

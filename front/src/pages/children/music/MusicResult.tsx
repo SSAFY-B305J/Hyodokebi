@@ -1,5 +1,5 @@
 import { Link, useParams } from "react-router-dom";
-import { selectRecommendedMusicList } from "../../../apis/api/music";
+import { getRecommendedMusicList } from "../../../apis/api/music";
 import ButtonAsset from "../../../components/Button/ButtonAsset";
 import { useCallback, useEffect, useState } from "react";
 import MusicCard from "../../../components/card/MusicCard";
@@ -57,8 +57,8 @@ export default function MusicResult() {
   const displayIdx = currIdx[`${activeAge}`];
 
   // 모든 음악 추천 결과 리스트를 가져오기
-  const getMusicList = useCallback(async () => {
-    const data = await selectRecommendedMusicList(vipId);
+  const initMusicList = useCallback(async () => {
+    const data = await getRecommendedMusicList(vipId);
     setMusicList(data);
   }, [vipId]);
 
@@ -73,8 +73,8 @@ export default function MusicResult() {
   }
 
   useEffect(() => {
-    getMusicList();
-  }, [getMusicList]);
+    initMusicList();
+  }, [initMusicList]);
 
   return (
     <div className="flex flex-col items-center px-5 py-6 my-5 bg-gray-100">
@@ -126,7 +126,9 @@ export default function MusicResult() {
               ></MusicCard>
             ))
         ) : (
-          <div>추천 보따리가 텅 비었어요...</div>
+          <div className="flex items-center h-64 text-lg">
+            추천 보따리가 텅 비었어요...
+          </div>
         )}
       </div>
       <div className="flex flex-col">
