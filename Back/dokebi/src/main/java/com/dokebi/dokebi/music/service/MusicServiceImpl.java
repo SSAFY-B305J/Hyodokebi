@@ -128,6 +128,7 @@ public class MusicServiceImpl implements MusicService {
                 .vip(vip)
                 .build();
 
+        // 이미 저장된 음악 예외 처리
         SavedMusic existedMusic = vipRepository.findVipMusic(vid, mid);
         if (existedMusic != null) return existedMusic.getSmId();
 
@@ -145,6 +146,10 @@ public class MusicServiceImpl implements MusicService {
                 .music(music)
                 .vip(vip)
                 .build();
+
+        // 이미 싫어요한 음악 예외 처리
+        DisLikedMusic existedMusic = vipRepository.findVipDisLikedMusics(vid, mid);
+        if (existedMusic != null) return existedMusic.getDmId();
 
         disLikedMusicRespository.save(disLikedMusic);
         return disLikedMusic.getDmId();

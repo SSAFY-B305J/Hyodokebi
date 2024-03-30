@@ -1,6 +1,8 @@
 package com.dokebi.dokebi.vip.repository;
 
 import com.dokebi.dokebi.member.entity.QMember;
+import com.dokebi.dokebi.music.entity.DisLikedMusic;
+import com.dokebi.dokebi.music.entity.QDisLikedMusic;
 import com.dokebi.dokebi.music.entity.QSavedMusic;
 import com.dokebi.dokebi.music.entity.SavedMusic;
 import com.dokebi.dokebi.vip.entity.QVip;
@@ -29,12 +31,22 @@ public class VipRepositoryCustomImpl implements VipRepositoryCustom {
     }
 
     @Override
-    public SavedMusic findVipMusic(int vipId, int musicId) {
+    public SavedMusic findVipMusic(int vid, int mid) {
         QSavedMusic qsavedmusic = QSavedMusic.savedMusic;
 
         return queryFactory.selectFrom(qsavedmusic)
-                .where(qsavedmusic.vip.vipId.eq(vipId)
-                        .and(qsavedmusic.music.musicId.eq(musicId)))
+                .where(qsavedmusic.vip.vipId.eq(vid)
+                        .and(qsavedmusic.music.musicId.eq(mid)))
+                .fetchOne();
+    }
+
+    @Override
+    public DisLikedMusic findVipDisLikedMusics(int vid, int mid) {
+        QDisLikedMusic qdislikedmusic = QDisLikedMusic.disLikedMusic;
+
+        return queryFactory.selectFrom(qdislikedmusic)
+                .where(qdislikedmusic.vip.vipId.eq(vid)
+                        .and(qdislikedmusic.music.musicId.eq(mid)))
                 .fetchOne();
     }
 
