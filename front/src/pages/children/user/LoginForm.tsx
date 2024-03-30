@@ -11,7 +11,7 @@ import { postLogin } from "../../../apis/api/member";
 import useLoginStore from "../../../store/useLoginStore";
 
 export default function LoginForm() {
-  const { setLoginUserId } = useLoginStore();
+  const { setLoginMemberId } = useLoginStore();
 
   // 아이디, 비밀번호
   const [id, setId] = useState("");
@@ -37,7 +37,7 @@ export default function LoginForm() {
   async function handleClickLoginButton() {
     try {
       const memberId = await postLogin(id, password);
-      setLoginUserId(memberId);
+      setLoginMemberId(memberId);
 
       // 로그인하기 이전 페이지로 이동
       if (state) navigate(state);

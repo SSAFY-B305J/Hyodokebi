@@ -1,18 +1,24 @@
 import { create } from "zustand";
-import { devtools } from "zustand/middleware";
+import { createJSONStorage, devtools, persist } from "zustand/middleware";
 
 interface LoginState {
   loginMemberId: number;
-  setLoginUserId: (by: number) => void;
+  setLoginMemberId: (by: number) => void;
   getIsLogin: () => boolean;
 }
 
 const useLoginStore = create<LoginState>()(
-  devtools((set) => ({
-    loginMemberId: 0,
-    setLoginUserId: (by: number) => set(() => ({ loginMemberId: by })),
-    getIsLogin: () => Boolean(localStorage.getItem("accessToken")),
-  }))
+  persist(
+    devtools((set) => ({
+      loginMemberId: 0,
+      setLoginMemberId: (by: number) => set(() => ({ loginMemberId: by })),
+      getIsLogin: () => Boolean(localStorage.getItem("accessToken")),
+    })),
+    {
+      name: "login-state",
+      storage: createJSONStorage(() => sessionStorage),
+    }
+  )
 );
 
 export default useLoginStore;

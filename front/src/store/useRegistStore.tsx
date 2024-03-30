@@ -125,7 +125,7 @@ const useRegistStore = create<RegistState>((set, get) => ({
 
     // 모든 검사 통과!
     error.name = "valid";
-    error.message = "사용 가능한 비밀번호입니다.";
+    error.message = "";
     set(() => ({ passwordError: error }));
     return true;
   },
@@ -188,7 +188,7 @@ const useRegistStore = create<RegistState>((set, get) => ({
 
     // 모든 검사 통과!
     error.name = "valid";
-    error.message = "";
+    error.message = "사용 가능한 이메일입니다.";
     set(() => ({ emailError: error }));
     return true;
   },
@@ -225,7 +225,7 @@ const useRegistStore = create<RegistState>((set, get) => ({
 
     // 모든 검사 통과!
     error.name = "valid";
-    error.message = "";
+    error.message = "사용 가능한 닉네임입니다.";
     set(() => ({ nicknameError: error }));
     return true;
   },

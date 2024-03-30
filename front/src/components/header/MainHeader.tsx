@@ -11,7 +11,7 @@ interface MainHeaderProps {
 export default function MainHeader({ isLogin }: MainHeaderProps) {
   const navigate = useNavigate();
   const { tabIndex, setTabIndex } = useTabStore();
-  const { setLoginUserId } = useLoginStore();
+  const { setLoginMemberId, loginMemberId } = useLoginStore();
 
   return (
     <div>
@@ -53,14 +53,17 @@ export default function MainHeader({ isLogin }: MainHeaderProps) {
             />
           </div>
           <div className="flex h-full gap-10 mr-5">
-            <NavLink to={`/mypage/1/profile`} className="flex h-full">
+            <NavLink
+              to={`/mypage/${loginMemberId}/profile`}
+              className="flex h-full"
+            >
               {/* TODO 해당 링크는 임시 */}
               <img
                 src={VipTestData[0].imagePath}
                 alt="profile"
                 className="h-full rounded-full"
                 onClick={() => {
-                  navigate("/mypage/1/profile");
+                  // navigate("/mypage/1/profile");
                   setTabIndex(0);
                 }}
               />
@@ -70,7 +73,7 @@ export default function MainHeader({ isLogin }: MainHeaderProps) {
               <button
                 onClick={() => {
                   localStorage.removeItem("accessToken");
-                  setLoginUserId(0);
+                  setLoginMemberId(0);
                   navigate("/");
                 }}
               >
