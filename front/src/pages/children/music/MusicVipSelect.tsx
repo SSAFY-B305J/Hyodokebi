@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { Vip } from "../../../modules/types/vip";
 import ButtonAsset from "../../../components/Button/ButtonAsset";
-import { selectVipList } from "../../../apis/api/music";
+import { getVipList } from "../../../apis/api/vip";
 import {
   FormControl,
   MenuItem,
@@ -30,8 +30,10 @@ export default function MusicVipSelect() {
 
   // vipList의 값을 저장한다.
   // vip가 있으면 첫 번째 vip의 값을 selectedVip에 저장한다.
-  async function getVipList() {
-    const data: Vip[] = await selectVipList();
+  async function initVipList() {
+    // TODO: 현재 로그인한 id로 수정
+    const memberId = 1;
+    const data = await getVipList(memberId);
     setVipList(data);
     if (data.length > 0) setSelectedVip(data[0].vipId);
   }
@@ -48,7 +50,7 @@ export default function MusicVipSelect() {
     }
 
     // VIP 목록 가져오기
-    getVipList();
+    initVipList();
   }, []);
 
   return (

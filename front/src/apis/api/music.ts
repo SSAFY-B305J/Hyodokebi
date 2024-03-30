@@ -2,19 +2,8 @@ import { axios } from "../utils/axios";
 
 const REST_MUSIC_API = "api/music";
 
-// TODO: 넌 VIP 아니니?
-// VIP 전체 리스트 조회
-export async function selectVipList() {
-  try {
-    const data = await axios.get("/api/vip");
-    return data.data;
-  } catch (error) {
-    console.error("Error fetching data:", error);
-  }
-}
-
 // 음악 추천 리스트 조회
-export async function selectRecommendedMusicList(vipId: string) {
+export async function getRecommendedMusicList(vipId: string) {
   try {
     const data = await axios.get(REST_MUSIC_API + `/res/${vipId}`);
     return data.data;

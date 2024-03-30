@@ -1,8 +1,13 @@
-import { Vip } from "../../modules/types/vip";
 import { axios } from "../utils/axios";
 
-// 추후 수정
-export async function selectVipList(): Promise<Vip[]> {
-  const data = await axios.get("/api/vip");
-  return data.data;
+const REST_VIP_API = "api/vip";
+
+// member의 VIP 목록 조회
+export async function getVipList(memberId: number) {
+  try {
+    const data = await axios.get(`/api/myvip/${memberId}`);
+    return data.data;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
 }
