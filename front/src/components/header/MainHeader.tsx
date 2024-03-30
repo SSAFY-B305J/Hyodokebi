@@ -54,7 +54,7 @@ export default function MainHeader({ isLogin }: MainHeaderProps) {
           </div>
           <div className="flex h-full gap-10 mr-5">
             <NavLink to={`/mypage/1/profile`} className="flex h-full">
-              {/* TODO 해당 링크는 임시 */}
+              {/* TODO 해당 링크는 임시, 회원 id를 호출하여 입력 */}
               <img
                 src={VipTestData[0].imagePath}
                 alt="profile"
