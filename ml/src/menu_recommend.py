@@ -4,14 +4,15 @@ import numpy as np
 
 sys.path.append("../models")
 
-import models.model as md
+import model as md
 
 
 # user_igd_info, menu_info = md.makeDefaultDataSet()
 
                     
 def pre_training():
-    excel_file_path = './data/dataTmp.xlsx'
+    print("start pre train")
+    excel_file_path = './dataTmp.xlsx'
 
     # 엑셀 파일의 각 시트를 다른 변수에 저장
     menu_info = pd.read_excel(excel_file_path, sheet_name='Sheet1', header = 0, index_col = 0)
@@ -26,6 +27,20 @@ def pre_training():
                         user_igd_info.iloc[row, igdIdx] += menu_info.iloc[col,igdIdx]
     
     predicted_R = md.menu_training(user_igd_info, 51)
-    return predicted_R
     
+    print("end pre train")
+    return predicted_R, user_igd_info, menu_info
     
+
+def training_recommend_menu(user_igd_info, menu_info, vip_id, menu_ids):
+    user_igd_info2 = md.updateDataSet(user_igd_info,vip_id,menu_ids)
+    predict_R = md.menu_training(user_igd_info2, 10 )
+    recommend_menu = md.predicted_menu(predict_R, menu_info, vip_id)
+    return recommend_menu
+
+def not_training_recommend_menu(predict_R, menu_info, vip_id):
+    return md.predicted_menu(predict_R, menu_info, vip_id)
+
+
+def train_model():
+    return md.train_model()
