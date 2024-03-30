@@ -42,7 +42,7 @@ export default function MusicVipSelect() {
 
   useEffect(() => {
     // 로그인하지 않았으면 로그인 화면으로 이동
-    if (!getIsLogin() || loginMemberId) {
+    if (!getIsLogin() || !loginMemberId) {
       navigate("/login", { state: pathname });
     }
 
