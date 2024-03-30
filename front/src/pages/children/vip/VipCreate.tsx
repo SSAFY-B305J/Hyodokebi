@@ -24,18 +24,18 @@ export default function VipCreate() {
     vipBirth: 0,
     vipId: 0,
     vipNickname: "",
-    vipProfile: 0,
+    vipProfile: 9,
   });
 
   // const [ageGroups, setAgegroups] = useState([]);
   const [birth, setBirth] = useState(0);
   const [nickname, setNickname] = useState("");
-  const [profile, setProfile] = useState(0);
+  const [profile, setProfile] = useState(9);
 
   const { id } = useParams();
 
   const handleClick = async () => {
-    if (birth !== 0 && nickname !== "")
+    if (birth !== 0 && nickname !== "" && profile !== 9)
     // ALERT 빈 값으로 두면 안되는 조건 추가, 조건 추가시 확인.
     {
     try {
@@ -50,8 +50,11 @@ export default function VipCreate() {
       if (birth === 0 ){
         alert("태어나신 해를 입력해주세요.")
       }
-      else {
+      else if (nickname === "") {
         alert("닉네임을 입력해주세요.")
+      }
+      else {
+        alert("프로필 사진을 선택하세요")
       }
     }
     };
@@ -93,7 +96,7 @@ export default function VipCreate() {
       <div className="flex w-full">
         <img
           src={`/test/picture${profile}.jpg`}
-          alt="empty"
+          alt="프로필 사진을 지정하세요"
           className="mx-3 w-[108px] h-[108px]"
         />
         <div className="grid grid-cols-4 gap-3">
