@@ -66,7 +66,7 @@ export async function getDuplicateCheck(category: string, input: string) {
     const data = await axios.get(
       REST_MEMBER_API + `/check/${category}/${input}`
     );
-    return data.data;
+    return data.data.dupCheck;
   } catch (error) {
     console.error("Error fetching data:", error);
   }
