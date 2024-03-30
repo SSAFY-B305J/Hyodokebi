@@ -62,31 +62,12 @@ export async function postRegist(
   }
 }
 
-// 아이디 중복 검사
-export async function getDuplicateCheckId(id: string) {
-  try {
-    const data = await axios.get(REST_MEMBER_API + `/check/id/${id}`);
-    return data.data;
-  } catch (error) {
-    console.error("Error fetching data:", error);
-  }
-}
-
-// 이메일 중복 검사
-export async function getDuplicateCheckEmail(email: string) {
-  try {
-    const data = await axios.get(REST_MEMBER_API + `/check/email/${email}`);
-    return data.data;
-  } catch (error) {
-    console.error("Error fetching data:", error);
-  }
-}
-
-// 닉네임 중복 검사
-export async function getDuplicateCheckNickname(nickname: string) {
+// 아이디, 이메일, 닉네임 중복 검사
+// category : id, email, nickname
+export async function getDuplicateCheck(category: string, input: string) {
   try {
     const data = await axios.get(
-      REST_MEMBER_API + `/check/nickname/${nickname}`
+      REST_MEMBER_API + `/check/${category}/${input}`
     );
     return data.data;
   } catch (error) {

@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { getDuplicateCheckId } from "../apis/api/member";
+import { getDuplicateCheck } from "../apis/api/member";
 
 class TextFieldError extends Error {
   constructor(message: string, name: string = "error") {
@@ -22,9 +22,22 @@ interface RegistState {
   passwordConfirmError: TextFieldError;
   setPasswordConfirm: (by: string) => void;
 
+  email: string;
+  emailError: TextFieldError;
+  setEmail: (by: string) => void;
+
+  nickname: string;
+  nicknameError: TextFieldError;
+  setNickname: (by: string) => void;
+
   checkId: () => Promise<boolean>;
   checkPassword: () => boolean;
   checkPasswordConfirm: () => boolean;
+  checkEmail: () => Promise<boolean>;
+  checkNickname: () => Promise<boolean>;
+
+  getRegistValid: () => Promise<boolean>;
+  clear: () => void;
 }
 
 const useRegistStore = create<RegistState>((set, get) => ({
@@ -39,6 +52,14 @@ const useRegistStore = create<RegistState>((set, get) => ({
   passwordConfirm: "",
   passwordConfirmError: new Error(),
   setPasswordConfirm: (by) => set(() => ({ passwordConfirm: by })),
+
+  email: "",
+  emailError: new Error(),
+  setEmail: (by) => set(() => ({ email: by })),
+
+  nickname: "",
+  nicknameError: new Error(),
+  setNickname: (by) => set(() => ({ nickname: by })),
 
   // 아이디 유효성 검사
   checkId: async () => {
@@ -62,7 +83,7 @@ const useRegistStore = create<RegistState>((set, get) => ({
     }
 
     // 중복된 아이디인 경우
-    // const isDuplicate = await getDuplicateCheckId(value);
+    // const isDuplicate = await getDuplicateCheck("id", id);
     const isDuplicate = false; // WARNING: API 완성되면 위의 코드로 교체해주세요.
     if (isDuplicate) {
       error.message = "이미 사용 중인 아이디입니다.";
@@ -133,6 +154,108 @@ const useRegistStore = create<RegistState>((set, get) => ({
     error.message = "";
     set(() => ({ passwordConfirmError: error }));
     return true;
+  },
+
+  // 이메일 유효성 검사
+  checkEmail: async () => {
+    const email = get().email;
+    const error = new TextFieldError("");
+
+    // 입력값이 없을 경우
+    if (!email) {
+      error.message = "이메일을 입력해주세요.";
+      set(() => ({ emailError: error }));
+      return false;
+    }
+
+    // 이메일 형식이 아닌 경우
+    const emailRegex = /^[a-zA-Z0-9]+@[a-zA-Z]+\.[a-z]+$/;
+    if (!emailRegex.test(email)) {
+      error.name = "error";
+      error.message = "이메일 형식이 옳바르지 않습니다.";
+      set(() => ({ emailError: error }));
+      return false;
+    }
+
+    // 중복된 이메일인 경우
+    // const isDuplicate = await getDuplicateCheck("email", email);
+    const isDuplicate = false; // WARNING: API 완성되면 위의 코드로 교체해주세요.
+    if (isDuplicate) {
+      error.message = "이미 사용 중인 아이디입니다.";
+      set(() => ({ idError: error }));
+      return false;
+    }
+
+    // 모든 검사 통과!
+    error.name = "valid";
+    error.message = "";
+    set(() => ({ emailError: error }));
+    return true;
+  },
+
+  // 닉네임 유효성 검사
+  checkNickname: async () => {
+    const nickname = get().nickname;
+    const error = new TextFieldError("");
+
+    // 입력값이 없을 경우
+    if (!nickname) {
+      error.message = "닉네임을 입력해주세요.";
+      set(() => ({ nicknameError: error }));
+      return false;
+    }
+
+    // 조건에 맞지 않은 경우
+    // 공백 없이 영어, 한글, 숫자만 입력, 2글자 이상, 10글자 이하
+    const nickNameRegex = /^[가-힣a-zA-Z\d]{2,10}$/;
+    if (!nickNameRegex.test(nickname)) {
+      error.message = "닉네임은 2 ~ 10자의 한글, 영문, 숫자만 입력 가능합니다.";
+      set(() => ({ nicknameError: error }));
+      return false;
+    }
+
+    // 중복된 닉네임인 경우
+    // const isDuplicate = await getDuplicateCheck("nickname", nickname);
+    const isDuplicate = false; // WARNING: API 완성되면 위의 코드로 교체해주세요.
+    if (isDuplicate) {
+      error.message = "이미 사용 중인 닉네임입니다.";
+      set(() => ({ nicknameError: error }));
+      return false;
+    }
+
+    // 모든 검사 통과!
+    error.name = "valid";
+    error.message = "";
+    set(() => ({ nicknameError: error }));
+    return true;
+  },
+
+  // 모든 폼이 유효한지 확인
+  getRegistValid: async () => {
+    const idCheck = await get().checkId();
+    const passwordCheck = get().checkPassword();
+    const passwordConfirmCheck = get().checkPasswordConfirm();
+    const emailCheck = await get().checkEmail();
+    const nicknameCheck = await get().checkNickname();
+
+    return (
+      idCheck &&
+      passwordCheck &&
+      passwordConfirmCheck &&
+      emailCheck &&
+      nicknameCheck
+    );
+  },
+
+  // 모든 값 초기화
+  clear: () => {
+    set(() => ({
+      id: "",
+      password: "",
+      passwordConfirm: "",
+      email: "",
+      nickname: "",
+    }));
   },
 }));
 
