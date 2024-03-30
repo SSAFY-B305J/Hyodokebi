@@ -1,22 +1,14 @@
 from flask import Flask, jsonify, request
-from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import *
+from models import Music, db
+from train_model import train_model_thread, get_combined_matrix
+from config import Config
+import numpy as np
+import pandas as pd
 
 app = Flask(__name__)
-app.config['JSON_AS_ASCII'] = False
+app.config.from_object(Config)
 
-db_config = {
-    'host': '127.0.0.1',  
-    'port': 3306,         
-    'user': 'dokebi',     
-    'password': 'dokebi%40%401234',  
-    'database': 'dokebi', 
-}
-
-app.config['SQLALCHEMY_DATABASE_URI'] = f"mysql+pymysql://{db_config['user']}:{db_config['password']}@{db_config['host']}:{db_config['port']}/{db_config['database']}"
-
-# db 연결
-db = SQLAlchemy(app)
+db.init_app(app)
 
 @app.route("/pyapi/music/res", methods=['POST'])
 def music_receive():
@@ -24,35 +16,30 @@ def music_receive():
     musicRequestDto = request.json  # jpa에서 보낸 데이터  
     print(musicRequestDto)
     
-    musics = Music.query.filter(
-        Music.music_year.between(musicRequestDto['ageGroup'][0], musicRequestDto['ageGroup'][1]), # ageGroup 사이에 있는 데이터만 필터링
-        Music.music_id.notin_(musicRequestDto['vipSavedMusics'] + musicRequestDto['vipDisLikedMusics']) # 이미 저장된 음악, 싫어요한 음악 필터링
-    ).limit(9).all()
+    combined_matrix = get_combined_matrix()
     
-    dict_musics = [music.to_dict() for music in musics]
-    return jsonify(dict_musics)
+    sorted_indices = np.argsort(combined_matrix[musicRequestDto['vipId']-1])[::-1]
     
-class Music(db.Model):
-    __tablename__ = 'music'  
-    music_id = db.Column(db.Integer, primary_key=True)
-    music_name = db.Column(db.String)
-    music_year = db.Column(db.Integer)
-    music_genre = db.Column(db.String)
-    music_singer = db.Column(db.String)
-    music_lyrics = db.Column(db.Text)
-    music_img = db.Column(db.String)
-    music_composer = db.Column(db.String)
-    music_like = db.Column(db.Integer)
-    
-    def to_dict(self):
-        return {
-            'musicId': self.music_id,
-            'musicName': self.music_name,
-            'musicYear': self.music_year,
-            'musicGenre': self.music_genre,
-            'musicSinger': self.music_singer,
-            'musicLyrics': self.music_lyrics,
-            'musicImg': self.music_img,
-            'musicComposer': self.music_composer,
-            'musicLike': self.music_like
-        }
+    recommended_musics = Music.query.filter(
+        Music.music_year.between(musicRequestDto['ageGroup'][0], musicRequestDto['ageGroup'][1]),
+        Music.music_id.notin_(musicRequestDto['vipSavedMusics'] + musicRequestDto['vipDisLikedMusics'])
+    ).all()
+
+    music_df = pd.DataFrame([music.to_dict() for music in recommended_musics])
+    existing_indices = music_df['musicId'].tolist()
+    filtered_indices = [index for index in sorted_indices if index in existing_indices]
+
+    sorted_music_df = music_df[music_df['musicId'].isin(filtered_indices)]
+    sorted_music_df = sorted_music_df.set_index('musicId').loc[filtered_indices][:9].reset_index()
+
+    music_ids = sorted_music_df['musicId'].tolist()
+
+    final_recommended_musics = [db.session.get(Music, music_id) for music_id in music_ids]
+
+    final_recommended_music_dicts = [music.to_dict() for music in final_recommended_musics]
+
+    return jsonify(final_recommended_music_dicts)
+
+if __name__ == '__main__':
+    train_model_thread(app)
+    app.run(debug=True)
