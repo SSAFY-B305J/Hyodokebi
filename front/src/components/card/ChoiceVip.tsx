@@ -1,5 +1,5 @@
 interface VipProps {
-  id: number;
+  id: string;
   name: string;
   imagePath: string;
   imageIndex: string;
