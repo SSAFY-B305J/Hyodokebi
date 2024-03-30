@@ -11,6 +11,8 @@ import com.dokebi.dokebi.vip.entity.Vip;
 import com.dokebi.dokebi.vip.repository.VipRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,11 +26,11 @@ public class VipServiceImpl implements VipService {
     private final VipRepository vipRepository;
     private final MusicRepository musicRepository;
     private final MemberRepository memberRepository;
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Override
     public List<VipDto> findVipsOfMmeber(int mIdx) {
-        Member member = memberRepository.findByMemberIndex(mIdx).orElseThrow(() -> new EntityNotFoundException("Member Entity Not Found"));
-        List<Vip> vips = member.getVips();
+        List<Vip> vips = vipRepository.findVipsOfMember(mIdx).getVips();
 
         List<VipDto> vipDtos = vips.stream()
                 .map(v -> VipDto.builder()
@@ -53,6 +55,7 @@ public class VipServiceImpl implements VipService {
                 .vipProfile(vip.getVipProfile())
                 .build();
 
+        logger.info("The detail of Vip No.{}-> {}", vid, vipDto);
         return vipDto;
     }
 
@@ -78,7 +81,7 @@ public class VipServiceImpl implements VipService {
     public int addVip(VipDto vipDto, int mIdx) {
         Member member = memberRepository.findByMemberIndex(mIdx).orElseThrow(() -> new EntityNotFoundException("Member Entity Not Found"));
 
-        if(findVipsOfMmeber(mIdx).size() >= 8)
+        if (findVipsOfMmeber(mIdx).size() >= 8)
             throw new IllegalArgumentException("VIP는 8명까지 등록할 수 있습니다.");
 
         Vip vip = Vip.builder()

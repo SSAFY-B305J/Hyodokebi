@@ -7,12 +7,15 @@ import com.dokebi.dokebi.music.entity.SavedMusic;
 import com.dokebi.dokebi.restaurant.entity.Sr;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLRestriction;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE) // 엔티티가 수정되면 캐시를 삭제
 @SQLRestriction("is_deleted = false")
 @SQLDelete(sql = "UPDATE VIP SET is_deleted = true WHERE vip_id = ?")
 @Getter
@@ -48,7 +51,7 @@ public class Vip {
 //    @OneToMany(mappedBy = "vip")
 //    private List<Sr> srs;
 
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.LAZY)
     private Member member;
 
     private boolean isDeleted;

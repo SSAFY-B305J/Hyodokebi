@@ -1,6 +1,6 @@
 package com.dokebi.dokebi.vip.repository;
 
-import com.dokebi.dokebi.music.entity.QMusic;
+import com.dokebi.dokebi.member.entity.QMember;
 import com.dokebi.dokebi.music.entity.QSavedMusic;
 import com.dokebi.dokebi.music.entity.SavedMusic;
 import com.dokebi.dokebi.vip.entity.QVip;
@@ -9,15 +9,17 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
+import java.util.List;
 
 @RequiredArgsConstructor
 public class VipRepositoryCustomImpl implements VipRepositoryCustom {
     private final JPAQueryFactory queryFactory;
 
-    @Override    @Transactional
+    @Override
+    @Transactional
     public Long modifyVip(Vip vip, int vid) {
         QVip qvip = QVip.vip;
+
         return queryFactory.update(qvip)
                 .where(qvip.vipId.eq(vid))
                 .set(qvip.vipNickname, vip.getVipNickname())
@@ -28,11 +30,11 @@ public class VipRepositoryCustomImpl implements VipRepositoryCustom {
 
     @Override
     public SavedMusic findVipMusic(int vipId, int musicId) {
-        QSavedMusic qSavedMusic = QSavedMusic.savedMusic;
+        QSavedMusic qsavedmusic = QSavedMusic.savedMusic;
 
-        return queryFactory.selectFrom(qSavedMusic)
-                .where(qSavedMusic.vip.vipId.eq(vipId)
-                        .and(qSavedMusic.music.musicId.eq(musicId)))
+        return queryFactory.selectFrom(qsavedmusic)
+                .where(qsavedmusic.vip.vipId.eq(vipId)
+                        .and(qsavedmusic.music.musicId.eq(musicId)))
                 .fetchOne();
     }
 
