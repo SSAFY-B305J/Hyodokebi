@@ -60,13 +60,6 @@ dependencies {
 	//jackson
 	implementation 'com.fasterxml.jackson.core:jackson-core:2.16.1'
 
-	//cache
-	implementation 'org.hibernate.orm:hibernate-jcache:6.4.4.Final'
-	implementation 'org.springframework.boot:spring-boot-starter-cache'
-	implementation 'org.ehcache:ehcache:3.10.8'
-
-
-
 }
 
 

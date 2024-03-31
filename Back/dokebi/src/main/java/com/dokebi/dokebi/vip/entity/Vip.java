@@ -15,7 +15,6 @@ import org.hibernate.annotations.SQLRestriction;
 import java.util.ArrayList;
 import java.util.List;
 
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE) // 엔티티가 수정되면 캐시를 삭제
 @SQLRestriction("is_deleted = false")
 @SQLDelete(sql = "UPDATE VIP SET is_deleted = true WHERE vip_id = ?")
 @Getter

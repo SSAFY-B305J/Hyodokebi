@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
-@Slf4j
+
 @RequiredArgsConstructor
 @Service
 public class VipServiceImpl implements VipService {
@@ -53,7 +53,6 @@ public class VipServiceImpl implements VipService {
                 .vipProfile(vip.getVipProfile())
                 .build();
 
-        log.info("The detail of Vip No.{}-> {}", vid, vipDto);
         return vipDto;
     }
 
