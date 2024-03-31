@@ -1,26 +1,37 @@
-import { NavLink } from "react-router-dom";
-
+import { Link } from "react-router-dom";
 import VipTestData from "../../../json/VipTestData.json";
-import EditIcon from "@mui/icons-material/Edit";
-
+import ArrowForwardIos from "@mui/icons-material/ArrowForwardIos";
 
 export default function ProfileDetail() {
+  // TODO: 회원 정보 조회 API 완성되면 적용하기
+
   return (
-    <div className="box-border flex flex-col justify-center w-full p-3 h-fit">
-      <NavLink to={`edit/`} className="flex justify-end w-full">
-        <EditIcon color="primary" fontSize="large" />
-      </NavLink>
-      <div className="flex flex-row justify-center w-4/5 gap-10">
+    <div className="w-[600px]">
+      <div className="flex w-full p-4 my-10 border rounded-md ">
         <img
           src={VipTestData[0].imagePath}
-          alt="profile"
-          className="w-[192px] h-[216px]"
+          alt="프로필 이미지"
+          className="w-[192px] h-[192px]"
         />
-        <div className="flex flex-col justify-around w-1/2">
-          <p className="font-semibold">닉네임 : {VipTestData[0].name}</p>
-          <p className="font-semibold">나이대 : {VipTestData[0].ageRange}</p>
-          <p className="font-semibold">지역 : {VipTestData[0].city}</p>
-          {/* TODO DB에서 얻은 정보 입력, 현재 테이터는 임시 */}
+        <div className="flex flex-col justify-center max-w-[250px] ml-12">
+          <div className="mb-5">
+            <Link to="edit" className="flex items-center group">
+              <p className="text-3xl font-semibold ">{VipTestData[0].name}</p>
+              <ArrowForwardIos
+                sx={{ fontSize: "18px" }}
+                color="disabled"
+                className="ml-5 group-hover:text-primary"
+              />
+            </Link>
+          </div>
+          <p className="flex w-full mb-2">
+            <div className="w-20 font-semibold">나이대</div>
+            <div>{VipTestData[0].ageRange}</div>
+          </p>
+          <p className="flex w-full mb-2">
+            <div className="w-20 font-semibold">지역</div>
+            <div>{VipTestData[0].city}</div>
+          </p>
         </div>
       </div>
     </div>
