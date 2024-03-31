@@ -2,6 +2,7 @@ import VipTestData from "../../json/VipTestData.json";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import ProfileMenu from "./ProfileMenu";
 import useLoginStore from "../../store/useLoginStore";
+import logo from "../../assets/logo.png";
 
 interface MainHeaderProps {
   isLogin: boolean;
@@ -17,13 +18,13 @@ export default function MainHeader({ isLogin }: MainHeaderProps) {
         <div className="w-full h-[70px] flex flex-row justify-between items-center p-2 border-b-2 bg-white box-border">
           <div className="m-3">
             <img
-              src="/hyoblin.png"
+              src={logo}
               alt="logo"
               onClick={() => {
                 navigate("/");
                 sessionStorage.removeItem("recommend-state");
               }}
-              className="cursor-pointer h-9"
+              className="h-12 cursor-pointer"
             />
           </div>
           <div className="flex gap-5 m-3">
@@ -45,13 +46,13 @@ export default function MainHeader({ isLogin }: MainHeaderProps) {
         <div className="w-full h-[70px] flex flex-row justify-between items-center p-2 border-b-2 bg-white">
           <div className="m-3">
             <img
-              src="/hyoblin.png"
+              src={logo}
               alt="logo"
               onClick={() => {
                 navigate("/");
                 sessionStorage.removeItem("recommend-state");
               }}
-              className="cursor-pointer"
+              className="h-12 cursor-pointer"
             />
           </div>
           <div className="flex items-center h-full gap-10 mr-5">
