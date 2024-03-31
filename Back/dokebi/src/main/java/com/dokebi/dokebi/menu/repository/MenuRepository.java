@@ -8,6 +8,9 @@ import java.util.List;
 
 public interface MenuRepository extends JpaRepository<Menu, Integer>  {
 
+    @Query("SELECT new com.dokebi.dokebi.menu.dto.MenuDto(m.menuId, m.menuName, wc.menuImg) FROM WcMenu wc, Menu m WHERE wc.menu.menuId = m.menuId")
+    List<MenuDto> findMenu();
+
     @Query("SELECT new com.dokebi.dokebi.menu.dto.MenuDto(m.menuId, m.menuName, c.cateImage) " +
             "FROM Menu m " +
             "JOIN Cate c ON m.cate.cateId = c.cateId " +

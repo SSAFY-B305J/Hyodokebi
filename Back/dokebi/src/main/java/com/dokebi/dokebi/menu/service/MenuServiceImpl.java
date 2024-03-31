@@ -23,6 +23,11 @@ public class MenuServiceImpl implements MenuService {
     private final VipRepository vipRepository;
 
     @Override
+    public List<MenuDto> findMenu() {
+        return menuRepository.findMenu();
+    }
+
+    @Override
     public List<MenuDto> findSavedMenu(int vipId) {
 
         return menuRepository.findSavedMenu(vipId);

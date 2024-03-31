@@ -7,6 +7,9 @@ import java.util.List;
 
 public interface MenuService {
 
+    // 메뉴 리스트 조회
+    List<MenuDto> findMenu();
+
     // 선호 메뉴 리스트 조회
     List<MenuDto> findSavedMenu(int vipId);
 

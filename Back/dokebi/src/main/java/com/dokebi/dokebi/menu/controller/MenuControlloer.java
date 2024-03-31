@@ -19,6 +19,20 @@ public class MenuControlloer {
 
     private final MenuService menuService;
 
+    @Operation(summary = "월그컵 메뉴 목록")
+    @GetMapping("/api/wc")
+    public ResponseEntity<?> menuList(){
+        try{
+            List<MenuDto> menuList = menuService.findMenu();
+            return new ResponseEntity<List<MenuDto>>(menuList, HttpStatus.OK);
+        } catch (EntityNotFoundException e) {
+            return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<String>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
     @Operation(summary = "선호 메뉴 목록")
     @GetMapping("/api/vip/sm/{vipId}")
     public ResponseEntity<?> smList(@PathVariable int vipId){
