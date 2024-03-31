@@ -1,7 +1,6 @@
-import LogoutIcon from "@mui/icons-material/Logout";
 import VipTestData from "../../json/VipTestData.json";
-import { NavLink, useNavigate } from "react-router-dom";
-import useTabStore from "../../store/useTabStore";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import ProfileMenu from "./ProfileMenu";
 import useLoginStore from "../../store/useLoginStore";
 
 interface MainHeaderProps {
@@ -10,76 +9,65 @@ interface MainHeaderProps {
 
 export default function MainHeader({ isLogin }: MainHeaderProps) {
   const navigate = useNavigate();
-  const { tabIndex, setTabIndex } = useTabStore();
-  const { setLoginMemberId, loginMemberId } = useLoginStore();
+  const { loginMemberId } = useLoginStore();
 
   return (
     <div>
       {isLogin === false ? (
-        <div className="w-full h-[80px] flex flex-row justify-between items-center p-2 border-b-2 bg-white box-border">
+        <div className="w-full h-[70px] flex flex-row justify-between items-center p-2 border-b-2 bg-white box-border">
           <div className="m-3">
             <img
               src="/hyoblin.png"
               alt="logo"
               onClick={() => {
                 navigate("/");
-                window.location.reload();
-                sessionStorage.clear();
+                sessionStorage.removeItem("recommend-state");
               }}
-              className="cursor-pointer"
+              className="cursor-pointer h-9"
             />
           </div>
           <div className="flex gap-5 m-3">
-            <NavLink to="/signup" className="text-2xl font-semibold">
+            <NavLink
+              to="/signup"
+              className="font-semibold hover:text-primary-hover"
+            >
               회원가입
             </NavLink>
-            <NavLink to="/login" className="text-2xl font-semibold">
+            <NavLink
+              to="/login"
+              className="font-semibold hover:text-primary-hover"
+            >
               로그인
             </NavLink>
           </div>
         </div>
       ) : (
-        <div className="w-full h-[80px] flex flex-row justify-between items-center p-2 border-b-2 bg-white">
+        <div className="w-full h-[70px] flex flex-row justify-between items-center p-2 border-b-2 bg-white">
           <div className="m-3">
             <img
               src="/hyoblin.png"
               alt="logo"
               onClick={() => {
                 navigate("/");
-                window.location.reload();
-                sessionStorage.clear();
+                sessionStorage.removeItem("recommend-state");
               }}
-              className="cursor-pointer "
+              className="cursor-pointer"
             />
           </div>
-          <div className="flex h-full gap-10 mr-5">
-            <NavLink
-              to={`/mypage/${loginMemberId}/profile`}
-              className="flex h-full"
+          <div className="flex items-center h-full gap-10 mr-5">
+            <Link
+              to="/music"
+              className="font-semibold hover:text-primary-hover"
             >
-              {/* TODO 해당 링크는 임시 */}
-              <img
-                src={VipTestData[0].imagePath}
-                alt="profile"
-                className="h-full rounded-full"
-                onClick={() => {
-                  // navigate("/mypage/1/profile");
-                  setTabIndex(0);
-                }}
-              />
-              {/* onclick + navigate, settabindex 사용을 통해 탭 인덱스 변경하기 */}
-            </NavLink>
-            <div className="flex items-center h-full">
-              <button
-                onClick={() => {
-                  localStorage.removeItem("accessToken");
-                  setLoginMemberId(0);
-                  navigate("/");
-                }}
-              >
-                <LogoutIcon fontSize="large" />
-              </button>
-            </div>
+              음악 추천
+            </Link>
+            <Link
+              to={`food/choice/${loginMemberId}`}
+              className="font-semibold hover:text-primary-hover"
+            >
+              음식 추천
+            </Link>
+            <ProfileMenu image={VipTestData[0].imagePath} />
           </div>
         </div>
       )}
