@@ -28,7 +28,8 @@ import FoodAdd from "./pages/children/food/FoodAdd";
 import IdInquiryForm from "./pages/children/user/IdInquiryForm";
 import IdInquiryResult from "./pages/children/user/IdInquiryResult";
 import PwInquiryForm from "./pages/children/user/PwInquiryForm";
-import PwInquiryResetResult from "./pages/children/user/PwInquiryResetForm";
+import PwInquiryResetForm from "./pages/children/user/PwInquiryResetForm";
+import Settings from "./pages/children/profile/Settings";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -68,11 +69,11 @@ const router = createBrowserRouter([
                     path: "vip",
                     element: <VipList />,
                   },
-                  {
-                    path: "profile/edit",
-                    element: <ProfileEdit />,
-                  },
                 ],
+              },
+              {
+                path: "profile/edit",
+                element: <ProfileEdit />,
               },
               {
                 path: "vip/:vipId",
@@ -87,6 +88,10 @@ const router = createBrowserRouter([
                 element: <VipEdit />,
               },
             ],
+          },
+          {
+            path: "settings",
+            element: <Settings />,
           },
           {
             path: "signup",
@@ -138,8 +143,8 @@ const router = createBrowserRouter([
             element: <PwInquiryForm />,
           },
           {
-            path: "/help/pwInquiry/result",
-            element: <PwInquiryResetResult />,
+            path: "/help/pwInquiry/reset",
+            element: <PwInquiryResetForm />,
           },
         ],
       },

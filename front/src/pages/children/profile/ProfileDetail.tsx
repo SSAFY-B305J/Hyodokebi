@@ -1,6 +1,6 @@
-import { Link } from "react-router-dom";
 import VipTestData from "../../../json/VipTestData.json";
-import ArrowForwardIos from "@mui/icons-material/ArrowForwardIos";
+import { Edit, Settings } from "@mui/icons-material";
+import ProfileMenuButton from "../../../components/Button/ProfileMenuButton";
 
 export default function ProfileDetail() {
   // TODO: 회원 정보 조회 API 완성되면 적용하기
@@ -15,14 +15,7 @@ export default function ProfileDetail() {
         />
         <div className="flex flex-col justify-center max-w-[250px] ml-12">
           <div className="mb-5">
-            <Link to="edit" className="flex items-center group">
-              <p className="text-3xl font-semibold ">{VipTestData[0].name}</p>
-              <ArrowForwardIos
-                sx={{ fontSize: "18px" }}
-                color="disabled"
-                className="ml-5 group-hover:text-primary"
-              />
-            </Link>
+            <p className="text-3xl font-semibold">{VipTestData[0].name}</p>
           </div>
           <p className="flex w-full mb-2">
             <div className="w-20 font-semibold">나이대</div>
@@ -34,6 +27,16 @@ export default function ProfileDetail() {
           </p>
         </div>
       </div>
+      <ProfileMenuButton
+        to="edit"
+        text="회원 정보 수정"
+        iconElement={<Edit fontSize="small" />}
+      />
+      <ProfileMenuButton
+        to="/settings"
+        text="설정"
+        iconElement={<Settings fontSize="small" />}
+      />
     </div>
   );
 }

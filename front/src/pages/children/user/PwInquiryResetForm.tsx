@@ -5,7 +5,7 @@ import useRegistStore from "../../../store/useRegistStore";
 import useLoginStore from "../../../store/useLoginStore";
 import { useNavigate } from "react-router-dom";
 
-export default function PwInquiryResetResult() {
+export default function PwInquiryResetForm() {
   const regStore = useRegistStore();
   const { logout } = useLoginStore();
   const navigate = useNavigate();
