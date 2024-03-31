@@ -137,6 +137,10 @@ const router = createBrowserRouter([
             path: "/help/pwInquiry",
             element: <PwInquiryForm />,
           },
+          {
+            path: "/help/pwInquiry/result",
+            element: <PwInquiryResetResult />,
+          },
         ],
       },
       {
