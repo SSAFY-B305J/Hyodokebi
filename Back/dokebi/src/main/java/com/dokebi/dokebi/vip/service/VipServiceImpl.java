@@ -11,10 +11,10 @@ import com.dokebi.dokebi.vip.entity.Vip;
 import com.dokebi.dokebi.vip.repository.VipRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,9 +28,13 @@ public class VipServiceImpl implements VipService {
 
     @Override
     public List<VipDto> findVipsOfMmeber(int mIdx) {
-        List<Vip> vips = vipRepository.findVipsOfMember(mIdx).getVips();
+        memberRepository.findByMemberIndex(mIdx).orElseThrow(() -> new EntityNotFoundException("Member Entity Not Found"));
 
-        List<VipDto> vipDtos = vips.stream()
+        Member member = vipRepository.findVipsOfMember(mIdx);
+        if(member == null) // vip가 없으면
+            return new ArrayList<>();
+
+        List<VipDto> vipDtos = member.getVips().stream()
                 .map(v -> VipDto.builder()
                         .vipId(v.getVipId())
                         .vipBirth(v.getVipBirth())

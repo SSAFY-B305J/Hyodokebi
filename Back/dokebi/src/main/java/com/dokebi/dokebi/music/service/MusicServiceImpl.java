@@ -26,10 +26,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.Arrays;
-import java.util.EnumMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -78,7 +75,6 @@ public class MusicServiceImpl implements MusicService {
         List<Integer> vipDisLikedMusics = vipService.findVipDisLikedMusicIds(vid);
 
         VipDto vipDto = vipService.findVipAge(vid); // vip 10대, 20대, 30대를 연도를 2차원 배열에 저장
-        System.out.println(Arrays.deepToString(vipDto.getVipAgeGroups()));
         Map<AgeGroup, List<MusicDto>> recommendedMusicDtos = new EnumMap<>(AgeGroup.class); // EnumMap을 형성
 
         for (AgeGroup ageGroup : AgeGroup.values()) { // enum value 돌기
@@ -97,6 +93,12 @@ public class MusicServiceImpl implements MusicService {
             // flask api로 post하고 응답을 받음
             String response = restTemplate.postForObject(flaskEndpoint, httpEntity, String.class);
             log.info("Flask Connection Success To -> Vip No.{}", httpEntity.getBody().getVipId());
+
+            // 나이대에 맞는 음악이 없으면 빈 리스트 추가
+            if(response.trim().equals("null")) {
+                recommendedMusicDtos.put(ageGroup,new ArrayList<>());
+                continue;
+            }
 
             // 플라스크 api에서 객체로 보낸 응답을 jackson library의 objectMapper로 읽어옴
             // 단일 객체면 객체.class, 복수 객체면 typeReference로 지정해야 함
