@@ -106,11 +106,7 @@ export default function ProfileMenu(props: { image: string }) {
           </ListItemIcon>
           VIP 관리
         </MenuItem>
-        <MenuItem
-          onClick={() =>
-            handleClickMenuItem(`/mypage/${loginMemberId}/profile`)
-          }
-        >
+        <MenuItem onClick={() => handleClickMenuItem(`/settings`)}>
           <ListItemIcon>
             <Settings fontSize="small" />
           </ListItemIcon>
