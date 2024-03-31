@@ -59,7 +59,7 @@ export default function MainHeader({ isLogin }: MainHeaderProps) {
               to="/music"
               className="font-semibold hover:text-primary-hover"
             >
-              음악 추천
+              노래 추천
             </Link>
             <Link
               to={`food/choice/${loginMemberId}`}
