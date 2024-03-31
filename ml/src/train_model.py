@@ -3,14 +3,53 @@ import pandas as pd
 import numpy as np
 from sklearn.preprocessing import MinMaxScaler
 from models import db
-from utils import matrix_factorization, predict
+from utils import matrix_factorization, predict, menu_training, updateDataSet, predicted_menu
 
 combined_matrix = None
+predicted_R = None
+user_igd_info = None
+menu_info = None
+
+def pre_training(app):
+    global predicted_R, user_igd_info, menu_info
+    with app.app_context():
+        print("start menu train")
+        excel_file_path = './dataTmp.xlsx'
+
+        # 엑셀 파일의 각 시트를 다른 변수에 저장
+        menu_info = pd.read_excel(excel_file_path, sheet_name='Sheet1', header = 0, index_col = 0)
+        user_info = pd.read_excel(excel_file_path, sheet_name='Sheet2', header = 0, index_col = 0)
+
+        user_igd_info = pd.DataFrame(0, index=[f"User{i+1}" for i in range(0, user_info.shape[0])], columns=[f"{i}" for i in menu_info.columns])
+        for row in range(0,user_info.shape[0]):
+            for col in range(0, user_info.shape[1]):
+                if user_info.iloc[row,col] > 0:
+                    for igdIdx in range(0, menu_info.shape[1]):
+                        if menu_info.iloc[col,igdIdx] > 0:
+                            user_igd_info.iloc[row, igdIdx] += menu_info.iloc[col,igdIdx]
+        
+        predicted_R = menu_training(user_igd_info, 51)
+        
+        print("end menu train")
+        #return predicted_R, user_igd_info, menu_info
+    
+
+def training_recommend_menu(user_igd_info, menu_info, vip_id, menu_ids):
+    user_igd_info2 = updateDataSet(user_igd_info,vip_id,menu_ids)
+    predict_R = menu_training(user_igd_info2, 10 )
+    recommend_menu = predicted_menu(predict_R, menu_info, vip_id)
+    return recommend_menu
+
+def not_training_recommend_menu(predict_R, menu_info, vip_id):
+    return predicted_menu(predict_R, menu_info, vip_id)
+
+def get_pre_training():
+    return predicted_R, user_igd_info, menu_info
 
 def train_model(app):
     global combined_matrix
     with app.app_context():
-        print("training start")
+        print("start music train")
         
         vip = pd.read_sql("select vip_id from vip",con=db.engine)
         
@@ -97,12 +136,13 @@ def train_model(app):
         print(predict_genre.shape)
         
         combined_matrix = (0.4 * predict_singer + 0.4 * predict_composer + 0.2 * predict_genre)
-        print(combined_matrix)
+        #print(combined_matrix)
         print(combined_matrix.shape)
-        print("training complete")
+        print("end music train")
         
 def get_combined_matrix():
     return combined_matrix
         
 def train_model_thread(app):
     threading.Thread(target=lambda: train_model(app)).start()
+    threading.Thread(target=lambda: pre_training(app)).start()

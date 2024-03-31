@@ -1,5 +1,7 @@
 import numpy as np
 from sklearn.metrics import mean_squared_error
+import pandas as pd
+from models import db
 
 def calculate_rmse(R, P, Q, non_zeros):
     error = 0
@@ -52,3 +54,54 @@ def matrix_factorization(R, K, steps=200, learning_rate=0.01, r_lambda=0.01):
 # P, Q => matric_fac... 의 결과로 얻은 두개의 행렬
 def predict(P, Q):
     return np.dot(P, Q.T)
+
+def menu_training(user_igd_info, K=51 ,learning_rate = 0.01, steps = 500 ):
+    user_igd_data = user_igd_info.to_numpy()
+    P, Q = matrix_factorization(user_igd_data*0.1, K, learning_rate = 0.01, steps = 500 )
+    predicted_R = predict(P,Q)
+    return predicted_R
+
+
+# ### 추천할 때 사용될 함수
+
+
+# 데이터 수정하기
+def updateDataSet(user_igd_info, vip_id, menu_ids):
+    vip_id = int(vip_id)
+    user_igd_info_tmp = user_igd_info.copy()
+    for menu_id in menu_ids:
+        menu_id = int(menu_id)
+        user_igd_info_tmp.iloc[vip_id-1, menu_id] += 2
+    return user_igd_info_tmp
+
+    
+# 에측결과를 토대로 메뉴 선택하기
+# model_prac.ipynb -> predicted_menu_V4
+def predicted_menu(predicted, menu_info, user_no, nMenu=9):
+    
+    user_no = int(user_no)
+    menu_data = menu_info.to_numpy()
+    user_like_igd = predicted[user_no-1].copy()
+    predicted_menu = []
+
+    user_like_menu = predict(user_like_igd, menu_data*0.1)
+
+    for i in range(0,nMenu):
+        max_idx = np.argmax(user_like_menu)
+        if user_like_menu[max_idx] < 0 or user_like_menu[max_idx] == 0 : break
+        predicted_menu += [max_idx]
+        user_like_menu[max_idx] = 0
+
+    recommended_menu = recommend_menu(predicted_menu)
+    return recommended_menu
+
+def recommend_menu(menu_ids):
+    recommended_menu = pd.DataFrame(columns=["menu_id", "menu_name", "cate_image"])
+    print(recommended_menu)
+    for idx in range(0,len(menu_ids)):
+        sql_query = "SELECT m.menu_id, m.menu_name, m.cate_image FROM (SELECT * FROM menu LEFT OUTER JOIN cate ON menu.cate_cate_id = cate.cate_id) m WHERE m.menu_id = %s" %menu_ids[idx]
+        menu_info = pd.read_sql(sql=sql_query, con=db.engine)
+        if not menu_info.empty:
+            recommended_menu = pd.concat([recommended_menu, menu_info], axis=0)
+            
+    return recommended_menu.to_json(orient="records")
