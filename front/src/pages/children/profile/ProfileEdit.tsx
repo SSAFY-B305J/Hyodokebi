@@ -1,13 +1,12 @@
 import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-
-import Input from "../../../components/common/Input";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ButtonAsset from "../../../components/Button/ButtonAsset";
+import InputAsset from "../../../components/common/InputAsset";
 
 export default function ProfileEdit() {
-  const arr = Array.from({ length: 8 }, (v, i) => i);
+  const imageList = Array.from({ length: 8 }, (v, i) => i);
   const [ProfileData, setProfileData] = useState({
     profileImageIndex: 0,
     nickname: "",
@@ -28,79 +27,69 @@ export default function ProfileEdit() {
       ...ProfileData,
       nickname: nickname,
       profileImageIndex: index,
-      email: email
+      email: email,
     }));
     navigate(`/mypage/${Id}/profile/`);
-    console.log(ProfileData)
+    console.log(ProfileData);
   };
   useEffect(() => {
     setProfileData((ProfileData) => ({
       ...ProfileData,
       nickname: nickname,
       profileImageIndex: index,
-      email: email
+      email: email,
     }));
   }, [nickname, index, email]);
 
-
   return (
-    <div className="box-border flex flex-col justify-center w-5/6 h-full gap-4 px-3 mt-4 overflow-auto">
-      <div className="flex flex-row justify-between w-full h-1/6">
-        <div className="text-2xl font-semibold">프로필 사진</div>
-        <div className="flex gap-8">
-          {/* <SaveIcon fontSize="large" /> */}
-          <ArrowBackIcon
-            fontSize="large"
-            onClick={() => navigate("/mypage/1/profile/")}
-            className="cursor-pointer "
-          />
+    <div className="w-[600px]">
+      <div className="flex flex-col w-full p-4 my-10 border rounded-md">
+        <div className="flex my-3">
+          <Link to={`/mypage/1/profile/`} className="pr-3">
+            <ArrowBackIcon fontSize="large" />
+          </Link>
+          <h1 className="text-2xl font-bold">회원 정보 수정</h1>
         </div>
-      </div>
-      <div className="flex flex-row w-full h-1/2">
-        <div className="flex w-full">
-          <img
-            src={`/test/picture${index}.jpg`}
-            alt="empty"
-            className="mx-3 w-[116px] h-[116px]"
-          />
-          <div className="grid grid-cols-4 gap-3">
-            {arr.map((x) => (
-              <img
-                key={x}
-                src={`/test/picture${x}.jpg`}
-                alt="empty"
-                onClick={() => setIndex(x)}
-              />
-            ))}
+        <div className="w-full py-5 border-b">
+          <h2 className="mb-3 text-lg font-bold">프로필 사진</h2>
+          <div className="flex w-full">
+            <img
+              src={`/test/picture${index}.jpg`}
+              alt="empty"
+              className="mr-3 w-36 h-36"
+            />
+            <div className="flex flex-wrap justify-between content-between w-[300px] h-36">
+              {imageList.map((img) => (
+                <img
+                  key={img}
+                  src={`/test/picture${img}.jpg`}
+                  alt="프로필 사진을 지정하세요"
+                  className={`w-16 h-16 ${
+                    index === img && "border-2 border-primary box-border"
+                  }`}
+                  onClick={() => setIndex(img)}
+                />
+              ))}
+            </div>
           </div>
         </div>
-      </div>
-      <hr />
-      <div className="flex flex-col justify-between w-full gap-3 h-1/3">
-        <div className="text-2xl font-semibold">닉네임</div>
-        <Input
-          id="nickname"
-          label="닉네임"
-          labelVisible={false}
-          inputHandler={(event) => {
-            setNickname(event.target.value);
-          }}
-        />
-      </div>
-      <hr />
-      <div className="flex flex-col justify-between w-full gap-3">
-        <div className="text-2xl font-semibold">이메일</div>
-        <Input
-          id="email"
-          label="현재 이메일"
-          inputHandler={(event) => {
-            setEmail(event.target.value);
-          }}
-        />
-      </div>
-      <div className="flex justify-center w-full gap-2">
-        <ButtonAsset text="취소" variant="outlined" className="w-1/5" onClick={() => navigate("/mypage/1/profile/")} />
-        <ButtonAsset text="저장" className="w-1/5" onClick={handleClick} />
+        <div className="w-full py-5 border-b">
+          <h2 className="mb-3 text-lg font-bold">닉네임</h2>
+          <InputAsset value="" placeholder="닉네임" className="w-[300px]" />
+        </div>
+        <div className="w-full py-5">
+          <h2 className="mb-3 text-lg font-bold">이메일</h2>
+          <InputAsset value="" placeholder="이메일" className="w-[300px]" />
+        </div>
+        <div className="flex justify-center w-full my-5">
+          <ButtonAsset
+            text="취소"
+            variant="outlined"
+            className="w-24 mr-8"
+            onClick={() => navigate("/mypage/1/profile/")}
+          />
+          <ButtonAsset text="저장" className="w-24" onClick={handleClick} />
+        </div>
       </div>
     </div>
   );

@@ -7,7 +7,7 @@ export default function ProfileDetail() {
 
   return (
     <div className="w-[600px]">
-      <div className="flex w-full p-4 my-10 border rounded-md ">
+      <div className="flex w-full p-4 my-10 border rounded-md">
         <img
           src={VipTestData[0].imagePath}
           alt="프로필 이미지"
