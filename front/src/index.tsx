@@ -32,6 +32,7 @@ import PwInquiryResetForm from "./pages/children/user/PwInquiryResetForm";
 import Settings from "./pages/children/profile/Settings";
 import PwInquiryConfirm from "./pages/children/user/PwInquiryConfirm";
 import UnRegForm from "./pages/children/user/UnRegForm";
+import LandingPage from "./pages/LandingPage";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -49,7 +50,7 @@ const router = createBrowserRouter([
         children: [
           {
             path: "",
-            element: <TopicBox isLogin={true} />,
+            element: <LandingPage />,
           },
           {
             path: "login",

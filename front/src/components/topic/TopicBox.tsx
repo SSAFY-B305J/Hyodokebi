@@ -30,10 +30,10 @@ export default function TopicBox({ isLogin }: TopicBoxProps) {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setIsLoading(false); 
+      setIsLoading(false);
     }, 1000);
 
-    return () => clearTimeout(timer); 
+    return () => clearTimeout(timer);
   }, []);
 
   const sLoading = () => {
@@ -43,14 +43,17 @@ export default function TopicBox({ isLogin }: TopicBoxProps) {
       setRecom(true);
     }, 1000);
   };
-  const radnum: number = (new Date().getMilliseconds()) % 4
-  
+  const radnum: number = new Date().getMilliseconds() % 4;
 
   return (
-    <div className="w-[75vw] h-[66vh] bg-secondary border-secondary border-2 rounded-3xl p-3 flex">
+    <div className="w-[650px] h-[350px] bg-secondary border-secondary border-2 rounded-3xl p-3 flex">
       {isLoading ? (
         <div className="flex flex-col items-center justify-center w-full h-full">
-          <img src={`/loading_illust/loading_${radnum}.png`} className="w-[256px] h-[256px]"  alt="empty" />
+          <img
+            src={`/loading_illust/loading_${radnum}.png`}
+            className="w-[256px] h-[256px]"
+            alt="empty"
+          />
           <div className="text-xl">로딩중...</div>
         </div>
       ) : recom ? (
