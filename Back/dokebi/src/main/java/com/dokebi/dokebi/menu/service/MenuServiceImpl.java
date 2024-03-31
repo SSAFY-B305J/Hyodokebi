@@ -70,9 +70,6 @@ public class MenuServiceImpl implements MenuService {
         // 플라스크 엔드포인트
         String flaskEndpoint = "http://127.0.0.1:5000/pyapi/menu/"+vid;
 
-        // vipid 보낼 map
-        Map<String, Integer> uriVariables = new HashMap<>();
-        uriVariables.put("vid", vid);
 
         // 음식 리스트
         Map<String, List<Integer>> requestBody = new HashMap<>();
@@ -84,7 +81,7 @@ public class MenuServiceImpl implements MenuService {
         HttpEntity<Map<String, List<Integer>>> entity = new HttpEntity<>(requestBody, headers);
 
         // flask api로 post하고 응답을 받음
-        String response = restTemplate.postForObject(flaskEndpoint, entity, String.class, uriVariables);
+        String response = restTemplate.postForObject(flaskEndpoint, entity, String.class);
 
         // 플라스크 api에서 객체로 보낸 응답을 jackson library의 objectMapper로 읽어옴
         // 단일 객체면 객체.class, 복수 객체면 typeReference로 지정해야 함
