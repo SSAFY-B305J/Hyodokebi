@@ -1,9 +1,7 @@
 package com.dokebi.dokebi.member.controller;
 
 import com.dokebi.dokebi.common.JWT.TokenInfo;
-import com.dokebi.dokebi.member.dto.MemberJoinRequestDto;
-import com.dokebi.dokebi.member.dto.OriginLoginRequestDto;
-import com.dokebi.dokebi.member.dto.SocialLoginDto;
+import com.dokebi.dokebi.member.dto.*;
 import com.dokebi.dokebi.member.service.MemberService;
 import com.dokebi.dokebi.member.service.SocialMemberService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -12,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -92,6 +91,31 @@ public class MemberController {
         return ResponseEntity.status(status).body(resultMap);
     }
 
+//    @PutMapping
+//    public ResponseEntity<Map<String, Object>> updateMember(@RequestBody MemberUpdateRequestDto memberUpdateRequestDto, HttpServletRequest request) {
+//        HttpStatus status = HttpStatus.OK;
+//        Map<String, Object> resultMap = new HashMap<>();
+//        try {
+//            //신청유저 != 대상유저인데 관리자도 아니라면
+//            if ((Long) request.getAttribute("accessMemberIndex") != memberUpdateRequestDto.getMemberIndex()
+//                    && !request.getAttribute("accessMemberRole").equals("ADMIN")) {
+//                status = HttpStatus.UNAUTHORIZED;
+//                throw new IllegalAccessException("잘못된 접근입니다.");
+//            }
+//            //암호화
+//            if (memberUpdateRequestDto.getMemberPass() != null)
+//                memberUpdateRequestDto.setMemberPass(UUID.nameUUIDFromBytes(memberUpdateRequestDto.getMemberPass().getBytes()).toString());
+//            memberService.updateMember(memberUpdateRequestDto);
+//            resultMap.put("message", "success");
+//        } catch (Exception e) {
+//            resultMap.put("message", e.getMessage());
+//            status = HttpStatus.BAD_REQUEST;
+//        }
+//        return ResponseEntity.status(status).body(resultMap);
+//    }
+
+
+
     @GetMapping("/check/{category}/{input}")
     public ResponseEntity<Map<String, Object>> dupCheck(@PathVariable String category,@PathVariable String input){
         Map<String, Object> resultMap = new HashMap<>();
@@ -122,7 +146,46 @@ public class MemberController {
         }
         return ResponseEntity.status(status).body((resultMap));
     }
+    @GetMapping("/send/email")
+    public ResponseEntity<Map<String, Object>> sendEmail(@RequestParam("email") String email) {
+        Map<String, Object> resultMap = new HashMap<>();
+        HttpStatus status = HttpStatus.OK;
+        try {
+            String code = memberService.sendEmail(email, "check_email");
+            resultMap.put("code", code);
+        } catch (Exception e) {
+            resultMap.put("message", e.getMessage());
+            status = HttpStatus.BAD_REQUEST;
+        }
+        return ResponseEntity.status(status).body(resultMap);
+    }
+    @GetMapping("/find/id")
+    public ResponseEntity<Map<String, Object>> findId(@RequestParam("email") String email) {
+        Map<String, Object> resultMap = new HashMap<>();
+        HttpStatus status = HttpStatus.OK;
+        try {
+            String id = memberService.findId(email);
+            resultMap.put("id",id);
+        } catch (Exception e) {
+            resultMap.put("message", e.getMessage());
+            status = HttpStatus.BAD_REQUEST;
+        }
+        return ResponseEntity.status(status).body(resultMap);
+    }
 
+    @PostMapping("/find/pass")
+    public ResponseEntity<Map<String, Object>> findPass(@RequestBody MemberFindPassRequestDto memberFindPassDto) {
+        Map<String, Object> resultMap = new HashMap<>();
+        HttpStatus status = HttpStatus.OK;
+        try {
+            memberService.findPass(memberFindPassDto);
+            resultMap.put("message", "입력하신 이메일로 임시 비밀번호가 발송되었습니다.");
+        } catch (Exception e) {
+            resultMap.put("message", e.getMessage());
+            status = HttpStatus.BAD_REQUEST;
+        }
+        return ResponseEntity.status(status).body(resultMap);
+    }
 
 
 }

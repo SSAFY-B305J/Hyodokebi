@@ -2,6 +2,9 @@ package com.dokebi.dokebi.member.service;
 
 import com.dokebi.dokebi.common.JWT.JwtTokenProvider;
 import com.dokebi.dokebi.common.JWT.TokenInfo;
+import com.dokebi.dokebi.common.email.Aes256;
+import com.dokebi.dokebi.common.email.EmailSender;
+import com.dokebi.dokebi.member.dto.MemberFindPassRequestDto;
 import com.dokebi.dokebi.member.dto.MemberJoinRequestDto;
 import com.dokebi.dokebi.member.dto.OriginLoginRequestDto;
 import com.dokebi.dokebi.member.entity.Member;
@@ -26,6 +29,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 @Service
 @Slf4j
@@ -38,6 +42,9 @@ public class MemberService {
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
     private final JwtTokenProvider jwtTokenProvider;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final EmailSender emailSender;
+    private final Aes256 aes256;
+
 
     public String login(OriginLoginRequestDto dto) {
         Member loginUser = loginPassCheck(dto);
@@ -96,5 +103,43 @@ public class MemberService {
     public void deleteMember(int accessMemberIndex) {
 
         memberRepository.deleteById(accessMemberIndex);
+    }
+
+    public String sendEmail(String email, String order) {
+        String result = "";
+        String title = "";
+        String content = "";
+        switch (order) {
+            case "check_email":
+                title = "dokebi 이메일 인증 코드입니다.";
+                content = "dokebi에서 보낸 이메일 인증용 코드입니다.<br>아래의 인증번호를 입력해 주세요.<br><br>코드: ";
+                result = emailSender.generateCode();
+                emailSender.sendMail(email, title, content + result);
+                result = aes256.encrypt(result);
+                break;
+            case "find_pass":
+                title = "dokebi에서 생성한 임시 비밀번호입니다.";
+                content = "dokebi에서 생성한 임시 비밀번호입니다.<br>아래의 비밀번호를 사용해 로그인해 주세요.<br><br>임시 비밀번호: ";
+                result = emailSender.generateCode();
+                emailSender.sendMail(email, title, content + result);
+                break;
+        }
+        return result;
+    }
+    public void findPass(MemberFindPassRequestDto dto) {
+        Member accessMember = memberRepository.findByMemberIdAndMemberEmail
+                        (dto.getMemberId()
+                                , dto.getMemberEmail())
+                .orElseThrow(() -> new UsernameNotFoundException("사용자 정보를 찾을 수 없습니다."));
+        String tmpPass = sendEmail(accessMember.getMemberEmail(), "find_pass");
+        //암호화
+        accessMember.setMemberPass(bCryptPasswordEncoder.encode(tmpPass));
+    }
+
+
+    public String findId(String email) {
+        Member findMember = memberRepository.findByMemberEmail().orElseThrow(()->new UsernameNotFoundException("email에 해당하는 사용자가 없습니다."));
+
+        return findMember.getMemberId();
     }
 }
