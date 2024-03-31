@@ -20,4 +20,5 @@ public interface MusicService {
     long removeDislikeMusic(int mid, int vid);
 
     Map<AgeGroup, List<MusicDto>> findMusics(int vid) throws JsonProcessingException;
+
 }

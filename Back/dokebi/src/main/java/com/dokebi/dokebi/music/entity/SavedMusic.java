@@ -7,6 +7,8 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Cache;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -23,8 +25,6 @@ public class SavedMusic {
 
     @ManyToOne
     private Music music;
-
-    private boolean isDeleted;
 
     @Builder
     public SavedMusic(Vip vip, Music music) {

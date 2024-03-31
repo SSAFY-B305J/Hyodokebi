@@ -18,6 +18,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -25,11 +26,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Arrays;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class MusicServiceImpl implements MusicService {
@@ -46,11 +49,13 @@ public class MusicServiceImpl implements MusicService {
 
         MusicDto musicDto = MusicDto.builder()
                 .musicId(music.getMusicId())
-                .musicName(music.getMusicName())
                 .musicYear(music.getMusicYear())
+                .musicName(music.getMusicName())
                 .musicSinger(music.getMusicSinger())
                 .musicImg(music.getMusicImg())
                 .musicLyrics(music.getMusicLyrics())
+                .musicGenre(music.getMusicGenre())
+                .musicComposer(music.getMusicComposer())
                 .build();
 
         return musicDto;
@@ -73,12 +78,14 @@ public class MusicServiceImpl implements MusicService {
         List<Integer> vipDisLikedMusics = vipService.findVipDisLikedMusicIds(vid);
 
         VipDto vipDto = vipService.findVipAge(vid); // vip 10대, 20대, 30대를 연도를 2차원 배열에 저장
+        System.out.println(Arrays.deepToString(vipDto.getVipAgeGroups()));
         Map<AgeGroup, List<MusicDto>> recommendedMusicDtos = new EnumMap<>(AgeGroup.class); // EnumMap을 형성
 
         for (AgeGroup ageGroup : AgeGroup.values()) { // enum value 돌기
 
             // flask로 request 보낼 template
             MusicTemplateDto musicTemplateDto = MusicTemplateDto.builder()
+                    .vipId(vid)
                     .vipSavedMusics(vipSavedMusic) // 이미 저장한 노래
                     .vipDisLikedMusics(vipDisLikedMusics) // 싫다고 한 노래
                     .ageGroup(vipDto.getVipAgeGroups()[ageGroup.ordinal()]) // enum index의 ageGroup
@@ -89,6 +96,7 @@ public class MusicServiceImpl implements MusicService {
 
             // flask api로 post하고 응답을 받음
             String response = restTemplate.postForObject(flaskEndpoint, httpEntity, String.class);
+            log.info("Flask Connection Success To -> Vip No.{}", httpEntity.getBody().getVipId());
 
             // 플라스크 api에서 객체로 보낸 응답을 jackson library의 objectMapper로 읽어옴
             // 단일 객체면 객체.class, 복수 객체면 typeReference로 지정해야 함
@@ -99,11 +107,13 @@ public class MusicServiceImpl implements MusicService {
             // 응답을 musicDto로 변환해서 EnumMap에 삽입
             recommendedMusicDtos.put(ageGroup, recommendedMusics.stream().map(m -> MusicDto.builder()
                             .musicId(m.getMusicId())
-                            .musicName(m.getMusicName())
                             .musicYear(m.getMusicYear())
+                            .musicName(m.getMusicName())
                             .musicSinger(m.getMusicSinger())
                             .musicImg(m.getMusicImg())
                             .musicLyrics(m.getMusicLyrics())
+                            .musicGenre(m.getMusicGenre())
+                            .musicComposer(m.getMusicComposer())
                             .build())
                     .collect(Collectors.toList()));
 
@@ -123,6 +133,10 @@ public class MusicServiceImpl implements MusicService {
                 .vip(vip)
                 .build();
 
+        // 이미 저장된 음악 예외 처리
+        SavedMusic existedMusic = vipRepository.findVipMusic(vid, mid);
+        if (existedMusic != null) return existedMusic.getSmId();
+
         savedMusicRepository.save(savedMusic);
         return savedMusic.getSmId();
     }
@@ -137,6 +151,10 @@ public class MusicServiceImpl implements MusicService {
                 .music(music)
                 .vip(vip)
                 .build();
+
+        // 이미 싫어요한 음악 예외 처리
+        DisLikedMusic existedMusic = vipRepository.findVipDisLikedMusics(vid, mid);
+        if (existedMusic != null) return existedMusic.getDmId();
 
         disLikedMusicRespository.save(disLikedMusic);
         return disLikedMusic.getDmId();

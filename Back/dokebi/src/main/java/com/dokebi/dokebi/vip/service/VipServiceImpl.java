@@ -1,5 +1,7 @@
 package com.dokebi.dokebi.vip.service;
 
+import com.dokebi.dokebi.member.entity.Member;
+import com.dokebi.dokebi.member.repository.MemberRepository;
 import com.dokebi.dokebi.music.dto.MusicDto;
 import com.dokebi.dokebi.music.entity.DisLikedMusic;
 import com.dokebi.dokebi.music.entity.SavedMusic;
@@ -9,11 +11,11 @@ import com.dokebi.dokebi.vip.entity.Vip;
 import com.dokebi.dokebi.vip.repository.VipRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -22,17 +24,18 @@ public class VipServiceImpl implements VipService {
 
     private final VipRepository vipRepository;
     private final MusicRepository musicRepository;
+    private final MemberRepository memberRepository;
 
     @Override
-    public List<VipDto> findVips() {
-        List<Vip> vips = vipRepository.findAll();
+    public List<VipDto> findVipsOfMmeber(int mIdx) {
+        List<Vip> vips = vipRepository.findVipsOfMember(mIdx).getVips();
 
         List<VipDto> vipDtos = vips.stream()
                 .map(v -> VipDto.builder()
                         .vipId(v.getVipId())
-                        .vipNickname(v.getVipNickname())
                         .vipBirth(v.getVipBirth())
                         .vipProfile(v.getVipProfile())
+                        .vipNickname(v.getVipNickname())
                         .build())
                 .collect(Collectors.toList());
 
@@ -72,8 +75,15 @@ public class VipServiceImpl implements VipService {
 
     @Transactional
     @Override
-    public int addVip(VipDto vipDto) {
+    public int addVip(VipDto vipDto, int mIdx) {
+        Member member = memberRepository.findByMemberIndex(mIdx).orElseThrow(() -> new EntityNotFoundException("Member Entity Not Found"));
+
+        // vip 등록 예외 처리
+        if (member.getVips().size() >= 8)
+            throw new IllegalArgumentException("VIP는 8명까지 등록할 수 있습니다.");
+
         Vip vip = Vip.builder()
+                .member(member)
                 .vipNickname(vipDto.getVipNickname())
                 .vipBirth(vipDto.getVipBirth())
                 .vipProfile(vipDto.getVipProfile())
@@ -83,6 +93,7 @@ public class VipServiceImpl implements VipService {
         return savedVip.getVipId();
     }
 
+    @Transactional
     @Override
     public void removeVip(int vid) {
         Vip vip = vipRepository.findById(vid).orElseThrow(() -> new EntityNotFoundException("Vip Entity Not Found"));
@@ -117,6 +128,8 @@ public class VipServiceImpl implements VipService {
                         .musicSinger(m.getMusic().getMusicSinger())
                         .musicImg(m.getMusic().getMusicImg())
                         .musicLyrics(m.getMusic().getMusicLyrics())
+                        .musicGenre(m.getMusic().getMusicGenre())
+                        .musicComposer(m.getMusic().getMusicComposer())
                         .build())
                 .collect(Collectors.toList());
 
@@ -137,6 +150,8 @@ public class VipServiceImpl implements VipService {
                         .musicSinger(m.getMusic().getMusicSinger())
                         .musicImg(m.getMusic().getMusicImg())
                         .musicLyrics(m.getMusic().getMusicLyrics())
+                        .musicGenre(m.getMusic().getMusicGenre())
+                        .musicComposer(m.getMusic().getMusicComposer())
                         .build())
                 .collect(Collectors.toList());
 
@@ -167,6 +182,14 @@ public class VipServiceImpl implements VipService {
                 .collect(Collectors.toList());
 
         return musicIds;
+    }
+
+    @Override
+    public Boolean findVipMusic(int vid, int mid) {
+        vipRepository.findById(vid).orElseThrow(() -> new EntityNotFoundException("Vip Entity Not Found"));
+        musicRepository.findById(vid).orElseThrow(() -> new EntityNotFoundException("Music Entity Not Found"));
+
+        return vipRepository.findVipMusic(vid, mid) != null;
     }
 
 

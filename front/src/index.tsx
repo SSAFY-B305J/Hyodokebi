@@ -19,12 +19,20 @@ import SignupForm from "./pages/children/user/SignupForm";
 import RegForm from "./pages/children/user/RegForm";
 import FoodList from "./pages/children/food/FoodList";
 import FoodResult from "./pages/children/food/FoodResult";
+import MusicVipSelect from "./pages/children/music/MusicVipSelect";
+import MusicResult from "./pages/children/music/MusicResult";
+import ProfileDetail from "./pages/children/profile/ProfileDetail";
+import ProfileEdit from "./pages/children/profile/ProfileEdit";
+import FoodChoice from "./pages/children/food/FoodChoice";
+import FoodAdd from "./pages/children/food/FoodAdd";
+import IdInquiryForm from "./pages/children/user/IdInquiryForm";
+import IdInquiryResult from "./pages/children/user/IdInquiryResult";
+import PwInquiryForm from "./pages/children/user/PwInquiryForm";
+import PwInquiryResetResult from "./pages/children/user/PwInquiryResetForm";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
-
-// ALERT usestate는 최상단 경로에서는 사용불가
 
 const router = createBrowserRouter([
   {
@@ -53,8 +61,16 @@ const router = createBrowserRouter([
                 element: <DoubleTab />,
                 children: [
                   {
-                    path: "",
+                    path: "profile",
+                    element: <ProfileDetail />,
+                  },
+                  {
+                    path: "vip",
                     element: <VipList />,
+                  },
+                  {
+                    path: "profile/edit",
+                    element: <ProfileEdit />,
                   },
                 ],
               },
@@ -86,6 +102,14 @@ const router = createBrowserRouter([
             ],
           },
           {
+            path: "food/choice/:id",
+            element: <FoodChoice />,
+          },
+          {
+            path: "food/add/:vipId",
+            element: <FoodAdd />,
+          },
+          {
             path: "food/list",
             element: <FoodList />,
           },
@@ -93,16 +117,31 @@ const router = createBrowserRouter([
             path: "food/result",
             element: <FoodResult />,
           },
+          {
+            path: "music",
+            element: <MusicVipSelect />,
+          },
+          {
+            path: "music/:vipId",
+            element: <MusicResult />,
+          },
+          {
+            path: "/help/idInquiry",
+            element: <IdInquiryForm />,
+          },
+          {
+            path: "/help/idInquiry/result",
+            element: <IdInquiryResult />,
+          },
+          {
+            path: "/help/pwInquiry",
+            element: <PwInquiryForm />,
+          },
         ],
       },
       {
         path: "oauth",
         element: <KakaoLogin />,
-      },
-      {
-        path: "food/choice/:id",
-        // TODO children을 통해 food 이하 라우터 배분할 것.
-        // TODO 음식 추천 기능 중첩 라우터 적용 예정
       },
     ],
   },

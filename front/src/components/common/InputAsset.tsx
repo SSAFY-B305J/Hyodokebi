@@ -40,6 +40,7 @@ export default function InputAsset({
           type="button"
           className="absolute top-1/2 translate-y-[-50%] right-4"
           onClick={togglePasswordVisibility}
+          tabIndex={-1}
         >
           <EyeIcon isVisible={isVisible} />
         </button>

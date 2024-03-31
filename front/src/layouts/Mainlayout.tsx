@@ -1,21 +1,19 @@
-import MainHeader from "../components/header/MainHeader"
+import MainHeader from "../components/header/MainHeader";
+import useLoginStore from "../store/useLoginStore";
 
 type MainLayoutProps = {
-  children: JSX.Element
-}
+  children: JSX.Element;
+};
 
-export default function MainLayout ({children} : MainLayoutProps) {
-
-  // const [isLogin, setIsLogin] = useState(false)
-  const isLogin = true
-  // TODO 로그인 판명 로직 : cookie를 사용하거나.
+export default function MainLayout({ children }: MainLayoutProps) {
+  const { getIsLogin } = useLoginStore();
 
   return (
     <div className="flex flex-col h-screen">
-      <MainHeader isLogin={isLogin} />
+      <MainHeader isLogin={getIsLogin()} />
       <div className="flex items-center justify-center flex-1 w-full">
         {children}
       </div>
     </div>
-  )
+  );
 }

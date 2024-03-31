@@ -1,19 +1,18 @@
 import KakaoButton from "../../../components/Button/KakaoButton";
 import VerticalDivider from "../../../components/user/VerticalDivider";
 import FormContainer from "../../../components/user/FormContainer";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import TextField from "../../../components/common/TextField";
 import ButtonAsset from "../../../components/Button/ButtonAsset";
 import { KAKAO_AUTH_URL } from "../../../modules/auth/kakaoAuth";
 import { useState } from "react";
 import WarningIcon from "@mui/icons-material/Warning";
-
-const loginData = {
-  id: "ssafy1234",
-  password: "ssafy1234",
-};
+import { postLogin } from "../../../apis/api/member";
+import useLoginStore from "../../../store/useLoginStore";
 
 export default function LoginForm() {
+  const { setLoginMemberId } = useLoginStore();
+
   // 아이디, 비밀번호
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
@@ -22,6 +21,7 @@ export default function LoginForm() {
   const [hasError, setHasError] = useState(false);
 
   const navigate = useNavigate();
+  const { state } = useLocation();
 
   function onInputIdHandler(e: React.FormEvent<HTMLInputElement>) {
     const value = e.currentTarget.value;
@@ -33,15 +33,22 @@ export default function LoginForm() {
     setPassword(value);
   }
 
-  function onClickLoginButtonHandler() {
-    if (id === loginData.id && password === loginData.password) {
-      alert("로그인 성공!");
-      setHasError(false);
-      navigate("/");
-      return;
-    }
+  // 로그인
+  async function handleClickLoginButton() {
+    try {
+      const memberId = await postLogin(id, password);
+      setLoginMemberId(memberId);
 
-    setHasError(true);
+      // 로그인하기 이전 페이지로 이동
+      if (state) navigate(state);
+      else navigate("/");
+    } catch (error) {
+      if (error instanceof Error) {
+        if (error.message === "400") {
+          setHasError(true);
+        }
+      }
+    }
   }
 
   return (
@@ -68,6 +75,7 @@ export default function LoginForm() {
             onInput={onInputIdHandler}
           />
           <TextField
+            type="password"
             labelVisible={false}
             placeholder="비밀번호"
             value={password}
@@ -78,16 +86,16 @@ export default function LoginForm() {
           <ButtonAsset
             text="로그인"
             size="lg"
-            onClick={onClickLoginButtonHandler}
+            onClick={handleClickLoginButton}
           />
           <Link to={KAKAO_AUTH_URL}>
             <KakaoButton text="카카오 로그인하기" size="lg" />
           </Link>
         </div>
         <div className="flex justify-center *:text-sm *:text-gray-700 [&>*:hover]:underline last:pr-0">
-          <Link to="/">아이디 찾기</Link>
+          <Link to="/help/idInquiry">아이디 찾기</Link>
           <VerticalDivider />
-          <Link to="/">비밀번호 찾기</Link>
+          <Link to="/help/pwInquiry">비밀번호 찾기</Link>
           <VerticalDivider />
           <Link to="/signup">회원가입</Link>
         </div>

@@ -13,12 +13,12 @@ public class VipDto {
 
     private int vipBirth;
 
-    private String vipProfile;
+    private int vipProfile;
 
     private int[][] vipAgeGroups;
 
     @Builder
-    public VipDto(int vipId, String vipNickname, int vipBirth, String vipProfile, int[][] vipAgeGroups) {
+    public VipDto(int vipId, String vipNickname, int vipBirth, int vipProfile, int[][] vipAgeGroups) {
         this.vipId = vipId;
         this.vipNickname = vipNickname;
         this.vipBirth = vipBirth;

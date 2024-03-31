@@ -5,6 +5,7 @@ interface InputProps {
   label: string;
   labelVisible?: boolean;
   placeholder?: string;
+  value? : string;
   message?: string;
   status?: number;
   inputHandler?: ((e : React.ChangeEvent<HTMLInputElement>) => void);
