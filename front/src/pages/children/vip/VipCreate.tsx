@@ -7,28 +7,68 @@ import Input from "../../../components/common/Input";
 import MenuCard from "../../../components/card/MenuCard";
 import ButtonAsset from "../../../components/Button/ButtonAsset";
 
-export default function VipCreate() {
-  const [vipData, setVipdata] = useState({
-    nickname: "",
-    image: 0
-  });
-  // TODO 초기값을 차후 DB에서 받을 것
+import { postVip } from "../../../apis/api/vip";
 
-  const [text, setText] = useState("");
+interface VipCreateData {
+  vipAgeGroups: null;
+  vipBirth: number;
+  vipId: number;
+  vipNickname: string;
+  vipProfile: number;
+}
+
+export default function VipCreate() {
   const navigate = useNavigate();
+  const [vipData, setVipData] = useState({
+    vipAgeGroups: "",
+    vipBirth: 0,
+    vipId: 0,
+    vipNickname: "",
+    vipProfile: 9,
+  });
+
+  // const [ageGroups, setAgegroups] = useState([]);
+  const [birth, setBirth] = useState(0);
+  const [nickname, setNickname] = useState("");
+  const [profile, setProfile] = useState(9);
+
   const { id } = useParams();
-  const handleClick = () => {
-    console.log(vipData)
-    navigate(`/mypage/${id}`);
-    setVipdata({ nickname: text,
-    image: index });
-  };
-  const [index, setIndex] = useState(vipData.image);
-  
+
+  const handleClick = async () => {
+    if (birth !== 0 && nickname !== "" && profile !== 9)
+    // ALERT 빈 값으로 두면 안되는 조건 추가, 조건 추가시 확인.
+    {
+    try {
+      await postVip(vipData);
+      console.log("VIP 정보가 성공적으로 생성되었습니다.");
+      
+      navigate(`/mypage/${id}/vip`);
+    } catch (error) {
+      console.error("Error creating VIP:", error);
+    }}
+    else {
+      if (birth === 0 ){
+        alert("태어나신 해를 입력해주세요.")
+      }
+      else if (nickname === "") {
+        alert("닉네임을 입력해주세요.")
+      }
+      else {
+        alert("프로필 사진을 선택하세요")
+      }
+    }
+    };
+
   useEffect(() => {
-    console.log(vipData);
-  }, [vipData]);
-  // POST 확인
+    setVipData((vipData) => ({
+      ...vipData,
+      vipBirth: birth,
+      vipNickname: nickname,
+      vipProfile: profile,
+    }));
+  }, [birth, nickname, profile]);
+
+
   return (
     <div className="box-border flex flex-col justify-between w-3/5 h-[85vh]">
       <div className="flex flex-row justify-between w-full my-2">
@@ -42,75 +82,72 @@ export default function VipCreate() {
         <Input
           id="nickname"
           label="닉네임"
-          inputHandler={(event) => setText(event.target.value)}
+          inputHandler={(event) => setNickname(event.target.value)}
+        />
+      </div>
+      <div className="flex w-3/4 m-2">
+        <Input
+          id="birth"
+          label="태어나신 해"
+          inputHandler={(event) => setBirth(parseInt(event.target.value))}
         />
       </div>
       <div className="m-2 font-semibold">프로필 사진</div>
       <div className="flex w-full">
         <img
-          src={`/test/picture${index}.jpg`}
-          alt="empty"
+          src={`/test/picture${profile}.jpg`}
+          alt="프로필 사진을 지정하세요"
           className="mx-3 w-[108px] h-[108px]"
         />
         <div className="grid grid-cols-4 gap-3">
           <img
             src={`/test/picture0.jpg`}
             alt="empty"
-            onClick={() => setIndex(0)}
+            onClick={() => setProfile(0)}
           />
           <img
             src={`/test/picture1.jpg`}
             alt="empty"
-            onClick={() => setIndex(1)}
+            onClick={() => setProfile(1)}
           />
           <img
             src={`/test/picture2.jpg`}
             alt="empty"
-            onClick={() => setIndex(2)}
+            onClick={() => setProfile(2)}
           />
           <img
             src={`/test/picture3.jpg`}
             alt="empty"
-            onClick={() => setIndex(3)}
+            onClick={() => setProfile(3)}
           />
           <img
             src={`/test/picture4.jpg`}
             alt="empty"
-            onClick={() => setIndex(4)}
+            onClick={() => setProfile(4)}
           />
           <img
             src={`/test/picture5.jpg`}
             alt="empty"
-            onClick={() => setIndex(5)}
+            onClick={() => setProfile(5)}
           />
           <img
             src={`/test/picture6.jpg`}
             alt="empty"
-            onClick={() => setIndex(6)}
+            onClick={() => setProfile(6)}
           />
           <img
             src={`/test/picture7.jpg`}
             alt="empty"
-            onClick={() => setIndex(7)}
+            onClick={() => setProfile(7)}
           />
         </div>
       </div>
-      <div className="box-border flex m-2 font-semibold">선호 음식</div>
+      {/* <div className="box-border flex m-2 font-semibold">선호 음식</div>
       <div className="flex w-full h-[64vh] p-2 overflow-auto">
         <div className="grid w-full h-full grid-cols-5 gap-3">
           <MenuCard />
-          <MenuCard />
-          <MenuCard />
-          <MenuCard />
-          <MenuCard />
-          <MenuCard />
-          <MenuCard />
-          <MenuCard />
-          <MenuCard />
-          <MenuCard />
         </div>
-        {/* 무한스크롤 고려? */}
-      </div>
+      </div> */}
       <div className="flex justify-center mt-3">
         <ButtonAsset text="저장" onClick={handleClick} />
       </div>

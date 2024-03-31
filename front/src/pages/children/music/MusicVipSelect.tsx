@@ -17,7 +17,7 @@ export default function MusicVipSelect() {
   const [selectedVip, setSelectedVip] = useState<string>("");
 
   const navigate = useNavigate();
-  const { isLogin } = useLoginStore();
+  const { loginMemberId, getIsLogin } = useLoginStore();
   const { pathname } = useLocation();
 
   // select change 이벤트 핸들러
@@ -25,17 +25,14 @@ export default function MusicVipSelect() {
     setSelectedVip(e.target.value);
   }
 
-  // TODO: 유저의 Vip 리스트가 출력되도록 수정 필요 (API 수정 시)
   // WARNING: Vip가 없을 경우 화면 처리하기
 
   // vipList의 값을 저장한다.
   // vip가 있으면 첫 번째 vip의 값을 selectedVip에 저장한다.
   async function initVipList() {
-    // TODO: 현재 로그인한 id로 수정
-    const memberId = 1;
-    const data = await getVipList(memberId);
+    const data = await getVipList(loginMemberId);
     setVipList(data);
-    if (data.length > 0) setSelectedVip(data[0].vipId);
+    if (data?.length > 0) setSelectedVip(data[0].vipId);
   }
 
   // TODO: 라우터 연결 후 확인하기
@@ -45,7 +42,7 @@ export default function MusicVipSelect() {
 
   useEffect(() => {
     // 로그인하지 않았으면 로그인 화면으로 이동
-    if (!isLogin) {
+    if (!getIsLogin() || !loginMemberId) {
       navigate("/login", { state: pathname });
     }
 
@@ -66,7 +63,7 @@ export default function MusicVipSelect() {
             displayEmpty
             inputProps={{ "aria-label": "Without label" }}
           >
-            {vipList.map((vip) => {
+            {vipList?.map((vip) => {
               return (
                 <MenuItem key={vip.vipId} value={vip.vipId}>
                   {vip.vipNickname}

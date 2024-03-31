@@ -3,9 +3,10 @@ import ButtonAsset from "../../../components/Button/ButtonAsset";
 import TextField from "../../../components/common/TextField";
 import FormContainer from "../../../components/user/FormContainer";
 import useInquiryStore from "../../../store/useInquiryStore";
+import { getDuplicateCheck } from "../../../apis/api/member";
 
 export default function IdInquiryForm() {
-  const { email, setEmail, getIsEmailExist } = useInquiryStore();
+  const { email, setEmail } = useInquiryStore();
   const navigate = useNavigate();
 
   // 다음 버튼 클릭 핸들러
@@ -18,7 +19,8 @@ export default function IdInquiryForm() {
     }
 
     // 존재하는 이메일인지 확인
-    if (await getIsEmailExist()) {
+    // 존재한다면 결과 페이지로 이동
+    if (await getDuplicateCheck("email", email)) {
       navigate("/help/idInquiry/result");
     } else {
       alert("존재하지 않는 이메일입니다. 다시 입력해주세요.");
