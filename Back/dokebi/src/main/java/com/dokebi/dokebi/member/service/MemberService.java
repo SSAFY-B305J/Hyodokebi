@@ -93,8 +93,8 @@ public class MemberService {
         return check;
     }
 
-//    public void deleteMember(int accessMemberIndex) {
-//
-//        memberRepository.deleteById(accessMemberIndex);
-//    }
+    public void deleteMember(int accessMemberIndex) {
+
+        memberRepository.deleteById(accessMemberIndex);
+    }
 }
