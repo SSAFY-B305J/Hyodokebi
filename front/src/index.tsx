@@ -31,6 +31,7 @@ import PwInquiryForm from "./pages/children/user/PwInquiryForm";
 import PwInquiryResetForm from "./pages/children/user/PwInquiryResetForm";
 import Settings from "./pages/children/profile/Settings";
 import PwInquiryConfirm from "./pages/children/user/PwInquiryConfirm";
+import UnRegForm from "./pages/children/user/UnRegForm";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -150,6 +151,10 @@ const router = createBrowserRouter([
           {
             path: "/help/pwInquiry/confirm",
             element: <PwInquiryConfirm />,
+          },
+          {
+            path: "/help/unregister",
+            element: <UnRegForm />,
           },
         ],
       },
