@@ -1,3 +1,4 @@
+import json
 from flask import Flask, jsonify, request
 from models import Music, db
 from train_model import train_model_thread, get_combined_matrix, training_recommend_menu, not_training_recommend_menu, get_pre_training
@@ -10,17 +11,28 @@ app.config.from_object(Config)
 
 db.init_app(app)
 
-@app.route("/pyapi/menu/<vip_id>", methods=['GET'])
-def recommend_menu(vip_id):
+
+@app.route("/pyapi/menu/<int:vid>", methods=['POST'])
+def recommend_menu(vid):
     
     predicted_R, user_igd_info, menu_info = get_pre_training()
     
-    menuIds = []
+    menuIds = request.json.get('menuIds', [])
     if len(menuIds) > 0:
-        recommend_menu = training_recommend_menu(user_igd_info, menu_info, vip_id, menuIds)
+        recommend_menu = training_recommend_menu(user_igd_info, menu_info, vid, menuIds)
     else:
-        recommend_menu = not_training_recommend_menu(predicted_R, menu_info, vip_id)
-    print(recommend_menu)
+        recommend_menu = not_training_recommend_menu(predicted_R, menu_info, vid)
+    
+    recommend_menu = json.loads(recommend_menu)
+    
+    def to_dict(menu):
+        return {
+            'menuId': menu['menu_id'],
+            'menuName': menu['menu_name'],
+            'cateImage': menu['cate_image'],
+        }
+    
+    recommend_menu = [to_dict(menu) for menu in recommend_menu]
     return jsonify(recommend_menu)
 
 @app.route("/pyapi/music/res", methods=['POST'])

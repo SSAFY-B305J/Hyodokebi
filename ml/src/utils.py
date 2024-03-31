@@ -103,5 +103,5 @@ def recommend_menu(menu_ids):
         menu_info = pd.read_sql(sql=sql_query, con=db.engine)
         if not menu_info.empty:
             recommended_menu = pd.concat([recommended_menu, menu_info], axis=0)
-            
+        print(recommended_menu)
     return recommended_menu.to_json(orient="records")
