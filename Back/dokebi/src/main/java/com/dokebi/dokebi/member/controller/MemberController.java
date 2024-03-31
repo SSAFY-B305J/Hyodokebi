@@ -2,6 +2,7 @@ package com.dokebi.dokebi.member.controller;
 
 import com.dokebi.dokebi.common.JWT.TokenInfo;
 import com.dokebi.dokebi.member.dto.*;
+import com.dokebi.dokebi.member.entity.Member;
 import com.dokebi.dokebi.member.service.MemberService;
 import com.dokebi.dokebi.member.service.SocialMemberService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -75,6 +76,25 @@ public class MemberController {
 
     }
 
+    @GetMapping("/info/mine")
+    public ResponseEntity<MyInfoResponseDto> myInfo(HttpServletRequest request) {
+        Member result = null;
+        HttpStatus status = HttpStatus.OK;
+        try {
+            //토큰으로 유저 정보 받아옴
+            int accessMemberIndex = (int) request.getAttribute("accessMemberIndex");
+            log.info("myinfo={}", accessMemberIndex);
+            result = memberService.info(accessMemberIndex);
+        } catch (NullPointerException e) {
+            status = HttpStatus.NOT_FOUND;
+        } catch (Exception e) {
+            status = HttpStatus.BAD_REQUEST;
+        }
+        return ResponseEntity.status(status).body(new MyInfoResponseDto(result));
+    }
+
+
+
     @PostMapping("/join")
     public ResponseEntity<Map<String, Object>> originJoin(@RequestBody MemberJoinRequestDto memberJoinRequestDto) {
         Map<String, Object> resultMap = new HashMap<>();
@@ -91,28 +111,28 @@ public class MemberController {
         return ResponseEntity.status(status).body(resultMap);
     }
 
-//    @PutMapping
-//    public ResponseEntity<Map<String, Object>> updateMember(@RequestBody MemberUpdateRequestDto memberUpdateRequestDto, HttpServletRequest request) {
-//        HttpStatus status = HttpStatus.OK;
-//        Map<String, Object> resultMap = new HashMap<>();
-//        try {
-//            //신청유저 != 대상유저인데 관리자도 아니라면
-//            if ((Long) request.getAttribute("accessMemberIndex") != memberUpdateRequestDto.getMemberIndex()
-//                    && !request.getAttribute("accessMemberRole").equals("ADMIN")) {
-//                status = HttpStatus.UNAUTHORIZED;
-//                throw new IllegalAccessException("잘못된 접근입니다.");
-//            }
-//            //암호화
-//            if (memberUpdateRequestDto.getMemberPass() != null)
-//                memberUpdateRequestDto.setMemberPass(UUID.nameUUIDFromBytes(memberUpdateRequestDto.getMemberPass().getBytes()).toString());
-//            memberService.updateMember(memberUpdateRequestDto);
-//            resultMap.put("message", "success");
-//        } catch (Exception e) {
-//            resultMap.put("message", e.getMessage());
-//            status = HttpStatus.BAD_REQUEST;
-//        }
-//        return ResponseEntity.status(status).body(resultMap);
-//    }
+    @PutMapping("/update")
+    public ResponseEntity<Map<String, Object>> updateMember(@RequestBody MemberUpdateRequestDto memberUpdateRequestDto, HttpServletRequest request) {
+        HttpStatus status = HttpStatus.OK;
+        Map<String, Object> resultMap = new HashMap<>();
+        try {
+            //신청유저 != 대상유저인데 관리자도 아니라면
+            if ((int) request.getAttribute("accessMemberIndex") != memberUpdateRequestDto.getMemberIndex()
+                    && !request.getAttribute("accessMemberRole").equals("ADMIN")) {
+                status = HttpStatus.UNAUTHORIZED;
+                throw new IllegalAccessException("잘못된 접근입니다.");
+            }
+            //암호화
+            if (memberUpdateRequestDto.getMemberPass() != null)
+                memberUpdateRequestDto.setMemberPass(UUID.nameUUIDFromBytes(memberUpdateRequestDto.getMemberPass().getBytes()).toString());
+            memberService.updateMember(memberUpdateRequestDto);
+            resultMap.put("message", "success");
+        } catch (Exception e) {
+            resultMap.put("message", e.getMessage());
+            status = HttpStatus.BAD_REQUEST;
+        }
+        return ResponseEntity.status(status).body(resultMap);
+    }
 
 
 

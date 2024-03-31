@@ -6,6 +6,7 @@ import com.dokebi.dokebi.common.email.Aes256;
 import com.dokebi.dokebi.common.email.EmailSender;
 import com.dokebi.dokebi.member.dto.MemberFindPassRequestDto;
 import com.dokebi.dokebi.member.dto.MemberJoinRequestDto;
+import com.dokebi.dokebi.member.dto.MemberUpdateRequestDto;
 import com.dokebi.dokebi.member.dto.OriginLoginRequestDto;
 import com.dokebi.dokebi.member.entity.Member;
 import com.dokebi.dokebi.member.repository.MemberRepository;
@@ -29,6 +30,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -85,6 +87,14 @@ public class MemberService {
     }
 
 
+    public void updateMember(MemberUpdateRequestDto memberUpdateRequestDto) {
+        Member member = memberRepository.findByMemberIndex(memberUpdateRequestDto.getMemberIndex())
+                .orElseThrow(() -> new UsernameNotFoundException("해당하는 유저를 찾을 수 없습니다."));
+        Optional.ofNullable(memberUpdateRequestDto.getMemberNickname()).ifPresent(member::setMemberNickname);
+        Optional.ofNullable(memberUpdateRequestDto.getMemberPass()).ifPresent(member::setMemberPass);
+        Optional.ofNullable(memberUpdateRequestDto.getMemberEmail()).ifPresent(member::setMemberEmail);
+    }
+
     public boolean checkDup(String category, String input) {
         //category로 id, email, nickname의 값이 넘어오면 해당하는 중복검사 실행
         //true = 해당하는 값이 이미 있음
@@ -138,8 +148,13 @@ public class MemberService {
 
 
     public String findId(String email) {
-        Member findMember = memberRepository.findByMemberEmail().orElseThrow(()->new UsernameNotFoundException("email에 해당하는 사용자가 없습니다."));
+        Member findMember = memberRepository.findByMemberEmail(email).orElseThrow(()->new UsernameNotFoundException("email에 해당하는 사용자가 없습니다."));
 
         return findMember.getMemberId();
+    }
+
+
+    public Member info(int accessMemberIndex) {
+        return memberRepository.findByMemberIndex(accessMemberIndex).orElseThrow(()->new UsernameNotFoundException("해당하는 사용자가 없습니다."));
     }
 }
