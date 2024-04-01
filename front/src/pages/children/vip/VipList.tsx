@@ -15,7 +15,6 @@ interface VipLists {
 }
 
 export default function VipList() {
-  const { loginMemberId } = useLoginStore();
   const [VipListData, setVipListData] = useState<VipLists[]>([]);
   const { id } = useParams();
 
