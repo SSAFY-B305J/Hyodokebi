@@ -8,7 +8,6 @@ import ButtonAsset from "../../../components/Button/ButtonAsset";
 import { putVip } from "../../../apis/api/vip";
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { AltRoute } from "@mui/icons-material";
 
 interface PutVipData {
   vipAgeGroups: null;

@@ -4,7 +4,7 @@ import VipCard from "../../../components/card/VipCard";
 import VipAddCard from "../../../components/card/VipAddCard";
 
 import { getVipList } from "../../../apis/api/vip";
-import useLoginStore from "../../../store/useLoginStore";
+import { useParams } from "react-router-dom";
 
 interface VipLists {
   vipAgeGroups: null;
@@ -17,18 +17,21 @@ interface VipLists {
 export default function VipList() {
   const { loginMemberId } = useLoginStore();
   const [VipListData, setVipListData] = useState<VipLists[]>([]);
+  const { id } = useParams();
 
+  const memberIndex = id ? parseInt(id) : NaN;
   useEffect(() => {
-    async function fetchVipList() {
+    async function fetchVipList(memberIndex: number) {
       try {
-        const data = await getVipList(loginMemberId);
+        const data = await getVipList(memberIndex);
         setVipListData(data);
       } catch (error) {
+        alert("더 이상 VIP를 생성할 수 없습니다. ");
         console.error("Error fetching VIP list:", error);
       }
     }
 
-    fetchVipList();
+    fetchVipList(memberIndex);
   }, []);
 
   return (
@@ -40,8 +43,7 @@ export default function VipList() {
             VipProps={VipLists}
           />
         ))}
-
-        <VipAddCard />
+        {VipListData?.length !== 8 ? <VipAddCard /> : <></>}
       </div>
     </div>
   );

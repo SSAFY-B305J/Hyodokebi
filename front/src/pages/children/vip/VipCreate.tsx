@@ -32,13 +32,13 @@ export default function VipCreate() {
 
   const { id } = useParams();
 
+  const memberId = id ? parseInt(id) : NaN;
+
   const handleClick = async () => {
     if (birth !== 0 && nickname !== "" && profile !== 9) {
       // ALERT 빈 값으로 두면 안되는 조건 추가, 조건 추가시 확인.
       try {
-        await postVip(vipData);
-        console.log("VIP 정보가 성공적으로 생성되었습니다.");
-
+        await postVip(memberId, vipData);
         navigate(`/mypage/${id}/vip`);
       } catch (error) {
         console.error("Error creating VIP:", error);

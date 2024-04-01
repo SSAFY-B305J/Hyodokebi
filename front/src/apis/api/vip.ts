@@ -8,7 +8,8 @@ export async function getVipList(memberId: number) {
     const data = await axios.get(`/api/myvip/${memberId}`);
     return data.data;
   } catch (error) {
-    console.error("Error fetching data:", error);
+    throw error;
+    // console.error("Error fetching data:", error);
   }
 }
 
@@ -22,9 +23,11 @@ export async function selectVipList() {
 }
 
 // VIP 추가
-export async function postVip(vipData: object) {
+export async function postVip(memberId: number, vipData: object) {
   try {
-    const data = await axios.post(REST_VIP_API, vipData);
+    const data = await axios.post(REST_VIP_API + `/${memberId}`, vipData);
+    console.log(memberId);
+    console.log(vipData);
     return data.data;
   } catch (error) {
     console.error("Error fetching data:", error);
