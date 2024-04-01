@@ -57,7 +57,7 @@ export default function ProfileEdit() {
           </Link>
           <h1 className="text-2xl font-bold">회원 정보 수정</h1>
         </div>
-        <div className="w-full py-5 border-b">
+        <div className="w-full py-8 border-b">
           <h2 className="mb-3 text-lg font-bold">프로필 사진</h2>
           <div className="flex w-full">
             <img
@@ -80,7 +80,7 @@ export default function ProfileEdit() {
             </div>
           </div>
         </div>
-        <div className="w-full py-5 border-b">
+        <div className="w-full py-8 border-b">
           <h2 className="mb-3 text-lg font-bold">닉네임</h2>
           <InputAsset
             value={nickname}
@@ -89,7 +89,7 @@ export default function ProfileEdit() {
             onInput={(e) => setNickname(e.currentTarget.value)}
           />
         </div>
-        <div className="w-full py-5">
+        <div className="w-full py-8">
           <h2 className="mb-3 text-lg font-bold">이메일</h2>
           <InputAsset
             value={email}
