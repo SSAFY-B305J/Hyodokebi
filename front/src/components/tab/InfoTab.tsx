@@ -1,8 +1,34 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useParams } from "react-router-dom";
 import useTabStore from "../../store/useTabStore";
+import { useEffect, useState } from "react";
+import { getLikeFood } from "../../apis/api/food";
+import MenuCard from "../card/MenuCard";
+
+interface LikeFoodData {
+  menu_id: number;
+  menu_name: string;
+  cate_image: number;
+}
 
 export default function InfoTab() {
   const { tabIndex, setTabIndex } = useTabStore();
+  const { memberId } = useParams<string>();
+  const memberIdAsNumber = parseInt(memberId || "", 10);
+  console.log(memberIdAsNumber);
+  const [likeFood, setLikeFood] = useState<LikeFoodData[]>([]);
+
+  useEffect(() => {
+    async function getLikedFood() {
+      try {
+        const data = await getLikeFood(memberIdAsNumber);
+        setLikeFood(data);
+      } catch (error) {
+        console.error("Error fetching VIP Detail:", error);
+      }
+    }
+
+    getLikedFood();
+  }, []);
 
   const disabled =
     "flex items-center justify-center w-1/2 shadow-md h-full duration-300 text-xl font-semibold border-b border-current";
@@ -31,11 +57,30 @@ export default function InfoTab() {
           좋아하는 메뉴
         </div>
       </div>
-      {/* {tabIndex === 0 ? (
-        <div className="box-border flex w-[66vw] h-[67vh] p-3">음악</div>
+      {tabIndex === 0 ? (
+        <div className="flex justify-center w-full h-[72vh]">
+          {likeFood.map((menu, index) => (
+            <MenuCard
+              key={index}
+              menu_id={menu.menu_id}
+              menu_name={menu.menu_name}
+              cate_image={menu.cate_image}
+            />
+          ))}
+        </div>
       ) : (
-        <Outlet />
-      )} */}
+        ""
+      )}
+      {tabIndex === 1 ? (
+        <div className="flex justify-center w-full h-[72vh]"></div>
+      ) : (
+        ""
+      )}
+      {tabIndex === 2 ? (
+        <div className="flex justify-center w-full h-[72vh]"></div>
+      ) : (
+        ""
+      )}
     </div>
   );
 }
