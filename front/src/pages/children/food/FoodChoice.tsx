@@ -13,9 +13,10 @@ import Select, { SelectChangeEvent } from "@mui/material/Select";
 import Box from "@mui/material/Box";
 import { getVipList } from "../../../apis/api/vip";
 import { Vip } from "../../../modules/types/vip";
+import useLoginStore from "../../../store/useLoginStore";
 
 export default function FoodChoice() {
-  const { id } = useParams();
+  const { loginMemberId } = useLoginStore();
 
   const [selectedSiDo, setSelectedSiDo] = useState<string>("");
   const [siGunGuOptions, setSiGunGuOptions] = useState<string[]>([]);
@@ -49,8 +50,7 @@ export default function FoodChoice() {
   // vipList의 값을 저장한다.
   async function initVipList() {
     // TODO: 현재 로그인한 id로 수정
-    const memberId = parseInt(id ?? "0");
-    const data = await getVipList(memberId);
+    const data = await getVipList(loginMemberId);
     setVipList(data);
     if (data.length > 0) setSelectedVip(data[0].vipId);
   }
@@ -142,7 +142,7 @@ export default function FoodChoice() {
                   id={vip.vipId}
                   name={vip.vipNickname}
                   imagePath={vip.vipProfile}
-                  imageIndex={""}
+                  imageIndex={vip.vipProfile}
                   clicked={vip.vipId === selectedVip}
                 />
               </div>
