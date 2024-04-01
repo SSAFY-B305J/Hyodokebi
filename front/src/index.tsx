@@ -110,7 +110,7 @@ const router = createBrowserRouter([
             ],
           },
           {
-            path: "food/choice/:id",
+            path: "food/choice",
             element: <FoodChoice />,
           },
           {
@@ -122,7 +122,7 @@ const router = createBrowserRouter([
             element: <FoodList />,
           },
           {
-            path: "food/result",
+            path: "food/result/:vipId",
             element: <FoodResult />,
           },
           {
