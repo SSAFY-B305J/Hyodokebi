@@ -17,16 +17,14 @@ export default function FoodAdd() {
       </div>
       <div className="flex w-full h-[55vh] p-2 overflow-auto">
         <div className="grid w-full h-full grid-cols-5 gap-3">
-          <MenuCard />
-          <MenuCard />
-          <MenuCard />
-          <MenuCard />
-          <MenuCard />
-          <MenuCard />
-          <MenuCard />
-          <MenuCard />
-          <MenuCard />
-          <MenuCard />
+          {/* {likeFood.map((menu, index) => (
+            <MenuCard
+              key={index}
+              menu_id={menu.menu_id}
+              menu_name={menu.menu_name}
+              cate_image={menu.cate_image}
+            />
+          ))} */}
         </div>
         {/* 무한스크롤 고려? */}
       </div>
