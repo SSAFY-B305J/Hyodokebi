@@ -4,7 +4,6 @@ import FoodResultCard from "../../../components/card/FoodResultCard";
 import FoodTap from "../../../components/food/FoodTap";
 import React, { useState, useEffect } from "react";
 import { postRecommendFood } from "../../../apis/api/food";
-import useLoginStore from "../../../store/useLoginStore";
 
 interface CardProps {
   menuId: number;
@@ -14,7 +13,8 @@ interface CardProps {
 
 export default function FoodResult() {
   const { vipId } = useParams();
-  const vipIdNumber: number = parseInt(vipId || "0", 10);
+  const [startIndex, setStartIdex] = useState(0);
+  const itemsPerPage = 3;
 
   const [foods, setFoods] = useState<CardProps[]>([]);
 
@@ -22,16 +22,14 @@ export default function FoodResult() {
     try {
       const data = await postRecommendFood(Number(vipId));
       setFoods(data);
-      console.log(data);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
 
-  const goHome = () => {};
-
-  const retry = () => {
+  const handleRetryClick = () => {
     console.log("다시 추천하기");
+    setStartIdex(startIndex + itemsPerPage);
   };
 
   useEffect(() => {
@@ -52,16 +50,18 @@ export default function FoodResult() {
 
       <div className="flex justify-around mb-4 ">
         {foods ? (
-          foods.map((menu, index) => (
-            // <div onClick={() => handleClick(menu.menuId)}>
-            <FoodResultCard
-              key={index}
-              menu_id={menu.menuId}
-              menu_name={menu.menuName}
-              cate_image={menu.cateImage}
-            />
-            // </div>
-          ))
+          foods
+            .slice(startIndex, startIndex + itemsPerPage)
+            .map((menu, index) => (
+              // <div onClick={() => handleClick(menu.menuId)}>
+              <FoodResultCard
+                key={index}
+                menu_id={menu.menuId}
+                menu_name={menu.menuName}
+                cate_image={menu.cateImage}
+              />
+              // </div>
+            ))
         ) : (
           <div>Loading...</div>
         )}
@@ -72,19 +72,19 @@ export default function FoodResult() {
             text="다시 추천하기"
             variant="outlined"
             className="w-1/2 font-semibold border-2 rounded-3xl hover:border-secondary"
-            onClick={retry}
+            onClick={handleRetryClick}
+            disabled={startIndex + itemsPerPage >= foods.length}
           />
         </div>
         <div className="flex justify-center grow">
           <Link
-            to={"/"}
+            to={"/food/choice"}
             className="w-1/2"
           >
             <ButtonAsset
               text="처음으로"
               variant="outlined"
               className="w-full h-full font-semibold border-2 rounded-3xl hover:border-secondary"
-              // onClick={() => {}}
             />
           </Link>
         </div>

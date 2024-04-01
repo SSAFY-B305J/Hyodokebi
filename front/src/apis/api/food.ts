@@ -40,11 +40,9 @@ export async function getPlainFood() {
 // vip 별 메뉴 추천
 export async function postRecommendFood(vipId: number) {
   try {
-    const empty: string[] = [];
+    const empty: number[] = [];
 
-    const data = await axios.post(`/api/menu/${vipId}`, {
-      menuIds: empty,
-    });
+    const data = await axios.post(`/api/menu/${vipId}`);
     return data.data;
   } catch (error) {
     console.error("Error fetching data:", error);
