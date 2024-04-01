@@ -10,11 +10,8 @@ interface VipLists {
   vipBirth: number;
   vipId: number;
   vipNickname: string;
-  vipProfile : number;
-  
+  vipProfile: number;
 }
-
-
 
 export default function VipList() {
   const [VipListData, setVipListData] = useState<VipLists[]>([]);
@@ -25,7 +22,7 @@ export default function VipList() {
         const data = await selectVipList();
         setVipListData(data);
       } catch (error) {
-        console.error('Error fetching VIP list:', error);
+        console.error("Error fetching VIP list:", error);
       }
     }
 
@@ -35,8 +32,13 @@ export default function VipList() {
   return (
     <div className="box-border flex w-full h-[67vh] p-3 overflow-auto">
       <div className="grid w-full h-full grid-cols-3 gap-3">
-        {VipListData?.map((VipLists : VipLists) => <VipCard key={VipLists.vipId} VipProps={VipLists} />) }
-        
+        {VipListData?.map((VipLists: VipLists) => (
+          <VipCard
+            key={VipLists.vipId}
+            VipProps={VipLists}
+          />
+        ))}
+
         <VipAddCard />
       </div>
     </div>

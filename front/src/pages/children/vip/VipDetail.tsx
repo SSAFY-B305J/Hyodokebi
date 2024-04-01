@@ -5,6 +5,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ButtonAsset from "../../../components/Button/ButtonAsset";
 
 import { getVip, deleteVip } from "../../../apis/api/vip";
+import InfoTab from "../../../components/tab/InfoTab";
 
 interface VipDetailData {
   vipAgeGroups: null;
@@ -97,7 +98,7 @@ export default function VipDetail() {
       </div>
       <div className="flex w-full h-[30%]">
         <div className="flex w-full h-full text-xl font-semibold">보관함</div>
-        {/* VIP 정보 */}
+        <InfoTab />
       </div>
     </div>
   );
