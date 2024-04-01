@@ -1,8 +1,10 @@
 import { Outlet, useNavigate } from "react-router-dom";
 import useTabStore from "../../store/useTabStore";
+import useLoginStore from "../../store/useLoginStore";
 
 export default function DoubleTab() {
   const { tabIndex, setTabIndex } = useTabStore();
+  const { loginMemberId } = useLoginStore();
   const navigate = useNavigate();
 
   const disabled =
@@ -17,7 +19,7 @@ export default function DoubleTab() {
           className={tabIndex === 0 ? activated : disabled}
           onClick={() => {
             setTabIndex(0);
-            navigate("/mypage/1/profile");
+            navigate(`/mypage/${loginMemberId}/profile`);
           }}
         >
           내 프로필
@@ -26,7 +28,7 @@ export default function DoubleTab() {
           className={tabIndex === 1 ? activated : disabled}
           onClick={() => {
             setTabIndex(1);
-            navigate("/mypage/1/vip");
+            navigate(`/mypage/${loginMemberId}/vip`);
           }}
         >
           VIP
