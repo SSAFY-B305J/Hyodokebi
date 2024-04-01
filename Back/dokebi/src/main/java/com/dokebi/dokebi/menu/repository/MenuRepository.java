@@ -20,4 +20,6 @@ public interface MenuRepository extends JpaRepository<Menu, Integer>  {
             "AND m.menuId IN (SELECT sm3.menu.menuId FROM Sm as sm3 WHERE sm3.vip.vipId = :vipId)")
     List<MenuDto> findSavedMenu(int vipId);
 
+
+
 }

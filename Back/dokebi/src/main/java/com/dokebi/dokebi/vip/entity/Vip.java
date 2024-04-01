@@ -47,21 +47,23 @@ public class Vip {
     @OneToMany(mappedBy = "vip")
     private List<Sm> sms = new ArrayList<>();
 
-//    @OneToMany(mappedBy = "vip")
-//    private List<Sr> srs;
+    @OneToMany(mappedBy = "vip")
+    private List<Sr> srs;
 
     @ManyToOne(fetch=FetchType.LAZY)
     private Member member;
 
+
     private boolean isDeleted;
 
     @Builder
-    public Vip(String vipNickname, int vipBirth, int vipProfile, List<SavedMusic> vipSavedMusics, List<DisLikedMusic> vipDisLikedMusics, Member member) {
+    public Vip(String vipNickname, int vipBirth, int vipProfile, List<SavedMusic> vipSavedMusics, List<DisLikedMusic> vipDisLikedMusics, List<Sr> srs, Member member) {
         this.vipNickname = vipNickname;
         this.vipBirth = vipBirth;
         this.vipProfile = vipProfile;
         this.vipSavedMusics = vipSavedMusics;
         this.vipDisLikedMusics = vipDisLikedMusics;
+        this.srs = srs;
         this.member = member;
     }
 }

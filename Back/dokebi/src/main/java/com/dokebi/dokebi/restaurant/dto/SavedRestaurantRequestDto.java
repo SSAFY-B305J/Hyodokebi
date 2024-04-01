@@ -5,9 +5,8 @@ import lombok.*;
 @ToString
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class RestaurantDto {
+public class SavedRestaurantRequestDto {
 
-    private int restaurantId;
     private String restaurantName;
     private String restaurantAddress;
     private String restaurantNumber;
@@ -17,8 +16,7 @@ public class RestaurantDto {
     private int menuId;
 
     @Builder
-    public RestaurantDto(int restaurantId, String restaurantName, String restaurantAddress, String restaurantNumber, String restaurantUrl, float restaurantLat, float restaurantLong, int menuId) {
-        this.restaurantId = restaurantId;
+    public SavedRestaurantRequestDto(String restaurantName, String restaurantAddress, String restaurantNumber, String restaurantUrl, float restaurantLat, float restaurantLong, int menuId) {
         this.restaurantName = restaurantName;
         this.restaurantAddress = restaurantAddress;
         this.restaurantNumber = restaurantNumber;

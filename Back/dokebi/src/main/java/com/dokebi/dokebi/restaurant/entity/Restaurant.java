@@ -4,6 +4,7 @@ package com.dokebi.dokebi.restaurant.entity;
 import com.dokebi.dokebi.menu.entity.Menu;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -41,8 +42,18 @@ public class Restaurant {
     @ManyToOne()
     private Menu menu;
 
-//    @OneToMany(mappedBy = "restaurant")
-//    private List<Sr> srs;
+    @OneToMany(mappedBy = "restaurant")
+    private List<Sr> srs;
 
+    @Builder
 
+    public Restaurant(String restaurantName, String restaurantAddress, String restaurantNumber, String restaurantUrl, float restaurantLat, float restaurantLong, Menu menu) {
+        this.restaurantName = restaurantName;
+        this.restaurantAddress = restaurantAddress;
+        this.restaurantNumber = restaurantNumber;
+        this.restaurantUrl = restaurantUrl;
+        this.restaurantLat = restaurantLat;
+        this.restaurantLong = restaurantLong;
+        this.menu = menu;
+    }
 }
