@@ -11,26 +11,22 @@ interface VipLists {
   vipBirth: number;
   vipId: number;
   vipNickname: string;
-  vipProfile : number;
-  
+  vipProfile: number;
 }
-
-
-
 
 export default function VipList() {
   const [VipListData, setVipListData] = useState<VipLists[]>([]);
-  const { id } = useParams()
+  const { id } = useParams();
 
   const memberIndex = id ? parseInt(id) : NaN;
   useEffect(() => {
-    async function fetchVipList(memberIndex : number) {
+    async function fetchVipList(memberIndex: number) {
       try {
         const data = await getVipList(memberIndex);
         setVipListData(data);
       } catch (error) {
-        alert("더 이상 VIP를 생성할 수 없습니다. ")
-        console.error('Error fetching VIP list:', error);
+        alert("더 이상 VIP를 생성할 수 없습니다. ");
+        console.error("Error fetching VIP list:", error);
       }
     }
 
@@ -40,11 +36,13 @@ export default function VipList() {
   return (
     <div className="box-border flex w-full h-[67vh] p-3 overflow-auto">
       <div className="grid w-full h-full grid-cols-3 gap-3">
-        {VipListData?.map((VipLists : VipLists) => <VipCard key={VipLists.vipId} VipProps={VipLists} />) }
-        {VipListData?.length !== 8 ?
-        <VipAddCard /> :
-        <></>
-         }
+        {VipListData?.map((VipLists: VipLists) => (
+          <VipCard
+            key={VipLists.vipId}
+            VipProps={VipLists}
+          />
+        ))}
+        {VipListData?.length !== 8 ? <VipAddCard /> : <></>}
       </div>
     </div>
   );

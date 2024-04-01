@@ -1,31 +1,49 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink, useLocation, useParams } from "react-router-dom";
 import ButtonAsset from "../../../components/Button/ButtonAsset";
 import FoodResultCard from "../../../components/card/FoodResultCard";
 import FoodTap from "../../../components/food/FoodTap";
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import { postRecommendFood } from "../../../apis/api/food";
+import { log } from "console";
+
+interface CardProps {
+  menuId: number;
+  menuName: string;
+  cateImage: number;
+}
 
 export default function FoodResult() {
-  const [data, setData] = useState([]);
-  useEffect(() => {
-    fetchData(); // fetchData 함수 호출
-  }, []);
-  const fetchData = async () => {
-    try {
-      const response = await axios.get("API 주소");
-      setData(response.data); // 받아온 데이터를 상태에 저장
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
+  const recData = JSON.parse(localStorage.getItem("recData") || "{}");
+
+  console.log("FoodResult에서 꺼낸 recData", recData);
+
+  const { vipId } = useParams();
+  const [startIndex, setStartIdex] = useState(0);
+  const itemsPerPage = 3;
+
+  const empty: number[] = [];
+
+  const [foods, setFoods] = useState<CardProps[]>(recData || []);
+
+  // const getRecommendFood = async () => {
+  //   try {
+  //     const data = await postRecommendFood(Number(vipId), empty);
+  //     setFoods(data);
+  //   } catch (error) {
+  //     console.error("Error fetching data:", error);
+  //   }
+  // };
+
+  const handleRetryClick = () => {
+    console.log("다시 추천하기");
+    setStartIdex(startIndex + itemsPerPage);
   };
 
-  const handleClick = () => {
-    console.log("클릭");
-    <Link to=""></Link>; //처음으로 가기
-  };
-  const retry = () => {
-    console.log("다시 추천하기");
-  };
+  useEffect(() => {
+    // getRecommendFood(); // fetchData 함수 호출
+
+    setFoods(recData);
+  }, []);
 
   return (
     <div className="flex flex-col mt-5 ">
@@ -40,36 +58,44 @@ export default function FoodResult() {
       </div>
 
       <div className="flex justify-around mb-4 ">
-        <FoodResultCard
-          food="짜장면"
-          category="중식"
-          src="https://placehold.co/400"
-        />
-        <FoodResultCard
-          food="칼국수"
-          category="한식"
-        />
-        <FoodResultCard
-          food="돌솥비빔밥"
-          category="한식"
-        />
+        {foods ? (
+          foods
+            .slice(startIndex, startIndex + itemsPerPage)
+            .map((menu, index) => (
+              // <div onClick={() => handleClick(menu.menuId)}>
+              <FoodResultCard
+                key={index}
+                menu_id={menu.menuId}
+                menu_name={menu.menuName}
+                cate_image={menu.cateImage}
+              />
+              // </div>
+            ))
+        ) : (
+          <div>Loading...</div>
+        )}
       </div>
-      <div className="flex mt-3 mb-4 h-14">
-        <div className="flex justify-center w-1/4 grow ">
+      <div className="flex flex-row mt-3 mb-4 h-14">
+        <div className="flex justify-center grow ">
           <ButtonAsset
             text="다시 추천하기"
             variant="outlined"
             className="w-1/2 font-semibold border-2 rounded-3xl hover:border-secondary"
-            onClick={retry}
+            onClick={handleRetryClick}
+            disabled={startIndex + itemsPerPage >= foods.length}
           />
         </div>
-        <div className="flex justify-center w-1/4 grow">
-          <ButtonAsset
-            text="처음으로"
-            variant="outlined"
-            className="w-1/2 font-semibold border-2 rounded-3xl hover:border-secondary"
-            onClick={handleClick}
-          />
+        <div className="flex justify-center grow">
+          <Link
+            to={"/food/choice"}
+            className="w-1/2"
+          >
+            <ButtonAsset
+              text="처음으로"
+              variant="outlined"
+              className="w-full h-full font-semibold border-2 rounded-3xl hover:border-secondary"
+            />
+          </Link>
         </div>
       </div>
     </div>
