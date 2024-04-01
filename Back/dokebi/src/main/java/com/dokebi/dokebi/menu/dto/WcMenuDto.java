@@ -8,11 +8,13 @@ import lombok.*;
 public class WcMenuDto {
 
     private int menuId;
+    private String menuName;
     private String menuImg;
 
     @Builder
-    public WcMenuDto(int menuId, String menuImg) {
+    public WcMenuDto(int menuId, String menuName, String menuImg) {
         this.menuId = menuId;
+        this.menuName = menuName;
         this.menuImg = menuImg;
     }
 }
