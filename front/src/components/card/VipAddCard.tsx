@@ -19,9 +19,7 @@ export default function AddCard() {
         </div>
       </div>
       <div className="flex flex-col items-center justify-end w-full pb-3 h-1/3">
-        <Link to={`/mypage/${id}/vip/create`}>
-          <ButtonAsset text="VIP 추가하기" variant="outlined" />
-        </Link>
+        <ButtonAsset text="VIP 추가하기" variant="outlined" />
       </div>
     </NavLink>
   );
