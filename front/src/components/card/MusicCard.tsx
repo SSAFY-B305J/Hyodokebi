@@ -11,7 +11,18 @@ import {
   postSaveMusic,
 } from "../../apis/api/music";
 import { Tooltip } from "@mui/material";
-import { getIsVipMusicSaved } from "../../apis/api/vip";
+import { getIsVipMusicSaved, getVipDislikeMusicList } from "../../apis/api/vip";
+
+type Music = {
+  musicId: number;
+  musicYear: number;
+  musicName: string;
+  musicSinger: string;
+  musicImg: string;
+  musicLyrics: string;
+  musicGenre: string;
+  musicComposer: string;
+};
 
 export default function MusicCard(props: {
   id: number;
@@ -41,13 +52,21 @@ export default function MusicCard(props: {
     setIsDislike((prev) => (prev = !prev));
   }
 
+  // 저장된 음악인지 조회 후 적용
   const initIsSaved = useCallback(async () => {
     setIsSaved(await getIsVipMusicSaved(props.vipId, props.id));
   }, [props.id, props.vipId]);
 
+  // 싫어요한 음악인지 조회 후 적용
+  const initisDislike = useCallback(async () => {
+    const data: Music[] = await getVipDislikeMusicList(props.vipId); // VIP가 싫어요한 음악 리스트
+    setIsDislike(data.some((el) => el.musicId === props.id));
+  }, [props.id, props.vipId]);
+
   useEffect(() => {
     initIsSaved();
-  }, [initIsSaved]);
+    initisDislike();
+  }, [initIsSaved, initisDislike]);
 
   return (
     <div className="flex flex-col items-center w-56 h-64 px-3 py-3 m-3 bg-white border border-gray-300 shadow-md rounded-xl hover:shadow-lg">

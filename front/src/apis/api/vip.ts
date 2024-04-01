@@ -74,3 +74,13 @@ export async function getIsVipMusicSaved(vipId: number, musicId: number) {
     console.error("Error fetching data:", error);
   }
 }
+
+// VIP가 싫어요한 음악
+export async function getVipDislikeMusicList(vipId: number) {
+  try {
+    const data = await axios.get(REST_VIP_API + `/music/dislike/${vipId}`);
+    return data.data;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+}
