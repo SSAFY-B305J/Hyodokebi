@@ -68,7 +68,9 @@ export async function deleteVip(vipId: number) {
 // VIP가 저장한 음악
 export async function getVipMusic(vipId: number) {
   try {
-    const data = await axios.delete(REST_VIP_API + `music/${vipId}`);
+    // const data = await axios.delete(REST_VIP_API + `music/${vipId}`);
+    const data = await axios.get(`api/vip/music/${vipId}`);
+
     return data.data;
   } catch (error) {
     console.error("Error fetching data:", error);
@@ -78,9 +80,7 @@ export async function getVipMusic(vipId: number) {
 // VIP가 저장한 음악 여부
 export async function getVipMusicBoolean(vipId: number, memberId: number) {
   try {
-    const data = await axios.delete(
-      REST_VIP_API + `music/${vipId}/${memberId}`
-    );
+    const data = await axios.get(REST_VIP_API + `/music/${vipId}/${memberId}`);
     return data.data;
   } catch (error) {
     console.error("Error fetching data:", error);
@@ -90,7 +90,7 @@ export async function getVipMusicBoolean(vipId: number, memberId: number) {
 // VIP가 싫어요한 음악
 export async function getVipDislikeMusic(vipId: number) {
   try {
-    const data = await axios.delete(REST_VIP_API + `music/dislike/${vipId}`);
+    const data = await axios.get(REST_VIP_API + `/music/dislike/${vipId}`);
     return data.data;
   } catch (error) {
     console.error("Error fetching data:", error);
