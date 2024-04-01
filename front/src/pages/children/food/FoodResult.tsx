@@ -1,9 +1,10 @@
-import { Link, NavLink, useParams } from "react-router-dom";
+import { Link, NavLink, useLocation, useParams } from "react-router-dom";
 import ButtonAsset from "../../../components/Button/ButtonAsset";
 import FoodResultCard from "../../../components/card/FoodResultCard";
 import FoodTap from "../../../components/food/FoodTap";
 import React, { useState, useEffect } from "react";
 import { postRecommendFood } from "../../../apis/api/food";
+import { log } from "console";
 
 interface CardProps {
   menuId: number;
@@ -12,20 +13,26 @@ interface CardProps {
 }
 
 export default function FoodResult() {
+  const recData = JSON.parse(localStorage.getItem("recData") || "{}");
+
+  console.log("FoodResult에서 꺼낸 recData", recData);
+
   const { vipId } = useParams();
   const [startIndex, setStartIdex] = useState(0);
   const itemsPerPage = 3;
 
-  const [foods, setFoods] = useState<CardProps[]>([]);
+  const empty: number[] = [];
 
-  const getRecommendFood = async () => {
-    try {
-      const data = await postRecommendFood(Number(vipId));
-      setFoods(data);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
+  const [foods, setFoods] = useState<CardProps[]>(recData || []);
+
+  // const getRecommendFood = async () => {
+  //   try {
+  //     const data = await postRecommendFood(Number(vipId), empty);
+  //     setFoods(data);
+  //   } catch (error) {
+  //     console.error("Error fetching data:", error);
+  //   }
+  // };
 
   const handleRetryClick = () => {
     console.log("다시 추천하기");
@@ -33,7 +40,9 @@ export default function FoodResult() {
   };
 
   useEffect(() => {
-    getRecommendFood(); // fetchData 함수 호출
+    // getRecommendFood(); // fetchData 함수 호출
+
+    setFoods(recData);
   }, []);
 
   return (

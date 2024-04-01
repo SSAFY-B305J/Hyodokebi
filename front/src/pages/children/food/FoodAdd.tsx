@@ -1,9 +1,15 @@
-import { Link, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import ButtonAsset from "../../../components/Button/ButtonAsset";
 import MenuCard from "../../../components/card/MenuCard";
 import FoodTap from "../../../components/food/FoodTap";
 import { useEffect, useState } from "react";
-import { getPlainFood, postAddFood } from "../../../apis/api/food";
+import { Backdrop, CircularProgress } from "@mui/material";
+
+import {
+  getLikeFood,
+  getPlainFood,
+  postRecommendFood,
+} from "../../../apis/api/food";
 
 interface LikeFoodData {
   menuId: number;
@@ -12,15 +18,20 @@ interface LikeFoodData {
 }
 
 export default function FoodAdd() {
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
   const { vipId } = useParams();
 
   const [foodData, setFoodData] = useState<LikeFoodData[]>([]);
+  const [selectedFood, setSelectedFood] = useState<LikeFoodData[]>([]);
   const [addList, setAddList] = useState<number[]>([]);
 
   const getFoodData = async () => {
     try {
       const data = await getPlainFood();
       setFoodData(data);
+      const data2 = await getLikeFood(Number(vipId));
+      setSelectedFood(selectedFood);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -34,6 +45,26 @@ export default function FoodAdd() {
     } else {
       // addList에 없는 경우 해당 menu_id를 추가
       setAddList([...addList, menuId]);
+    }
+  };
+
+  const hanldeNextClick = async () => {
+    setLoading(true); // 로딩 상태를 true로 설정하여 Backdrop 표시
+    let recData; // recData 변수를 try 블록 밖에서 선언
+
+    try {
+      //추천받기
+      recData = await postRecommendFood(Number(vipId), addList);
+      console.log("FoodAdd에서 받은 recData : ", recData);
+    } catch (error) {
+      // 오류 처리
+    } finally {
+      //추천 정보 다음 페이지로 넘기기
+      if (recData) {
+        localStorage.setItem("recData", JSON.stringify(recData));
+      }
+      navigate(`/food/result/${vipId}`);
+      setLoading(false); // 로딩 상태를 false로 설정하여 Backdrop 숨기기
     }
   };
 
@@ -74,19 +105,19 @@ export default function FoodAdd() {
         </div>
       </div>
       <div className="flex justify-center mt-3 ">
-        <Link
-          to={`/food/result/${vipId}`}
-          className="w-1/4"
+        <Backdrop
+          sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          open={loading}
         >
-          <ButtonAsset
-            text="다음"
-            variant="outlined"
-            className="w-full font-semibold border-2 rounded-3xl hover:border-white "
-            onClick={() => {
-              postAddFood(Number(vipId), addList);
-            }}
-          />
-        </Link>
+          <CircularProgress color="inherit" />
+          <p>효도깨비가 고민중...</p>
+        </Backdrop>
+        <ButtonAsset
+          text="다음"
+          variant="outlined"
+          className="w-full font-semibold border-2 rounded-3xl hover:border-white "
+          onClick={hanldeNextClick}
+        />
       </div>
     </div>
   );
