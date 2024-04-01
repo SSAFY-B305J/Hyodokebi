@@ -41,8 +41,10 @@ export default function VipList() {
     <div className="box-border flex w-full h-[67vh] p-3 overflow-auto">
       <div className="grid w-full h-full grid-cols-3 gap-3">
         {VipListData?.map((VipLists : VipLists) => <VipCard key={VipLists.vipId} VipProps={VipLists} />) }
-        
-        <VipAddCard />
+        {VipListData?.length !== 8 ?
+        <VipAddCard /> :
+        <></>
+         }
       </div>
     </div>
   );
