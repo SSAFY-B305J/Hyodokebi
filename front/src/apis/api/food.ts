@@ -25,3 +25,24 @@ export async function postAddFood(vipId: number, foodList: string[]) {
     console.error("Error fetching data:", error);
   }
 }
+
+// 메뉴 기본 목록 조회
+export async function getPlainFood() {
+  try {
+    const data = await axios.get("/api/wc");
+    return data.data;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+}
+
+// vip 별 메뉴 추천
+export async function postRecommendFood(vipId: number) {
+  try {
+    const data = await axios.post(`/api/menu/${vipId}`);
+
+    return data.data;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+}
