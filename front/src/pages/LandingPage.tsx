@@ -18,7 +18,7 @@ export default function LandingPage() {
   });
 
   return (
-    <div className="w-full">
+    <div className="w-full overflow-x-hidden">
       <div className="w-full">
         <div className="w-[1200px] h-[650px] mx-auto my-0 flex flex-col justify-center items-center">
           <div {...scrollUpAnimation1}>
@@ -46,7 +46,7 @@ export default function LandingPage() {
       </div>
       <div className="w-full">
         <div className="w-[1200px] h-[650px] mx-auto my-0 flex justify-between items-center">
-          <div {...scrollUpAnimation3}>
+          <div {...scrollUpAnimation3} className="w-[500px]">
             <div className="text-[42px] font-bold text-primary">
               대화 주제를 추천해드려요.
             </div>
@@ -60,7 +60,7 @@ export default function LandingPage() {
       <div className="w-full bg-[#FFF3E0]">
         <div className="w-[1200px] h-[650px] mx-auto my-0 flex justify-between flex-row-reverse items-center">
           <div className="flex flex-col">
-            <div {...scrollUpAnimation4}>
+            <div {...scrollUpAnimation4} className="w-[500px] break-keep">
               <div className="text-[42px] font-bold text-primary">
                 함께 외식하기 좋은 음식 메뉴를 추천해드려요.
               </div>
@@ -78,7 +78,7 @@ export default function LandingPage() {
       <div className="w-full">
         <div className="w-[1200px] h-[650px] mx-auto my-0 flex justify-between items-center">
           <div className="flex flex-col">
-            <div {...scrollUpAnimation5}>
+            <div {...scrollUpAnimation5} className="w-[500px] break-keep">
               <div className="text-[42px] font-bold text-primary">
                 과거에 유행했던 노래를 추천해드려요.
               </div>
