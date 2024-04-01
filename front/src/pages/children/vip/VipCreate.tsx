@@ -20,9 +20,7 @@ interface VipCreateData {
 export default function VipCreate() {
   const navigate = useNavigate();
   const [vipData, setVipData] = useState({
-    vipAgeGroups: "",
     vipBirth: 0,
-    vipId: 0,
     vipNickname: "",
     vipProfile: 9,
   });

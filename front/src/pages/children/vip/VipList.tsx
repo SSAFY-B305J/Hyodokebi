@@ -29,6 +29,7 @@ export default function VipList() {
         const data = await getVipList(memberIndex);
         setVipListData(data);
       } catch (error) {
+        alert("더 이상 VIP를 생성할 수 없습니다. ")
         console.error('Error fetching VIP list:', error);
       }
     }
