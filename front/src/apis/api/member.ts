@@ -85,6 +85,20 @@ export async function getSearchId(email: string) {
   }
 }
 
+// 비밀번호 맞는지 확인
+export async function getCheckPassword(password: string) {
+  try {
+    const data = await axios.get(REST_MEMBER_API + `/check/pass`, {
+      params: {
+        memberPass: password,
+      },
+    });
+    return data.data;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+}
+
 // TODO: 회원 정보 조회
 export async function getMemberInfo(memberId: number) {
   try {
