@@ -78,9 +78,9 @@ export async function getVipMusic(vipId: number) {
 }
 
 // VIP가 저장한 음악 여부
-export async function getVipMusicBoolean(vipId: number, memberId: number) {
+export async function getIsVipMusicSaved(vipId: number, musicId: number) {
   try {
-    const data = await axios.get(REST_VIP_API + `/music/${vipId}/${memberId}`);
+    const data = await axios.get(REST_VIP_API + `/music/${vipId}/${musicId}`);
     return data.data;
   } catch (error) {
     console.error("Error fetching data:", error);
@@ -88,7 +88,7 @@ export async function getVipMusicBoolean(vipId: number, memberId: number) {
 }
 
 // VIP가 싫어요한 음악
-export async function getVipDislikeMusic(vipId: number) {
+export async function getVipDislikeMusicList(vipId: number) {
   try {
     const data = await axios.get(REST_VIP_API + `/music/dislike/${vipId}`);
     return data.data;

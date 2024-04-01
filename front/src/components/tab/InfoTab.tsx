@@ -92,6 +92,7 @@ export default function InfoTab({ vipId }: { vipId: number }) {
                   image={music.musicImg}
                   title={music.musicName}
                   subTitle={music.musicSinger}
+                  vipId={Number(vipId)}
                 />
               ))}
             </div>
@@ -106,10 +107,7 @@ export default function InfoTab({ vipId }: { vipId: number }) {
           {likeFood && likeFood.length > 0 ? (
             <div className="flex flex-wrap ">
               {likeFood.map((menu, index) => (
-                <div
-                  key={index}
-                  className="w-1/4 p-2"
-                >
+                <div key={index} className="w-1/4 p-2">
                   <MenuCard
                     menu_id={menu.menuId}
                     menu_name={menu.menuName}
