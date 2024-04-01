@@ -15,7 +15,7 @@ export async function getLikeFood(vipId: number) {
 }
 
 // 선호 메뉴 추가
-export async function postAddFood(vipId: number, foodList: string[]) {
+export async function postAddFood(vipId: number, foodList: number[]) {
   try {
     const data = await axios.post(REST_FOOD_API + `/${vipId}`, {
       foodList: foodList,
@@ -30,6 +30,7 @@ export async function postAddFood(vipId: number, foodList: string[]) {
 export async function getPlainFood() {
   try {
     const data = await axios.get("/api/wc");
+
     return data.data;
   } catch (error) {
     console.error("Error fetching data:", error);
@@ -39,8 +40,11 @@ export async function getPlainFood() {
 // vip 별 메뉴 추천
 export async function postRecommendFood(vipId: number) {
   try {
-    const data = await axios.post(`/api/menu/${vipId}`);
+    const empty: string[] = [];
 
+    const data = await axios.post(`/api/menu/${vipId}`, {
+      menuIds: empty,
+    });
     return data.data;
   } catch (error) {
     console.error("Error fetching data:", error);
