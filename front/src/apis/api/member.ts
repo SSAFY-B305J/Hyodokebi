@@ -80,3 +80,33 @@ export async function getSearchId(email: string) {
     console.error("Error fetching data:", error);
   }
 }
+
+// TODO: 회원 정보 조회
+export async function getMemberInfo(memberId: number) {
+  try {
+    const data = await axios.get(REST_MEMBER_API + `/info/${memberId}`);
+    return data.data;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+}
+
+// TODO: 회원 정보 수정
+export async function putMemberInfo(
+  memberIndex: number = 0,
+  memberNickname: string = "",
+  memberEmail: string = "",
+  memberPass: string = ""
+) {
+  try {
+    const data = await axios.put(REST_MEMBER_API + "/update", {
+      memberIndex: memberIndex,
+      memberNickname: memberNickname,
+      memberEmail: memberEmail,
+      memberPass: memberPass,
+    });
+    return data.data;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+}
