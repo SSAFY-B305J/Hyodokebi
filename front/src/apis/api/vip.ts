@@ -24,9 +24,13 @@ export async function selectVipList() {
 // VIP 추가
 export async function postVip(memberId: number, vipData : object) {
   try {
-    const data = await axios.post(`${REST_VIP_API}/${memberId}`, vipData);
+    const data = await axios.post(REST_VIP_API+`/post/${memberId}`, vipData);
+    console.log(memberId)
+    console.log(vipData)
     return data.data;
   } catch (error) {
+    console.log(memberId)
+    console.log(vipData)
     console.error("Error fetching data:", error);
   }
 }
