@@ -150,6 +150,23 @@ public class MemberController {
         }
         return ResponseEntity.status(status).body(resultMap);
     }
+    @GetMapping("/check/pass")
+    public ResponseEntity<Map<String, Object>> checkPass(@RequestParam String memberPass, HttpServletRequest request){
+        Map<String , Object> resultMap = new HashMap<>();
+        HttpStatus status = HttpStatus.OK;
+        try{
+            boolean check = memberService.checkPass((int)request.getAttribute("accessMemberIndex"),memberPass);
+            resultMap.put("check", check);
+        }catch (Exception e){
+            log.info(e.getMessage());
+            resultMap.put("message", e.getMessage());
+            status = HttpStatus.BAD_REQUEST;
+        }
+        return ResponseEntity.status(status).body(resultMap);
+    }
+
+
+
 
     @DeleteMapping("/delete")
     public ResponseEntity<Map<String, Object>> memberDelete(HttpServletRequest request){
@@ -206,6 +223,7 @@ public class MemberController {
         }
         return ResponseEntity.status(status).body(resultMap);
     }
+
 
 
 }

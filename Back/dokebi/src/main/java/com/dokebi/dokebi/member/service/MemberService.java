@@ -157,4 +157,10 @@ public class MemberService {
     public Member info(int accessMemberIndex) {
         return memberRepository.findByMemberIndex(accessMemberIndex).orElseThrow(()->new UsernameNotFoundException("해당하는 사용자가 없습니다."));
     }
+
+    public boolean checkPass(int  idx , String memberPass) {
+        Member findMember = memberRepository.findByMemberIndex(idx).orElseThrow(()->new UsernameNotFoundException("해당하는 사용자가 없습니다."));
+
+        return bCryptPasswordEncoder.matches(memberPass,findMember.getMemberPass());
+    }
 }
