@@ -123,6 +123,7 @@ export default function MusicResult() {
                 title={music.musicName}
                 subTitle={music.musicSinger}
                 image={music.musicImg}
+                vipId={Number(vipId)}
               ></MusicCard>
             ))
         ) : (
