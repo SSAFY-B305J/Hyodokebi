@@ -46,18 +46,23 @@ export default function InfoTab() {
         </div>
         <div
           className={tabIndex === 1 ? activated : disabled}
-          onClick={() => setTabIndex(1)}
-        >
-          음식점
-        </div>
-        <div
-          className={tabIndex === 2 ? activated : disabled}
           onClick={() => setTabIndex(2)}
         >
           좋아하는 메뉴
         </div>
+        {/* <div
+          className={tabIndex === 2 ? activated : disabled}
+          onClick={() => setTabIndex(1)}
+        >
+          음식점
+        </div> */}
       </div>
       {tabIndex === 0 ? (
+        <div className="flex justify-center w-full h-[72vh]"></div>
+      ) : (
+        ""
+      )}
+      {tabIndex === 1 ? (
         <div className="flex justify-center w-full h-[72vh]">
           {likeFood.map((menu, index) => (
             <MenuCard
@@ -71,16 +76,11 @@ export default function InfoTab() {
       ) : (
         ""
       )}
-      {tabIndex === 1 ? (
+      {/* {tabIndex === 2 ? (
         <div className="flex justify-center w-full h-[72vh]"></div>
       ) : (
         ""
-      )}
-      {tabIndex === 2 ? (
-        <div className="flex justify-center w-full h-[72vh]"></div>
-      ) : (
-        ""
-      )}
+      )} */}
     </div>
   );
 }
