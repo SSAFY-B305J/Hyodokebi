@@ -3,7 +3,8 @@ import { useState, useEffect } from "react";
 import VipCard from "../../../components/card/VipCard";
 import VipAddCard from "../../../components/card/VipAddCard";
 
-import { selectVipList } from "../../../apis/api/vip";
+import { getVipList } from "../../../apis/api/vip";
+import { useParams } from "react-router-dom";
 
 interface VipLists {
   vipAgeGroups: null;
@@ -16,20 +17,23 @@ interface VipLists {
 
 
 
+
 export default function VipList() {
   const [VipListData, setVipListData] = useState<VipLists[]>([]);
+  const { id } = useParams()
 
+  const memberIndex = id ? parseInt(id) : NaN;
   useEffect(() => {
-    async function fetchVipList() {
+    async function fetchVipList(memberIndex : number) {
       try {
-        const data = await selectVipList();
+        const data = await getVipList(memberIndex);
         setVipListData(data);
       } catch (error) {
         console.error('Error fetching VIP list:', error);
       }
     }
 
-    fetchVipList();
+    fetchVipList(memberIndex);
   }, []);
 
   return (
