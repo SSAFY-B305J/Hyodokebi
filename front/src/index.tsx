@@ -6,7 +6,6 @@ import "./index.css";
 import App from "./App";
 import DoubleTab from "./components/tab/DoubleTab";
 import KakaoLogin from "./components/user/KakaoLogin";
-import TopicBox from "./components/topic/TopicBox";
 import VipCreate from "./pages/children/vip/VipCreate";
 import VipList from "./pages/children/vip/VipList";
 import VipEdit from "./pages/children/vip/VipEdit";
