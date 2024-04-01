@@ -3,7 +3,8 @@ import { useState, useEffect } from "react";
 import VipCard from "../../../components/card/VipCard";
 import VipAddCard from "../../../components/card/VipAddCard";
 
-import { selectVipList } from "../../../apis/api/vip";
+import { getVipList } from "../../../apis/api/vip";
+import useLoginStore from "../../../store/useLoginStore";
 
 interface VipLists {
   vipAgeGroups: null;
@@ -14,12 +15,13 @@ interface VipLists {
 }
 
 export default function VipList() {
+  const { loginMemberId } = useLoginStore();
   const [VipListData, setVipListData] = useState<VipLists[]>([]);
 
   useEffect(() => {
     async function fetchVipList() {
       try {
-        const data = await selectVipList();
+        const data = await getVipList(loginMemberId);
         setVipListData(data);
       } catch (error) {
         console.error("Error fetching VIP list:", error);

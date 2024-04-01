@@ -20,9 +20,7 @@ interface VipCreateData {
 export default function VipCreate() {
   const navigate = useNavigate();
   const [vipData, setVipData] = useState({
-    vipAgeGroups: "",
     vipBirth: 0,
-    vipId: 0,
     vipNickname: "",
     vipProfile: 9,
   });
@@ -35,29 +33,26 @@ export default function VipCreate() {
   const { id } = useParams();
 
   const handleClick = async () => {
-    if (birth !== 0 && nickname !== "" && profile !== 9)
-    // ALERT 빈 값으로 두면 안되는 조건 추가, 조건 추가시 확인.
-    {
-    try {
-      await postVip(vipData);
-      console.log("VIP 정보가 성공적으로 생성되었습니다.");
-      
-      navigate(`/mypage/${id}/vip`);
-    } catch (error) {
-      console.error("Error creating VIP:", error);
-    }}
-    else {
-      if (birth === 0 ){
-        alert("태어나신 해를 입력해주세요.")
+    if (birth !== 0 && nickname !== "" && profile !== 9) {
+      // ALERT 빈 값으로 두면 안되는 조건 추가, 조건 추가시 확인.
+      try {
+        await postVip(vipData);
+        console.log("VIP 정보가 성공적으로 생성되었습니다.");
+
+        navigate(`/mypage/${id}/vip`);
+      } catch (error) {
+        console.error("Error creating VIP:", error);
       }
-      else if (nickname === "") {
-        alert("닉네임을 입력해주세요.")
-      }
-      else {
-        alert("프로필 사진을 선택하세요")
+    } else {
+      if (birth === 0) {
+        alert("태어나신 해를 입력해주세요.");
+      } else if (nickname === "") {
+        alert("닉네임을 입력해주세요.");
+      } else {
+        alert("프로필 사진을 선택하세요");
       }
     }
-    };
+  };
 
   useEffect(() => {
     setVipData((vipData) => ({
@@ -67,7 +62,6 @@ export default function VipCreate() {
       vipProfile: profile,
     }));
   }, [birth, nickname, profile]);
-
 
   return (
     <div className="box-border flex flex-col justify-between w-3/5 h-[85vh]">
@@ -149,7 +143,10 @@ export default function VipCreate() {
         </div>
       </div> */}
       <div className="flex justify-center mt-3">
-        <ButtonAsset text="저장" onClick={handleClick} />
+        <ButtonAsset
+          text="저장"
+          onClick={handleClick}
+        />
       </div>
     </div>
   );
