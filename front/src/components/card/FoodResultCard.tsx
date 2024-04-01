@@ -6,8 +6,8 @@ export default function FoodResultCard(props: {
   cate_image: number;
 }) {
   return (
-    // <NavLink // to={`/`}
-    <div className="flex flex-col justify-between w-[18vw] p-2 m-2 border-2 border-gray-300 shadow-md h-[45vh] rounded-2xl hover:border-primary">
+    // <NavLink // to={`/`} hover:border-primary
+    <div className="flex flex-col justify-between w-[18vw] p-2 m-2 border-2 border-gray-300 shadow-md h-[45vh] rounded-2xl ">
       <div className="flex justify-center w-full grow">
         <img
           src="/menu_test/korean.png"
