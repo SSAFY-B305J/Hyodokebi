@@ -25,7 +25,7 @@ export default function RegForm2() {
         regStore.password,
         regStore.email,
         regStore.nickname,
-        ""
+        "1"
       )
         .then(() => {
           alert("회원가입 성공!");

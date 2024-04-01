@@ -37,7 +37,6 @@ export async function getKakaoLogin(code: string) {
 }
 
 // 회원가입
-// WARNING: 프로필 이미지 생각하기 - 어떤 이미지, 어떤 값
 export async function postRegist(
   id: string,
   password: string,
