@@ -3,7 +3,8 @@ import { useState, useEffect } from "react";
 import VipCard from "../../../components/card/VipCard";
 import VipAddCard from "../../../components/card/VipAddCard";
 
-import { selectVipList } from "../../../apis/api/vip";
+import { getVipList } from "../../../apis/api/vip";
+import { useParams } from "react-router-dom";
 
 interface VipLists {
   vipAgeGroups: null;
@@ -16,28 +17,34 @@ interface VipLists {
 
 
 
+
 export default function VipList() {
   const [VipListData, setVipListData] = useState<VipLists[]>([]);
+  const { id } = useParams()
 
+  const memberIndex = id ? parseInt(id) : NaN;
   useEffect(() => {
-    async function fetchVipList() {
+    async function fetchVipList(memberIndex : number) {
       try {
-        const data = await selectVipList();
+        const data = await getVipList(memberIndex);
         setVipListData(data);
       } catch (error) {
+        alert("더 이상 VIP를 생성할 수 없습니다. ")
         console.error('Error fetching VIP list:', error);
       }
     }
 
-    fetchVipList();
+    fetchVipList(memberIndex);
   }, []);
 
   return (
     <div className="box-border flex w-full h-[67vh] p-3 overflow-auto">
       <div className="grid w-full h-full grid-cols-3 gap-3">
         {VipListData?.map((VipLists : VipLists) => <VipCard key={VipLists.vipId} VipProps={VipLists} />) }
-        
-        <VipAddCard />
+        {VipListData?.length !== 8 ?
+        <VipAddCard /> :
+        <></>
+         }
       </div>
     </div>
   );
