@@ -4,7 +4,6 @@ import { useParams, useNavigate } from "react-router-dom";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 import Input from "../../../components/common/Input";
-import MenuCard from "../../../components/card/MenuCard";
 import ButtonAsset from "../../../components/Button/ButtonAsset";
 
 import { postVip } from "../../../apis/api/vip";
@@ -39,7 +38,7 @@ export default function VipCreate() {
       // ALERT 빈 값으로 두면 안되는 조건 추가, 조건 추가시 확인.
       try {
         await postVip(memberId, vipData);
-        navigate(`/mypage/${id}/vip`);
+        navigate(`/mypage/${id}/vip/chooseFood`);
       } catch (error) {
         console.error("Error creating VIP:", error);
       }
@@ -86,54 +85,57 @@ export default function VipCreate() {
           inputHandler={(event) => setBirth(parseInt(event.target.value))}
         />
       </div>
-      <div className="m-2 font-semibold">프로필 사진</div>
-      <div className="flex w-full">
-        <img
-          src={`/test/picture${profile}.jpg`}
-          alt="프로필 사진을 지정하세요"
-          className="mx-3 w-[108px] h-[108px]"
-        />
-        <div className="grid grid-cols-4 gap-3">
+      <div>
+        <div className="m-2 font-semibold ">프로필 사진</div>
+
+        <div className="flex w-full ">
           <img
-            src={`/test/picture0.jpg`}
-            alt="empty"
-            onClick={() => setProfile(0)}
+            src={`/test/picture${profile}.jpg`}
+            alt="프로필 사진을 지정하세요"
+            className="mx-3 w-[108px] h-[108px]"
           />
-          <img
-            src={`/test/picture1.jpg`}
-            alt="empty"
-            onClick={() => setProfile(1)}
-          />
-          <img
-            src={`/test/picture2.jpg`}
-            alt="empty"
-            onClick={() => setProfile(2)}
-          />
-          <img
-            src={`/test/picture3.jpg`}
-            alt="empty"
-            onClick={() => setProfile(3)}
-          />
-          <img
-            src={`/test/picture4.jpg`}
-            alt="empty"
-            onClick={() => setProfile(4)}
-          />
-          <img
-            src={`/test/picture5.jpg`}
-            alt="empty"
-            onClick={() => setProfile(5)}
-          />
-          <img
-            src={`/test/picture6.jpg`}
-            alt="empty"
-            onClick={() => setProfile(6)}
-          />
-          <img
-            src={`/test/picture7.jpg`}
-            alt="empty"
-            onClick={() => setProfile(7)}
-          />
+          <div className="grid grid-cols-4 gap-3">
+            <img
+              src={`/test/picture0.jpg`}
+              alt="empty"
+              onClick={() => setProfile(0)}
+            />
+            <img
+              src={`/test/picture1.jpg`}
+              alt="empty"
+              onClick={() => setProfile(1)}
+            />
+            <img
+              src={`/test/picture2.jpg`}
+              alt="empty"
+              onClick={() => setProfile(2)}
+            />
+            <img
+              src={`/test/picture3.jpg`}
+              alt="empty"
+              onClick={() => setProfile(3)}
+            />
+            <img
+              src={`/test/picture4.jpg`}
+              alt="empty"
+              onClick={() => setProfile(4)}
+            />
+            <img
+              src={`/test/picture5.jpg`}
+              alt="empty"
+              onClick={() => setProfile(5)}
+            />
+            <img
+              src={`/test/picture6.jpg`}
+              alt="empty"
+              onClick={() => setProfile(6)}
+            />
+            <img
+              src={`/test/picture7.jpg`}
+              alt="empty"
+              onClick={() => setProfile(7)}
+            />
+          </div>
         </div>
       </div>
       {/* <div className="box-border flex m-2 font-semibold">선호 음식</div>

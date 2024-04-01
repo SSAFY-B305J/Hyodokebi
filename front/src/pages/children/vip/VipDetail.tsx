@@ -98,7 +98,7 @@ export default function VipDetail() {
       </div>
       <div className="flex w-full h-[30%] flex-col">
         <div className="flex w-full h-full text-xl font-semibold">보관함</div>
-        <InfoTab />
+        {/* <InfoTab /> */}
       </div>
     </div>
   );
