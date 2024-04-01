@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import MenuCard from "../../../components/card/MenuCard";
 import ButtonAsset from "../../../components/Button/ButtonAsset";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import TextField from "../../../components/common/TextField";
-import { putVip } from "../../../apis/api/vip";
+import { getVip, putVip } from "../../../apis/api/vip";
 
 interface PutVipData {
   vipAgeGroups: null;
@@ -18,20 +18,11 @@ export default function VipEdit() {
   const { id, vipId } = useParams();
   const navigate = useNavigate();
 
-  // const [ageGroups, setAgegroups] = useState([]);
   const [birth, setBirth] = useState(0);
   const [nickname, setNickname] = useState("");
   const [profile, setProfile] = useState(9);
 
   const vipIndex = vipId ? parseInt(vipId) : NaN;
-
-  const [vipData, setVipData] = useState({
-    vipAgeGroups: "",
-    vipBirth: 0,
-    vipId: 0,
-    vipNickname: "",
-    vipProfile: 9,
-  });
 
   const handleClick = async () => {
     if (birth !== 0 && nickname !== "" && profile !== 9) {
@@ -59,14 +50,16 @@ export default function VipEdit() {
     }
   };
 
+  const initVip = useCallback(async () => {
+    const data: PutVipData = await getVip(Number(vipId));
+    setNickname(data.vipNickname);
+    setBirth(data.vipBirth);
+    setProfile(data.vipProfile);
+  }, [vipId]);
+
   useEffect(() => {
-    setVipData((vipData) => ({
-      ...vipData,
-      vipBirth: birth,
-      vipNickname: nickname,
-      vipProfile: profile,
-    }));
-  }, [birth, nickname, profile]);
+    initVip();
+  }, [initVip]);
 
   const arr = Array.from({ length: 8 }, (v, i) => i);
 

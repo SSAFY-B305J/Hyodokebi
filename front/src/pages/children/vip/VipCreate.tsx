@@ -1,13 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
-
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-
-import Input from "../../../components/common/Input";
-import ButtonAsset from "../../../components/Button/ButtonAsset";
-
 import { postVip } from "../../../apis/api/vip";
-import MenuCard from "../../../components/card/MenuCard";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import ButtonAsset from "../../../components/Button/ButtonAsset";
 import TextField from "../../../components/common/TextField";
 
 interface VipCreateData {
