@@ -33,7 +33,6 @@ export default function MusicVipSelect() {
     if (data?.length > 0) setSelectedVip(data[0].vipId);
   }
 
-  // TODO: 라우터 연결 후 확인하기
   function handleClick() {
     navigate(`/music/${selectedVip}`);
   }
