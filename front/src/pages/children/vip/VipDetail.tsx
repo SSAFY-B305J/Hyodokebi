@@ -95,10 +95,10 @@ export default function VipDetail() {
             <ButtonAsset text="수정하기" />
           </Link>
         </div>
-      </div>
-      <div className="flex w-full h-[30%] flex-col">
-        <div className="flex w-full h-full text-xl font-semibold">보관함</div>
-        {/* <InfoTab /> */}
+        <div className="flex w-full h-[30%] flex-col">
+          <div className="flex w-full h-full text-xl font-semibold">보관함</div>
+          <InfoTab vipId={vipIndex} />
+        </div>
       </div>
     </div>
   );
