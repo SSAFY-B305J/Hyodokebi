@@ -13,15 +13,11 @@ import lombok.NoArgsConstructor;
 public class WcMenu {
 
     @Id
-    @Column(name="menu_id")
-    private int menuId;
-
-    @Column(nullable = false)
-    private String menuImg;
-
     @OneToOne(fetch = FetchType.LAZY)
     private Menu menu;
 
+    @Column(nullable = false)
+    private String menuImg;
 
 }
 

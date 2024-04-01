@@ -47,7 +47,7 @@ public class Member implements UserDetails {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private MemberRole memberRole;
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Vip> vips;
 
     @Override
