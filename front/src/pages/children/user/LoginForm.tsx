@@ -5,10 +5,11 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import TextField from "../../../components/common/TextField";
 import ButtonAsset from "../../../components/Button/ButtonAsset";
 import { KAKAO_AUTH_URL } from "../../../modules/auth/kakaoAuth";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import WarningIcon from "@mui/icons-material/Warning";
 import { postLogin } from "../../../apis/api/member";
 import useLoginStore from "../../../store/useLoginStore";
+import logo from "../../../assets/logo.png";
 
 export default function LoginForm() {
   const { setLoginMemberId } = useLoginStore();
@@ -34,7 +35,9 @@ export default function LoginForm() {
   }
 
   // 로그인
-  async function handleClickLoginButton() {
+  async function handleSubmit(e: FormEvent) {
+    e.preventDefault();
+
     try {
       const memberId = await postLogin(id, password);
       setLoginMemberId(memberId);
@@ -53,10 +56,10 @@ export default function LoginForm() {
 
   return (
     <FormContainer>
-      <>
+      <form onSubmit={handleSubmit}>
         <div className="mx-auto mb-10 w-fit">
           <Link to="/">
-            <img src="/hyoblin.png" alt="효도깨비" />
+            <img src={logo} alt="효도깨비" className="w-60" />
           </Link>
         </div>
         {hasError && (
@@ -83,11 +86,7 @@ export default function LoginForm() {
           />
         </div>
         <div className="flex flex-col my-8 [&>*]:mb-3">
-          <ButtonAsset
-            text="로그인"
-            size="lg"
-            onClick={handleClickLoginButton}
-          />
+          <ButtonAsset type="submit" text="로그인" size="lg" />
           <Link to={KAKAO_AUTH_URL}>
             <KakaoButton text="카카오 로그인하기" size="lg" />
           </Link>
@@ -99,7 +98,7 @@ export default function LoginForm() {
           <VerticalDivider />
           <Link to="/signup">회원가입</Link>
         </div>
-      </>
+      </form>
     </FormContainer>
   );
 }
