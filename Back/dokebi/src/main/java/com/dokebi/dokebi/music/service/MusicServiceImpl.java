@@ -60,6 +60,8 @@ public class MusicServiceImpl implements MusicService {
 
     @Override
     public Map<AgeGroup, List<MusicDto>> findMusics(int vid) throws JsonProcessingException {
+        vipRepository.findById(vid).orElseThrow(()-> new EntityNotFoundException("Vip Entity Not Found"));
+
         // RestAPI의 요청과 응답을 받을 수 있는 템플릿
         RestTemplate restTemplate = new RestTemplate();
         ObjectMapper objectMapper = new ObjectMapper();
