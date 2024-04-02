@@ -40,9 +40,12 @@ export default function FoodResult() {
   };
 
   useEffect(() => {
-    // getRecommendFood(); // fetchData 함수 호출
-
     setFoods(recData);
+
+    return () => {
+      // 페이지를 벗어날 때 로컬스토리지를 지우는 코드
+      localStorage.removeItem("recData");
+    };
   }, []);
 
   return (
