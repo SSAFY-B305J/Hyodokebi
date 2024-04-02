@@ -65,7 +65,7 @@ public class MusicServiceImpl implements MusicService {
         ObjectMapper objectMapper = new ObjectMapper();
 
         // 플라스크 엔드포인트
-        String flaskEndpoint = "http://127.0.0.1:5000/pyapi/music/res";
+        String flaskEndpoint = "http://127.0.0.1:5000/pyapi/music/res/" + vid;
 
         // header를 json으로 받음
         HttpHeaders headers = new HttpHeaders();
@@ -81,7 +81,6 @@ public class MusicServiceImpl implements MusicService {
 
             // flask로 request 보낼 template
             MusicTemplateDto musicTemplateDto = MusicTemplateDto.builder()
-                    .vipId(vid)
                     .vipSavedMusics(vipSavedMusic) // 이미 저장한 노래
                     .vipDisLikedMusics(vipDisLikedMusics) // 싫다고 한 노래
                     .ageGroup(vipDto.getVipAgeGroups()[ageGroup.ordinal()]) // enum index의 ageGroup
@@ -92,7 +91,7 @@ public class MusicServiceImpl implements MusicService {
 
             // flask api로 post하고 응답을 받음
             String response = restTemplate.postForObject(flaskEndpoint, httpEntity, String.class);
-            log.info("Flask Connection Success To -> Vip No.{}", httpEntity.getBody().getVipId());
+            log.info("Flask Connection Success To -> Vip No.{}", vid);
 
             // 나이대에 맞는 음악이 없으면 빈 리스트 추가
             if(response.trim().equals("null")) {
