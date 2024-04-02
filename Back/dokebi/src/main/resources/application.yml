@@ -2,7 +2,7 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/dokebi?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Seoul&cacheDefaultTimezone=false
+    url: jdbc:mysql://j10b305.p.ssafy.io:3306/dokebi?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Seoul&cacheDefaultTimezone=false
     username: dokebi
     password: dokebi@@1234
   jpa:
