@@ -1,0 +1,42 @@
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/dokebi?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Seoul&cacheDefaultTimezone=false
+    username: dokebi
+    password: dokebi@@1234
+  jpa:
+    hibernate:
+      ddl-auto: update
+    hikari:
+      idle-timeout: 300
+      max-lifetime: 300
+    properties:
+      hibernate:
+        format_sql: true
+
+    show_sql: true
+    defer-datasource-initialization: true
+  sql:
+    init:
+      mode: always
+  output:
+    ansi.enabled: always
+
+
+kakao:
+  key: b6a0073dc1fe35ba2779e8bc3e2d221e
+  request-url: https://kauth.kakao.com/oauth/token
+  user-info-url: https://kapi.kakao.com/v2/user/me
+  redirect-url: http://localhost:8080/api/member/login/kakao
+
+jwt:
+  secret: TKxkfgkrhtlvekskehskrkrhtlvekdbTTLTLgkrltlfgek
+  
+email:
+  address: kewer9024@ajou.ac.kr
+  password: onfq ycsv evtc bjvo
+
+aes256:
+  secret: 12345678901234567890123456789012
+  iv: abcdefghijklmnop
