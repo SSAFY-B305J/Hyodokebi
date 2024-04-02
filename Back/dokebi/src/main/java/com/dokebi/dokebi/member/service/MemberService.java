@@ -93,6 +93,8 @@ public class MemberService {
         Optional.ofNullable(memberUpdateRequestDto.getMemberNickname()).ifPresent(member::setMemberNickname);
         Optional.ofNullable(memberUpdateRequestDto.getMemberPass()).ifPresent(member::setMemberPass);
         Optional.ofNullable(memberUpdateRequestDto.getMemberEmail()).ifPresent(member::setMemberEmail);
+        Optional.ofNullable(memberUpdateRequestDto.getMemberProfile()).ifPresent(member::setMemberProfile);
+
     }
 
     public boolean checkDup(String category, String input) {
