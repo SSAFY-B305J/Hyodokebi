@@ -5,7 +5,7 @@ from sklearn.preprocessing import MinMaxScaler
 from models import db
 from utils import matrix_factorization, predict, menu_training, updateDataSet, predicted_menu
 
-combined_matrix = None
+df_combined_matrix = None
 predicted_R = None
 user_igd_info = None
 menu_info = None
@@ -47,7 +47,7 @@ def get_pre_training():
     return predicted_R, user_igd_info, menu_info
 
 def train_model(app):
-    global combined_matrix
+    global df_combined_matrix
     with app.app_context():
         print("start music train")
         
@@ -125,7 +125,7 @@ def train_model(app):
         
         P_singer,Q_singer = matrix_factorization(scaled_singer, 10, 300)
         P_composer,Q_composer = matrix_factorization(scaled_composer, 10, 300)
-        P_genre,Q_genre = matrix_factorization(scaled_genre, 10, 100)
+        P_genre,Q_genre = matrix_factorization(scaled_genre, 10, 50)
         
         predict_singer = predict(P_singer,Q_singer)
         predict_composer = predict(P_composer,Q_composer)
@@ -136,12 +136,17 @@ def train_model(app):
         print(predict_genre.shape)
         
         combined_matrix = (0.4 * predict_singer + 0.4 * predict_composer + 0.2 * predict_genre)
-        #print(combined_matrix)
+        df_combined_matrix = pd.DataFrame(combined_matrix, index=user_singer.index, columns=music_singer.index)
         print(combined_matrix.shape)
         print("end music train")
         
 def get_combined_matrix():
-    return combined_matrix
+    return df_combined_matrix
+
+def add_combined_matrix_row(vid):
+    global df_combined_matrix
+    new_vip_row = [0] * len(df_combined_matrix.columns) 
+    df_combined_matrix.loc[vid] = new_vip_row
         
 def train_model_thread(app):
     threading.Thread(target=lambda: train_model(app)).start()
