@@ -101,7 +101,7 @@ public class VipServiceImpl implements VipService {
 
         Vip savedVip = vipRepository.save(vip);
 
-        // flask matrix에 행 추가
+        // matrix에 새로운 vip 행 추가
         RestTemplate restTemplate = new RestTemplate();
         String flaskEndpoint = "http://127.0.0.1:5000/pyapi/vip/" + savedVip.getVipId();
         restTemplate.getForObject(flaskEndpoint, String.class);

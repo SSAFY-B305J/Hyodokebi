@@ -140,6 +140,11 @@ public class MusicServiceImpl implements MusicService {
         SavedMusic existedMusic = vipRepository.findVipMusic(vid, mid);
         if (existedMusic != null) return existedMusic.getSmId();
 
+        // 모델 재학습
+        RestTemplate restTemplate = new RestTemplate();
+        String flaskEndpoint = "http://127.0.0.1:5000/pyapi/music/save";
+        restTemplate.getForObject(flaskEndpoint, String.class);
+
         savedMusicRepository.save(savedMusic);
         return savedMusic.getSmId();
     }
