@@ -163,7 +163,7 @@ export default function FoodChoice() {
           text="다음"
           variant="outlined"
           className="w-1/4 font-semibold border-2 rounded-3xl hover:border-white "
-          disabled={sigungu == ""}
+          disabled={sigungu === ""}
           onClick={handleNext}
         />
       </div>
