@@ -77,15 +77,15 @@ export default function MusicResult() {
   }, [initMusicList]);
 
   return (
-    <div className="flex flex-col items-center px-5 py-6 my-5 bg-gray-100">
+    <div className="flex flex-col items-center px-5 py-6 my-5">
       <h1 className="mb-3 text-3xl font-bold">음악 추천 결과</h1>
       <h2 className="text-lg">
         VIP의 청춘과 함께 했던 음악을 추천해드렸습니다.
       </h2>
       <div className="w-[768px] m-4 box-content rounded-lg">
         <button
-          className={`w-64 border border-silver h-14 text-lg ${
-            activeAge === MusicAge.Teenage ? "bg-silver" : "bg-lightsilver"
+          className={`w-64 border border-black h-14 text-lg ${
+            activeAge === MusicAge.Teenage ? "bg-primary" : "bg-white"
           }`}
           value={MusicAge.Teenage}
           onClick={(e) => setActiveAge(e.currentTarget.value)}
@@ -93,8 +93,8 @@ export default function MusicResult() {
           10대
         </button>
         <button
-          className={`w-64 border border-silver h-14 text-lg ${
-            activeAge === MusicAge.Twenties ? "bg-silver" : "bg-lightsilver"
+          className={`w-64 border border-black h-14 text-lg ${
+            activeAge === MusicAge.Twenties ? "bg-primary" : "bg-white"
           }`}
           value={MusicAge.Twenties}
           onClick={(e) => setActiveAge(e.currentTarget.value)}
@@ -102,8 +102,8 @@ export default function MusicResult() {
           20대
         </button>
         <button
-          className={`w-64 border border-silver h-14 text-lg ${
-            activeAge === MusicAge.Thirties ? "bg-silver" : "bg-lightsilver"
+          className={`w-64 border border-black h-14 text-lg ${
+            activeAge === MusicAge.Thirties ? "bg-primary" : "bg-white"
           }`}
           value={MusicAge.Thirties}
           onClick={(e) => setActiveAge(e.currentTarget.value)}
@@ -123,6 +123,7 @@ export default function MusicResult() {
                 title={music.musicName}
                 subTitle={music.musicSinger}
                 image={music.musicImg}
+                vipId={Number(vipId)}
               ></MusicCard>
             ))
         ) : (

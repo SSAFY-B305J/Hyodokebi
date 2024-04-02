@@ -8,7 +8,8 @@ export async function getVipList(memberId: number) {
     const data = await axios.get(`/api/myvip/${memberId}`);
     return data.data;
   } catch (error) {
-    console.error("Error fetching data:", error);
+    throw error;
+    // console.error("Error fetching data:", error);
   }
 }
 
@@ -22,9 +23,11 @@ export async function selectVipList() {
 }
 
 // VIP 추가
-export async function postVip(vipData : object) {
+export async function postVip(memberId: number, vipData: object) {
   try {
-    const data = await axios.post(REST_VIP_API, vipData);
+    const data = await axios.post(REST_VIP_API + `/${memberId}`, vipData);
+    console.log(memberId);
+    console.log(vipData);
     return data.data;
   } catch (error) {
     console.error("Error fetching data:", error);
@@ -35,7 +38,7 @@ export async function postVip(vipData : object) {
 // 특정 VIP 조회
 export async function getVip(vipId: number) {
   try {
-    const data = await axios.get(REST_VIP_API+`/${vipId}`);
+    const data = await axios.get(REST_VIP_API + `/${vipId}`);
     return data.data;
   } catch (error) {
     console.error("Error fetching data:", error);
@@ -43,9 +46,9 @@ export async function getVip(vipId: number) {
 }
 
 // 특정 VIP 수정
-export async function putVip(vipId: number, vipData : object) {
+export async function putVip(vipId: number, vipData: object) {
   try {
-    const data = await axios.put(REST_VIP_API+`/${vipId}`, vipData );
+    const data = await axios.put(REST_VIP_API + `/${vipId}`, vipData);
     return data.data;
   } catch (error) {
     console.error("Error fetching data:", error);
@@ -55,7 +58,39 @@ export async function putVip(vipId: number, vipData : object) {
 // 특정 VIP 삭제
 export async function deleteVip(vipId: number) {
   try {
-    const data = await axios.delete(REST_VIP_API+`/${vipId}`);
+    const data = await axios.delete(REST_VIP_API + `/${vipId}`);
+    return data.data;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+}
+
+// VIP가 저장한 음악
+export async function getVipMusic(vipId: number) {
+  try {
+    // const data = await axios.delete(REST_VIP_API + `music/${vipId}`);
+    const data = await axios.get(`api/vip/music/${vipId}`);
+
+    return data.data;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+}
+
+// VIP가 저장한 음악 여부
+export async function getIsVipMusicSaved(vipId: number, musicId: number) {
+  try {
+    const data = await axios.get(REST_VIP_API + `/music/${vipId}/${musicId}`);
+    return data.data;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+}
+
+// VIP가 싫어요한 음악
+export async function getVipDislikeMusicList(vipId: number) {
+  try {
+    const data = await axios.get(REST_VIP_API + `/music/dislike/${vipId}`);
     return data.data;
   } catch (error) {
     console.error("Error fetching data:", error);
