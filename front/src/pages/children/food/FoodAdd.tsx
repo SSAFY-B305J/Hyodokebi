@@ -115,7 +115,7 @@ export default function FoodAdd() {
         <ButtonAsset
           text="다음"
           variant="outlined"
-          className="w-full font-semibold border-2 rounded-3xl hover:border-white "
+          className="w-1/4 font-semibold border-2 rounded-3xl hover:border-white "
           onClick={hanldeNextClick}
         />
       </div>
