@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 from sklearn.preprocessing import MinMaxScaler
 from models import db
-from utils import matrix_factorization, predict, menu_training, updateDataSet, predicted_menu
+from utils import matrix_factorization, predict, menu_training, updateDataSet, predicted_menu, makeDataSet
 
 df_combined_matrix = None
 predicted_R = None
@@ -11,27 +11,13 @@ user_igd_info = None
 menu_info = None
 
 def pre_training(app):
+    print("start")
     global predicted_R, user_igd_info, menu_info
     with app.app_context():
-        print("start menu train")
-        excel_file_path = './dataTmp.xlsx'
-
-        # 엑셀 파일의 각 시트를 다른 변수에 저장
-        menu_info = pd.read_excel(excel_file_path, sheet_name='Sheet1', header = 0, index_col = 0)
-        user_info = pd.read_excel(excel_file_path, sheet_name='Sheet2', header = 0, index_col = 0)
-
-        user_igd_info = pd.DataFrame(0, index=[f"User{i+1}" for i in range(0, user_info.shape[0])], columns=[f"{i}" for i in menu_info.columns])
-        for row in range(0,user_info.shape[0]):
-            for col in range(0, user_info.shape[1]):
-                if user_info.iloc[row,col] > 0:
-                    for igdIdx in range(0, menu_info.shape[1]):
-                        if menu_info.iloc[col,igdIdx] > 0:
-                            user_igd_info.iloc[row, igdIdx] += menu_info.iloc[col,igdIdx]
-        
+        # 데이터 셋 가져오기
+        user_igd_info, menu_info = makeDataSet()    
         predicted_R = menu_training(user_igd_info, 51)
-        
-        print("end menu train")
-        #return predicted_R, user_igd_info, menu_info
+        print("end")
     
 
 def training_recommend_menu(user_igd_info, menu_info, vip_id, menu_ids):
