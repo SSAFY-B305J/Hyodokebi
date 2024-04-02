@@ -5,14 +5,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class MemberUpdateRequestDto {
-    private int memberIndex;
-    private String memberNickname, memberEmail, memberPass, memberProfile;
-
+public class MemberCheckPassRequestDto {
+    String memberPass;
 }
