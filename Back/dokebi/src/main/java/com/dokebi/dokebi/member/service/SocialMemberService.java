@@ -4,6 +4,7 @@ import com.dokebi.dokebi.common.JWT.JwtTokenProvider;
 import com.dokebi.dokebi.common.JWT.TokenInfo;
 import com.dokebi.dokebi.member.dto.SocialLoginDto;
 import com.dokebi.dokebi.member.entity.Member;
+import com.dokebi.dokebi.member.entity.MemberRole;
 import com.dokebi.dokebi.member.repository.MemberRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -48,7 +49,7 @@ public class SocialMemberService {
         Member accessMember = null;
 
         try {
-            accessMember = memberRepository.findByMemberIdAndMemberPass(socialLoginDto.getMemberId(), socialLoginDto.getMemberPass())
+            accessMember = memberRepository.findByMemberId(socialLoginDto.getMemberId())
                     .orElseThrow(() -> new UsernameNotFoundException("해당하는 유저가 존재하지 않습니다."));
         } catch (UsernameNotFoundException e) {
             accessMember= memberRepository.save(Member.builder()
@@ -56,6 +57,7 @@ public class SocialMemberService {
                     .memberPass(socialLoginDto.getMemberPass())
                     .memberEmail(socialLoginDto.getMemberId() + "@kakao.com")
                     .memberNickname(socialLoginDto.getMemberNickname())
+                    .memberRole(MemberRole.USER)
                     .build());
         }//db에 없으면 새로 회원가입
 
@@ -63,7 +65,7 @@ public class SocialMemberService {
         //1. Memberindex 와 MemberPass로 Authentication 객체 생성
         //인증 여부를 확인하는 Authenticated 값이 false
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
-                accessMember.getMemberIndex(), accessMember.getMemberPass());
+                accessMember.getMemberIndex(), "kakao");
 
         //2. authenticate 매서드가 실행될 때 CustomUserDetailsService에서 만든 loadUserByUsername 매서드 실행
         Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);

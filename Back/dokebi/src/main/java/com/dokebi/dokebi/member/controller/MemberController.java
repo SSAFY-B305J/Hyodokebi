@@ -12,6 +12,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -26,7 +27,7 @@ public class MemberController {
 
     private final MemberService memberService;
     private final SocialMemberService socialService;
-
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @PostMapping("/login/origin")
     public ResponseEntity<Map<String, Object>> originLogin(@RequestBody OriginLoginRequestDto originLoginRequestDto) {
@@ -58,7 +59,7 @@ public class MemberController {
 
             accessToken = socialService.login(SocialLoginDto.builder()
                     .memberId(kakaoMemberInfo.get("id").toString())
-                    .memberPass(UUID.nameUUIDFromBytes("kakao".getBytes()).toString())
+                    .memberPass(bCryptPasswordEncoder.encode("kakao"))
                     .memberNickname(kakaoMemberInfo.get("nickname").toString())
                     .build()
             );

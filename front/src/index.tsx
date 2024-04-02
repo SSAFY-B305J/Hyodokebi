@@ -6,7 +6,6 @@ import "./index.css";
 import App from "./App";
 import DoubleTab from "./components/tab/DoubleTab";
 import KakaoLogin from "./components/user/KakaoLogin";
-import TopicBox from "./components/topic/TopicBox";
 import VipCreate from "./pages/children/vip/VipCreate";
 import VipList from "./pages/children/vip/VipList";
 import VipEdit from "./pages/children/vip/VipEdit";
@@ -33,6 +32,7 @@ import Settings from "./pages/children/profile/Settings";
 import PwInquiryConfirm from "./pages/children/user/PwInquiryConfirm";
 import UnRegForm from "./pages/children/user/UnRegForm";
 import LandingPage from "./pages/LandingPage";
+import VipAddFood from "./pages/children/vip/VipAddFood";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -90,6 +90,10 @@ const router = createBrowserRouter([
                 path: "vip/:vipId/edit",
                 element: <VipEdit />,
               },
+              {
+                path: "vip/chooseFood",
+                element: <VipAddFood />,
+              },
             ],
           },
           {
@@ -110,7 +114,7 @@ const router = createBrowserRouter([
             ],
           },
           {
-            path: "food/choice/:id",
+            path: "food/choice",
             element: <FoodChoice />,
           },
           {
@@ -122,7 +126,7 @@ const router = createBrowserRouter([
             element: <FoodList />,
           },
           {
-            path: "food/result",
+            path: "food/result/:vipId",
             element: <FoodResult />,
           },
           {
@@ -160,7 +164,7 @@ const router = createBrowserRouter([
         ],
       },
       {
-        path: "oauth",
+        path: "/api/member/login/kakao",
         element: <KakaoLogin />,
       },
     ],

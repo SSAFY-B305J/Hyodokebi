@@ -37,7 +37,6 @@ export async function getKakaoLogin(code: string) {
 }
 
 // 회원가입
-// WARNING: 프로필 이미지 생각하기 - 어떤 이미지, 어떤 값
 export async function postRegist(
   id: string,
   password: string,
@@ -75,7 +74,55 @@ export async function getDuplicateCheck(category: string, input: string) {
 // 아이디 찾기
 export async function getSearchId(email: string) {
   try {
-    const data = await axios.get(REST_MEMBER_API + `find/simple/${email}`);
+    const data = await axios.get(REST_MEMBER_API + `/find/id`, {
+      params: {
+        email: email,
+      },
+    });
+    return data.data.id;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+}
+
+// 비밀번호 맞는지 확인
+export async function getCheckPassword(password: string) {
+  try {
+    const data = await axios.get(REST_MEMBER_API + `/check/pass`, {
+      params: {
+        memberPass: password,
+      },
+    });
+    return data.data;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+}
+
+// TODO: 회원 정보 조회
+export async function getMemberInfo(memberId: number) {
+  try {
+    const data = await axios.get(REST_MEMBER_API + `/info/${memberId}`);
+    return data.data;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+}
+
+// TODO: 회원 정보 수정
+export async function putMemberInfo(
+  memberIndex: number = 0,
+  memberNickname: string = "",
+  memberEmail: string = "",
+  memberPass: string = ""
+) {
+  try {
+    const data = await axios.put(REST_MEMBER_API + "/update", {
+      memberIndex: memberIndex,
+      memberNickname: memberNickname,
+      memberEmail: memberEmail,
+      memberPass: memberPass,
+    });
     return data.data;
   } catch (error) {
     console.error("Error fetching data:", error);

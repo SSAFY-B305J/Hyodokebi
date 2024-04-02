@@ -4,6 +4,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ButtonAsset from "../../../components/Button/ButtonAsset";
 import InputAsset from "../../../components/common/InputAsset";
+import { getMemberInfo, putMemberInfo } from "../../../apis/api/member";
 
 export default function ProfileEdit() {
   const imageIndexList = Array.from({ length: 8 }, (v, i) => i);
@@ -15,9 +16,10 @@ export default function ProfileEdit() {
   const { memberId } = useParams();
   const navigate = useNavigate();
 
-  const handleClick = () => {
+  const handleClick = async () => {
     try {
-      // TODO: 회원 정보 수정 API 추가
+      // TODO: 회원 정보 수정 API 추가 - 비밀번호 ""일 때 어떻게 수정되는지 확인하기
+      // await putMemberInfo(Number(memberId), nickname, email);
       alert("회원 정보가 수정되었습니다!");
       navigate(`/mypage/${memberId}/profile/`);
     } catch (error) {
@@ -25,17 +27,25 @@ export default function ProfileEdit() {
     }
   };
 
-  useEffect(() => {
-    // TODO: 회원 조회 API 추가
+  async function initMemberInfo() {
+    // const data = await getMemberInfo(Number(memberId));
+
     const data = {
-      nickname: "ssafy1",
-      email: "ssafy1@ssafy.com",
-      profileImage: 1,
+      memberId: 12,
+      memberNickname: "ssafy1",
+      memberEmail: "ssafy1@ssafy.com",
+      profileImage: 0,
     };
 
+    setProfileIndex(data.memberId);
+    setNickname(data.memberNickname);
+    setEmail(data.memberEmail);
     setProfileIndex(data.profileImage);
-    setNickname(data.nickname);
-    setEmail(data.email);
+  }
+
+  useEffect(() => {
+    // TODO: 회원 조회 API 추가
+    initMemberInfo();
   }, []);
 
   return (
@@ -47,7 +57,7 @@ export default function ProfileEdit() {
           </Link>
           <h1 className="text-2xl font-bold">회원 정보 수정</h1>
         </div>
-        <div className="w-full py-5 border-b">
+        <div className="w-full py-8 border-b">
           <h2 className="mb-3 text-lg font-bold">프로필 사진</h2>
           <div className="flex w-full">
             <img
@@ -70,20 +80,22 @@ export default function ProfileEdit() {
             </div>
           </div>
         </div>
-        <div className="w-full py-5 border-b">
+        <div className="w-full py-8 border-b">
           <h2 className="mb-3 text-lg font-bold">닉네임</h2>
           <InputAsset
             value={nickname}
             placeholder="닉네임"
             className="w-[300px]"
+            onInput={(e) => setNickname(e.currentTarget.value)}
           />
         </div>
-        <div className="w-full py-5">
+        <div className="w-full py-8">
           <h2 className="mb-3 text-lg font-bold">이메일</h2>
           <InputAsset
             value={email}
             placeholder="이메일"
             className="w-[300px]"
+            onInput={(e) => setEmail(e.currentTarget.value)}
           />
         </div>
         <div className="flex justify-center w-full my-5">

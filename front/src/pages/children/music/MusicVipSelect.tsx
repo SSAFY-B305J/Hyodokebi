@@ -9,7 +9,7 @@ import {
   Select,
   SelectChangeEvent,
 } from "@mui/material";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import useLoginStore from "../../../store/useLoginStore";
 
 export default function MusicVipSelect() {
@@ -25,8 +25,6 @@ export default function MusicVipSelect() {
     setSelectedVip(e.target.value);
   }
 
-  // WARNING: Vip가 없을 경우 화면 처리하기
-
   // vipList의 값을 저장한다.
   // vip가 있으면 첫 번째 vip의 값을 selectedVip에 저장한다.
   async function initVipList() {
@@ -35,7 +33,6 @@ export default function MusicVipSelect() {
     if (data?.length > 0) setSelectedVip(data[0].vipId);
   }
 
-  // TODO: 라우터 연결 후 확인하기
   function handleClick() {
     navigate(`/music/${selectedVip}`);
   }
@@ -55,27 +52,38 @@ export default function MusicVipSelect() {
       <h2 className="text-3xl font-bold">
         효도깨비가 VIP께 노래를 추천해드립니다.
       </h2>
-      <div className="my-16 w-80">
-        <FormControl fullWidth sx={{ m: 1, minWidth: 120 }}>
-          <Select
-            value={selectedVip}
-            onChange={handleChange}
-            displayEmpty
-            inputProps={{ "aria-label": "Without label" }}
-          >
-            {vipList?.map((vip) => {
-              return (
-                <MenuItem key={vip.vipId} value={vip.vipId}>
-                  {vip.vipNickname}
-                </MenuItem>
-              );
-            })}
-          </Select>
-        </FormControl>
-      </div>
-      <div>
-        <ButtonAsset text="추천받기" size="lg" onClick={handleClick} />
-      </div>
+      {vipList.length ? (
+        <>
+          <div className="my-16 w-80">
+            <FormControl fullWidth sx={{ m: 1, minWidth: 120 }}>
+              <Select
+                value={selectedVip}
+                onChange={handleChange}
+                displayEmpty
+                inputProps={{ "aria-label": "Without label" }}
+              >
+                {vipList?.map((vip) => {
+                  return (
+                    <MenuItem key={vip.vipId} value={vip.vipId}>
+                      {vip.vipNickname}
+                    </MenuItem>
+                  );
+                })}
+              </Select>
+            </FormControl>
+          </div>
+          <div>
+            <ButtonAsset text="추천받기" size="lg" onClick={handleClick} />
+          </div>
+        </>
+      ) : (
+        <div className="flex flex-col items-center my-16">
+          <div className="mb-5 text-lg">아직 VIP를 등록하지 않으셨나요?</div>
+          <Link to={`/mypage/${loginMemberId}/vip/create`}>
+            <ButtonAsset text="VIP 생성하러 가기" size="lg" />
+          </Link>
+        </div>
+      )}
     </div>
   );
 }

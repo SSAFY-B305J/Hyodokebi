@@ -58,7 +58,7 @@ export default function UnRegForm() {
           />
         </div>
         <div className="flex justify-center my-3">
-          <Link to={"/login"}>
+          <Link to={"/settings"}>
             <ButtonAsset text="뒤로가기" variant="outlined" className="mx-3" />
           </Link>
           <ButtonAsset
