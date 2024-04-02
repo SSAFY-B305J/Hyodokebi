@@ -2,7 +2,7 @@ class Config:
     JSON_AS_ASCII = False
 
     db_config = {
-        'host': '127.0.0.1',  
+        'host': 'http://j10b305.p.ssafy.io',  
         'port': 3306,         
         'user': 'dokebi',     
         'password': 'dokebi%40%401234',  
