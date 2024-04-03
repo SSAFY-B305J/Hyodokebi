@@ -8,18 +8,16 @@ export default function AddCard() {
   const { id } = useParams();
 
   return (
-    <NavLink
-      className="box-border flex flex-col w-full p-2 m-2 border-2 border-gray-300 shadow-md h-[60vh] rounded-xl"
-      to={`/mypage/${id}/vip/create`}
-    >
-      {/* ALERT width와 height는 확인용으로 넣은 것으로 추후 수정. */}
-      <div className="flex items-center justify-center w-full h-2/3">
-        <div className="flex items-center justify-center w-2/3 rounded-xl h-4/5 bg-primary">
-          <AddCircleOutlineIcon />
+    <NavLink to={`/mypage/${id}/vip/create`}>
+      <div className="box-border relative flex flex-col justify-center w-56 p-2 m-2 border-gray-300 shadow-md h-80 rounded-xl border-w">
+        <div className="flex items-center justify-center w-full h-full">
+          <div className="flex items-center justify-center w-40 h-40 bg-primary rounded-xl">
+            <AddCircleOutlineIcon fontSize="large" />
+          </div>
         </div>
-      </div>
-      <div className="flex flex-col items-center justify-end w-full pb-3 h-1/3">
-        <ButtonAsset text="VIP 추가하기" variant="outlined" />
+        <div className="flex items-center justify-center w-full p-3">
+          <ButtonAsset text="VIP 추가하기" variant="outlined" />
+        </div>
       </div>
     </NavLink>
   );

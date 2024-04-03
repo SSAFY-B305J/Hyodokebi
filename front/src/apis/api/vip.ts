@@ -1,6 +1,6 @@
 import { axios } from "../utils/axios";
 
-const REST_VIP_API = "api/vip";
+const REST_VIP_API = "/api/vip";
 
 // member의 VIP 목록 조회
 export async function getVipList() {
@@ -10,6 +10,11 @@ export async function getVipList() {
         Authorization: "Bearer " + localStorage.getItem("accessToken"),
       },
     });
+
+    // Access Token 저장
+    const accessToken = data.headers["accesstoken"] || "";
+    localStorage.setItem("accessToken", accessToken);
+
     return data.data;
   } catch (error) {
     throw error;
@@ -26,11 +31,18 @@ export async function selectVipList() {
 }
 
 // VIP 추가
-export async function postVip(memberId: number, vipData: object) {
+export async function postVip(vipData: object) {
   try {
-    const data = await axios.post(REST_VIP_API + `/${memberId}`, vipData);
-    console.log(memberId);
-    console.log(vipData);
+    const data = await axios.post(REST_VIP_API, vipData, {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("accessToken"),
+      },
+    });
+
+    // Access Token 저장
+    const accessToken = data.headers["accesstoken"] || "";
+    localStorage.setItem("accessToken", accessToken);
+
     return data.data;
   } catch (error) {
     console.error("Error fetching data:", error);
