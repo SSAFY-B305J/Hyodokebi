@@ -30,8 +30,9 @@ export default function FoodAdd() {
     try {
       const data = await getPlainFood();
       setFoodData(data);
-      const data2 = await getLikeFood(Number(vipId));
-      setSelectedFood(selectedFood);
+
+      // const data2 = await getLikeFood(Number(vipId));
+      // setSelectedFood(selectedFood);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -87,7 +88,10 @@ export default function FoodAdd() {
         <div className="grid w-full h-full grid-cols-5 gap-3">
           {foodData ? (
             foodData.map((menu, index) => (
-              <div key={index} onClick={() => handleClick(menu.menuId)}>
+              <div
+                key={index}
+                onClick={() => handleClick(menu.menuId)}
+              >
                 <MenuCard
                   key={index}
                   menu_id={menu.menuId}
