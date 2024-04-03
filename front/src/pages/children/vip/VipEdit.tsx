@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
-import MenuCard from "../../../components/card/MenuCard";
 import ButtonAsset from "../../../components/Button/ButtonAsset";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import TextField from "../../../components/common/TextField";
@@ -20,7 +19,7 @@ export default function VipEdit() {
 
   const [birth, setBirth] = useState(0);
   const [nickname, setNickname] = useState("");
-  const [profile, setProfile] = useState(9);
+  const [profile, setProfile] = useState(0);
 
   const vipIndex = vipId ? parseInt(vipId) : NaN;
 
@@ -96,7 +95,7 @@ export default function VipEdit() {
           <h2 className="mb-3 text-lg font-bold">프로필 사진</h2>
           <div className="flex w-full">
             <img
-              src={`/test/picture${profile}.jpg`}
+              src={require(`../../../assets/profiles/profile${profile}.jpg`)}
               alt="empty"
               className="mr-3 w-36 h-36"
             />
@@ -105,7 +104,7 @@ export default function VipEdit() {
               {arr.map((x) => (
                 <img
                   key={x}
-                  src={`/test/picture${x}.jpg`}
+                  src={require(`../../../assets/profiles/profile${x}.jpg`)}
                   alt="empty"
                   className={`w-16 h-16 ${
                     profile === x && "border-[3px] border-primary"
@@ -113,15 +112,6 @@ export default function VipEdit() {
                   onClick={() => setProfile(x)}
                 />
               ))}
-            </div>
-          </div>
-        </div>
-        {/* TODO: 선호음식 선택*/}
-        <div className="w-full py-8 ">
-          <h2 className="mb-3 text-lg font-bold">선호 음식 선택</h2>
-          <div className="flex w-full p-2 overflow-auto">
-            <div className="grid w-full h-full grid-cols-5 gap-3">
-              <MenuCard cate_image={1} menu_id={1} menu_name="1" />
             </div>
           </div>
         </div>
