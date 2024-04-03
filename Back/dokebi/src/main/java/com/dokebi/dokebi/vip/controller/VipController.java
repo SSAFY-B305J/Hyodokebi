@@ -5,6 +5,7 @@ import com.dokebi.dokebi.vip.dto.VipDto;
 import com.dokebi.dokebi.vip.service.VipService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,10 +23,11 @@ public class VipController {
     private final VipService vipService;
 
     @Operation(summary = "Member의 VIP 목록")
-    @GetMapping("/api/myvip/{mIdx}")
-    public ResponseEntity<?> vipList(@PathVariable int mIdx) {
+    @GetMapping("/api/myvip")
+    public ResponseEntity<?> vipList(HttpServletRequest request) {
         try {
-            List<VipDto> vipDtos = vipService.findVipsOfMmeber(mIdx);
+            int accessMemberIndex = (int)request.getAttribute("accessMemberIndex");
+            List<VipDto> vipDtos = vipService.findVipsOfMmeber(accessMemberIndex);
             return new ResponseEntity<List<VipDto>>(vipDtos, HttpStatus.OK);
         } catch (EntityNotFoundException e) {
             return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
@@ -50,11 +52,12 @@ public class VipController {
     }
 
     @Operation(summary = "VIP 추가")
-    @PostMapping("/api/vip/{mIdx}")
-    public ResponseEntity<?> vipAdd(@RequestBody VipDto vipDto, @PathVariable int mIdx) {
+    @PostMapping("/api/vip")
+    public ResponseEntity<?> vipAdd(@RequestBody VipDto vipDto, HttpServletRequest request) {
         Map<String, Object> resultMap = new HashMap<>();
         try {
-            int res = vipService.addVip(vipDto, mIdx);
+            int accessMemberIndex = (int)request.getAttribute("accessMemberIndex");
+            int res = vipService.addVip(vipDto, accessMemberIndex);
             resultMap.put("message", res);
             return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
         } catch (EntityNotFoundException e) {

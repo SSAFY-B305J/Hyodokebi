@@ -92,6 +92,19 @@ public class MenuServiceImpl implements MenuService {
         return recommendedMenus;
     }
 
+    @Override
+    public String startTrain() {
+
+        RestTemplate restTemplate = new RestTemplate();
+        String flaskEndpoint = "http://127.0.0.1:5000/pyapi/menu/";
+
+        // GET 요청을 보내고 응답을 문자열로 받습니다.
+        ResponseEntity<String> responseEntity = restTemplate.getForEntity(flaskEndpoint, String.class);
+
+        // 응답 문자열을 반환합니다.
+        return responseEntity.getBody();
+    }
+
 
 
 

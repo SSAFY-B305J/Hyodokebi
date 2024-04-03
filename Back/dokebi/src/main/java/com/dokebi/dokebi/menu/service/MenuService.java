@@ -17,6 +17,7 @@ public interface MenuService {
     // 선호 메뉴 추가
     int addSavedMenu(int vipId, List<Integer> menuIds);
 
+    String startTrain();
 
     // 메뉴 추천
     List<MenuDto> recommendedMenus(int vipId, List<Integer> menuIds) throws JsonProcessingException;

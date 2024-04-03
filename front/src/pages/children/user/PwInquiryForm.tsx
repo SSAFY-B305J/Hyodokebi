@@ -28,7 +28,7 @@ export default function PwInquiryForm() {
         (await getDuplicateCheck("id", id)) &&
         (await getDuplicateCheck("email", email))
       ) {
-        navigate("/help/pwInquiry/result");
+        navigate("/help/pwInquiry/reset");
       } else {
         alert("존재하지 않는 아이디 또는 이메일입니다.\n다시 입력해주세요.");
       }

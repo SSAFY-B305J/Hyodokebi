@@ -19,6 +19,7 @@ import java.util.Map;
 
 @RequiredArgsConstructor
 @RestController
+@CrossOrigin()
 public class MenuControlloer {
 
     private final MenuService menuService;
@@ -55,6 +56,7 @@ public class MenuControlloer {
     public ResponseEntity<?> smAdd(@PathVariable int vipId, @RequestBody List<Integer> menuIds){
         try{
             int res = menuService.addSavedMenu(vipId, menuIds);
+            String retrain = menuService.startTrain();
             return new ResponseEntity<Integer>(res, HttpStatus.OK);
         }catch (IllegalArgumentException e) {
             return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
