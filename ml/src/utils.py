@@ -89,7 +89,7 @@ def predicted_menu(predicted, menu_info, user_no, nMenu=9):
     for i in range(0,nMenu):
         max_idx = np.argmax(user_like_menu)
         if user_like_menu[max_idx] < 0 or user_like_menu[max_idx] == 0 : break
-        predicted_menu += [max_idx]
+        predicted_menu += [max_idx+1]
         user_like_menu[max_idx] = 0
 
     recommended_menu = recommend_menu(predicted_menu)
@@ -131,8 +131,8 @@ def makeDataSet():
         for idx in range(0, rci_info.shape[0]):
             if menu_id == rci_info.iloc[idx,1]:
                 flag = True
-                # user_igd_info.iloc[vip_id-1, rci_info.iloc[idx,2]] += rci_info.iloc[idx,3]
-                user_igd_info.iloc[vip_id-1, rci_info.iloc[idx,2]] += 1
+                user_igd_info.iloc[vip_id-1, rci_info.iloc[idx,2]] += rci_info.iloc[idx,3]
+                # user_igd_info.iloc[vip_id-1, rci_info.iloc[idx,2]] += 1
             elif flag : 
                 flag = False
                 break
