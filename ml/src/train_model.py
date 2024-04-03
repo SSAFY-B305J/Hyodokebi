@@ -21,7 +21,7 @@ def pre_training(app):
     
 
 def training_recommend_menu(user_igd_info, menu_info, vip_id, menu_ids):
-    user_igd_info2 = updateDataSet(user_igd_info,vip_id,menu_ids)
+    user_igd_info2 = updateDataSet(user_igd_info,menu_info,vip_id,menu_ids)
     predict_R = menu_training(user_igd_info2, 10 )
     recommend_menu = predicted_menu(predict_R, menu_info, vip_id)
     return recommend_menu
