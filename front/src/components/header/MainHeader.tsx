@@ -75,7 +75,7 @@ export default function MainHeader() {
               음식 추천
             </Link>
             <ProfileMenu
-              image={`/test/picture${loginMember?.memberProfile}.jpg`}
+              image={require(`../../assets/profiles/profile${loginMember?.memberProfile}.jpg`)}
             />
           </div>
         </div>

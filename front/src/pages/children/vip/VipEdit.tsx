@@ -20,7 +20,7 @@ export default function VipEdit() {
 
   const [birth, setBirth] = useState(0);
   const [nickname, setNickname] = useState("");
-  const [profile, setProfile] = useState(9);
+  const [profile, setProfile] = useState(0);
 
   const vipIndex = vipId ? parseInt(vipId) : NaN;
 
@@ -96,7 +96,7 @@ export default function VipEdit() {
           <h2 className="mb-3 text-lg font-bold">프로필 사진</h2>
           <div className="flex w-full">
             <img
-              src={`/test/picture${profile}.jpg`}
+              src={require(`../../../assets/profiles/profile${profile}.jpg`)}
               alt="empty"
               className="mr-3 w-36 h-36"
             />
@@ -105,7 +105,7 @@ export default function VipEdit() {
               {arr.map((x) => (
                 <img
                   key={x}
-                  src={`/test/picture${x}.jpg`}
+                  src={require(`../../../assets/profiles/profile${x}.jpg`)}
                   alt="empty"
                   className={`w-16 h-16 ${
                     profile === x && "border-[3px] border-primary"
