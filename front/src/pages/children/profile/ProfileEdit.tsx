@@ -11,13 +11,13 @@ import useLoginStore from "../../../store/useLoginStore";
 export default function ProfileEdit() {
   const imageIndexList = Array.from({ length: 8 }, (v, i) => i);
 
-  const [profileIndex, setProfileIndex] = useState("");
-  const [nickname, setNickname] = useState("");
-  const [email, setEmail] = useState("");
-
   const params = useParams();
   const navigate = useNavigate();
-  const { updateLoginMember } = useLoginStore();
+  const { loginMember, updateLoginMember } = useLoginStore();
+
+  const [profileIndex, setProfileIndex] = useState(loginMember?.memberProfile);
+  const [nickname, setNickname] = useState("");
+  const [email, setEmail] = useState("");
 
   const handleClick = async () => {
     try {
@@ -48,7 +48,6 @@ export default function ProfileEdit() {
   }
 
   useEffect(() => {
-    // TODO: 회원 조회 API 추가
     initMemberInfo();
   }, []);
 
@@ -65,7 +64,7 @@ export default function ProfileEdit() {
           <h2 className="mb-3 text-lg font-bold">프로필 사진</h2>
           <div className="flex w-full">
             <img
-              src={`/test/picture${profileIndex}.jpg`}
+              src={require(`../../../assets/profiles/profile${profileIndex}.jpg`)}
               alt="empty"
               className="mr-3 w-36 h-36"
             />
@@ -73,11 +72,11 @@ export default function ProfileEdit() {
               {imageIndexList.map((imgIdx) => (
                 <img
                   key={imgIdx}
-                  src={`/test/picture${imgIdx}.jpg`}
+                  src={require(`../../../assets/profiles/profile${imgIdx}.jpg`)}
                   alt="프로필 사진을 지정하세요"
                   className={`w-16 h-16 ${
                     profileIndex === imgIdx + "" &&
-                    "border-[3px] border-primary"
+                    "border-[3px] border-primary rounded-full"
                   }`}
                   onClick={() => setProfileIndex(imgIdx + "")}
                 />
