@@ -13,7 +13,7 @@ export default function ProfileEdit() {
 
   const params = useParams();
   const navigate = useNavigate();
-  const { loginMember, updateLoginMember } = useLoginStore();
+  const { loginMember, updateLoginMember, logout } = useLoginStore();
 
   const [profileIndex, setProfileIndex] = useState(loginMember?.memberProfile);
   const [nickname, setNickname] = useState("");
@@ -29,7 +29,13 @@ export default function ProfileEdit() {
       });
 
       // 수정된 회원 정보로 업데이트
-      updateLoginMember();
+      updateLoginMember().catch((error) => {
+        if (error.message === "500") {
+          alert("로그인이 필요합니다.");
+          logout();
+          navigate("/login");
+        }
+      });
 
       alert("회원 정보가 수정되었습니다!");
       navigate(`/mypage/${params.id}/profile`);

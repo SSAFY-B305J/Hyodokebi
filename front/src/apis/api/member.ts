@@ -119,7 +119,9 @@ export async function getMemberInfo() {
       info: data.data,
     };
   } catch (error) {
-    console.error("Error fetching data:", error);
+    if (isAxiosError(error) && error.response) {
+      throw new Error("500");
+    }
   }
 }
 
