@@ -83,10 +83,6 @@ export default function VipDetail() {
                 <div className="font-semibold w-28">태어나신 해</div>
                 <div>{VipDetailData?.vipBirth}</div>
               </p>
-              <p className="flex w-full mb-2">
-                <div className="font-semibold w-28">나이대</div>
-                <div>{VipDetailData?.vipAgeGroups || "비공개"}</div>
-              </p>
             </div>
           </div>
           <div className="flex justify-end gap-3 my-3">
