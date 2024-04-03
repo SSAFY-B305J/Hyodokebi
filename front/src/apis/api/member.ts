@@ -99,11 +99,25 @@ export async function getCheckPassword(password: string) {
   }
 }
 
-// TODO: 회원 정보 조회
-export async function getMemberInfo(memberId: number) {
+// 회원 정보 조회
+// 회원 id, 회원 정보 객체를 포함하는 object 반환
+export async function getMemberInfo() {
   try {
-    const data = await axios.get(REST_MEMBER_API + `/info/${memberId}`);
-    return data.data;
+    const token = "Bearer " + localStorage.getItem("accessToken");
+    const data = await axios.get(REST_MEMBER_API + `/info`, {
+      headers: {
+        Authorization: token,
+      },
+    });
+
+    // Access Token 갱신
+    const accessToken = data.headers["accesstoken"] || "";
+    localStorage.setItem("accessToken", accessToken);
+
+    return {
+      idx: parseJwt(accessToken).sub,
+      info: data.data,
+    };
   } catch (error) {
     console.error("Error fetching data:", error);
   }

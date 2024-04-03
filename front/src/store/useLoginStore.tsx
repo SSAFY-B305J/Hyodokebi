@@ -1,9 +1,12 @@
 import { create } from "zustand";
 import { createJSONStorage, devtools, persist } from "zustand/middleware";
+import Member from "../modules/types/member";
 
 interface LoginState {
-  loginMemberId: number;
-  setLoginMemberId: (by: number) => void;
+  loginMemberIdx: number;
+  loginMember: Member | null;
+  setLoginMemberIdx: (by: number) => void;
+  setLoginMember: (by: Member | null) => void;
   getIsLogin: () => boolean;
   logout: () => void;
 }
@@ -11,12 +14,15 @@ interface LoginState {
 const useLoginStore = create<LoginState>()(
   persist(
     devtools((set, get) => ({
-      loginMemberId: 0,
-      setLoginMemberId: (by: number) => set(() => ({ loginMemberId: by })),
+      loginMemberIdx: 0,
+      loginMember: null,
+      setLoginMemberIdx: (by: number) => set(() => ({ loginMemberIdx: by })),
+      setLoginMember: (by) => set(() => ({ loginMember: by })),
       getIsLogin: () => Boolean(localStorage.getItem("accessToken")),
       logout: () => {
         localStorage.removeItem("accessToken");
-        get().setLoginMemberId(0);
+        get().setLoginMemberIdx(0);
+        get().setLoginMember(null);
       },
     })),
     {

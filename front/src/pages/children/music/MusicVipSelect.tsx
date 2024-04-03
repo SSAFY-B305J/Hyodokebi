@@ -17,7 +17,7 @@ export default function MusicVipSelect() {
   const [selectedVip, setSelectedVip] = useState<string>("");
 
   const navigate = useNavigate();
-  const { loginMemberId, getIsLogin } = useLoginStore();
+  const { loginMemberIdx, getIsLogin } = useLoginStore();
   const { pathname } = useLocation();
 
   // select change 이벤트 핸들러
@@ -28,7 +28,7 @@ export default function MusicVipSelect() {
   // vipList의 값을 저장한다.
   // vip가 있으면 첫 번째 vip의 값을 selectedVip에 저장한다.
   async function initVipList() {
-    const data = await getVipList(loginMemberId);
+    const data = await getVipList(loginMemberIdx);
     setVipList(data);
     if (data?.length > 0) setSelectedVip(data[0].vipId);
   }
@@ -39,7 +39,7 @@ export default function MusicVipSelect() {
 
   useEffect(() => {
     // 로그인하지 않았으면 로그인 화면으로 이동
-    if (!getIsLogin() || !loginMemberId) {
+    if (!getIsLogin() || !loginMemberIdx) {
       navigate("/login", { state: pathname });
     }
 
@@ -79,7 +79,7 @@ export default function MusicVipSelect() {
       ) : (
         <div className="flex flex-col items-center my-16">
           <div className="mb-5 text-lg">아직 VIP를 등록하지 않으셨나요?</div>
-          <Link to={`/mypage/${loginMemberId}/vip/create`}>
+          <Link to={`/mypage/${loginMemberIdx}/vip/create`}>
             <ButtonAsset text="VIP 생성하러 가기" size="lg" />
           </Link>
         </div>

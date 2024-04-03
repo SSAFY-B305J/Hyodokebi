@@ -1,16 +1,26 @@
-import VipTestData from "../../json/VipTestData.json";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import ProfileMenu from "./ProfileMenu";
 import useLoginStore from "../../store/useLoginStore";
 import logo from "../../assets/logo.png";
+import { useCallback, useEffect } from "react";
+import { getMemberInfo } from "../../apis/api/member";
 
-interface MainHeaderProps {
-  isLogin: boolean;
-}
-
-export default function MainHeader({ isLogin }: MainHeaderProps) {
+export default function MainHeader() {
   const navigate = useNavigate();
-  const { loginMemberId } = useLoginStore();
+  const { loginMember, getIsLogin, setLoginMember, setLoginMemberIdx } =
+    useLoginStore();
+  const isLogin = getIsLogin();
+
+  // 로그인한 회원 정보 조회 후 store에 저장
+  const initMemberInfo = useCallback(async () => {
+    const data = await getMemberInfo().then((res) => res?.info);
+    setLoginMemberIdx(data.idx);
+    setLoginMember(data);
+  }, [setLoginMember, setLoginMemberIdx]);
+
+  useEffect(() => {
+    if (isLogin) initMemberInfo();
+  }, [initMemberInfo, isLogin]);
 
   return (
     <div>
@@ -68,7 +78,9 @@ export default function MainHeader({ isLogin }: MainHeaderProps) {
             >
               음식 추천
             </Link>
-            <ProfileMenu image={VipTestData[0].imagePath} />
+            <ProfileMenu
+              image={`/test/picture${loginMember?.memberProfile}.jpg`}
+            />
           </div>
         </div>
       )}
