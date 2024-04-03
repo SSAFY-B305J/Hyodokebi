@@ -14,9 +14,7 @@ export default function IdInquiryResult() {
 
   async function searchResult() {
     try {
-      // TODO: API 완성되면 수정하기
-      // const data = await getSearchId(email);
-      const data = "ssafy1";
+      const data = await getSearchId(email);
 
       // 앞의 두자리만 결과로 보여준다.
       const result = data.slice(0, 2) + "*".repeat(data.length - 2);
@@ -29,7 +27,6 @@ export default function IdInquiryResult() {
     }
   }
 
-  // TODO: 아이디 찾기 결과 API 연동 후 출력
   useEffect(() => {
     searchResult();
   }, []);
@@ -50,6 +47,7 @@ export default function IdInquiryResult() {
             <div className="mx-auto my-12 text-center w-72">
               <p className="font-bold">{result}</p>
             </div>
+            {/* TODO: 이메일 보내기 */}
             <div className="flex justify-center my-3">
               <Link to="/login">
                 <ButtonAsset

@@ -5,7 +5,7 @@ import Dropdowns from "../../../components/common/Dropdowns";
 import { useEffect, useState } from "react";
 import cityData from "../../../json/AadministrativeDistrict.json";
 import ButtonAsset from "../../../components/Button/ButtonAsset";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
@@ -13,9 +13,11 @@ import Select, { SelectChangeEvent } from "@mui/material/Select";
 import Box from "@mui/material/Box";
 import { getVipList } from "../../../apis/api/vip";
 import { Vip } from "../../../modules/types/vip";
+import useLoginStore from "../../../store/useLoginStore";
 
 export default function FoodChoice() {
-  const { id } = useParams();
+  const { loginMemberIdx } = useLoginStore();
+  const navigate = useNavigate();
 
   const [selectedSiDo, setSelectedSiDo] = useState<string>("");
   const [siGunGuOptions, setSiGunGuOptions] = useState<string[]>([]);
@@ -48,15 +50,20 @@ export default function FoodChoice() {
 
   // vipList의 값을 저장한다.
   async function initVipList() {
-    // TODO: 현재 로그인한 id로 수정
-    const memberId = parseInt(id ?? "0");
-    const data = await getVipList(memberId);
+    const data = await getVipList();
     setVipList(data);
     if (data.length > 0) setSelectedVip(data[0].vipId);
   }
 
   const handleSelect = (vipId: string) => {
     setSelectedVip(vipId);
+  };
+
+  const handleNext = () => {
+    if (sigungu) {
+      localStorage.setItem("sigunguData", JSON.stringify(sigungu));
+    }
+    navigate(`/food/add/${selectedVip}`);
   };
 
   useEffect(() => {
@@ -78,10 +85,7 @@ export default function FoodChoice() {
 
       <div className="ml-20 mr-20">
         <div>
-          <UnderLine
-            text="지역을 골라주세요"
-            size="sm"
-          />
+          <UnderLine text="지역을 골라주세요" size="sm" />
           <div className="flex flex-row m-5">
             <Box sx={{ minWidth: 120 }}>
               <FormControl fullWidth>
@@ -95,10 +99,7 @@ export default function FoodChoice() {
                   onChange={handleSiDoChange}
                 >
                   {uniqueSiDoList.map((siDo, index) => (
-                    <MenuItem
-                      key={index}
-                      value={siDo}
-                    >
+                    <MenuItem key={index} value={siDo}>
                       {siDo}
                     </MenuItem>
                   ))}
@@ -117,10 +118,7 @@ export default function FoodChoice() {
                   onChange={handleSigunguChange}
                 >
                   {siGunGuOptions.map((gungu, index) => (
-                    <MenuItem
-                      key={index}
-                      value={gungu}
-                    >
+                    <MenuItem key={index} value={gungu}>
                       {gungu}
                     </MenuItem>
                   ))}
@@ -130,19 +128,16 @@ export default function FoodChoice() {
           </div>
         </div>
         <div className="mt-5">
-          <UnderLine
-            text="VIP는 누구?"
-            size="sm"
-          />
+          <UnderLine text="VIP는 누구?" size="sm" />
           <div className="flex flex-row justify-center">
             {vipList.map((vip) => (
-              <div onClick={() => handleSelect(vip.vipId)}>
+              <div key={vip.vipId} onClick={() => handleSelect(vip.vipId)}>
                 <ChoiceVip
                   key={vip.vipId}
                   id={vip.vipId}
                   name={vip.vipNickname}
                   imagePath={vip.vipProfile}
-                  imageIndex={""}
+                  imageIndex={vip.vipProfile}
                   clicked={vip.vipId === selectedVip}
                 />
               </div>
@@ -150,20 +145,14 @@ export default function FoodChoice() {
           </div>
         </div>
       </div>
-      <div className="flex justify-center mt-3">
-        {/* 지역을 안 골랐을 때 버튼이 안 보이게 함. */}
-        {/* {selectedVip !== "" && sigungu !== "" && ( */}
-        <Link
-          to={`/food/add/${selectedVip}`}
-          className="w-1/4 "
-        >
-          <ButtonAsset
-            text="다음"
-            variant="outlined"
-            className="w-full font-semibold border-2 rounded-3xl hover:border-white "
-          />
-        </Link>
-        {/* )} */}
+      <div className="flex justify-center mt-3 ">
+        <ButtonAsset
+          text="다음"
+          variant="outlined"
+          className="w-1/4 font-semibold border-2 rounded-3xl hover:border-white "
+          disabled={sigungu === ""}
+          onClick={handleNext}
+        />
       </div>
     </div>
   );

@@ -7,7 +7,7 @@ import { Face, Logout, Person, Settings } from "@mui/icons-material";
 
 export default function ProfileMenu(props: { image: string }) {
   const { setTabIndex } = useTabStore();
-  const { loginMemberId, logout } = useLoginStore();
+  const { loginMemberIdx, logout } = useLoginStore();
   const navigate = useNavigate();
 
   // 메뉴와 연결될 element
@@ -70,7 +70,7 @@ export default function ProfileMenu(props: { image: string }) {
         onMouseLeave={handleClose}
         style={{ backgroundColor: "transparent" }}
       >
-        <Link to={`/mypage/${loginMemberId}/profile`}>
+        <Link to={`/mypage/${loginMemberIdx}/profile`}>
           <img
             src={props.image}
             alt="profile"
@@ -90,7 +90,7 @@ export default function ProfileMenu(props: { image: string }) {
       >
         <MenuItem
           onClick={() =>
-            handleClickMenuItem(`/mypage/${loginMemberId}/profile`)
+            handleClickMenuItem(`/mypage/${loginMemberIdx}/profile`)
           }
         >
           <ListItemIcon>
@@ -99,7 +99,7 @@ export default function ProfileMenu(props: { image: string }) {
           내 프로필
         </MenuItem>
         <MenuItem
-          onClick={() => handleClickMenuItem(`/mypage/${loginMemberId}/vip`)}
+          onClick={() => handleClickMenuItem(`/mypage/${loginMemberIdx}/vip`)}
         >
           <ListItemIcon>
             <Face fontSize="small" />

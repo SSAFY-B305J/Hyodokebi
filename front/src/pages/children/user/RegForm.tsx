@@ -17,7 +17,6 @@ export default function RegForm2() {
     const isValid = await regStore.getRegistValid();
 
     // 모든 input 검사 통과하면 회원가입 요청
-    // TODO: 로그인 에러 확인하기
     if (isValid) {
       // 회원가입 성공
       postRegist(
@@ -25,7 +24,7 @@ export default function RegForm2() {
         regStore.password,
         regStore.email,
         regStore.nickname,
-        ""
+        "0"
       )
         .then(() => {
           alert("회원가입 성공!");

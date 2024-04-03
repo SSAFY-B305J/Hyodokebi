@@ -5,13 +5,14 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import TextField from "../../../components/common/TextField";
 import ButtonAsset from "../../../components/Button/ButtonAsset";
 import { KAKAO_AUTH_URL } from "../../../modules/auth/kakaoAuth";
-import { useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import WarningIcon from "@mui/icons-material/Warning";
-import { postLogin } from "../../../apis/api/member";
+import { getMemberInfo, postLogin } from "../../../apis/api/member";
 import useLoginStore from "../../../store/useLoginStore";
+import logo from "../../../assets/logo.png";
 
 export default function LoginForm() {
-  const { setLoginMemberId } = useLoginStore();
+  const { setLoginMember, setLoginMemberIdx, getIsLogin } = useLoginStore();
 
   // 아이디, 비밀번호
   const [id, setId] = useState("");
@@ -23,21 +24,18 @@ export default function LoginForm() {
   const navigate = useNavigate();
   const { state } = useLocation();
 
-  function onInputIdHandler(e: React.FormEvent<HTMLInputElement>) {
-    const value = e.currentTarget.value;
-    setId(value);
-  }
-
-  function onInputPasswordHandler(e: React.FormEvent<HTMLInputElement>) {
-    const value = e.currentTarget.value;
-    setPassword(value);
-  }
-
   // 로그인
-  async function handleClickLoginButton() {
+  async function handleSubmit(e: FormEvent) {
+    e.preventDefault();
+
     try {
-      const memberId = await postLogin(id, password);
-      setLoginMemberId(memberId);
+      // 로그인 - 로그인 회원 인덱스 저장
+      await postLogin(id, password);
+
+      // 로그인한 회원 인덱스, 정보 저장
+      const data = await getMemberInfo();
+      setLoginMemberIdx(data?.idx);
+      setLoginMember(data?.info);
 
       // 로그인하기 이전 페이지로 이동
       if (state) navigate(state);
@@ -46,17 +44,25 @@ export default function LoginForm() {
       if (error instanceof Error) {
         if (error.message === "400") {
           setHasError(true);
+        } else if (error.name === "Unauthorized") {
+          alert(error.message);
+          navigate("/");
         }
       }
     }
   }
 
+  useEffect(() => {
+    // 로그인한 유저는 메인페이지로 튕김
+    if (getIsLogin()) navigate("/");
+  }, [getIsLogin, navigate]);
+
   return (
     <FormContainer>
-      <>
+      <form onSubmit={handleSubmit}>
         <div className="mx-auto mb-10 w-fit">
           <Link to="/">
-            <img src="/hyoblin.png" alt="효도깨비" />
+            <img src={logo} alt="효도깨비" className="w-60" />
           </Link>
         </div>
         {hasError && (
@@ -72,24 +78,20 @@ export default function LoginForm() {
             labelVisible={false}
             placeholder="아이디"
             value={id}
-            onInput={onInputIdHandler}
+            onInput={(e) => setId(e.currentTarget.value)}
           />
           <TextField
             type="password"
             labelVisible={false}
             placeholder="비밀번호"
             value={password}
-            onInput={onInputPasswordHandler}
+            onInput={(e) => setPassword(e.currentTarget.value)}
           />
         </div>
         <div className="flex flex-col my-8 [&>*]:mb-3">
-          <ButtonAsset
-            text="로그인"
-            size="lg"
-            onClick={handleClickLoginButton}
-          />
+          <ButtonAsset type="submit" text="로그인" size="lg" />
           <Link to={KAKAO_AUTH_URL}>
-            <KakaoButton text="카카오 로그인하기" size="lg" />
+            <KakaoButton type="button" text="카카오 로그인하기" size="lg" />
           </Link>
         </div>
         <div className="flex justify-center *:text-sm *:text-gray-700 [&>*:hover]:underline last:pr-0">
@@ -99,7 +101,7 @@ export default function LoginForm() {
           <VerticalDivider />
           <Link to="/signup">회원가입</Link>
         </div>
-      </>
+      </form>
     </FormContainer>
   );
 }

@@ -3,6 +3,7 @@ import TextField from "../../../components/common/TextField";
 import FormContainer from "../../../components/user/FormContainer";
 import { Link, useNavigate } from "react-router-dom";
 import ButtonAsset from "../../../components/Button/ButtonAsset";
+import { getCheckPassword } from "../../../apis/api/member";
 
 export default function PwInquiryConfirm() {
   const [password, setPassword] = useState("");
@@ -17,10 +18,11 @@ export default function PwInquiryConfirm() {
       return;
     }
 
-    // 맞는 비밀번호인지 확인
-    // TODO: 현재 로그인한 회원 정보로 얻을 수 있지 않을까?
+    // TODO: 맞는 비밀번호인지 확인 - API 완성 후 수정 필요
     // 존재한다면 결과 페이지로 이동
-    if (true) {
+    // const result = await getCheckPassword(password);
+    const result = true;
+    if (result) {
       navigate("/help/pwInquiry/reset");
     } else {
       alert("비밀번호가 틀렸습니다. 다시 입력해주세요.");
@@ -46,7 +48,7 @@ export default function PwInquiryConfirm() {
           />
         </div>
         <div className="flex justify-center my-3">
-          <Link to={"/login"}>
+          <Link to={"/settings"}>
             <ButtonAsset text="뒤로가기" variant="outlined" className="mx-3" />
           </Link>
           <ButtonAsset
