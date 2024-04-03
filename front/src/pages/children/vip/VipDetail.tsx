@@ -74,12 +74,12 @@ export default function VipDetail() {
             />
             <div className="flex flex-col justify-center max-w-[250px] ml-14">
               <p className="flex w-full mb-2">
-                <div className="font-semibold w-28">닉네임</div>
-                <div>{VipDetailData?.vipNickname}</div>
+                <span className="font-semibold w-28">닉네임</span>
+                <span>{VipDetailData?.vipNickname}</span>
               </p>
               <p className="flex w-full mb-2">
-                <div className="font-semibold w-28">태어나신 해</div>
-                <div>{VipDetailData?.vipBirth}</div>
+                <span className="font-semibold w-28">태어나신 해</span>
+                <span>{VipDetailData?.vipBirth}</span>
               </p>
             </div>
           </div>
