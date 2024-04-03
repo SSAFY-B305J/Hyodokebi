@@ -1,3 +1,4 @@
+import { updateAccessToken } from "../../modules/auth/accessToken";
 import { axios } from "../utils/axios";
 
 const REST_FOOD_API = "/api/vip/sm";
@@ -38,8 +39,14 @@ export async function getPlainFood() {
 // vip 별 메뉴 추천
 export async function postRecommendFood(vipId: number, addData: number[]) {
   try {
-    const data = await axios.post(`/api/menu/${vipId}`, addData);
-    console.log("food.js postRecommendFood에서 받은 데이터 : ", data);
+    const data = await axios.post(`/api/menu/${vipId}`, addData, {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("accessToken"),
+      },
+    });
+
+    updateAccessToken(data);
+
     return data.data;
   } catch (error) {
     console.error("Error fetching data:", error);

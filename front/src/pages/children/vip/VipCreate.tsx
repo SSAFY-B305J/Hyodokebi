@@ -5,14 +5,6 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ButtonAsset from "../../../components/Button/ButtonAsset";
 import TextField from "../../../components/common/TextField";
 
-interface VipCreateData {
-  vipAgeGroups: null;
-  vipBirth: number;
-  vipId: number;
-  vipNickname: string;
-  vipProfile: number;
-}
-
 export default function VipCreate() {
   const navigate = useNavigate();
   const [vipData, setVipData] = useState({
@@ -21,28 +13,26 @@ export default function VipCreate() {
     vipProfile: 9,
   });
 
-  // const [ageGroups, setAgegroups] = useState([]);
-  const [birth, setBirth] = useState(0);
+  const [birth, setBirth] = useState("");
   const [nickname, setNickname] = useState("");
   const [profile, setProfile] = useState(0);
 
   const { id } = useParams();
 
-  const memberId = id ? parseInt(id) : NaN;
-
   const arr = Array.from({ length: 8 }, (v, i) => i);
 
   const handleClick = async () => {
-    if (birth !== 0 && nickname !== "" && profile !== 9) {
+    if (Number(birth) !== 0 && nickname !== "" && profile !== 9) {
       // ALERT 빈 값으로 두면 안되는 조건 추가, 조건 추가시 확인.
       try {
         localStorage.setItem("vipData", JSON.stringify(vipData));
+        await postVip(vipData);
         navigate(`/mypage/${id}/vip/chooseFood`);
       } catch (error) {
         console.error("Error creating VIP:", error);
       }
     } else {
-      if (birth === 0) {
+      if (Number(birth) === 0) {
         alert("태어나신 해를 입력해주세요.");
       } else if (nickname === "") {
         alert("닉네임을 입력해주세요.");
@@ -55,7 +45,7 @@ export default function VipCreate() {
   useEffect(() => {
     setVipData((vipData) => ({
       ...vipData,
-      vipBirth: birth,
+      vipBirth: Number(birth),
       vipNickname: nickname,
       vipProfile: profile,
     }));
@@ -89,7 +79,7 @@ export default function VipCreate() {
               id="birth"
               label="태어나신 해"
               value={birth}
-              onChange={(event) => setBirth(parseInt(event.target.value))}
+              onChange={(event) => setBirth(event.target.value)}
             />
           </div>
         </div>

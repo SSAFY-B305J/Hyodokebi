@@ -15,6 +15,8 @@ interface VipLists {
 }
 
 export default function VipList() {
+  const MAX_VIP_LENGTH = 8;
+
   const [VipListData, setVipListData] = useState<VipLists[]>([]);
   const { id } = useParams();
 
@@ -22,7 +24,7 @@ export default function VipList() {
   useEffect(() => {
     async function fetchVipList(memberIndex: number) {
       try {
-        const data = await getVipList(memberIndex);
+        const data = await getVipList();
         setVipListData(data);
       } catch (error) {
         alert("더 이상 VIP를 생성할 수 없습니다. ");
@@ -34,16 +36,11 @@ export default function VipList() {
   }, []);
 
   return (
-    <div className="box-border flex w-full h-[67vh] p-3 overflow-auto">
-      <div className="grid w-full h-full grid-cols-3 gap-3">
-        {VipListData?.map((VipLists: VipLists) => (
-          <VipCard
-            key={VipLists.vipId}
-            VipProps={VipLists}
-          />
-        ))}
-        {VipListData?.length !== 8 ? <VipAddCard /> : <></>}
-      </div>
+    <div className="flex flex-wrap w-full">
+      {VipListData?.map((VipLists: VipLists) => (
+        <VipCard key={VipLists.vipId} VipProps={VipLists} />
+      ))}
+      {VipListData?.length < MAX_VIP_LENGTH ? <VipAddCard /> : <></>}
     </div>
   );
 }

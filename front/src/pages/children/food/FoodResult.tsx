@@ -1,10 +1,8 @@
-import { Link, NavLink, useLocation, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import ButtonAsset from "../../../components/Button/ButtonAsset";
 import FoodResultCard from "../../../components/card/FoodResultCard";
 import FoodTap from "../../../components/food/FoodTap";
-import React, { useState, useEffect } from "react";
-import { postRecommendFood } from "../../../apis/api/food";
-import { log } from "console";
+import { useState, useEffect } from "react";
 
 interface CardProps {
   menuId: number;
@@ -17,22 +15,10 @@ export default function FoodResult() {
 
   console.log("FoodResult에서 꺼낸 recData", recData);
 
-  const { vipId } = useParams();
   const [startIndex, setStartIdex] = useState(0);
   const itemsPerPage = 3;
 
-  const empty: number[] = [];
-
   const [foods, setFoods] = useState<CardProps[]>(recData || []);
-
-  // const getRecommendFood = async () => {
-  //   try {
-  //     const data = await postRecommendFood(Number(vipId), empty);
-  //     setFoods(data);
-  //   } catch (error) {
-  //     console.error("Error fetching data:", error);
-  //   }
-  // };
 
   const handleRetryClick = () => {
     console.log("다시 추천하기");
@@ -55,9 +41,6 @@ export default function FoodResult() {
       </div>
       <div className="flex justify-center mb-5">
         <FoodTap index={3} />
-      </div>
-      <div className="flex justify-center mb-5 text-xl font-semibold ">
-        메뉴를 누르시면 주변의 음식점의 위치를 알려드립니다
       </div>
 
       <div className="flex justify-around mb-4 ">
@@ -89,10 +72,7 @@ export default function FoodResult() {
           />
         </div>
         <div className="flex justify-center grow">
-          <Link
-            to={"/food/choice"}
-            className="w-1/2"
-          >
+          <Link to={"/food/choice"} className="w-1/2">
             <ButtonAsset
               text="처음으로"
               variant="outlined"

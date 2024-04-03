@@ -1,6 +1,10 @@
 import { isAxiosError } from "axios";
 import { axios } from "../utils/axios";
 import parseJwt from "../../modules/auth/parseJwt";
+import {
+  getAccessToken,
+  updateAccessToken,
+} from "../../modules/auth/accessToken";
 
 const REST_MEMBER_API = "/api/member";
 
@@ -13,12 +17,10 @@ export async function postLogin(id: string, password: string) {
       memberPass: password,
     });
 
-    // Access Token 저장
-    const accessToken = data.headers["accesstoken"] || "";
-    localStorage.setItem("accessToken", accessToken);
+    updateAccessToken(data);
 
     // 로그인한 회원의 id 반환
-    return parseJwt(accessToken).sub;
+    return parseJwt(getAccessToken()).sub;
   } catch (error) {
     if (isAxiosError(error) && error.response) {
       throw new Error(error.response.status + "");
@@ -99,30 +101,66 @@ export async function getCheckPassword(password: string) {
   }
 }
 
-// TODO: 회원 정보 조회
-export async function getMemberInfo(memberId: number) {
+// 회원 정보 조회
+// 회원 id, 회원 정보 객체를 포함하는 object 반환
+export async function getMemberInfo() {
   try {
-    const data = await axios.get(REST_MEMBER_API + `/info/${memberId}`);
-    return data.data;
+    const token = "Bearer " + localStorage.getItem("accessToken");
+    const data = await axios.get(REST_MEMBER_API + `/info`, {
+      headers: {
+        Authorization: token,
+      },
+    });
+
+    updateAccessToken(data);
+
+    return {
+      idx: parseJwt(getAccessToken()).sub,
+      info: data.data,
+    };
   } catch (error) {
     console.error("Error fetching data:", error);
   }
 }
 
-// TODO: 회원 정보 수정
+// 회원 정보 수정
+// memberIndex: 회원 인덱스
+// options: 수정 내용을 넣을 객체 - value가 null인 것은 수정에 반영되지 않는다.
 export async function putMemberInfo(
-  memberIndex: number = 0,
-  memberNickname: string = "",
-  memberEmail: string = "",
-  memberPass: string = ""
+  memberIndex: number,
+  options: {
+    memberNickname?: string | null;
+    memberEmail?: string | null;
+    memberPass?: string | null;
+    memberProfile?: string;
+  }
 ) {
+  const reqData = {
+    memberNickname: null,
+    memberEmail: null,
+    memberPass: null,
+    memberProfile: null,
+    ...options,
+  };
+
   try {
-    const data = await axios.put(REST_MEMBER_API + "/update", {
-      memberIndex: memberIndex,
-      memberNickname: memberNickname,
-      memberEmail: memberEmail,
-      memberPass: memberPass,
-    });
+    const data = await axios.put(
+      REST_MEMBER_API + "/info",
+      {
+        memberIndex: memberIndex,
+        ...reqData,
+      },
+      {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("accessToken"),
+        },
+      }
+    );
+
+    // Access Token 갱신
+    const accessToken = data.headers["accesstoken"] || "";
+    localStorage.setItem("accessToken", accessToken);
+
     return data.data;
   } catch (error) {
     console.error("Error fetching data:", error);
