@@ -1,6 +1,10 @@
 import { isAxiosError } from "axios";
 import { axios } from "../utils/axios";
 import parseJwt from "../../modules/auth/parseJwt";
+import {
+  getAccessToken,
+  updateAccessToken,
+} from "../../modules/auth/accessToken";
 
 const REST_MEMBER_API = "/api/member";
 
@@ -13,12 +17,10 @@ export async function postLogin(id: string, password: string) {
       memberPass: password,
     });
 
-    // Access Token 저장
-    const accessToken = data.headers["accesstoken"] || "";
-    localStorage.setItem("accessToken", accessToken);
+    updateAccessToken(data);
 
     // 로그인한 회원의 id 반환
-    return parseJwt(accessToken).sub;
+    return parseJwt(getAccessToken()).sub;
   } catch (error) {
     if (isAxiosError(error) && error.response) {
       throw new Error(error.response.status + "");
@@ -110,12 +112,10 @@ export async function getMemberInfo() {
       },
     });
 
-    // Access Token 갱신
-    const accessToken = data.headers["accesstoken"] || "";
-    localStorage.setItem("accessToken", accessToken);
+    updateAccessToken(data);
 
     return {
-      idx: parseJwt(accessToken).sub,
+      idx: parseJwt(getAccessToken()).sub,
       info: data.data,
     };
   } catch (error) {

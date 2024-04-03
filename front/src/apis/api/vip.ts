@@ -1,3 +1,4 @@
+import { updateAccessToken } from "../../modules/auth/accessToken";
 import { axios } from "../utils/axios";
 
 const REST_VIP_API = "/api/vip";
@@ -11,9 +12,7 @@ export async function getVipList() {
       },
     });
 
-    // Access Token 저장
-    const accessToken = data.headers["accesstoken"] || "";
-    localStorage.setItem("accessToken", accessToken);
+    updateAccessToken(data);
 
     return data.data;
   } catch (error) {
@@ -39,9 +38,7 @@ export async function postVip(vipData: object) {
       },
     });
 
-    // Access Token 저장
-    const accessToken = data.headers["accesstoken"] || "";
-    localStorage.setItem("accessToken", accessToken);
+    updateAccessToken(data);
 
     return data.data;
   } catch (error) {
