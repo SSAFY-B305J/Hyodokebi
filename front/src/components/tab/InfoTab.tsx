@@ -25,8 +25,6 @@ interface LikeMusicData {
 export default function InfoTab({ vipId }: { vipId: number }) {
   const { tabIndex, setTabIndex } = useTabStore();
 
-  console.log("vipId : ", vipId);
-
   const [likeFood, setLikeFood] = useState<LikeFoodData[]>([]);
   const [likeMusic, setLikeMusic] = useState<LikeMusicData[]>([]);
 
@@ -34,7 +32,6 @@ export default function InfoTab({ vipId }: { vipId: number }) {
     try {
       const data = await getLikeFood(vipId);
       setLikeFood(data);
-      console.log("setLikeFood", data);
     } catch (error) {
       console.error("Error fetching VIP Detail:", error);
     }
@@ -43,7 +40,6 @@ export default function InfoTab({ vipId }: { vipId: number }) {
     try {
       const data = await getVipMusic(vipId);
       setLikeMusic(data);
-      console.log("setLikeMusic", data);
     } catch (error) {
       console.error("Error fetching VIP Detail:", error);
     }

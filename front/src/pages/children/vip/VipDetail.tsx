@@ -43,11 +43,9 @@ export default function VipDetail() {
     try {
       const isConfirmed = window.confirm("정말 삭제 하시겠습니까?");
       if (isConfirmed) {
-        const result = await deleteVip(vipId);
-        console.log("VIP가 성공적으로 삭제되었습니다.", result);
+        await deleteVip(vipId);
+        alert("VIP가 성공적으로 삭제되었습니다.");
         navigate(`/mypage/${id}/vip`);
-      } else {
-        console.log("사용자가 삭제를 취소했습니다.");
       }
     } catch (error) {
       console.error("VIP 삭제 중 오류가 발생했습니다:", error);
@@ -76,16 +74,12 @@ export default function VipDetail() {
             />
             <div className="flex flex-col justify-center max-w-[250px] ml-14">
               <p className="flex w-full mb-2">
-                <div className="font-semibold w-28">닉네임</div>
-                <div>{VipDetailData?.vipNickname}</div>
+                <span className="font-semibold w-28">닉네임</span>
+                <span>{VipDetailData?.vipNickname}</span>
               </p>
               <p className="flex w-full mb-2">
-                <div className="font-semibold w-28">태어나신 해</div>
-                <div>{VipDetailData?.vipBirth}</div>
-              </p>
-              <p className="flex w-full mb-2">
-                <div className="font-semibold w-28">나이대</div>
-                <div>{VipDetailData?.vipAgeGroups || "비공개"}</div>
+                <span className="font-semibold w-28">태어나신 해</span>
+                <span>{VipDetailData?.vipBirth}</span>
               </p>
             </div>
           </div>

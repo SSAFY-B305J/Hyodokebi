@@ -131,7 +131,7 @@ export default function FoodChoice() {
           <UnderLine text="VIP는 누구?" size="sm" />
           <div className="flex flex-row justify-center">
             {vipList.map((vip) => (
-              <div onClick={() => handleSelect(vip.vipId)}>
+              <div key={vip.vipId} onClick={() => handleSelect(vip.vipId)}>
                 <ChoiceVip
                   key={vip.vipId}
                   id={vip.vipId}
@@ -150,7 +150,7 @@ export default function FoodChoice() {
           text="다음"
           variant="outlined"
           className="w-1/4 font-semibold border-2 rounded-3xl hover:border-white "
-          disabled={sigungu == ""}
+          disabled={sigungu === ""}
           onClick={handleNext}
         />
       </div>

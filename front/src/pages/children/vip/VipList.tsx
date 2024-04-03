@@ -36,13 +36,11 @@ export default function VipList() {
   }, []);
 
   return (
-    <div className="box-border flex w-full h-[67vh] p-3 overflow-auto">
-      <div className="grid w-full h-full grid-cols-3 gap-3">
-        {VipListData?.map((VipLists: VipLists) => (
-          <VipCard key={VipLists.vipId} VipProps={VipLists} />
-        ))}
-        {VipListData?.length !== MAX_VIP_LENGTH ? <VipAddCard /> : <></>}
-      </div>
+    <div className="flex flex-wrap w-full">
+      {VipListData?.map((VipLists: VipLists) => (
+        <VipCard key={VipLists.vipId} VipProps={VipLists} />
+      ))}
+      {VipListData?.length < MAX_VIP_LENGTH ? <VipAddCard /> : <></>}
     </div>
   );
 }

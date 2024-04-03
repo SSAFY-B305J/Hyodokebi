@@ -2,6 +2,7 @@ import { create } from "zustand";
 import { createJSONStorage, devtools, persist } from "zustand/middleware";
 import Member from "../modules/types/member";
 import { getMemberInfo } from "../apis/api/member";
+import { getAccessToken } from "../modules/auth/accessToken";
 
 interface LoginState {
   loginMemberIdx: number;
@@ -20,7 +21,7 @@ const useLoginStore = create<LoginState>()(
       loginMember: null,
       setLoginMemberIdx: (by: number) => set(() => ({ loginMemberIdx: by })),
       setLoginMember: (by) => set(() => ({ loginMember: by })),
-      getIsLogin: () => Boolean(localStorage.getItem("accessToken")),
+      getIsLogin: () => Boolean(getAccessToken()),
 
       // 로그인 회원 정보 업데이트
       updateLoginMember: async () => {
