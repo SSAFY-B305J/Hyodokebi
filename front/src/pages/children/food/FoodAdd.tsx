@@ -87,7 +87,7 @@ export default function FoodAdd() {
         <div className="grid w-full h-full grid-cols-5 gap-3">
           {foodData ? (
             foodData.map((menu, index) => (
-              <div onClick={() => handleClick(menu.menuId)}>
+              <div key={index} onClick={() => handleClick(menu.menuId)}>
                 <MenuCard
                   key={index}
                   menu_id={menu.menuId}
