@@ -21,12 +21,11 @@ export default function VipCreate() {
 
   const arr = Array.from({ length: 8 }, (v, i) => i);
 
-  const handleClick = async () => {
+  const handleClick = () => {
     if (Number(birth) !== 0 && nickname !== "" && profile !== 9) {
       // ALERT 빈 값으로 두면 안되는 조건 추가, 조건 추가시 확인.
       try {
         localStorage.setItem("vipData", JSON.stringify(vipData));
-        await postVip(vipData);
         navigate(`/mypage/${id}/vip/chooseFood`);
       } catch (error) {
         console.error("Error creating VIP:", error);

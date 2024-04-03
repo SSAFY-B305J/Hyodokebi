@@ -12,11 +12,11 @@ interface LikeFoodData {
   cateImage: number;
 }
 interface VipLists {
-  vipAgeGroups: null;
-  vipBirth: number;
   vipId: number;
   vipNickname: string;
+  vipBirth: number;
   vipProfile: number;
+  vipAgeGroups: number;
 }
 
 export default function VipAddFood() {
@@ -26,12 +26,7 @@ export default function VipAddFood() {
   const [foodData, setFoodData] = useState<LikeFoodData[]>([]);
   const [addList, setAddList] = useState<number[]>([]);
 
-  //vipId를 찾기 위해 vipList 마지막 등록된 vipId를 불러옴
   const [VipListData, setVipListData] = useState<VipLists[]>([]);
-  const vipId =
-    VipListData.length > 0
-      ? VipListData[VipListData.length - 1].vipId
-      : undefined;
 
   const fetchVipList = async () => {
     try {
@@ -41,7 +36,7 @@ export default function VipAddFood() {
       console.error("Error fetching VIP list:", error);
     }
   };
-
+  //음식 메뉴 나열
   const getFoodData = async () => {
     try {
       const data = await getPlainFood();
@@ -61,34 +56,43 @@ export default function VipAddFood() {
       setAddList([...addList, menuId]);
     }
   };
+  //vip 생성 및 선호 음식 추가
+  // const handleSave = async () => {
+  //   try {
+  //     const vipData = JSON.parse(localStorage.getItem("vipData") || "{}");
+  //     console.log("vipData꺼냄 ", vipData);
 
-  const handleSave = async () => {
-    try {
-      const vipData = JSON.parse(localStorage.getItem("vipData") || "{}");
+  //     // VIP 데이터 추가
+  //     await postVip(vipData);
+  //     console.log("postVip 보냄 ");
 
-      // VIP 데이터 추가
-      await postVip(vipData).then(() => {
-        // VIP 데이터 추가가 성공하면 VIP 목록을 다시 가져옴
-        fetchVipList();
-      });
+  //     // VIP 데이터 추가가 성공하면 VIP 목록을 다시 가져옴
+  //     await fetchVipList();
+  //     console.log("handleSave: vip 리스트 가져옴", VipListData);
 
-      // 음식 데이터 추가
-      await postAddFood(Number(vipId), addList);
+  //     //vipId를 찾기 위해 vipList 마지막 등록된 vipId를 불러옴
+  //     const vipId =
+  //       VipListData.length > 0 ? VipListData[VipListData.length - 1].vipId : 0;
+  //     console.log("마지막 추가된 vip", vipId);
 
-      // 마이페이지 VIP 탭으로 이동
-      navigate(`/mypage/${loginMemberIdx}/vip`);
-    } catch (error) {
-      console.error("Error handling save:", error);
-      // 에러 처리 추가
-    }
-  };
+  //     // 음식 데이터 추가
+  //     await postAddFood(vipId, addList);
+  //     console.log("음식 추가됨?");
+
+  //     // 마이페이지 VIP 탭으로 이동
+  //     navigate(`/mypage/${loginMemberIdx}/vip`);
+  //   } catch (error) {
+  //     console.error("Error handling save:", error);
+  //     // 에러 처리 추가
+  //   }
+  // };
 
   useEffect(() => {
     getFoodData();
 
     return () => {
       // 페이지를 벗어날 때 로컬스토리지를 지우는 코드
-      localStorage.removeItem("recData");
+      localStorage.removeItem("vipData");
     };
   }, []);
 
@@ -102,7 +106,10 @@ export default function VipAddFood() {
         <div className="grid w-full h-full grid-cols-5 gap-3">
           {foodData ? (
             foodData.map((menu, index) => (
-              <div onClick={() => handleClick(menu.menuId)}>
+              <div
+                key={index}
+                onClick={() => handleClick(menu.menuId)}
+              >
                 <MenuCard
                   key={index}
                   menu_id={menu.menuId}
