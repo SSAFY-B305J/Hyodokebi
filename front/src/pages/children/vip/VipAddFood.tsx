@@ -18,6 +18,11 @@ interface VipLists {
   vipProfile: number;
   vipAgeGroups: number;
 }
+interface Vip {
+  vipNickname: string;
+  vipBirth: number;
+  vipProfile: number;
+}
 
 export default function VipAddFood() {
   const navigate = useNavigate();
@@ -59,11 +64,11 @@ export default function VipAddFood() {
   //vip 생성 및 선호 음식 추가
   const handleSave = async () => {
     try {
-      const vipData = JSON.parse(localStorage.getItem("vipData") || "{}");
+      const vipData: Vip = JSON.parse(localStorage.getItem("vipData") || "{}");
       console.log("vipData꺼냄 ", vipData);
 
       // VIP 데이터 추가
-      await postVip(vipData);
+      await postVip(vipData.vipNickname, vipData.vipBirth, vipData.vipProfile);
       console.log("postVip 보냄 ");
 
       // VIP 데이터 추가가 성공하면 VIP 목록을 다시 가져옴

@@ -30,9 +30,22 @@ export async function selectVipList() {
 }
 
 // VIP 추가
-export async function postVip(vipData: object) {
+export async function postVip(
+  nickname: string,
+  birth: number,
+  profile: number
+) {
+  const req = {
+    vipId: 0,
+    vipNickname: nickname,
+    vipBirth: birth,
+    vipProfile: profile,
+    vipAgeGroups: [],
+  };
+  console.log(req);
+
   try {
-    const data = await axios.post(REST_VIP_API, vipData, {
+    const data = await axios.post(REST_VIP_API, req, {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("accessToken"),
       },

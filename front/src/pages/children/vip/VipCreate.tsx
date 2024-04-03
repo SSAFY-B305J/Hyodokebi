@@ -8,12 +8,9 @@ import TextField from "../../../components/common/TextField";
 export default function VipCreate() {
   const navigate = useNavigate();
   const [vipData, setVipData] = useState({
-    vip_birth: 0,
-    vip_nickname: "",
-    vip_profile: 9,
-    // vipBirth: 0,
-    // vipNickname: "",
-    // vipProfile: 9,
+    vipBirth: 0,
+    vipNickname: "",
+    vipProfile: 9,
   });
 
   const [birth, setBirth] = useState("");
@@ -29,6 +26,9 @@ export default function VipCreate() {
       // ALERT 빈 값으로 두면 안되는 조건 추가, 조건 추가시 확인.
       try {
         localStorage.setItem("vipData", JSON.stringify(vipData));
+        console.log(vipData);
+        console.log(vipData.vipNickname, vipData.vipBirth, vipData.vipProfile);
+        postVip(vipData.vipNickname, vipData.vipBirth, vipData.vipProfile);
         navigate(`/mypage/${id}/vip/chooseFood`);
       } catch (error) {
         console.error("Error creating VIP:", error);
@@ -47,9 +47,9 @@ export default function VipCreate() {
   useEffect(() => {
     setVipData((vipData) => ({
       ...vipData,
-      vip_birth: Number(birth),
-      vip_nickname: nickname,
-      vip_profile: profile,
+      vipBirth: Number(birth),
+      vipNickname: nickname,
+      vipProfile: profile,
     }));
   }, [birth, nickname, profile]);
 
