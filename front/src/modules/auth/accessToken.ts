@@ -1,7 +1,7 @@
 import { AxiosResponse } from "axios";
 
 export function getAccessToken(): string {
-  const token = localStorage.getItem("access_token");
+  const token = localStorage.getItem("accessToken");
 
   if (token) return token;
   else return "";
