@@ -19,6 +19,7 @@ import java.util.Map;
 
 @RequiredArgsConstructor
 @RestController
+@CrossOrigin()
 public class MenuControlloer {
 
     private final MenuService menuService;
