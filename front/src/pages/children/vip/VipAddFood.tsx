@@ -36,9 +36,9 @@ export default function VipAddFood() {
       ? VipListData[VipListData.length - 1].vipId
       : undefined;
 
-  const fetchVipList = async (memberIndex: number) => {
+  const fetchVipList = async () => {
     try {
-      const data = await getVipList(memberIndex);
+      const data = await getVipList();
       setVipListData(data);
     } catch (error) {
       console.error("Error fetching VIP list:", error);
@@ -67,7 +67,7 @@ export default function VipAddFood() {
 
   useEffect(() => {
     getFoodData();
-    fetchVipList(Number(loginMemberIdx));
+    fetchVipList();
   }, []);
 
   return (

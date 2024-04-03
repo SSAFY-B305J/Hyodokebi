@@ -28,7 +28,7 @@ export default function MusicVipSelect() {
   // vipList의 값을 저장한다.
   // vip가 있으면 첫 번째 vip의 값을 selectedVip에 저장한다.
   async function initVipList() {
-    const data = await getVipList(loginMemberIdx);
+    const data = await getVipList();
     setVipList(data);
     if (data?.length > 0) setSelectedVip(data[0].vipId);
   }

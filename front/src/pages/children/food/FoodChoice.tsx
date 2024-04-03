@@ -49,8 +49,7 @@ export default function FoodChoice() {
 
   // vipList의 값을 저장한다.
   async function initVipList() {
-    // TODO: 현재 로그인한 id로 수정
-    const data = await getVipList(loginMemberIdx);
+    const data = await getVipList();
     setVipList(data);
     if (data.length > 0) setSelectedVip(data[0].vipId);
   }
