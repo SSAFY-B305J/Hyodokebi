@@ -3,23 +3,16 @@ import ProfileMenu from "./ProfileMenu";
 import useLoginStore from "../../store/useLoginStore";
 import logo from "../../assets/logo.png";
 import { useCallback, useEffect } from "react";
-import { getMemberInfo } from "../../apis/api/member";
 
 export default function MainHeader() {
   const navigate = useNavigate();
-  const { loginMember, getIsLogin, setLoginMember, setLoginMemberIdx } =
-    useLoginStore();
+  const { loginMember, getIsLogin, updateLoginMember } = useLoginStore();
   const isLogin = getIsLogin();
 
   // 로그인한 회원 정보 조회 후 store에 저장
   const initMemberInfo = useCallback(async () => {
-    const data = await getMemberInfo().then((res) => res);
-
-    if (data) {
-      setLoginMemberIdx(data.idx);
-      setLoginMember(data.info);
-    }
-  }, [setLoginMember, setLoginMemberIdx]);
+    updateLoginMember();
+  }, [updateLoginMember]);
 
   useEffect(() => {
     if (isLogin) initMemberInfo();
