@@ -88,15 +88,12 @@ export default function FoodAdd() {
         <div className="grid w-full h-full grid-cols-5 gap-3">
           {foodData ? (
             foodData.map((menu, index) => (
-              <div
-                key={index}
-                onClick={() => handleClick(menu.menuId)}
-              >
+              <div key={index} onClick={() => handleClick(menu.menuId)}>
                 <MenuCard
                   key={index}
                   menu_id={menu.menuId}
                   menu_name={menu.menuName}
-                  cate_image={menu.cateImage}
+                  cate_image={0}
                   className={
                     addList.includes(menu.menuId) ? "border-primary" : ""
                   }

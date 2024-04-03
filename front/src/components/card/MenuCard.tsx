@@ -26,7 +26,7 @@ export default function MenuCard(props: {
         <img
           src={url}
           alt={props.menu_name}
-          className="flex justify-center w-[50%]"
+          className="flex justify-center w-[30%]"
         />
       </div>
       <div className="flex flex-col justify-center">
