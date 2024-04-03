@@ -26,9 +26,6 @@ export default function VipCreate() {
       // ALERT 빈 값으로 두면 안되는 조건 추가, 조건 추가시 확인.
       try {
         localStorage.setItem("vipData", JSON.stringify(vipData));
-        console.log(vipData);
-        console.log(vipData.vipNickname, vipData.vipBirth, vipData.vipProfile);
-        postVip(vipData.vipNickname, vipData.vipBirth, vipData.vipProfile);
         navigate(`/mypage/${id}/vip/chooseFood`);
       } catch (error) {
         console.error("Error creating VIP:", error);

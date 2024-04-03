@@ -40,9 +40,8 @@ export async function postVip(
     vipNickname: nickname,
     vipBirth: birth,
     vipProfile: profile,
-    vipAgeGroups: [],
+    vipAgeGroups: null,
   };
-  console.log(req);
 
   try {
     const data = await axios.post(REST_VIP_API, req, {

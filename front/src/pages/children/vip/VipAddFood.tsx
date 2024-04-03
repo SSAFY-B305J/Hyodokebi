@@ -18,11 +18,6 @@ interface VipLists {
   vipProfile: number;
   vipAgeGroups: number;
 }
-interface Vip {
-  vipNickname: string;
-  vipBirth: number;
-  vipProfile: number;
-}
 
 export default function VipAddFood() {
   const navigate = useNavigate();
@@ -33,9 +28,15 @@ export default function VipAddFood() {
 
   const [VipListData, setVipListData] = useState<VipLists[]>([]);
 
+  let vipId = -1; // 생성할 vip의 id
+
   const fetchVipList = async () => {
     try {
       const data = await getVipList();
+
+      // vipId를 찾기 위해 vipList 마지막 등록된 vipId를 불러옴
+      vipId = data.length > 0 ? data[data.length - 1].vipId : 0;
+
       setVipListData(data);
     } catch (error) {
       console.error("Error fetching VIP list:", error);
@@ -64,25 +65,16 @@ export default function VipAddFood() {
   //vip 생성 및 선호 음식 추가
   const handleSave = async () => {
     try {
-      const vipData: Vip = JSON.parse(localStorage.getItem("vipData") || "{}");
-      console.log("vipData꺼냄 ", vipData);
+      const vipData = JSON.parse(localStorage.getItem("vipData") || "{}");
 
       // VIP 데이터 추가
       await postVip(vipData.vipNickname, vipData.vipBirth, vipData.vipProfile);
-      console.log("postVip 보냄 ");
 
       // VIP 데이터 추가가 성공하면 VIP 목록을 다시 가져옴
       await fetchVipList();
-      console.log("handleSave: vip 리스트 가져옴", VipListData);
-
-      //vipId를 찾기 위해 vipList 마지막 등록된 vipId를 불러옴
-      const vipId =
-        VipListData.length > 0 ? VipListData[VipListData.length - 1].vipId : 0;
-      console.log("마지막 추가된 vip", vipId);
 
       // 음식 데이터 추가
       await postAddFood(vipId, addList);
-      console.log("음식 추가됨?");
 
       // 마이페이지 VIP 탭으로 이동
       navigate(`/mypage/${loginMemberIdx}/vip`);
