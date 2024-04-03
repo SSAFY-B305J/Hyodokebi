@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
-import MenuCard from "../../../components/card/MenuCard";
 import ButtonAsset from "../../../components/Button/ButtonAsset";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import TextField from "../../../components/common/TextField";
@@ -113,15 +112,6 @@ export default function VipEdit() {
                   onClick={() => setProfile(x)}
                 />
               ))}
-            </div>
-          </div>
-        </div>
-        {/* TODO: 선호음식 선택*/}
-        <div className="w-full py-8 ">
-          <h2 className="mb-3 text-lg font-bold">선호 음식 선택</h2>
-          <div className="flex w-full p-2 overflow-auto">
-            <div className="grid w-full h-full grid-cols-5 gap-3">
-              <MenuCard cate_image={1} menu_id={1} menu_name="1" />
             </div>
           </div>
         </div>
