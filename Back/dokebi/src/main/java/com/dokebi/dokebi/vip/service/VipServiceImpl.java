@@ -3,16 +3,22 @@ package com.dokebi.dokebi.vip.service;
 import com.dokebi.dokebi.member.entity.Member;
 import com.dokebi.dokebi.member.repository.MemberRepository;
 import com.dokebi.dokebi.music.dto.MusicDto;
+import com.dokebi.dokebi.music.dto.MusicTemplateDto;
 import com.dokebi.dokebi.music.entity.DisLikedMusic;
 import com.dokebi.dokebi.music.entity.SavedMusic;
 import com.dokebi.dokebi.music.repository.MusicRepository;
 import com.dokebi.dokebi.vip.dto.VipDto;
 import com.dokebi.dokebi.vip.entity.Vip;
 import com.dokebi.dokebi.vip.repository.VipRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -94,6 +100,12 @@ public class VipServiceImpl implements VipService {
                 .build();
 
         Vip savedVip = vipRepository.save(vip);
+
+        // matrix에 새로운 vip 행 추가
+        RestTemplate restTemplate = new RestTemplate();
+        String flaskEndpoint = "http://127.0.0.1:5000/pyapi/vip/" + savedVip.getVipId();
+        restTemplate.getForObject(flaskEndpoint, String.class);
+
         return savedVip.getVipId();
     }
 

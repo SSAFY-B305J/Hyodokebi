@@ -32,9 +32,6 @@ public class Menu {
     @OneToMany(mappedBy = "menu")
     private List<Sm> sms;
 
-    @ManyToOne()
-    private Wtc wtc;
-
     @OneToMany(mappedBy = "menu")
     private List<Restaurant> restaurants;
 

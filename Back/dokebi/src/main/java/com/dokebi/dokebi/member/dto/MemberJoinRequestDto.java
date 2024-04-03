@@ -16,7 +16,7 @@ public class MemberJoinRequestDto {
     String memberPass;
     String memberEmail;
     String memberNickname;
-    String memberProfile;
+
 
     public Member toEntity(){
         return Member.builder()
@@ -25,7 +25,7 @@ public class MemberJoinRequestDto {
                 .memberNickname(memberNickname)
                 .memberEmail(memberEmail)
                 .memberRole(MemberRole.USER)
-                .memberProfile(memberProfile).build();
+                .memberProfile("0").build();
     }
 
 }

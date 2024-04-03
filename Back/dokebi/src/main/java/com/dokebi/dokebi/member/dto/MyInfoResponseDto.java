@@ -13,12 +13,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MyInfoResponseDto {
-    private String memberId, memberNickname, memberEmail;
+    private String memberId, memberNickname, memberEmail, memberProfile;
 
 
     public MyInfoResponseDto(Member member) {
         memberId = member.getMemberId();
         memberNickname = member.getMemberNickname();
         memberEmail = member.getMemberEmail();
+        memberProfile = member.getMemberProfile();
     }
 }
