@@ -4,7 +4,7 @@ import useLoginStore from "../../store/useLoginStore";
 
 export default function DoubleTab() {
   const { tabIndex, setTabIndex } = useTabStore();
-  const { loginMemberId } = useLoginStore();
+  const { loginMemberIdx } = useLoginStore();
   const navigate = useNavigate();
 
   const disabled =
@@ -19,7 +19,7 @@ export default function DoubleTab() {
           className={tabIndex === 0 ? activated : disabled}
           onClick={() => {
             setTabIndex(0);
-            navigate(`/mypage/${loginMemberId}/profile`);
+            navigate(`/mypage/${loginMemberIdx}/profile`);
           }}
         >
           내 프로필
@@ -28,7 +28,7 @@ export default function DoubleTab() {
           className={tabIndex === 1 ? activated : disabled}
           onClick={() => {
             setTabIndex(1);
-            navigate(`/mypage/${loginMemberId}/vip`);
+            navigate(`/mypage/${loginMemberIdx}/vip`);
           }}
         >
           VIP

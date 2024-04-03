@@ -16,8 +16,8 @@ import { Vip } from "../../../modules/types/vip";
 import useLoginStore from "../../../store/useLoginStore";
 
 export default function FoodChoice() {
+  const { loginMemberIdx } = useLoginStore();
   const navigate = useNavigate();
-  const { loginMemberId } = useLoginStore();
 
   const [selectedSiDo, setSelectedSiDo] = useState<string>("");
   const [siGunGuOptions, setSiGunGuOptions] = useState<string[]>([]);
@@ -50,8 +50,7 @@ export default function FoodChoice() {
 
   // vipList의 값을 저장한다.
   async function initVipList() {
-    // TODO: 현재 로그인한 id로 수정
-    const data = await getVipList(loginMemberId);
+    const data = await getVipList();
     setVipList(data);
     if (data.length > 0) setSelectedVip(data[0].vipId);
   }
@@ -86,10 +85,7 @@ export default function FoodChoice() {
 
       <div className="ml-20 mr-20">
         <div>
-          <UnderLine
-            text="지역을 골라주세요"
-            size="sm"
-          />
+          <UnderLine text="지역을 골라주세요" size="sm" />
           <div className="flex flex-row m-5">
             <Box sx={{ minWidth: 120 }}>
               <FormControl fullWidth>
@@ -103,10 +99,7 @@ export default function FoodChoice() {
                   onChange={handleSiDoChange}
                 >
                   {uniqueSiDoList.map((siDo, index) => (
-                    <MenuItem
-                      key={index}
-                      value={siDo}
-                    >
+                    <MenuItem key={index} value={siDo}>
                       {siDo}
                     </MenuItem>
                   ))}
@@ -125,10 +118,7 @@ export default function FoodChoice() {
                   onChange={handleSigunguChange}
                 >
                   {siGunGuOptions.map((gungu, index) => (
-                    <MenuItem
-                      key={index}
-                      value={gungu}
-                    >
+                    <MenuItem key={index} value={gungu}>
                       {gungu}
                     </MenuItem>
                   ))}
@@ -138,11 +128,8 @@ export default function FoodChoice() {
           </div>
         </div>
         <div className="mt-5">
-          <UnderLine
-            text="VIP는 누구?"
-            size="sm"
-          />
-          <div className="flex flex-row justify-center ">
+          <UnderLine text="VIP는 누구?" size="sm" />
+          <div className="flex flex-row justify-center">
             {vipList.map((vip) => (
               <div onClick={() => handleSelect(vip.vipId)}>
                 <ChoiceVip

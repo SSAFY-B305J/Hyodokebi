@@ -24,7 +24,7 @@ interface VipLists {
 }
 
 export default function VipAddFood() {
-  const { loginMemberId } = useLoginStore();
+  const { loginMemberIdx } = useLoginStore();
 
   const [foodData, setFoodData] = useState<LikeFoodData[]>([]);
   const [addList, setAddList] = useState<number[]>([]);
@@ -36,9 +36,9 @@ export default function VipAddFood() {
       ? VipListData[VipListData.length - 1].vipId
       : undefined;
 
-  const fetchVipList = async (memberIndex: number) => {
+  const fetchVipList = async () => {
     try {
-      const data = await getVipList(memberIndex);
+      const data = await getVipList();
       setVipListData(data);
     } catch (error) {
       console.error("Error fetching VIP list:", error);
@@ -67,7 +67,7 @@ export default function VipAddFood() {
 
   useEffect(() => {
     getFoodData();
-    fetchVipList(Number(loginMemberId));
+    fetchVipList();
   }, []);
 
   return (
@@ -98,10 +98,7 @@ export default function VipAddFood() {
         </div>
       </div>
       <div className="flex justify-center mt-3 ">
-        <Link
-          to={`/mypage/${loginMemberId}/vip`}
-          className="w-1/4"
-        >
+        <Link to={`/mypage/${loginMemberIdx}/vip`} className="w-1/4">
           <ButtonAsset
             text="저장"
             variant="outlined"
