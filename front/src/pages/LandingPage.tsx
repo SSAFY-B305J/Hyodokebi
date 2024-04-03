@@ -1,4 +1,3 @@
-import { ArrowForward } from "@mui/icons-material";
 import TopicBox from "../components/topic/TopicBox";
 import useLoginStore from "../store/useLoginStore";
 import useScrollFadeIn from "../modules/hook/useScrollFadeIn";
@@ -12,6 +11,7 @@ export default function LandingPage() {
   const scrollUpAnimation3 = useScrollFadeIn({ direction: "right" });
   const scrollUpAnimation4 = useScrollFadeIn({ direction: "left" });
   const scrollUpAnimation5 = useScrollFadeIn({ direction: "right" });
+  const scrollUpAnimation6 = useScrollFadeIn({ threshold: 0.4 });
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -39,10 +39,19 @@ export default function LandingPage() {
               {"효도깨비는 VIP님과 함께 \n대화할 수 있는 주제를 추천해줍니다."}
             </div>
             <div className="text-[20px] text-center my-3">
-              {
-                "VIP는 저희 서비스가 추천한 관심사를 공유하는 분을 뜻합니다.\n여러분의 VIP를 등록하고 관심사를 찾아보세요."
-              }
+              <div>
+                VIP는 저희 서비스가 <strong>추천한 관심사를 공유하는 분</strong>
+                을 뜻합니다.
+              </div>
+              <div>여러분의 VIP를 등록하고 관심사를 찾아보세요.</div>
             </div>
+          </div>
+          <div {...scrollUpAnimation6}>
+            <img
+              src="/mainPage/main_1.png"
+              alt=""
+              className="w-[600px] my-10"
+            />
           </div>
         </div>
       </div>
@@ -52,7 +61,9 @@ export default function LandingPage() {
             <div className="text-[42px] font-bold text-primary">
               대화 주제를 추천해드려요.
             </div>
-            <div className="text-[24px]">오늘의 대화 주제를 확인해보세요.</div>
+            <div className="text-[24px] py-3">
+              오늘의 대화 주제를 확인해보세요.
+            </div>
           </div>
           <div>
             <TopicBox isLogin={getIsLogin()} />
@@ -66,33 +77,29 @@ export default function LandingPage() {
               <div className="text-[42px] font-bold text-primary">
                 함께 외식하기 좋은 음식 메뉴를 추천해드려요.
               </div>
-              <div className="text-[24px]">음식 추천 기능을 소개하는 글</div>
-              <div className="mt-5">
-                <button className="flex items-center justify-center px-4 py-2 text-white rounded-full bg-primary">
-                  <span className="pr-2">추천 받기</span>
-                  <ArrowForward fontSize="small" />
-                </button>
+              <div className="text-[24px] py-3">
+                간단한 음식 취향 설문을 통해 VIP님이 만족하실 수 있는 메뉴를
+                보여드릴게요.
               </div>
             </div>
           </div>
+          <img src="/mainPage/main_2.png" alt="" className="w-[600px]" />
         </div>
       </div>
       <div className="w-full">
         <div className="w-[1200px] h-[650px] mx-auto my-0 flex justify-between items-center">
-          <div className="flex flex-col">
-            <div {...scrollUpAnimation5} className="w-[500px] break-keep">
+          <div {...scrollUpAnimation5} className="flex flex-col">
+            <div className="w-[500px] break-keep">
               <div className="text-[42px] font-bold text-primary">
                 과거에 유행했던 노래를 추천해드려요.
               </div>
-              <div className="text-[24px]">노래 추천 기능을 소개하는 글.</div>
-              <div className="mt-5">
-                <button className="flex items-center justify-center px-4 py-2 text-white rounded-full bg-primary">
-                  <span className="pr-2">추천 받기</span>
-                  <ArrowForward fontSize="small" />
-                </button>
+              <div className="text-[24px] py-3">
+                VIP님의 10대, 20대, 30대를 함께 한 노래를 알아보세요.
               </div>
+              <div className="mt-5"></div>
             </div>
           </div>
+          <img src="/mainPage/main_3.png" alt="" className="w-[600px]" />
         </div>
       </div>
     </div>
