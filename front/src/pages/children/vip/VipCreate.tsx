@@ -8,9 +8,12 @@ import TextField from "../../../components/common/TextField";
 export default function VipCreate() {
   const navigate = useNavigate();
   const [vipData, setVipData] = useState({
-    vipBirth: 0,
-    vipNickname: "",
-    vipProfile: 9,
+    vip_birth: 0,
+    vip_nickname: "",
+    vip_profile: 9,
+    // vipBirth: 0,
+    // vipNickname: "",
+    // vipProfile: 9,
   });
 
   const [birth, setBirth] = useState("");
@@ -44,9 +47,9 @@ export default function VipCreate() {
   useEffect(() => {
     setVipData((vipData) => ({
       ...vipData,
-      vipBirth: Number(birth),
-      vipNickname: nickname,
-      vipProfile: profile,
+      vip_birth: Number(birth),
+      vip_nickname: nickname,
+      vip_profile: profile,
     }));
   }, [birth, nickname, profile]);
 

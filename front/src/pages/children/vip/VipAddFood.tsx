@@ -57,35 +57,35 @@ export default function VipAddFood() {
     }
   };
   //vip 생성 및 선호 음식 추가
-  // const handleSave = async () => {
-  //   try {
-  //     const vipData = JSON.parse(localStorage.getItem("vipData") || "{}");
-  //     console.log("vipData꺼냄 ", vipData);
+  const handleSave = async () => {
+    try {
+      const vipData = JSON.parse(localStorage.getItem("vipData") || "{}");
+      console.log("vipData꺼냄 ", vipData);
 
-  //     // VIP 데이터 추가
-  //     await postVip(vipData);
-  //     console.log("postVip 보냄 ");
+      // VIP 데이터 추가
+      await postVip(vipData);
+      console.log("postVip 보냄 ");
 
-  //     // VIP 데이터 추가가 성공하면 VIP 목록을 다시 가져옴
-  //     await fetchVipList();
-  //     console.log("handleSave: vip 리스트 가져옴", VipListData);
+      // VIP 데이터 추가가 성공하면 VIP 목록을 다시 가져옴
+      await fetchVipList();
+      console.log("handleSave: vip 리스트 가져옴", VipListData);
 
-  //     //vipId를 찾기 위해 vipList 마지막 등록된 vipId를 불러옴
-  //     const vipId =
-  //       VipListData.length > 0 ? VipListData[VipListData.length - 1].vipId : 0;
-  //     console.log("마지막 추가된 vip", vipId);
+      //vipId를 찾기 위해 vipList 마지막 등록된 vipId를 불러옴
+      const vipId =
+        VipListData.length > 0 ? VipListData[VipListData.length - 1].vipId : 0;
+      console.log("마지막 추가된 vip", vipId);
 
-  //     // 음식 데이터 추가
-  //     await postAddFood(vipId, addList);
-  //     console.log("음식 추가됨?");
+      // 음식 데이터 추가
+      await postAddFood(vipId, addList);
+      console.log("음식 추가됨?");
 
-  //     // 마이페이지 VIP 탭으로 이동
-  //     navigate(`/mypage/${loginMemberIdx}/vip`);
-  //   } catch (error) {
-  //     console.error("Error handling save:", error);
-  //     // 에러 처리 추가
-  //   }
-  // };
+      // 마이페이지 VIP 탭으로 이동
+      navigate(`/mypage/${loginMemberIdx}/vip`);
+    } catch (error) {
+      console.error("Error handling save:", error);
+      // 에러 처리 추가
+    }
+  };
 
   useEffect(() => {
     getFoodData();
