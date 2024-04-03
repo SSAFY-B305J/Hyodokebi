@@ -18,7 +18,14 @@ export async function getLikeFood(vipId: number) {
 // 선호 메뉴 추가
 export async function postAddFood(vipId: number, foodList: number[]) {
   try {
-    const data = await axios.post(REST_FOOD_API + `/${vipId}`, foodList);
+    const data = await axios.post(REST_FOOD_API + `/${vipId}`, foodList, {
+      headers: {
+        Authorization: `Bearer ` + localStorage.getItem("accessToken"),
+      },
+    });
+
+    updateAccessToken(data);
+
     return data.data;
   } catch (error) {
     console.error("Error fetching data:", error);
