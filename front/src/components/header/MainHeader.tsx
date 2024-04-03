@@ -13,9 +13,12 @@ export default function MainHeader() {
 
   // 로그인한 회원 정보 조회 후 store에 저장
   const initMemberInfo = useCallback(async () => {
-    const data = await getMemberInfo().then((res) => res?.info);
-    setLoginMemberIdx(data.idx);
-    setLoginMember(data);
+    const data = await getMemberInfo().then((res) => res);
+
+    if (data) {
+      setLoginMemberIdx(data.idx);
+      setLoginMember(data.info);
+    }
   }, [setLoginMember, setLoginMemberIdx]);
 
   useEffect(() => {
