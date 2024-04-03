@@ -3,13 +3,16 @@ import { axios } from "../utils/axios";
 const REST_VIP_API = "api/vip";
 
 // member의 VIP 목록 조회
-export async function getVipList(memberId: number) {
+export async function getVipList() {
   try {
-    const data = await axios.get(`/api/myvip/${memberId}`);
+    const data = await axios.get(`/api/myvip`, {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("accessToken"),
+      },
+    });
     return data.data;
   } catch (error) {
     throw error;
-    // console.error("Error fetching data:", error);
   }
 }
 
