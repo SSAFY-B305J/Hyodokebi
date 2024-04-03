@@ -20,21 +20,17 @@ export default function FoodResultCard(props: {
   const category = categoryMap[props.cate_image] || "Unknown";
   return (
     // <NavLink // to={`/`} hover:border-primary
-    <div className="flex flex-col justify-between w-[18vw] p-2 m-2 border-2 border-gray-300 shadow-md h-[45vh] rounded-2xl ">
-      <div className="flex justify-center w-full grow">
-        <img
-          src={url}
-          alt={props.menu_name}
-          className="w-3/4"
-        />
+    <div className="flex flex-col justify-center w-[18vw] p-2 m-2 border-2 border-gray-300 shadow-md h-[45vh] rounded-2xl ">
+      <div className="flex justify-center w-full">
+        <img src={url} alt={props.menu_name} className="w-[50%]" />
       </div>
       <div className="flex flex-col justify-center">
         <div className="flex justify-center m-3 text-2xl font-semibold">
           {props.menu_name}
         </div>
-        <div className="flex justify-center m-3 font-medium text-gray-500">
+        {/* <div className="flex justify-center m-3 font-medium text-gray-500">
           {category}
-        </div>
+        </div> */}
       </div>
       {/* </NavLink> */}
     </div>

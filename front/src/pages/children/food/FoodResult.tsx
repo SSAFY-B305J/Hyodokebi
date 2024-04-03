@@ -53,7 +53,7 @@ export default function FoodResult() {
                 key={index}
                 menu_id={menu.menuId}
                 menu_name={menu.menuName}
-                cate_image={menu.cateImage}
+                cate_image={0}
               />
               // </div>
             ))
