@@ -5,10 +5,9 @@ import { useEffect, useState } from "react";
 import {
   getPlainFood,
   postAddFood,
-  postRecommendFood,
 } from "../../../apis/api/food";
 import useLoginStore from "../../../store/useLoginStore";
-import { getVipList } from "../../../apis/api/vip";
+import { getVipList, postVip } from "../../../apis/api/vip";
 
 interface LikeFoodData {
   menuId: number;
@@ -24,6 +23,7 @@ interface VipLists {
 }
 
 export default function VipAddFood() {
+  const navigate = useNavigate();
   const { loginMemberId } = useLoginStore();
 
   const [foodData, setFoodData] = useState<LikeFoodData[]>([]);
@@ -65,9 +65,35 @@ export default function VipAddFood() {
     }
   };
 
+  const handleSave= async ()=>{
+    try {
+      const vipData = JSON.parse(localStorage.getItem("vipData") || "{}");
+  
+      // VIP 데이터 추가
+      await postVip(Number(loginMemberId), vipData)
+        .then(() => {
+          // VIP 데이터 추가가 성공하면 VIP 목록을 다시 가져옴
+          fetchVipList(Number(loginMemberId));
+        });
+  
+      // 음식 데이터 추가
+      await postAddFood(Number(vipId), addList);
+  
+      // 마이페이지 VIP 탭으로 이동
+      navigate(`/mypage/${loginMemberId}/vip`);
+    } catch (error) {
+      console.error("Error handling save:", error);
+      // 에러 처리 추가
+    }
+  }
+
   useEffect(() => {
     getFoodData();
-    fetchVipList(Number(loginMemberId));
+    
+    return () => {
+      // 페이지를 벗어날 때 로컬스토리지를 지우는 코드
+      localStorage.removeItem("recData");
+    };
   }, []);
 
   return (
@@ -98,20 +124,14 @@ export default function VipAddFood() {
         </div>
       </div>
       <div className="flex justify-center mt-3 ">
-        <Link
-          to={`/mypage/${loginMemberId}/vip`}
-          className="w-1/4"
-        >
+        
           <ButtonAsset
             text="저장"
             variant="outlined"
-            className="w-full font-semibold border-2 rounded-3xl hover:border-white "
-            onClick={() => {
-              postAddFood(Number(vipId), addList);
-            }}
+            className="w-1/4 font-semibold border-2 rounded-3xl hover:border-white "
+            onClick={handleSave}
             disabled={addList.length < 5}
           />
-        </Link>
       </div>
     </div>
   );

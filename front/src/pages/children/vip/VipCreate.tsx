@@ -36,7 +36,7 @@ export default function VipCreate() {
     if (birth !== 0 && nickname !== "" && profile !== 9) {
       // ALERT 빈 값으로 두면 안되는 조건 추가, 조건 추가시 확인.
       try {
-        await postVip(memberId, vipData);
+        localStorage.setItem("vipData", JSON.stringify(vipData));
         navigate(`/mypage/${id}/vip/chooseFood`);
       } catch (error) {
         console.error("Error creating VIP:", error);
@@ -65,7 +65,10 @@ export default function VipCreate() {
     <div className="w-[600px]">
       <div className="flex flex-col w-full p-4 my-10">
         <div className="flex items-center my-3">
-          <Link to={`/mypage/${id}/vip`} className="pr-3">
+          <Link
+            to={`/mypage/${id}/vip`}
+            className="pr-3"
+          >
             <ArrowBackIcon fontSize="large" />
           </Link>
           <h1 className="text-3xl font-bold">VIP 추가</h1>
@@ -114,7 +117,11 @@ export default function VipCreate() {
           </div>
         </div>
         <div className="flex justify-center w-full my-5">
-          <ButtonAsset text="저장" className="w-24" onClick={handleClick} />
+          <ButtonAsset
+            text="다음"
+            className="w-24"
+            onClick={handleClick}
+          />
         </div>
       </div>
     </div>
