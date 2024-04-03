@@ -42,9 +42,6 @@ export default function FoodResult() {
       <div className="flex justify-center mb-5">
         <FoodTap index={3} />
       </div>
-      <div className="flex justify-center mb-5 text-xl font-semibold ">
-        메뉴를 누르시면 주변의 음식점의 위치를 알려드립니다
-      </div>
 
       <div className="flex justify-around mb-4 ">
         {foods ? (
