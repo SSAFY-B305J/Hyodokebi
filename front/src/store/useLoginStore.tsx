@@ -10,7 +10,7 @@ interface LoginState {
   setLoginMemberIdx: (by: number) => void;
   setLoginMember: (by: Member | null) => void;
   getIsLogin: () => boolean;
-  updateLoginMember: () => void;
+  updateLoginMember: () => Promise<void>;
   logout: () => void;
 }
 
@@ -25,9 +25,17 @@ const useLoginStore = create<LoginState>()(
 
       // 로그인 회원 정보 업데이트
       updateLoginMember: async () => {
-        const data = await getMemberInfo();
-        get().setLoginMemberIdx(data?.idx);
-        get().setLoginMember(data?.info);
+        try {
+          const data = await getMemberInfo();
+          get().setLoginMemberIdx(data?.idx);
+          get().setLoginMember(data?.info);
+        } catch (error) {
+          if (error instanceof Error) {
+            if (error.message === "500") {
+              throw error;
+            }
+          }
+        }
       },
 
       logout: () => {
