@@ -15,7 +15,7 @@ export default function VipCard({ VipProps }: { VipProps: VipProps }) {
         <div className="flex items-center justify-center">
           <div className="flex items-center justify-center">
             <img
-              src={`/test/picture${[VipProps.vipProfile]}.jpg`}
+              src={require(`../../assets/profiles/profile${VipProps.vipProfile}.jpg`)}
               alt="empty"
               className="w-52"
             />

@@ -20,9 +20,13 @@ export default function VipDetail() {
 
   const vipIndex = vipId ? parseInt(vipId) : NaN;
 
-  const [VipDetailData, setVipDetailData] = useState<VipDetailData | null>(
-    null
-  );
+  const [VipDetailData, setVipDetailData] = useState<VipDetailData>({
+    vipAgeGroups: null,
+    vipBirth: 0,
+    vipId: 0,
+    vipNickname: "",
+    vipProfile: 0,
+  });
 
   const navigate = useNavigate();
 
@@ -68,7 +72,7 @@ export default function VipDetail() {
         <div className="w-[600px]">
           <div className="flex w-full p-4 border rounded-md">
             <img
-              src={`/test/picture${VipDetailData?.vipProfile}.jpg`}
+              src={require(`../../../assets/profiles/profile${VipDetailData?.vipProfile}.jpg`)}
               alt="VIP 프로필 이미지"
               className="w-[192px] h-[192px]"
             />

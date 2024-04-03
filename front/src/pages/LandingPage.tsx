@@ -23,7 +23,7 @@ export default function LandingPage() {
         <div className="w-[1200px] h-[650px] mx-auto my-0 flex flex-col justify-center items-center">
           <div {...scrollUpAnimation1}>
             <div className="text-[42px] font-bold">
-              오늘은 또 어떤 <span className="text-primary">추억</span>을
+              오늘은 어떤 <span className="text-primary">추억</span>을
               나눠볼까요?
             </div>
             <div className="text-[30px] text-center">
@@ -32,14 +32,16 @@ export default function LandingPage() {
           </div>
         </div>
       </div>
-      <div className="w-full bg-[#FFF3E0]">
+      <div className="w-full bg-[#FFF3E0] whitespace-pre-wrap">
         <div className="w-[1200px] h-[650px] mx-auto my-0 flex flex-col justify-center items-center">
           <div {...scrollUpAnimation2}>
             <div className="text-[42px] font-bold text-primary text-center">
-              효도깨비는 이런 웹사이트입니다.
+              {"효도깨비는 VIP님과 함께 \n대화할 수 있는 주제를 추천해줍니다."}
             </div>
-            <div className="text-[24px] text-center">
-              우리 서비스에 대한 개요 설명하는 글
+            <div className="text-[20px] text-center my-3">
+              {
+                "VIP는 저희 서비스가 추천한 관심사를 공유하는 분을 뜻합니다.\n여러분의 VIP를 등록하고 관심사를 찾아보세요."
+              }
             </div>
           </div>
         </div>

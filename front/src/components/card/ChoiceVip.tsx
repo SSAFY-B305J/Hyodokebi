@@ -15,7 +15,7 @@ export default function ChoiceVip(props: VipProps) {
     <div className={props.clicked ? activated : disabled}>
       <div className="flex justify-center w-full ">
         <img
-          src={`/test/picture${[props.imageIndex]}.jpg`}
+          src={require(`../../assets/profiles/profile${props.imageIndex}.jpg`)}
           alt="empty"
           className="w-[156px] h-[156px] m-2"
         />

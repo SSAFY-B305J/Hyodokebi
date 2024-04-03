@@ -6,13 +6,20 @@ import { useCallback, useEffect } from "react";
 
 export default function MainHeader() {
   const navigate = useNavigate();
-  const { loginMember, getIsLogin, updateLoginMember } = useLoginStore();
+  const { loginMember, getIsLogin, updateLoginMember, logout } =
+    useLoginStore();
   const isLogin = getIsLogin();
 
   // 로그인한 회원 정보 조회 후 store에 저장
   const initMemberInfo = useCallback(async () => {
-    updateLoginMember();
-  }, [updateLoginMember]);
+    updateLoginMember().catch((error) => {
+      if (error.message === "500") {
+        alert("로그인이 필요합니다.");
+        logout();
+        navigate("/login");
+      }
+    });
+  }, [logout, navigate, updateLoginMember]);
 
   useEffect(() => {
     if (isLogin) initMemberInfo();
@@ -74,9 +81,15 @@ export default function MainHeader() {
             >
               음식 추천
             </Link>
-            <ProfileMenu
-              image={`/test/picture${loginMember?.memberProfile}.jpg`}
-            />
+            {loginMember ? (
+              <ProfileMenu
+                image={require(`../../assets/profiles/profile${loginMember?.memberProfile}.jpg`)}
+              />
+            ) : (
+              <ProfileMenu
+                image={require(`../../assets/profiles/profile${0}.jpg`)}
+              />
+            )}
           </div>
         </div>
       )}
