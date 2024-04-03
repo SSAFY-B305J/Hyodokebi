@@ -5,42 +5,46 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ButtonAsset from "../../../components/Button/ButtonAsset";
 import InputAsset from "../../../components/common/InputAsset";
 import { getMemberInfo, putMemberInfo } from "../../../apis/api/member";
+import Member from "../../../modules/types/member";
+import useLoginStore from "../../../store/useLoginStore";
 
 export default function ProfileEdit() {
   const imageIndexList = Array.from({ length: 8 }, (v, i) => i);
 
-  const [profileIndex, setProfileIndex] = useState(0);
+  const [profileIndex, setProfileIndex] = useState("");
   const [nickname, setNickname] = useState("");
   const [email, setEmail] = useState("");
 
-  const { memberId } = useParams();
+  const params = useParams();
   const navigate = useNavigate();
+  const { updateLoginMember } = useLoginStore();
 
   const handleClick = async () => {
     try {
-      // TODO: 회원 정보 수정 API 추가 - 비밀번호 ""일 때 어떻게 수정되는지 확인하기
-      // await putMemberInfo(Number(memberId), nickname, email);
+      // 회원 정보 수정
+      await putMemberInfo(Number(params.id), {
+        memberEmail: email,
+        memberNickname: nickname,
+        memberProfile: profileIndex,
+      });
+
+      // 수정된 회원 정보로 업데이트
+      updateLoginMember();
+
       alert("회원 정보가 수정되었습니다!");
-      navigate(`/mypage/${memberId}/profile/`);
+      navigate(`/mypage/${params.id}/profile`);
     } catch (error) {
       console.error(error);
     }
   };
 
   async function initMemberInfo() {
-    // const data = await getMemberInfo(Number(memberId));
-
-    const data = {
-      memberId: 12,
-      memberNickname: "ssafy1",
-      memberEmail: "ssafy1@ssafy.com",
-      profileImage: 0,
-    };
+    const data: Member = await getMemberInfo().then((res) => res?.info);
 
     setProfileIndex(data.memberId);
     setNickname(data.memberNickname);
     setEmail(data.memberEmail);
-    setProfileIndex(data.profileImage);
+    setProfileIndex(data.memberProfile);
   }
 
   useEffect(() => {
@@ -52,7 +56,7 @@ export default function ProfileEdit() {
     <div className="w-[600px]">
       <div className="flex flex-col w-full p-4 my-10 border rounded-md">
         <div className="flex my-3">
-          <Link to={`/mypage/${memberId}/profile/`} className="pr-3">
+          <Link to={`/mypage/${params.id}/profile/`} className="pr-3">
             <ArrowBackIcon fontSize="large" />
           </Link>
           <h1 className="text-2xl font-bold">회원 정보 수정</h1>
@@ -72,9 +76,10 @@ export default function ProfileEdit() {
                   src={`/test/picture${imgIdx}.jpg`}
                   alt="프로필 사진을 지정하세요"
                   className={`w-16 h-16 ${
-                    profileIndex === imgIdx && "border-[3px] border-primary"
+                    profileIndex === imgIdx + "" &&
+                    "border-[3px] border-primary"
                   }`}
-                  onClick={() => setProfileIndex(imgIdx)}
+                  onClick={() => setProfileIndex(imgIdx + "")}
                 />
               ))}
             </div>
@@ -103,7 +108,7 @@ export default function ProfileEdit() {
             text="취소"
             variant="outlined"
             className="w-24 mr-8"
-            onClick={() => navigate(`/mypage/${memberId}/profile/`)}
+            onClick={() => navigate(`/mypage/${params.id}/profile/`)}
           />
           <ButtonAsset text="저장" className="w-24" onClick={handleClick} />
         </div>
