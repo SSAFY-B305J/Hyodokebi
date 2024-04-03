@@ -3,35 +3,21 @@ import pandas as pd
 import numpy as np
 from sklearn.preprocessing import MinMaxScaler
 from models import db
-from utils import matrix_factorization, predict, menu_training, updateDataSet, predicted_menu
+from utils import matrix_factorization, predict, menu_training, updateDataSet, predicted_menu, makeDataSet
 
-combined_matrix = None
+df_combined_matrix = None
 predicted_R = None
 user_igd_info = None
 menu_info = None
 
 def pre_training(app):
+    print("start")
     global predicted_R, user_igd_info, menu_info
     with app.app_context():
-        print("start menu train")
-        excel_file_path = './dataTmp.xlsx'
-
-        # 엑셀 파일의 각 시트를 다른 변수에 저장
-        menu_info = pd.read_excel(excel_file_path, sheet_name='Sheet1', header = 0, index_col = 0)
-        user_info = pd.read_excel(excel_file_path, sheet_name='Sheet2', header = 0, index_col = 0)
-
-        user_igd_info = pd.DataFrame(0, index=[f"User{i+1}" for i in range(0, user_info.shape[0])], columns=[f"{i}" for i in menu_info.columns])
-        for row in range(0,user_info.shape[0]):
-            for col in range(0, user_info.shape[1]):
-                if user_info.iloc[row,col] > 0:
-                    for igdIdx in range(0, menu_info.shape[1]):
-                        if menu_info.iloc[col,igdIdx] > 0:
-                            user_igd_info.iloc[row, igdIdx] += menu_info.iloc[col,igdIdx]
-        
+        # 데이터 셋 가져오기
+        user_igd_info, menu_info = makeDataSet()    
         predicted_R = menu_training(user_igd_info, 51)
-        
-        print("end menu train")
-        #return predicted_R, user_igd_info, menu_info
+        print("end")
     
 
 def training_recommend_menu(user_igd_info, menu_info, vip_id, menu_ids):
@@ -47,7 +33,7 @@ def get_pre_training():
     return predicted_R, user_igd_info, menu_info
 
 def train_model(app):
-    global combined_matrix
+    global df_combined_matrix
     with app.app_context():
         print("start music train")
         
@@ -125,7 +111,7 @@ def train_model(app):
         
         P_singer,Q_singer = matrix_factorization(scaled_singer, 10, 300)
         P_composer,Q_composer = matrix_factorization(scaled_composer, 10, 300)
-        P_genre,Q_genre = matrix_factorization(scaled_genre, 10, 100)
+        P_genre,Q_genre = matrix_factorization(scaled_genre, 10, 50)
         
         predict_singer = predict(P_singer,Q_singer)
         predict_composer = predict(P_composer,Q_composer)
@@ -136,12 +122,17 @@ def train_model(app):
         print(predict_genre.shape)
         
         combined_matrix = (0.4 * predict_singer + 0.4 * predict_composer + 0.2 * predict_genre)
-        #print(combined_matrix)
+        df_combined_matrix = pd.DataFrame(combined_matrix, index=user_singer.index, columns=music_singer.index)
         print(combined_matrix.shape)
         print("end music train")
         
 def get_combined_matrix():
-    return combined_matrix
+    return df_combined_matrix
+
+def add_combined_matrix_row(vid):
+    global df_combined_matrix
+    new_vip_row = [0] * len(df_combined_matrix.columns) 
+    df_combined_matrix.loc[vid] = new_vip_row
         
 def train_model_thread(app):
     threading.Thread(target=lambda: train_model(app)).start()

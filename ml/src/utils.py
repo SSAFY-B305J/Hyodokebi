@@ -105,3 +105,36 @@ def recommend_menu(menu_ids):
             recommended_menu = pd.concat([recommended_menu, menu_info], axis=0)
         print(recommended_menu)
     return recommended_menu.to_json(orient="records")
+
+def makeDataSet():
+    
+    sql_query = "SELECT count(vip_id) FROM vip v"
+    nVip = pd.read_sql(sql=sql_query, con=db.engine).iloc[0,0] 
+    sql_query = "SELECT * FROM menu m"
+    menu_info = pd.read_sql(sql=sql_query, con=db.engine) 
+    sql_query = "SELECT * FROM recipe re"
+    rci_info = pd.read_sql(sql=sql_query, con=db.engine)
+    sql_query = "SELECT * FROM mi"
+    mi_info = pd.read_sql(sql=sql_query, con=db.engine )
+    sql_query = "SELECT * FROM saved_menu"
+    user_info = pd.read_sql(sql=sql_query, con=db.engine)
+
+    menu_info = pd.DataFrame(0, index = [idx for idx in range(0, menu_info.shape[0])] , columns = [ col for col in range(0, mi_info.shape[0]+1)])
+    for row in range(0, rci_info.shape[0]):
+        menu_info.iloc[rci_info.iloc[row,1]-1, rci_info.iloc[row,2]-1] += 1 
+        
+    flag = False
+    user_igd_info = pd.DataFrame(0, index = [ idx for idx in range(0,nVip) ], columns = [ col for col in range(0, mi_info.shape[0]+1)])
+    for row in range(0, user_info.shape[0]):
+        vip_id = user_info.iloc[row,1]
+        menu_id = user_info.iloc[row,2]
+        for idx in range(0, rci_info.shape[0]):
+            if menu_id == rci_info.iloc[idx,1]:
+                flag = True
+                # user_igd_info.iloc[vip_id-1, rci_info.iloc[idx,2]] += rci_info.iloc[idx,3]
+                user_igd_info.iloc[vip_id-1, rci_info.iloc[idx,2]] += 1
+            elif flag : 
+                flag = False
+                break
+            
+    return user_igd_info, menu_info

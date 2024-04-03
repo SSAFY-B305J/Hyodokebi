@@ -1,7 +1,8 @@
 import json
+import threading
 from flask import Flask, jsonify, request
 from models import Music, db
-from train_model import train_model_thread, get_combined_matrix, training_recommend_menu, not_training_recommend_menu, get_pre_training
+from train_model import train_model_thread, get_combined_matrix, training_recommend_menu, not_training_recommend_menu, get_pre_training, add_combined_matrix_row, train_model, pre_training
 from config import Config
 import numpy as np
 import pandas as pd
@@ -35,15 +36,15 @@ def recommend_menu(vid):
     recommend_menu = [to_dict(menu) for menu in recommend_menu]
     return jsonify(recommend_menu)
 
-@app.route("/pyapi/music/res", methods=['POST'])
-def music_receive():
+@app.route("/pyapi/music/res/<int:vid>", methods=['POST'])
+def music_receive(vid):
     
     musicRequestDto = request.json  # jpa에서 보낸 데이터  
     print(musicRequestDto)
     
-    combined_matrix = get_combined_matrix()
+    df_combined_matrix = get_combined_matrix()
     
-    sorted_indices = np.argsort(combined_matrix[musicRequestDto['vipId']-1])[::-1]
+    sorted_indices = np.argsort(df_combined_matrix.loc[vid])[::-1]
     
     if not musicRequestDto['vipSavedMusics']:
         recommended_musics = Music.query.filter(
@@ -75,6 +76,28 @@ def music_receive():
 
     return jsonify(final_recommended_music_dicts)
 
+@app.route("/pyapi/vip/<int:vid>", methods=['GET'])
+def add_new_vip_row(vid):
+    add_combined_matrix_row(vid)
+    return jsonify({"message": "sucess"})
+
+@app.route("/pyapi/music/save", methods=['GET'])
+def train_music_model():
+    try:
+        threading.Thread(target=lambda: train_model(app)).start()
+        return jsonify({"message": "sucess"})
+    except Exception as e:
+        return jsonify({"error": str(e)})
+    
+@app.route("/pyapi/menu/", methods=['GET'])
+def start_train():
+    try:
+        threading.Thread(target=lambda: pre_training(app)).start()
+        return "Training started in the background."
+    except Exception as e:
+        return str(e)
+    
+    
 if __name__ == '__main__':
     train_model_thread(app)
     app.run(debug=True)
