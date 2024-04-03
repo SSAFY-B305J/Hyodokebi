@@ -39,19 +39,19 @@ def train_model(app):
         
         vip = pd.read_sql("select vip_id from vip",con=db.engine)
         
-        music = pd.read_sql(sql="SELECT * FROM MUSIC", con=db.engine)
+        music = pd.read_sql(sql="SELECT * FROM music", con=db.engine)
         music['music_singer'] = music['music_singer'].str.lower()
         music['music_genre'] = music['music_genre'].str.lower()
         music['music_composer'] = music['music_composer'].str.lower()
         
-        saved_music = pd.read_sql(sql="SELECT * FROM SAVED_MUSIC", con=db.engine)
+        saved_music = pd.read_sql(sql="SELECT * FROM saved_music", con=db.engine)
         
         music_singer = pd.read_sql("select distinct music_singer from music",con=db.engine)
         music_composer = pd.read_sql("select distinct music_composer from music",con=db.engine)
         music_genre = pd.read_sql("select distinct music_genre from music",con=db.engine)
         
         user_singer = pd.DataFrame(np.zeros((len(vip), len(music_singer))), columns=music_singer['music_singer'], index=vip['vip_id'])
-        singer_mapping = pd.read_sql(sql="SELECT music_id, music_singer FROM Music", con=db.engine).set_index('music_id').to_dict()['music_singer']
+        singer_mapping = pd.read_sql(sql="SELECT music_id, music_singer FROM music", con=db.engine).set_index('music_id').to_dict()['music_singer']
         
         for _, row in saved_music.iterrows():
             vip_id = row['vip_vip_id']
@@ -68,7 +68,7 @@ def train_model(app):
         music_singer_interaction_arr = music_singer.to_numpy()
         
         user_genre = pd.DataFrame(np.zeros((len(vip), len(music_genre))), columns=music_genre['music_genre'], index=vip['vip_id'])
-        genre_mapping = pd.read_sql(sql="SELECT music_id, music_genre FROM Music", con=db.engine).set_index('music_id').to_dict()['music_genre']
+        genre_mapping = pd.read_sql(sql="SELECT music_id, music_genre FROM music", con=db.engine).set_index('music_id').to_dict()['music_genre']
 
         for _, row in saved_music.iterrows():
             vip_id = row['vip_vip_id']
@@ -85,7 +85,7 @@ def train_model(app):
         music_genre_interaction_arr = music_genre.to_numpy()
         
         user_composer = pd.DataFrame(np.zeros((len(vip), len(music_composer))), columns=music_composer['music_composer'], index=vip['vip_id'])
-        composer_mapping = pd.read_sql(sql="SELECT music_id, music_composer FROM Music", con=db.engine).set_index('music_id').to_dict()['music_composer']
+        composer_mapping = pd.read_sql(sql="SELECT music_id, music_composer FROM music", con=db.engine).set_index('music_id').to_dict()['music_composer']
         for _, row in saved_music.iterrows():
             vip_id = row['vip_vip_id']
             music_id = row['music_music_id']

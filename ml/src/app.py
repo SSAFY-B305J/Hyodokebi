@@ -6,8 +6,10 @@ from train_model import train_model_thread, get_combined_matrix, training_recomm
 from config import Config
 import numpy as np
 import pandas as pd
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 app.config.from_object(Config)
 
 db.init_app(app)
