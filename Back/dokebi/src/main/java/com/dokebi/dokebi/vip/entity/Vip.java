@@ -16,10 +16,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @SQLRestriction("is_deleted = false")
-@SQLDelete(sql = "UPDATE VIP SET is_deleted = true WHERE vip_id = ?")
+@SQLDelete(sql = "UPDATE vip SET is_deleted = true WHERE vip_id = ?")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "Vip")
+@Table(name = "vip")
 @Entity
 public class Vip {
 
