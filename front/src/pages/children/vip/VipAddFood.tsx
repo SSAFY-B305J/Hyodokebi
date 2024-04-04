@@ -108,7 +108,7 @@ export default function VipAddFood() {
                   key={index}
                   menu_id={menu.menuId}
                   menu_name={menu.menuName}
-                  cate_image={0}
+                  cate_image={menu.cateImage}
                   className={
                     addList.includes(menu.menuId) ? "border-primary" : ""
                   }
