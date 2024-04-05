@@ -1,6 +1,32 @@
-# SSAFY 10기 특화 프로젝트 - B305
+<div align="center">
 
-# Stack
+# <img src="/uploads/12d67c67d7d7423921244a9596e66597/효도깨비.png" width="35" height=""></img> 효도깨비 | 가족 공유 관심사 추천 서비스 
+<img src="/uploads/75dcaafc18f8f95a11bceb954da0aa3e/효도깨비_cut.png" width="" height="150"></img>   
+
+가족 공유 관심사 추천을 통해 가족 간의 소통 강화 및 세대 간 문화 교류 증진
+
+**2024.03.19 ~ 2024.04.04 (7주)**   
+
+**Team. 효도르**    
+총 6명 (프론트3, 백3)  
+
+---
+# 프로젝트 개요
+### 주요 기능
+<div>
+1. 대화 주제 추천   <br>
+2. 노래 추천  <br>
+3. 음식 추천  <br>
+</div>
+
+
+# 프로젝트 소개
+
+### 기획 배경 및 의도
+
+### 팀원 소개 & 역할 및 담당 기능
+
+## Stack
 **Environment**  
 ![IntelliJ IDEA](https://img.shields.io/badge/IntelliJ%20IDEA-000000.svg?style=for-the-badge&logo=intellij-idea&logoColor=white)
 ![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-007ACC?style=for-the-badge&logo=Visual%20Studio%20Code&logoColor=white)  
@@ -28,3 +54,7 @@
 ![Notion](https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=Notion&logoColor=white)
 ![Jira](https://img.shields.io/badge/jira-%230A0FFF.svg?style=for-the-badge&logo=jira&logoColor=white)
 ![Mattermost](https://img.shields.io/badge/-Mattermost-blue?style=for-the-badge&logo=mattermost&logoColor=white)
+
+## 서비스 소개
+
+</div>
