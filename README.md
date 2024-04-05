@@ -10,19 +10,41 @@
 **Team. 효도르**    
 총 6명 (프론트3, 백3)  
 
----
+
 # 프로젝트 개요
 ### 주요 기능
 <div>
-1. 대화 주제 추천   <br>
-2. 노래 추천  <br>
-3. 음식 추천  <br>
+1. 부모님/조부모님 세대와 나눌 수 있는 대화 주제 추천 <br>
+2. 부모님/조부모님 세대가 좋아할 음악 추천 <br>
+3. 부모님/조부모님 세대가 좋아할 음식점 추천 <br>
 </div>
 
 
 # 프로젝트 소개
 
 ### 기획 배경 및 의도
+평소 소통이 많지 않았던 부모-자식, 조부-손주 관계에서 효도란 어떤 것인가 떠올리면서 시작됩니다.
+
+
+- **조부-손주 관계에서의 효도**   
+서로 멀리 떨어져 살아서 소통이 부족하고, 자주 만나지 못하는 경우가 많습니다. 이로 인해 대화가 제한되고, 얼굴을 마주하는 일이 줄어들게 됩니다. 특히 손주의 경우, 른과의 대화 방식에 익숙하지 않을 수 있어 대화에 어려움을 겪을 수 있습니다.
+
+- **부모-자식 관계에서의 효도**   
+인터넷과 통신의 발달로 인해 부모와 자식이 멀리 떨어져 사는 경우가 늘어나고 있습니다. 이로 인해 서로의 삶과 관심사를 파악하지 못하게 되는 문제가 발생할 수 있습니다. 함께 보내는 시간이 줄어들면서 부모와 자식 간의 유대감이 약화될 수 있습니다.
+
+
+**목적**    
+- 효도에 보탬이 되는 서비스 제공
+- 가족 간의 소통 강화
+- 세대 간의 유대감 유지
+- 세대 갈등 해결
+- 세대 간 문화 교류 증진
+
+**기대효과**
+- 소통량 증가
+- 가족 간의 긍정적 상호 작용 증대
+- 추억 공유 및 저장률 증가
+
 
 ### 팀원 소개 & 역할 및 담당 기능
 
@@ -50,6 +72,7 @@
 ![Nginx](https://img.shields.io/badge/Nginx-%23009639.svg?style=for-the-badge&logo=nginx&logoColor=white)
 ![EC2](https://img.shields.io/badge/EC2-%23FF9900.svg?style=for-the-badge&logo=amazonec2&logoColor=white)
 ![JENKINS](https://img.shields.io/badge/JENKINS-%232C5263.svg?style=for-the-badge&logo=jenkins&logoColor=white)  
+![PORTAINER]
 **Communication**  
 ![Notion](https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=Notion&logoColor=white)
 ![Jira](https://img.shields.io/badge/jira-%230A0FFF.svg?style=for-the-badge&logo=jira&logoColor=white)
