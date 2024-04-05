@@ -79,5 +79,9 @@
 ![Mattermost](https://img.shields.io/badge/-Mattermost-blue?style=for-the-badge&logo=mattermost&logoColor=white)
 
 ## 서비스 소개
+##### [프로젝트 소개 영상]
+![B305_UCC](/uploads/5ae6e7cfa76411fa6b0981f876d7c8c7/B305_UCC.mp4)
+#### 메인 페이지
+
 
 </div>
