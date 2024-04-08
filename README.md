@@ -50,8 +50,8 @@
 | 팀원  | 역할        | 담당 기능 |
 | --- | --------- | ----- |
 | 김다윤 | BE, ML    |       |
-| 우재하 | FE        |       |
-| 우지민 | FE, INFRA |       |
+| 우재하 | FE        | VIP CRUD, 대화주제 추천, 라우터 구현, CSS 규격 통일     |
+| 우지민 | FE, INFRA |  음식 추천, VIP가 저장한 리스트, 배포     |
 | 이현정 | BE, ML    |       |
 | 임지은 | 팀장, FE    |       |
 | 전성수 | BE        |       |
@@ -89,7 +89,7 @@
 ![Mattermost](https://img.shields.io/badge/-Mattermost-blue?style=for-the-badge&logo=mattermost&logoColor=white)
 
 #### 와이어 프레임
-![와이어프레임](/uploads/e14350d4065f11f00fac3b0dc27c457e/와이어프레임.png)
+<img src="/uploads/e14350d4065f11f00fac3b0dc27c457e/와이어프레임.png" width="400" height=""></img>
 #### DB
 ![DB](/uploads/6ed511ebe917a31cadc98d220e1e5c58/dokebi.png)
 
@@ -109,14 +109,20 @@
 ## 사용 기술
 ### 빅데이터 추천
 
-1. 협업 필터링    <br>
-2. 콘텐츠 기반 필터링    <br>
-3. 잠재요인 기반 필터링    <br>
+1. 협업 필터링    
+2. 콘텐츠 기반 필터링   
+3. 잠재요인 기반 필터링   
 
 
 ### 사용 데이터
 
+| 노래 |  음식  |
+|-|-|
+| <img src="/uploads/f2343259b436a48cc3282a276e6d6061/image.png" width="80" height=""><hr>멜론 - 음원 제목, 가수,앨범 사진</img> | <img src="/uploads/bd8d1b2e728a4ef6248500250df46e08/image.png" width="100" height=""><hr>농림축산식품 공공데이터포털 - 레시피 기본정보,레시피 재료정보</img> |
+
+
+
 ## 협업 방법
-#### ![효도르 협업방법 보러가기]()
+#### ![효도르 협업방법 보러가기](https://creative-freon-af5.notion.site/GitLab-Jira-1bfd29a8d31c4be1863f26491f47380d?pvs=4)
 #### ![포팅 메뉴얼](https://lab.ssafy.com/s10-bigdata-recom-sub2/S10P22B305/-/blob/master/exec/%ED%8F%AC%ED%8C%85%EB%A9%94%EB%89%B4%EC%96%BC.pdf?ref_type=heads)
 
