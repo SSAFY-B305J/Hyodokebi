@@ -97,7 +97,7 @@
 #### 와이어 프레임
 <img src="/uploads/e14350d4065f11f00fac3b0dc27c457e/와이어프레임.png" width="400" height=""></img>
 #### ERD
-![erd](/uploads/8fd4c3d44e2fceb6756edb281c152450/erd.png)
+<img src="/uploads/8fd4c3d44e2fceb6756edb281c152450/erd.png" width="400" height=""></img>
 
 ## 서비스 소개
 ##### [프로젝트 소개 영상]
