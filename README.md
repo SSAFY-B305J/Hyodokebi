@@ -9,15 +9,15 @@
 
 **Team. 효도르**    
 총 6명 (프론트3, 백3)  
-
+</div>
 
 # 프로젝트 개요
 ### 주요 기능
-<div>
-1. 부모님/조부모님 세대와 나눌 수 있는 대화 주제 추천 <br>
-2. 부모님/조부모님 세대가 좋아할 음악 추천 <br>
-3. 부모님/조부모님 세대가 좋아할 음식점 추천 <br>
-</div>
+
+1. 부모님/조부모님 세대와 나눌 수 있는 대화 주제 추천
+2. 부모님/조부모님 세대가 좋아할 음악 추천 
+3. 부모님/조부모님 세대가 좋아할 음식점 추천
+
 
 
 # 프로젝트 소개
@@ -59,7 +59,6 @@
 
 ## Stack
 
-
 **Environment**  
 ![IntelliJ IDEA](https://img.shields.io/badge/IntelliJ%20IDEA-000000.svg?style=for-the-badge&logo=intellij-idea&logoColor=white)
 ![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-007ACC?style=for-the-badge&logo=Visual%20Studio%20Code&logoColor=white)  
@@ -89,12 +88,16 @@
 ![Jira](https://img.shields.io/badge/jira-%230A0FFF.svg?style=for-the-badge&logo=jira&logoColor=white)
 ![Mattermost](https://img.shields.io/badge/-Mattermost-blue?style=for-the-badge&logo=mattermost&logoColor=white)
 
+#### 와이어 프레임
+![와이어프레임](/uploads/e14350d4065f11f00fac3b0dc27c457e/와이어프레임.png)
+#### DB
+![DB](/uploads/6ed511ebe917a31cadc98d220e1e5c58/dokebi.png)
+
 ## 서비스 소개
 ##### [프로젝트 소개 영상]
 ![B305_UCC](/uploads/5ae6e7cfa76411fa6b0981f876d7c8c7/B305_UCC.mp4)
 
-#### 와이어 프레임
-![와이어프레임](/uploads/e14350d4065f11f00fac3b0dc27c457e/와이어프레임.png)
+
 
 #### 메인 페이지
 #### 로그인 페이지
@@ -105,14 +108,15 @@
 
 ## 사용 기술
 ### 빅데이터 추천
-<div>
+
 1. 협업 필터링    <br>
 2. 콘텐츠 기반 필터링    <br>
 3. 잠재요인 기반 필터링    <br>
-</div>
+
 
 ### 사용 데이터
 
 ## 협업 방법
 #### ![효도르 협업방법 보러가기]()
-</div>
+#### ![포팅 메뉴얼](https://lab.ssafy.com/s10-bigdata-recom-sub2/S10P22B305/-/blob/master/exec/%ED%8F%AC%ED%8C%85%EB%A9%94%EB%89%B4%EC%96%BC.pdf?ref_type=heads)
+
