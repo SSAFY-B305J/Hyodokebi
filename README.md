@@ -82,7 +82,8 @@
 ![Nginx](https://img.shields.io/badge/Nginx-%23009639.svg?style=for-the-badge&logo=nginx&logoColor=white)
 ![EC2](https://img.shields.io/badge/EC2-%23FF9900.svg?style=for-the-badge&logo=amazonec2&logoColor=white)
 ![JENKINS](https://img.shields.io/badge/JENKINS-%232C5263.svg?style=for-the-badge&logo=jenkins&logoColor=white)  
-![PORTAINER]
+<img src="https://a11ybadges.com/badge?logo=portainer" width="" height="25"></img>   
+
 **Communication**  
 ![Notion](https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=Notion&logoColor=white)
 ![Jira](https://img.shields.io/badge/jira-%230A0FFF.svg?style=for-the-badge&logo=jira&logoColor=white)
