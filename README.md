@@ -103,28 +103,28 @@
 
 ## 주요 화면
 #### 메인 페이지
-![메인페이지](/uploads/53a872d66ec55599ba02a0e95d30268f/메인페이지.gif)
+![메인페이지](/uploads/53a872d66ec55599ba02a0e95d30268f/메인페이지.gif){: width="688" }
 
 #### 대화 주제 추천
-![대화주제](/uploads/c6eedbe7f45091847784a1f4391913e6/대화주제.gif)
+![대화주제](/uploads/c6eedbe7f45091847784a1f4391913e6/대화주제.gif){: width="688" }
 
 #### 로그인 페이지
-![로그인](/uploads/1888c99d58d60cbb44233ce0580a04b4/로그인.gif)
+![로그인](/uploads/1888c99d58d60cbb44233ce0580a04b4/로그인.gif){: width="688" }
 
 #### VIP 페이지
-![VIP_상세](/uploads/ea7bc275e55530c3fe6a58d20d735f19/VIP_상세.gif)
+![VIP_상세](/uploads/ea7bc275e55530c3fe6a58d20d735f19/VIP_상세.gif){: width="688" }
 
 #### 노래 추천
-![노래_추천](/uploads/25ecef8fc5d7c14a03ed45c18b65b76f/노래_추천.gif)
+![노래_추천](/uploads/25ecef8fc5d7c14a03ed45c18b65b76f/노래_추천.gif){: width="688" }
 
 #### 음식 추천 
-![음식_추천](/uploads/7512e4d8fb84b86357055d016ffd1efd/음식_추천.gif)
+![음식_추천](/uploads/7512e4d8fb84b86357055d016ffd1efd/음식_추천.gif){: width="688" }
 
 ## 사용 기술
 ### 빅데이터 추천
 
-![2](/uploads/93f37832d289b69e9c925d88de958b91/2.jpg)
-![3](/uploads/9b2a4668d71b14709e8ffbc9df1fdd32/3.jpg)
+![2](/uploads/93f37832d289b69e9c925d88de958b91/2.jpg){: width="688" }
+![3](/uploads/9b2a4668d71b14709e8ffbc9df1fdd32/3.jpg){: width="688" }
 
 ### 사용 데이터
 
