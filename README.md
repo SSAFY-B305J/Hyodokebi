@@ -58,6 +58,7 @@
 
 
 ## Stack
+<img src="/uploads/666be2df5bd4039dbf92b3d7577870fa/image__1_.png" width="400" height=""></img>
 
 **Environment**  
 ![IntelliJ IDEA](https://img.shields.io/badge/IntelliJ%20IDEA-000000.svg?style=for-the-badge&logo=intellij-idea&logoColor=white)
@@ -65,8 +66,8 @@
 **BackEnd**  
 ![Spring Boot](https://img.shields.io/badge/spring%20boot-%236DB33F.svg?style=for-the-badge&logo=springboot&logoColor=white)
 ![Spring Data JPA](https://img.shields.io/badge/Spring%20Data%20JPA-%236DB33F.svg?style=for-the-badge&logo=spring&logoColor=white)
-![Spring Security](https://img.shields.io/badge/Spring%20Security-%236DB33F.svg?style=for-the-badge&logo=spring&logoColor=white)
-<img src="https://a11ybadges.com/badge?logo=gradle" height="25"/>     
+![Spring Security](https://img.shields.io/badge/Spring%20Security-%236DB33F.svg?style=for-the-badge&logo=spring&logoColor=white) 
+<img src="https://a11ybadges.com/badge?logo=gradle" height="25"/>
 ![FLASK](https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white)  
 **Data**  
 ![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=Python&logoColor=white)
@@ -83,16 +84,15 @@
 **Version Control**  
 ![GitLab](https://img.shields.io/badge/gitlab-%23181717.svg?style=for-the-badge&logo=gitlab&logoColor=white)  
 **Deployment**  
-![Docker](https://img.shields.io/badge/Docker-%232496ED.svg?style=for-the-badge&logo=docker&logoColor=white)
-![Nginx](https://img.shields.io/badge/Nginx-%23009639.svg?style=for-the-badge&logo=nginx&logoColor=white)
 ![EC2](https://img.shields.io/badge/EC2-%23FF9900.svg?style=for-the-badge&logo=amazonec2&logoColor=white)
-![JENKINS](https://img.shields.io/badge/JENKINS-%232C5263.svg?style=for-the-badge&logo=jenkins&logoColor=white)<img src="https://a11ybadges.com/badge?logo=portainer" width="" height="25"></img>      
+![Nginx](https://img.shields.io/badge/Nginx-%23009639.svg?style=for-the-badge&logo=nginx&logoColor=white)    
 **API**   
 ![Kakao](https://a11ybadges.com/badge?logo=kakao)   
 **Communication**  
 ![Notion](https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=Notion&logoColor=white)
 ![Jira](https://img.shields.io/badge/jira-%230A0FFF.svg?style=for-the-badge&logo=jira&logoColor=white)
 ![Mattermost](https://img.shields.io/badge/-Mattermost-blue?style=for-the-badge&logo=mattermost&logoColor=white)
+
 
 #### 와이어 프레임
 <img src="/uploads/e14350d4065f11f00fac3b0dc27c457e/와이어프레임.png" width="400" height=""></img>
