@@ -96,8 +96,8 @@
 
 #### 와이어 프레임
 <img src="/uploads/e14350d4065f11f00fac3b0dc27c457e/와이어프레임.png" width="400" height=""></img>
-#### DB
-![DB](/uploads/6ed511ebe917a31cadc98d220e1e5c58/dokebi.png)
+#### ERD
+![erd](/uploads/8fd4c3d44e2fceb6756edb281c152450/erd.png)
 
 ## 서비스 소개
 ##### [프로젝트 소개 영상]
