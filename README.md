@@ -54,9 +54,9 @@
 | 임지은 | 팀장, FE   | 로그인, 회원가입, 노래 추천, UI/UX 디자인 |
 | 우재하 | FE        | VIP CRUD, 대화주제 추천, 라우터 구현, CSS 규격 통일     |
 | 전성수 | BE        | 로그인, 회원가입 기능 구현 |
-| 김다윤 | BE, ML    |       |
-| 이현정 | BE, ML    |       |
-| 우지민 | FE, INFRA |  음식 추천, VIP가 저장한 리스트, 배포     |
+| 김다윤 | BE, ML    | 노래 추천 모델, VIP별 선호 노래 CRUD, VIP 정보 CRUD      |
+| 이현정 | BE, ML    | 음식 추천 모델, VIP별 선호 메뉴 저장 및 추가     |
+| 우지민 | FE, INFRA | 음식 추천, VIP가 저장한 리스트, 배포     |
 
 
 ## Stack
@@ -123,15 +123,12 @@
 ## 사용 기술
 ### 빅데이터 추천
 
-![2](/uploads/93f37832d289b69e9c925d88de958b91/2.jpg){: width="688" }
-![3](/uploads/9b2a4668d71b14709e8ffbc9df1fdd32/3.jpg){: width="688" }
+![음식추천](/uploads/93f37832d289b69e9c925d88de958b91/2.jpg){: width="688" }
+![노래추천](/uploads/9b2a4668d71b14709e8ffbc9df1fdd32/3.jpg){: width="688" }
 
 ### 사용 데이터
 
-| 노래 |  음식  |
-|-|-|
-| <img src="/uploads/f2343259b436a48cc3282a276e6d6061/image.png" width="80" height=""><hr>멜론 - 음원 제목, 가수, 장르, 앨범 사진</img> | <img src="/uploads/bd8d1b2e728a4ef6248500250df46e08/image.png" width="100" height=""><hr>농림축산식품 공공데이터포털 - 레시피 기본정보,레시피 재료정보</img> |
-
+![사용데이터](/uploads/6988e0b315dd7d9dc4ffed3f817447d9/1.jpg){: width="688" }
 
 
 ## 협업 방법
