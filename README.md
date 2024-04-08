@@ -66,9 +66,14 @@
 ![Spring Boot](https://img.shields.io/badge/spring%20boot-%236DB33F.svg?style=for-the-badge&logo=springboot&logoColor=white)
 ![Spring Data JPA](https://img.shields.io/badge/Spring%20Data%20JPA-%236DB33F.svg?style=for-the-badge&logo=spring&logoColor=white)
 ![Spring Security](https://img.shields.io/badge/Spring%20Security-%236DB33F.svg?style=for-the-badge&logo=spring&logoColor=white)
+<img src="https://a11ybadges.com/badge?logo=gradle" height="25"/>  
 ![FLASK](https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white)  
 **Data**  
-![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=Python&logoColor=white)    
+![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=Python&logoColor=white)
+<img src="https://a11ybadges.com/badge?logo=pandas" height="25"/> 
+<img src="https://a11ybadges.com/badge?logo=numpy" height="25"/> 
+<img src="https://a11ybadges.com/badge?logo=scikitlearn" height="25"/> <img src="https://a11ybadges.com/badge?logo=scipy" height="25"/>
+   
 **FrontEnd**  
 ![React.js](https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=black)
 ![TypeScript](https://img.shields.io/badge/Typescript-3178C6?style=for-the-badge&logo=Typescript&logoColor=white)
@@ -83,7 +88,8 @@
 ![EC2](https://img.shields.io/badge/EC2-%23FF9900.svg?style=for-the-badge&logo=amazonec2&logoColor=white)
 ![JENKINS](https://img.shields.io/badge/JENKINS-%232C5263.svg?style=for-the-badge&logo=jenkins&logoColor=white)  
 <img src="https://a11ybadges.com/badge?logo=portainer" width="" height="25"></img>   
-
+**API**   
+![Kakao](https://a11ybadges.com/badge?logo=kakao)   
 **Communication**  
 ![Notion](https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=Notion&logoColor=white)
 ![Jira](https://img.shields.io/badge/jira-%230A0FFF.svg?style=for-the-badge&logo=jira&logoColor=white)
