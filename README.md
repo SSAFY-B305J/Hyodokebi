@@ -58,7 +58,7 @@
 
 
 ## Stack
-<img src="/uploads/666be2df5bd4039dbf92b3d7577870fa/image__1_.png" width="400" height=""></img>
+![image](/uploads/c85c6f71a5ad3dbccdb937e19b4e3b8e/image.png)
 
 **Environment**  
 ![IntelliJ IDEA](https://img.shields.io/badge/IntelliJ%20IDEA-000000.svg?style=for-the-badge&logo=intellij-idea&logoColor=white)
@@ -124,7 +124,7 @@
 
 | 노래 |  음식  |
 |-|-|
-| <img src="/uploads/f2343259b436a48cc3282a276e6d6061/image.png" width="80" height=""><hr>멜론 - 음원 제목, 가수,앨범 사진</img> | <img src="/uploads/bd8d1b2e728a4ef6248500250df46e08/image.png" width="100" height=""><hr>농림축산식품 공공데이터포털 - 레시피 기본정보,레시피 재료정보</img> |
+| <img src="/uploads/f2343259b436a48cc3282a276e6d6061/image.png" width="80" height=""><hr>멜론 - 음원 제목, 가수, 장르, 앨범 사진</img> | <img src="/uploads/bd8d1b2e728a4ef6248500250df46e08/image.png" width="100" height=""><hr>농림축산식품 공공데이터포털 - 레시피 기본정보,레시피 재료정보</img> |
 
 
 
