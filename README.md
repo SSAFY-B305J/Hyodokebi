@@ -47,8 +47,19 @@
 
 
 ### 팀원 소개 & 역할 및 담당 기능
+| 팀원  | 역할        | 담당 기능 |
+| --- | --------- | ----- |
+| 김다윤 | BE, ML    |       |
+| 우재하 | FE        |       |
+| 우지민 | FE, INFRA |       |
+| 이현정 | BE, ML    |       |
+| 임지은 | 팀장, FE    |       |
+| 전성수 | BE        |       |
+
 
 ## Stack
+
+
 **Environment**  
 ![IntelliJ IDEA](https://img.shields.io/badge/IntelliJ%20IDEA-000000.svg?style=for-the-badge&logo=intellij-idea&logoColor=white)
 ![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-007ACC?style=for-the-badge&logo=Visual%20Studio%20Code&logoColor=white)  
@@ -81,7 +92,27 @@
 ## 서비스 소개
 ##### [프로젝트 소개 영상]
 ![B305_UCC](/uploads/5ae6e7cfa76411fa6b0981f876d7c8c7/B305_UCC.mp4)
+
+#### 와이어 프레임
+![와이어프레임](/uploads/e14350d4065f11f00fac3b0dc27c457e/와이어프레임.png)
+
 #### 메인 페이지
+#### 로그인 페이지
+#### VIP 페이지
+#### 음악 추천 
+#### 음식 추천 
+#### 대화 주제 추천
 
+## 사용 기술
+### 빅데이터 추천
+<div>
+1. 협업 필터링    <br>
+2. 콘텐츠 기반 필터링    <br>
+3. 잠재요인 기반 필터링    <br>
+</div>
 
+### 사용 데이터
+
+## 협업 방법
+#### ![효도르 협업방법 보러가기]()
 </div>
