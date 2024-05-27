@@ -4,7 +4,7 @@
 
 <img src="README_assets/2_로고.png" width="" height="150"></img>
 
-(조)부모님 세대와의 소통 증진을 위한 나와 가족 간의 대화주제 및 관심사 추천 서비스입니다.
+(조)부모님 세대와의 소통 증진을 위한 나와 가족과의 대화주제 및 관심사 추천 서비스입니다.
 
 **2024.02.26 ~ 2024.04.05 (6주)**
 
@@ -49,7 +49,7 @@
 
 ##### [프로젝트 소개 영상]
 
-![B305_UCC](README_assets/3_UCC.mp4)
+[B305 UCC 보러가기](README_assets/3_UCC.mp4)
 
 ### 팀원 소개 & 역할 및 담당 기능
 
@@ -110,39 +110,33 @@
 ## 주요 화면
 
 #### 메인 페이지
-
+<img src="README_assets/7_메인페이지.gif" width="688"/>
 ![메인페이지](README_assets/7_메인페이지.gif){: width="688" }
 
 #### 대화 주제 추천
-
-![대화주제](README_assets/8_대화주제.gif){: width="688" }
+<img src="README_assets/8_대화주제.gif" width="688"/>
 
 #### 로그인 페이지
 
-![로그인](README_assets/9_로그인.gif){: width="688" }
+<img src="README_assets/9_로그인.gif" width="688"/>
 
 #### VIP 페이지
-
-![VIP_상세](README_assets/10_VIP_상세.gif){: width="688" }
+<img src="README_assets/10_VIP_상세.gif" width="688"/>
 
 #### 노래 추천
-
-![노래_추천](README_assets/11_노래_추천.gif){: width="688" }
+<img src="README_assets/11_노래_추천.gif" width="688"/>
 
 #### 음식 추천
-
-![음식_추천](README_assets/12_음식_추천.gif){: width="688" }
+<img src="README_assets/12_음식_추천.gif" width="688"/>
 
 ## 사용 기술
 
 ### 빅데이터 추천
-
-![음식추천](README_assets/13_빅데이터_메뉴추천.jpg){: width="688" }
-![노래추천](README_assets/14_빅데이터_음악추천.png){: width="688" }
+<img src="README_assets/13_빅데이터_메뉴추천.jpg" width="688"/>
+<img src="README_assets/14_빅데이터_음악추천.png" width="688"/>
 
 ### 사용 데이터
-
-![사용데이터](README_assets/15_빅데이터_사용데이터.jpg){: width="688" }
+<img src="README_assets/15_빅데이터_사용데이터.jpg" width="688"/>
 
 ## 협업 방법
 
